@@ -79,13 +79,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Y.J.Views">
-<meta property="og:url" content="https://huoyijie.github.io/index.html">
+<meta name="description" content="运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图： 后置处理图 说明 1.由预测矩阵根据配置阈值得出激活像素集合 2.左右邻接像素集合生成region list集合 3.上下邻接region list组成region group（文本框激活区域）集合 4.遍历每个region group，生成其头和尾边界像素集合， 5.根据头和尾边界像素预">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AdvancedEAST后置处理原理简介">
+<meta property="og:url" content="https://huoyijie.github.io/2018/08/27/AdvancedEAST后置处理原理简介/index.html">
 <meta property="og:site_name" content="Y.J.Views">
+<meta property="og:description" content="运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图： 后置处理图 说明 1.由预测矩阵根据配置阈值得出激活像素集合 2.左右邻接像素集合生成region list集合 3.上下邻接region list组成region group（文本框激活区域）集合 4.遍历每个region group，生成其头和尾边界像素集合， 5.根据头和尾边界像素预">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://huoyijie.github.io/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg">
+<meta property="og:updated_time" content="2018-08-27T03:17:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Y.J.Views">
+<meta name="twitter:title" content="AdvancedEAST后置处理原理简介">
+<meta name="twitter:description" content="运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图： 后置处理图 说明 1.由预测矩阵根据配置阈值得出激活像素集合 2.左右邻接像素集合生成region list集合 3.上下邻接region list组成region group（文本框激活区域）集合 4.遍历每个region group，生成其头和尾边界像素集合， 5.根据头和尾边界像素预">
+<meta name="twitter:image" content="https://huoyijie.github.io/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg">
 
 
 
@@ -115,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://huoyijie.github.io/"/>
+  <link rel="canonical" href="https://huoyijie.github.io/2018/08/27/AdvancedEAST后置处理原理简介/"/>
 
 
 
 
 
-  <title>Y.J.Views</title>
+  <title>AdvancedEAST后置处理原理简介 | Y.J.Views</title>
   
 
 
@@ -140,8 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +219,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/AdvancedEAST后置处理原理简介/" itemprop="url">AdvancedEAST后置处理原理简介</a></h1>
+          <h1 class="post-title" itemprop="name headline">AdvancedEAST后置处理原理简介</h1>
         
 
         <div class="post-meta">
@@ -298,9 +301,7 @@
       
 
       
-        
-          
-            <p>运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图：</p>
+        <p>运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图：</p>
 <h2 id="后置处理图"><a href="#后置处理图" class="headerlink" title="后置处理图"></a>后置处理图</h2><p><img src="/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg" alt="AdvancedEAST后置处理图"></p>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
 <li>1.由预测矩阵根据配置阈值得出激活像素集合</li>
@@ -311,8 +312,6 @@
 </ul>
 <p><a href="https://github.com/huoyijie/AdvancedEAST" target="_blank" rel="noopener">Github地址</a></p>
 
-          
-        
       
     </div>
     
@@ -329,131 +328,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huoyijie.github.io/2018/08/24/从零开始一个开源项目/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="huoyijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Y.J.Views">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/24/从零开始一个开源项目/" itemprop="url">从零开始一个开源项目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T17:27:46+08:00">
-                2018-08-24
-              </time>
+              <a href="/2018/08/24/从零开始一个开源项目/" rel="next" title="从零开始一个开源项目">
+                <i class="fa fa-chevron-left"></i> 从零开始一个开源项目
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -463,133 +359,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huoyijie.github.io/2018/08/24/AdvancedEAST文本检测原理简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="huoyijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Y.J.Views">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/24/AdvancedEAST文本检测原理简介/" itemprop="url">AdvancedEAST文本检测原理简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T15:42:07+08:00">
-                2018-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>关于AdvancedEAST项目，很多朋友邮件或者微信我能不能提供下原理介绍，因为工作比较忙一直没有更新，今天画了一张简单原理图，希望对大家有帮助。</p>
-<h2 id="直接上图"><a href="#直接上图" class="headerlink" title="直接上图"></a>直接上图</h2><p><img src="/2018/08/24/AdvancedEAST文本检测原理简介/adveast.jpeg" alt="AdvancedEAST原理图"></p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>输出层分别是1位score map, 是否在文本框内；2位vertex code，是否属于文本框边界像素以及是头还是尾；4位geo，是边界像素可以预测的2个顶点坐标。其中所有像素构成了文本框形状，然后只用边界像素去预测回归顶点坐标。边界像素定义为黄色和绿色框内部所有像素，是用所有的边界像素预测值的加权平均来预测头或尾的短边两端的两个顶点。头和尾部分边界像素分别预测2个顶点，最后得到4个顶点坐标。</p>
-<p><a href="https://github.com/huoyijie/AdvancedEAST" target="_blank" rel="noopener">Github地址</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -597,6 +371,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -617,8 +395,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -660,6 +447,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#后置处理图"><span class="nav-number">1.</span> <span class="nav-text">后置处理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -800,6 +603,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
