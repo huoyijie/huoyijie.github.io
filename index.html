@@ -332,7 +332,7 @@
         
           
             <p>运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图：</p>
-<h2 id="后置处理图"><a href="#后置处理图" class="headerlink" title="后置处理图"></a>后置处理图</h2><p><img src="AdvancedEAST后置处理原理简介/adveast-post-process.jpeg" alt="AdvancedEAST后置处理图"></p>
+<h2 id="后置处理图"><a href="#后置处理图" class="headerlink" title="后置处理图"></a>后置处理图</h2><p><img src="/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg" alt="AdvancedEAST后置处理图"></p>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
 <li>1.由预测矩阵根据配置阈值得出激活像素集合</li>
 <li>2.左右邻接像素集合生成region list集合</li>
@@ -492,7 +492,7 @@
         
           
             <p>关于AdvancedEAST项目，很多朋友邮件或者微信我能不能提供下原理介绍，因为工作比较忙一直没有更新，今天画了一张简单原理图，希望对大家有帮助。</p>
-<h2 id="直接上图"><a href="#直接上图" class="headerlink" title="直接上图"></a>直接上图</h2><p><img src="AdvancedEAST文本检测原理简介/adveast.jpeg" alt="AdvancedEAST原理图"></p>
+<h2 id="直接上图"><a href="#直接上图" class="headerlink" title="直接上图"></a>直接上图</h2><p><img src="/2018/08/24/AdvancedEAST文本检测原理简介/adveast.jpeg" alt="AdvancedEAST原理图"></p>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>输出层分别是1位score map, 是否在文本框内；2位vertex code，是否属于文本框边界像素以及是头还是尾；4位geo，是边界像素可以预测的2个顶点坐标。其中所有像素构成了文本框形状，然后只用边界像素去预测回归顶点坐标。边界像素定义为黄色和绿色框内部所有像素，是用所有的边界像素预测值的加权平均来预测头或尾的短边两端的两个顶点。头和尾部分边界像素分别预测2个顶点，最后得到4个顶点坐标。</p>
 <p><a href="https://github.com/huoyijie/AdvancedEAST" target="_blank" rel="noopener">Github地址</a></p>
 
