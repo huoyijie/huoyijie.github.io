@@ -321,7 +321,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  156
+                  223
                 </span>
               
 
@@ -360,14 +360,31 @@
       
         
           
-            <h1 id="WEKU-Alpha-Stage"><a href="#WEKU-Alpha-Stage" class="headerlink" title="WEKU(Alpha Stage)"></a>WEKU(Alpha Stage)</h1><p>WEKU is a personal video&amp;photo manager written by python and based on Django/Bootstrap/videojs/FFMpeg. It helps you manage your family’s photos and videos and could run on all kind of devices. </p>
-<h1 id="Current-Features"><a href="#Current-Features" class="headerlink" title="Current Features:"></a>Current Features:</h1><ul>
+            <h1 id="WEKU-Alpha-Stage"><a href="#WEKU-Alpha-Stage" class="headerlink" title="WEKU(Alpha Stage)"></a>WEKU(Alpha Stage)</h1><p>WEKU is a personal video&amp;photo manager written by python and based on Django/Bootstrap/videojs/FFMpeg. It helps you manage your family’s photos and videos and could run on all kind of devices.  If this project is helpful to you, welcome to star. And if you have any problem, please contact me.</p>
+<ul>
+<li>email: <a href="mailto:yijie.huo@foxmail.com" target="_blank" rel="noopener">yijie.huo@foxmail.com</a></li>
+</ul>
+<h2 id="Demo-website"><a href="#Demo-website" class="headerlink" title="Demo website"></a><a href="http://132.232.155.82:9090/" target="_blank" rel="noopener">Demo website</a></h2><ul>
+<li>login account: admin/admin1234</li>
+<li>Test data(include database and image&amp;video files) will be cleaned automatically</li>
+</ul>
+<h1 id="Current-Features"><a href="#Current-Features" class="headerlink" title="Current Features"></a>Current Features</h1><ul>
 <li>create album</li>
 <li>upload photos&amp;videos</li>
 <li>play videos(also support playlist)</li>
 <li>photo gallery</li>
 <li>DLNA cast, play photo&amp;video on TV</li>
 <li>support multi language(en/zh-Hans)</li>
+</ul>
+<h1 id="Requirements-e-g-in-CentOS"><a href="#Requirements-e-g-in-CentOS" class="headerlink" title="Requirements(e.g. in CentOS)"></a>Requirements(e.g. in CentOS)</h1><ul>
+<li>docker<br><code>yum -y install docker</code></li>
+</ul>
+<p><code>service docker start</code></p>
+<ul>
+<li><p>git<br><code>yum -y install git</code></p>
+</li>
+<li><p>~/.ssh/id_rsa.pub<br><code>ssh-keygen -t rsa</code></p>
+</li>
 </ul>
 <h1 id="Getting-Started（Recommend-docker）"><a href="#Getting-Started（Recommend-docker）" class="headerlink" title="Getting Started（Recommend docker）"></a>Getting Started（Recommend docker）</h1><ul>
 <li>download project</li>
@@ -376,7 +393,7 @@
 <ul>
 <li>build docker image</li>
 </ul>
-<p><code>cd $PWD/weku</code><br><code>cp ~/.ssh/id_rsa.pub docker/ &amp;&amp; docker build -t weku:1.0 .</code></p>
+<p><code>cd $PWD/weku &amp;&amp; cp ~/.ssh/id_rsa.pub docker/ &amp;&amp; docker build -t weku:1.0 .</code></p>
 <ul>
 <li>run</li>
 </ul>
@@ -384,7 +401,7 @@
 <ul>
 <li>create super user(input admin username/email/password)</li>
 </ul>
-<p>docker exec -it <code>docker ps -l | grep weku | awk &#39;{print $1}&#39;</code> python manage.py createsuperuser</p>
+<p>docker exec -it `docker ps -l | grep weku | awk ‘{print $1}’` python manage.py createsuperuser</p>
 <ul>
 <li>open browser</li>
 </ul>
