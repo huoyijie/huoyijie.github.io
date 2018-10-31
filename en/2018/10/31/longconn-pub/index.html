@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="open source,AdvancedEAST," />
+  <meta name="keywords" content="java8,netty,lambda,future,msgpack,concurrent,async," />
 
 
 
@@ -90,20 +90,18 @@
 
 
 
-<meta name="description" content="运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图： 后置处理图 说明 1.由预测矩阵根据配置阈值得出激活像素集合 2.左右邻接像素集合生成region list集合 3.上下邻接region list组成region group（文本框激活区域）集合 4.遍历每个region group，生成其头和尾边界像素集合， 5.根据头和尾边界像素预">
-<meta name="keywords" content="open source,AdvancedEAST">
+<meta name="description" content="longconn(All for learn)Netty based http proxy server, support push, and long connection based async http client(All for learn),Suitable for App unified HTTP API gateway, security, high performance and">
+<meta name="keywords" content="java8,netty,lambda,future,msgpack,concurrent,async">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AdvancedEAST后置处理原理简介">
-<meta property="og:url" content="https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/index.html">
+<meta property="og:title" content="longconn-pub">
+<meta property="og:url" content="https://huoyijie.github.io/en/2018/10/31/longconn-pub/index.html">
 <meta property="og:site_name" content="Y.J.Views">
-<meta property="og:description" content="运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图： 后置处理图 说明 1.由预测矩阵根据配置阈值得出激活像素集合 2.左右邻接像素集合生成region list集合 3.上下邻接region list组成region group（文本框激活区域）集合 4.遍历每个region group，生成其头和尾边界像素集合， 5.根据头和尾边界像素预">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg">
-<meta property="og:updated_time" content="2018-09-04T05:23:14.000Z">
+<meta property="og:description" content="longconn(All for learn)Netty based http proxy server, support push, and long connection based async http client(All for learn),Suitable for App unified HTTP API gateway, security, high performance and">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-31T05:16:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AdvancedEAST后置处理原理简介">
-<meta name="twitter:description" content="运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图： 后置处理图 说明 1.由预测矩阵根据配置阈值得出激活像素集合 2.左右邻接像素集合生成region list集合 3.上下邻接region list组成region group（文本框激活区域）集合 4.遍历每个region group，生成其头和尾边界像素集合， 5.根据头和尾边界像素预">
-<meta name="twitter:image" content="https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg">
+<meta name="twitter:title" content="longconn-pub">
+<meta name="twitter:description" content="longconn(All for learn)Netty based http proxy server, support push, and long connection based async http client(All for learn),Suitable for App unified HTTP API gateway, security, high performance and">
 
 
 
@@ -119,7 +117,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: '博主'
+      author: 'Author'
     },
     algolia: {
       applicationID: '',
@@ -133,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/"/>
+  <link rel="canonical" href="https://huoyijie.github.io/en/2018/10/31/longconn-pub/"/>
 
 
 
@@ -158,7 +156,7 @@
 </script>
 
 
-  <title>AdvancedEAST后置处理原理简介 | Y.J.Views</title>
+  <title>longconn-pub | Y.J.Views</title>
   
 
 
@@ -170,7 +168,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -218,7 +216,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+            Home
           </a>
         </li>
       
@@ -228,7 +226,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            Archives
           </a>
         </li>
       
@@ -265,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/">
+    <link itemprop="mainEntityOfPage" href="https://huoyijie.github.io/en/2018/10/31/longconn-pub/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="huoyijie">
@@ -282,7 +280,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">AdvancedEAST后置处理原理简介</h2>
+          <h2 class="post-title" itemprop="name headline">longconn-pub</h2>
         
 
         <div class="post-meta">
@@ -292,10 +290,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:05:05+08:00">
-                2018-08-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-31T13:13:17+08:00">
+                2018-10-31
               </time>
             
 
@@ -313,8 +311,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/" itemprop="commentsCount"></span>
+                <a href="/en/2018/10/31/longconn-pub/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/en/2018/10/31/longconn-pub/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -333,10 +331,10 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="字数统计">
-                  194
+                <span title="Words count in article">
+                  103
                 </span>
               
 
@@ -349,9 +347,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
+                <span title="Reading time">
                   1
                 </span>
               
@@ -373,16 +371,20 @@
       
 
       
-        <p>运行模型预测得到输出后，还需要根据模型输出计算得出最终的文本框box坐标，这个过程就是后置处理。先看一张图：</p>
-<h2 id="后置处理图"><a href="#后置处理图" class="headerlink" title="后置处理图"></a>后置处理图</h2><p><img src="/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/adveast-post-process.jpeg" alt="AdvancedEAST后置处理图"></p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
-<li>1.由预测矩阵根据配置阈值得出激活像素集合</li>
-<li>2.左右邻接像素集合生成region list集合</li>
-<li>3.上下邻接region list组成region group（文本框激活区域）集合</li>
-<li>4.遍历每个region group，生成其头和尾边界像素集合，</li>
-<li>5.根据头和尾边界像素预测的到顶点Delta值与该边界像素坐标值计算顶点坐标，每个顶点的所有预测值的加权平均值作为最后的预测坐标值，并输出score</li>
-</ul>
-<p><a href="https://github.com/huoyijie/AdvancedEAST" target="_blank" rel="noopener">Github地址</a></p>
+        <h1 id="longconn-All-for-learn"><a href="#longconn-All-for-learn" class="headerlink" title="longconn(All for learn)"></a>longconn(All for learn)</h1><p>Netty based http proxy server, support push, and long connection based async http client(All for learn),<br>Suitable for App unified HTTP API gateway, security, high performance and support for high concurrency.<br><a href="https://github.com/huoyijie/longconn/" target="_blank" rel="noopener">https://github.com/huoyijie/longconn/</a></p>
+<h1 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h1><p>1.http proxy server(push proxy)</p>
+<p>2.async http client(thread pool)</p>
+<p>3.codec encoder/decoder(messagepack)</p>
+<p>4.command protocal(httprequest, httpresponse, pushrequest, heartbeat)</p>
+<h1 id="features"><a href="#features" class="headerlink" title="features"></a>features</h1><p>1.long connection based netty</p>
+<p>2.support GET/POST http(s)</p>
+<p>3.support push</p>
+<p>4.ssl/gzip</p>
+<p>5.async http client, support future/callback</p>
+<p>6.messagepack serialization</p>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><p>1.<a href="https://github.com/netty/netty" target="_blank" rel="noopener">Netty</a></p>
+<p>2.<a href="https://github.com/AsyncHttpClient/async-http-client" target="_blank" rel="noopener">async-http-client</a></p>
+<p>3.<a href="https://github.com/msgpack/msgpack-java" target="_blank" rel="noopener">messagepack</a></p>
 
       
     </div>
@@ -398,16 +400,16 @@
       <div>
         <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者：</strong>
+    <strong>Post author:</strong>
     huoyijie
   </li>
   <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/" title="AdvancedEAST后置处理原理简介">https://huoyijie.github.io/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/</a>
+    <strong>Post link:</strong>
+    <a href="https://huoyijie.github.io/en/2018/10/31/longconn-pub/" title="longconn-pub">https://huoyijie.github.io/en/2018/10/31/longconn-pub/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
   </li>
 </ul>
 
@@ -418,9 +420,19 @@
       
         <div class="post-tags">
           
-            <a href="/tags/open-source/" rel="tag"># open source</a>
+            <a href="/tags/java8/" rel="tag"># java8</a>
           
-            <a href="/tags/AdvancedEAST/" rel="tag"># AdvancedEAST</a>
+            <a href="/tags/netty/" rel="tag"># netty</a>
+          
+            <a href="/tags/lambda/" rel="tag"># lambda</a>
+          
+            <a href="/tags/future/" rel="tag"># future</a>
+          
+            <a href="/tags/msgpack/" rel="tag"># msgpack</a>
+          
+            <a href="/tags/concurrent/" rel="tag"># concurrent</a>
+          
+            <a href="/tags/async/" rel="tag"># async</a>
           
         </div>
       
@@ -433,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/zh-Hans/2018/08/24/AdvancedEAST文本检测原理简介/" rel="next" title="AdvancedEAST文本检测原理简介">
-                <i class="fa fa-chevron-left"></i> AdvancedEAST文本检测原理简介
+              <a href="/en/2018/09/04/open-source-project-release/" rel="next" title="open source project release">
+                <i class="fa fa-chevron-left"></i> open source project release
               </a>
             
           </div>
@@ -442,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/en/2018/09/04/open-source-project-release/" rel="prev" title="open source project release">
-                open source project release <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -506,10 +514,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
@@ -530,7 +538,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">日志</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -543,7 +551,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">10</span>
-                  <span class="site-state-item-name">标签</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
@@ -575,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#后置处理图"><span class="nav-number">1.</span> <span class="nav-text">后置处理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#longconn-All-for-learn"><span class="nav-number">1.</span> <span class="nav-text">longconn(All for learn)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modules"><span class="nav-number">2.</span> <span class="nav-text">modules</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#features"><span class="nav-number">3.</span> <span class="nav-text">features</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reference"><span class="nav-number">4.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
 
           </div>
@@ -605,7 +613,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
