@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans,en,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="LZhP3s1gdOqCudtpLBwlFXEIE03yKkWKkCZQR2kI4is" />
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="E0MZmfy40a" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="open source,weku," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="WEKU(Alpha Stage)WEKU is a personal video&amp;amp;photo manager written by python and based on Django/Bootstrap/videojs/FFMpeg. It helps you manage your family’s photos and videos and could run on all kin">
+<meta name="keywords" content="open source,weku">
+<meta property="og:type" content="article">
+<meta property="og:title" content="open source project release">
+<meta property="og:url" content="https://huoyijie.github.io/en/2018/09/04/open-source-project-release/index.html">
+<meta property="og:site_name" content="Y.J.Views">
+<meta property="og:description" content="WEKU(Alpha Stage)WEKU is a personal video&amp;amp;photo manager written by python and based on Django/Bootstrap/videojs/FFMpeg. It helps you manage your family’s photos and videos and could run on all kin">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-05T02:29:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="open source project release">
+<meta name="twitter:description" content="WEKU(Alpha Stage)WEKU is a personal video&amp;amp;photo manager written by python and based on Django/Bootstrap/videojs/FFMpeg. It helps you manage your family’s photos and videos and could run on all kin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huoyijie.github.io/en/2018/09/04/open-source-project-release/"/>
+
+
+
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-3208596842265965",
+      enable_page_level_ads: true
+    });
+  </script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125112534-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125112534-1');
+</script>
+
+
+  <title>open source project release | Y.J.Views</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Y.J.Views</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huoyijie.github.io/en/2018/09/04/open-source-project-release/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="huoyijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Y.J.Views">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">open source project release</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T13:07:57+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/en/2018/09/04/open-source-project-release/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/en/2018/09/04/open-source-project-release/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  224
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="WEKU-Alpha-Stage"><a href="#WEKU-Alpha-Stage" class="headerlink" title="WEKU(Alpha Stage)"></a>WEKU(Alpha Stage)</h1><p>WEKU is a personal video&amp;photo manager written by python and based on Django/Bootstrap/videojs/FFMpeg. It helps you manage your family’s photos and videos and could run on all kind of devices.  If this project is helpful to you, welcome to star. And if you have any problem, please contact me.</p>
+<ul>
+<li>email: <a href="mailto:yijie.huo@foxmail.com" target="_blank" rel="noopener">yijie.huo@foxmail.com</a></li>
+</ul>
+<h2 id="Demo-website-click"><a href="#Demo-website-click" class="headerlink" title="Demo website(click)"></a><a href="http://132.232.155.82:9090/" target="_blank" rel="noopener">Demo website(click)</a></h2><ul>
+<li>login account: admin/admin1234</li>
+<li>Test data(include database and image&amp;video files) will be cleaned automatically</li>
+</ul>
+<h1 id="Current-Features"><a href="#Current-Features" class="headerlink" title="Current Features"></a>Current Features</h1><ul>
+<li>create album</li>
+<li>upload photos&amp;videos</li>
+<li>play videos(also support playlist)</li>
+<li>photo gallery</li>
+<li>DLNA cast, play photo&amp;video on TV</li>
+<li>support multi language(en/zh-Hans)</li>
+</ul>
+<h1 id="Requirements-e-g-in-CentOS"><a href="#Requirements-e-g-in-CentOS" class="headerlink" title="Requirements(e.g. in CentOS)"></a>Requirements(e.g. in CentOS)</h1><ul>
+<li>docker<br><code>yum -y install docker</code></li>
+</ul>
+<p><code>service docker start</code></p>
+<ul>
+<li><p>git<br><code>yum -y install git</code></p>
+</li>
+<li><p>~/.ssh/id_rsa.pub<br><code>ssh-keygen -t rsa</code></p>
+</li>
+</ul>
+<h1 id="Getting-Started（Recommend-docker）"><a href="#Getting-Started（Recommend-docker）" class="headerlink" title="Getting Started（Recommend docker）"></a>Getting Started（Recommend docker）</h1><ul>
+<li>download project</li>
+</ul>
+<p><code>git clone git@github.com:huoyijie/weku.git</code></p>
+<ul>
+<li>build docker image</li>
+</ul>
+<p><code>cd $PWD/weku &amp;&amp; cp ~/.ssh/id_rsa.pub docker/ &amp;&amp; docker build -t weku:1.0 .</code></p>
+<ul>
+<li>run</li>
+</ul>
+<p><code>docker run -d --net=host --name weku -v wekudata:/data weku:1.0</code></p>
+<ul>
+<li>create super user(input admin username/email/password)</li>
+</ul>
+<p>docker exec -it `docker ps -l | grep weku | awk ‘{print $1}’` python manage.py createsuperuser</p>
+<ul>
+<li>open browser</li>
+</ul>
+<p>type url <code>http://ip:9090</code></p>
+<h1 id="Special-Thanks"><a href="#Special-Thanks" class="headerlink" title="Special Thanks"></a>Special Thanks</h1><ul>
+<li>Python/Django</li>
+<li><a href="https://github.com/videojs/video.js" target="_blank" rel="noopener">video.js</a>, <a href="https://github.com/brightcove/videojs-playlist" target="_blank" rel="noopener">videojs-playlist</a></li>
+<li><a href="https://github.com/blueimp/jQuery-File-Upload" target="_blank" rel="noopener">jQuery-File-Upload</a></li>
+<li><a href="https://github.com/blueimp/Gallery" target="_blank" rel="noopener">Gallery</a></li>
+<li><a href="https://github.com/FFmpeg/FFmpeg" target="_blank" rel="noopener">FFmpeg</a></li>
+</ul>
+<p><a href="https://github.com/huoyijie/weku" target="_blank" rel="noopener">view on github</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    huoyijie
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://huoyijie.github.io/en/2018/09/04/open-source-project-release/" title="open source project release">https://huoyijie.github.io/en/2018/09/04/open-source-project-release/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/open-source/" rel="tag"># open source</a>
+          
+            <a href="/tags/weku/" rel="tag"># weku</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zh-Hans/2018/08/27/AdvancedEAST后置处理原理简介/" rel="next" title="AdvancedEAST后置处理原理简介">
+                <i class="fa fa-chevron-left"></i> AdvancedEAST后置处理原理简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/en/2018/10/31/longconn-pub/" rel="prev" title="longconn-pub">
+                longconn-pub <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">huoyijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WEKU-Alpha-Stage"><span class="nav-number">1.</span> <span class="nav-text">WEKU(Alpha Stage)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-website-click"><span class="nav-number">1.1.</span> <span class="nav-text">Demo website(click)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Current-Features"><span class="nav-number">2.</span> <span class="nav-text">Current Features</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Requirements-e-g-in-CentOS"><span class="nav-number">3.</span> <span class="nav-text">Requirements(e.g. in CentOS)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Getting-Started（Recommend-docker）"><span class="nav-number">4.</span> <span class="nav-text">Getting Started（Recommend docker）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Special-Thanks"><span class="nav-number">5.</span> <span class="nav-text">Special Thanks</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huoyijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66145128";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: decodeURI(window.location.pathname),
+            owner: 'huoyijie',
+            repo: 'huoyijie.github.io',
+            
+            lang: "en" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '6d0304a4fb3597396a4b0f7342efd1cc0c453954',
+            
+                client_id: '1425caea31543474eb90'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66145128";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
