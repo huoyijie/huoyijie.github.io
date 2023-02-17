@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"bufio"
@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 	"syscall"
@@ -21,17 +22,17 @@ var slideFS embed.FS
 //go:embed templates/* templates/blocks/*
 var tmplFS embed.FS
 
-type Query struct {
+type query_t struct {
 	SlideName string `uri:"slideName" binding:"required"`
 }
 
-type SlideModel struct {
+type slide_t struct {
 	Name, Title, Desc, Ago string
 	Ctime                  time.Time
 }
 
-func initSlides() (slides []SlideModel) {
-	entries, _ := os.ReadDir("slides")
+func initSlides(slideDir string) (slides []slide_t) {
+	entries, _ := os.ReadDir(slideDir)
 	for _, v := range entries {
 		if v.IsDir() {
 			continue
@@ -46,7 +47,7 @@ func initSlides() (slides []SlideModel) {
 			ctime := time.Unix(int64(stat.Ctim.Sec), int64(stat.Ctim.Nsec))
 
 			var desc string
-			file, err := os.Open("slides/" + v.Name())
+			file, err := os.Open(filepath.Join(slideDir, v.Name()))
 			if err != nil {
 				continue
 			}
@@ -56,7 +57,7 @@ func initSlides() (slides []SlideModel) {
 				desc = strings.TrimSuffix(desc, ")")
 			}
 
-			slides = append(slides, SlideModel{
+			slides = append(slides, slide_t{
 				Name:  slideName,
 				Title: strings.ReplaceAll(slideName, "-", " "),
 				Desc:  desc,
@@ -74,7 +75,7 @@ func initSlides() (slides []SlideModel) {
 	return
 }
 
-func main() {
+func Run(slideDir string) {
 
 	router := gin.Default()
 
@@ -83,13 +84,13 @@ func main() {
 
 	router.StaticFS("public", http.FS(slideFS))
 
-	slides := initSlides()
+	slides := initSlides(slideDir)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.htm", gin.H{"Slides": slides})
 	})
 
 	router.GET("slides/:slideName", func(c *gin.Context) {
-		var query Query
+		var query query_t
 		if err := c.BindUri(&query); err != nil {
 			c.Redirect(http.StatusFound, "/")
 			return
