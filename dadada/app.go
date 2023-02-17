@@ -8,22 +8,38 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//go:embed slides/*
+//go:embed slides/*.md
 var slideFS embed.FS
 
-//go:embed templates/*
+//go:embed templates/* templates/blocks/*
 var tmplFS embed.FS
+
+type Query struct {
+	SlideName string `uri:"slideName" binding:"required"`
+}
 
 func main() {
 	router := gin.Default()
 
-	tmpl := template.Must(template.New("").ParseFS(tmplFS, "templates/*.htm"))
+	tmpl := template.Must(template.New("").ParseFS(tmplFS, "templates/*.htm", "templates/blocks/*.htm"))
 	router.SetHTMLTemplate(tmpl)
 
 	router.StaticFS("public", http.FS(slideFS))
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.htm", gin.H{})
+	})
+
+	router.GET("slides/:slideName", func(c *gin.Context) {
+		var query Query
+		if err := c.BindUri(&query); err != nil {
+			c.Redirect(http.StatusFound, "/")
+			return
+		}
+
+		c.HTML(http.StatusOK, "slide.htm", gin.H{
+			"SlideName": query.SlideName,
+		})
 	})
 
 	router.SetTrustedProxies(nil)

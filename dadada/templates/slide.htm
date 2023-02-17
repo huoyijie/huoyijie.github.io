@@ -1,0 +1,13 @@
+{{ define "slide.htm" }}
+
+{{ template "head-reveal.htm" . }}
+
+<div class="reveal">
+  <div class="slides">
+    <section data-markdown="/public/slides/{{ .SlideName }}.md"></section>
+  </div>
+</div>
+
+{{ template "foot-reveal.htm" . }}
+
+{{ end }}
