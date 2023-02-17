@@ -26,12 +26,12 @@ type query_t struct {
 	SlideName string `uri:"slideName" binding:"required"`
 }
 
-type slide_t struct {
+type SlideModel struct {
 	Name, Title, Desc, Ago string
 	Ctime                  time.Time
 }
 
-func initSlides(slideDir string) (slides []slide_t) {
+func InitSlides(slideDir string) (slides []SlideModel) {
 	entries, _ := os.ReadDir(slideDir)
 	for _, v := range entries {
 		if v.IsDir() {
@@ -57,7 +57,7 @@ func initSlides(slideDir string) (slides []slide_t) {
 				desc = strings.TrimSuffix(desc, ")")
 			}
 
-			slides = append(slides, slide_t{
+			slides = append(slides, SlideModel{
 				Name:  slideName,
 				Title: strings.ReplaceAll(slideName, "-", " "),
 				Desc:  desc,
@@ -75,7 +75,7 @@ func initSlides(slideDir string) (slides []slide_t) {
 	return
 }
 
-func Run(slideDir string) {
+func Run(slideDir string, slides []SlideModel) {
 
 	router := gin.Default()
 
@@ -84,7 +84,6 @@ func Run(slideDir string) {
 
 	router.StaticFS("public", http.FS(slideFS))
 
-	slides := initSlides(slideDir)
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.htm", gin.H{"Slides": slides})
 	})
