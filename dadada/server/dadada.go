@@ -58,7 +58,7 @@ func InitSlides(slideDir string) (slides []SlideModel) {
 			}
 
 			slides = append(slides, SlideModel{
-				Name:  slideName,
+				Name:  slideName + ".html",
 				Title: strings.ReplaceAll(slideName, "-", " "),
 				Desc:  desc,
 				Ctime: ctime,
@@ -96,7 +96,7 @@ func Run(slideDir string, slides []SlideModel) {
 		}
 
 		c.HTML(http.StatusOK, "slide.htm", gin.H{
-			"SlideName": query.SlideName,
+			"SlideName": strings.TrimSuffix(query.SlideName, ".html"),
 		})
 	})
 
