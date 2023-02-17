@@ -54,7 +54,7 @@ func main() {
 			fmt.Println(slideUrl)
 			body, err = download(slideUrl)
 			if err == nil {
-				os.WriteFile(filepath.Join("slides", v.Name), body, fs.ModePerm)
+				os.WriteFile(filepath.Join("slides", v.Name+".html"), body, fs.ModePerm)
 			} else {
 				fmt.Println(err)
 			}
