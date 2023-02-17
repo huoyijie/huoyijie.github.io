@@ -4,13 +4,13 @@
 
 <div id="app" class="container">
   <div class="list-group">
-    {{range .Slides}}
-      <a href="/slides/{{.Name}}" class="list-group-item list-group-item-action text-capitalize" aria-current="true">
+    {{range $idx, $element := .Slides}}
+      <a href="/slides/{{.Name}}" class="list-group-item list-group-item-action {{if eq $idx 0}}active{{end}} text-capitalize" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{.Title}}</h5>
-          <small>3 days ago</small>
+          <small>{{.Ago}}</small>
         </div>
-        <p class="mb-1">Some placeholder content in a paragraph.</p>
+        <p class="mb-1">{{.Desc}}</p>
       </a>
     {{end}}
   </div>
