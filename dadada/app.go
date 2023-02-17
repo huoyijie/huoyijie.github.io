@@ -4,6 +4,8 @@ import (
 	"embed"
 	"html/template"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,6 +20,10 @@ type Query struct {
 	SlideName string `uri:"slideName" binding:"required"`
 }
 
+type SlideModel struct {
+	Name, Title string
+}
+
 func main() {
 	router := gin.Default()
 
@@ -27,7 +33,22 @@ func main() {
 	router.StaticFS("public", http.FS(slideFS))
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.htm", gin.H{})
+		var slides []SlideModel
+
+		entries, _ := os.ReadDir("slides")
+		for _, v := range entries {
+			if v.IsDir() {
+				continue
+			}
+			if slideName, found := strings.CutSuffix(v.Name(), ".md"); found {
+				slides = append(slides, SlideModel{
+					Name:  slideName,
+					Title: strings.ReplaceAll(slideName, "-", " "),
+				})
+			}
+		}
+
+		c.HTML(http.StatusOK, "index.htm", gin.H{"Slides": slides})
 	})
 
 	router.GET("slides/:slideName", func(c *gin.Context) {

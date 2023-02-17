@@ -2,7 +2,31 @@
 
 {{ template "head-bootstrap.htm" . }}
 
-<a href="/slides/example">example</a>
+<div id="app" class="container">
+  <div class="list-group">
+    {{range .Slides}}
+      <a href="/slides/{{.Name}}" class="list-group-item list-group-item-action text-capitalize" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{.Title}}</h5>
+          <small>3 days ago</small>
+        </div>
+        <p class="mb-1">Some placeholder content in a paragraph.</p>
+      </a>
+    {{end}}
+  </div>
+</div>
+
+<script>
+  'use strict'
+  const { createApp } = Vue
+  createApp({
+      data() {},
+      computed: {},
+      methods: {},
+      created() {},
+      delimiters: ["{[{", "}]}"],
+  }).mount('#app')
+</script>
 
 {{ template "foot-bootstrap.htm" . }}
 
