@@ -1,3 +1,15 @@
-# huoyijie.github.io
+# DaDaDa
 
-My blogs has moved to [https://huoyijie.cn](https://huoyijie.cn)
+There are three kinds of running mode:
+
+## 1.Static slides site generator
+
+todo
+
+## 2.Local server with auto reload
+
+todo
+
+## 3.server
+
+doing
