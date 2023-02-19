@@ -152,12 +152,12 @@
           openKeynote(e) {
             let keynote = e.currentTarget.dataset.keynote
             let path = this.breadcrumb.join('/').slice(1)
-            window.location.href = '/keynotes' + path + `/${keynote}`
+            window.location.href = 'keynotes' + path + `/${keynote}`
           }
         },
         created() {
           let that = this
-          axios.get('/folders.json')
+          axios.get('folders.json')
             .then(function (res) {
               that.RootFolder = res.data.RootFolder
               that.currentFolder = that.RootFolder
