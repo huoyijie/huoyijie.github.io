@@ -7,3 +7,4 @@ gitbook:
   - 'implement-a-simple-reverse-proxy-server-with-nodejs'
   - 'build-a-code-hosting-server-with-git'
   - 'build-ebook-with-gitbook-and-git'
+  - 'build-a-simple-mail-server'
