@@ -5,3 +5,5 @@ gitbook:
   - 'build-a-CDN-back-to-source-server-with-nodejs'
   - 'website-support-http2'
   - 'implement-a-simple-reverse-proxy-server-with-nodejs'
+  - 'build-a-code-hosting-server-with-git'
+  - 'build-ebook-with-gitbook-and-git'

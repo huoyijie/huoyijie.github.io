@@ -1,0 +1,413 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>使用 Git 与 Gitbook 创建管理电子书 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    使用 Git 与 Gitbook 创建管理电子书
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >使用 Git 与 Gitbook 创建管理电子书</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x4F7F;&#x7528;-git-&#x4E0E;-gitbook-&#x521B;&#x5EFA;&#x7BA1;&#x7406;&#x7535;&#x5B50;&#x4E66;">&#x4F7F;&#x7528; Git &#x4E0E; Gitbook &#x521B;&#x5EFA;&#x7BA1;&#x7406;&#x7535;&#x5B50;&#x4E66;</h1>
+<p>&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x63A5;&#x4E0A;&#x7BC7; <a href="https://huoyijie.cn/article/7d4e75e08ac011ebaa2ab110efea0133/" target="_blank">&#x57FA;&#x4E8E; Git &#x642D;&#x5EFA;&#x4EE3;&#x7801;&#x6258;&#x7BA1;&#x670D;&#x52A1;&#x5668;</a>&#xFF0C;Git &#x670D;&#x52A1;&#x5668;&#x4E5F;&#x53EF;&#x4EE5;&#x6258;&#x7BA1;&#x7535;&#x5B50;&#x4E66;&#x3002;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A; git &#x9879;&#x76EE;&#xFF0C;&#x5728;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x4E3A;&#x4E0D;&#x540C;&#x7684;&#x7535;&#x5B50;&#x4E66;&#x521B;&#x5EFA;&#x5B50;&#x76EE;&#x5F55;&#xFF0C;&#x5728;&#x5B50;&#x76EE;&#x5F55;&#x4E0B;&#x6309;&#x7167; gitbook &#x6A21;&#x677F;&#x7F16;&#x5199; markdown&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7; git push &#x63A8;&#x9001;&#x5230; git server&#xFF0C;&#x89E6;&#x53D1;&#x670D;&#x52A1;&#x5668; hooks &#x811A;&#x672C;&#x6267;&#x884C;&#xFF0C;&#x811A;&#x672C;&#x4F1A;&#x8C03;&#x7528; gitbook &#x7A0B;&#x5E8F;&#x751F;&#x6210; html &#x683C;&#x5F0F;&#x7535;&#x5B50;&#x4E66;&#x3002;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x9759;&#x6001; HTTP Server&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x7535;&#x5B50;&#x4E66;&#x53D1;&#x5E03;&#x51FA;&#x53BB;&#x4E86;&#x3002;&#x5982;&#x679C;&#x8981;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x4E66;&#x5185;&#x5BB9;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x76F8;&#x5E94;&#x7684; markdown &#x5185;&#x5BB9;&#xFF0C;&#x7136;&#x540E; push &#x5230;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x7535;&#x5B50;&#x4E66;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x3002;</p>
+<p>&#x6709;&#x4E86; <code>Git + Gitbook + Markdown &#x7F16;&#x8F91;&#x5668;</code>&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x5199;&#x535A;&#x5BA2;&#x4E86;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x548C; <code>github pages</code> &#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4F46;&#x90E8;&#x7F72;&#x901F;&#x5EA6;&#x66F4;&#x5FEB;&#xFF0C;&#x4E14;&#x53EF;&#x4EE5;&#x5B9A;&#x5236; git hooks &#x811A;&#x672C;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#x670D;&#x52A1;&#x5668;&#x6E32;&#x67D3;&#x52A8;&#x6001;&#x9875;&#x9762;&#x3002;<code>github pages</code> &#x867D;&#x662F;&#x514D;&#x8D39;&#x7684;&#xFF0C;&#x4F46;&#x53EA;&#x80FD;&#x90E8;&#x7F72;&#x9759;&#x6001;&#x7684;&#x5185;&#x5BB9;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4ED3;&#x5E93;&#xFF0C;&#x540D;&#x4E3A; <code>mybook</code>&#xFF0C;&#x767B;&#x5F55;&#x670D;&#x52A1;&#x5668;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token builtin class-name">cd</span> /home/git
+$ <span class="token function">sudo</span> <span class="token function">mkdir</span> mybook.git <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> mybook.git
+$ <span class="token function">sudo</span> <span class="token function">git</span> init <span class="token parameter variable">--bare</span>
+Initialized empty Git repository <span class="token keyword">in</span> /home/git/mybook.git/
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x4ED3;&#x5E93;&#x7528;&#x6237;&#x5F52;&#x5C5E;&#xFF0C;&#x786E;&#x4FDD;&#x540E;&#x9762;&#x53EF;&#x4EE5; git &#x7528;&#x6237;&#x6709;&#x6743;&#x9650;&#x63A8;&#x9001;&#x4EE3;&#x7801;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /home/git/mybook.git
+</code></pre>
+<p>&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x7535;&#x8111;&#x4E0A;&#x514B;&#x9686;&#x4ED3;&#x5E93;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">git</span> clone git@huoyijie.cn:/home/git/mybook.git
+&#x6B63;&#x514B;&#x9686;&#x5230; <span class="token string">&apos;mybook&apos;</span><span class="token punctuation">..</span>.
+warning: &#x60A8;&#x4F3C;&#x4E4E;&#x514B;&#x9686;&#x4E86;&#x4E00;&#x4E2A;&#x7A7A;&#x4ED3;&#x5E93;&#x3002;
+</code></pre>
+<p>&#x6253;&#x5F00; vscode&#xFF0C;&#x6253;&#x5F00; mybook &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x76EE;&#x524D;&#x662F;&#x7A7A;&#x9879;&#x76EE;&#x3002;&#x6DFB;&#x52A0;&#x6846;&#x67B6;&#x4EE3;&#x7801;&#x540E;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x9879;&#x76EE;&#x7ED3;&#x6784;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ tree <span class="token parameter variable">-L</span> <span class="token number">2</span>
+<span class="token builtin class-name">.</span>
+&#x251C;&#x2500;&#x2500; bin
+&#x2502;   &#x2514;&#x2500;&#x2500; www
+&#x251C;&#x2500;&#x2500; mybook.json
+&#x251C;&#x2500;&#x2500; mygitbook
+&#x2502;   &#x251C;&#x2500;&#x2500; book.json
+&#x2502;   &#x251C;&#x2500;&#x2500; README.md
+&#x2502;   &#x2514;&#x2500;&#x2500; SUMMARY.md
+&#x251C;&#x2500;&#x2500; node_modules
+&#x2502;   &#x251C;&#x2500;&#x2500; http-server
+&#x2502;   &#x251C;&#x2500;&#x2500; shelljs
+&#x251C;&#x2500;&#x2500; package.json
+&#x251C;&#x2500;&#x2500; package-lock.json
+&#x251C;&#x2500;&#x2500; public
+&#x2502;   &#x251C;&#x2500;&#x2500; gitbook
+&#x2502;   &#x2514;&#x2500;&#x2500; index.html
+&#x2514;&#x2500;&#x2500; scripts
+    &#x2514;&#x2500;&#x2500; deploy.js
+</code></pre>
+<p>&#x4ECE;&#x4E0A;&#x5230;&#x4E0B;&#x4F9D;&#x6B21;&#x4ECB;&#x7ECD;&#x4E0B;&#x4E3B;&#x8981;&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;</p>
+<ul>
+<li><code>bin/www</code> &#x4E3A; <code>http server</code> &#x542F;&#x52A8;&#x811A;&#x672C;&#xFF0C;&#x770B;&#x4E0B;&#x5185;&#x5BB9;</li>
+</ul>
+<pre class="language-"><code class="lang-bash"><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token assign-left variable">DIR</span><span class="token operator">=</span><span class="token string">&quot;public&quot;</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-d</span> <span class="token string">&quot;<span class="token variable">$DIR</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token function">mkdir</span> <span class="token variable">$DIR</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">&quot;Home Page&quot;</span> <span class="token operator">&gt;</span> <span class="token variable">$DIR</span>/index.html
+<span class="token keyword">fi</span>
+
+./node_modules/http-server/bin/http-server <span class="token variable">$DIR</span> <span class="token parameter variable">-a</span> <span class="token number">127.0</span>.0.1 <span class="token parameter variable">-p</span> <span class="token number">8001</span>
+</code></pre>
+<p>&#x9759;&#x6001;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x76EE;&#x5F55;&#x4E3A; <code>$DIR=public</code> &#xFF0C;&#x76D1;&#x542C; 8001 &#x7AEF;&#x53E3;&#x3002;</p>
+<ul>
+<li><code>mybook.json</code> &#x662F;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5173;&#x4E8E;&#x5F53;&#x524D;&#x4ED3;&#x5E93;&#x4E2D; book &#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x6765;&#x770B;&#x4E0B;&#x5185;&#x5BB9;</li>
+</ul>
+<pre class="language-"><code class="lang-javascript"><span class="token punctuation">{</span>
+    <span class="token string-property property">&quot;deployBook&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;mygitbook&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">&quot;dropBook&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6BCF;&#x4E2A; book &#x90FD;&#x6709;&#x552F;&#x4E00;&#x7684;&#x5B57;&#x7B26;&#x4E32; name&#xFF0C;&#x5982;&#x5F53;&#x524D;&#x8FD9;&#x7BC7;&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x7684;&#x540D;&#x5B57;&#x4E3A; mygitbook&#x3002;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x76EE;&#x524D;&#x8FD8;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x5B9A;&#x4E49;&#x4E86; 2 &#x4E2A;&#x914D;&#x7F6E;&#x9879;&#x3002;</p>
+<ol>
+<li>deployBook: &#x9700;&#x8981;&#x53D1;&#x5E03;&#x5230; http server &#x7684; book name&#x5217;&#x8868;</li>
+<li>dropBook: &#x9700;&#x7528;&#x4ECE; http server &#x4E2D;&#x5220;&#x9664;&#x7684; book name&#x5217;&#x8868;</li>
+</ol>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x65B0;&#x589E;&#x7684; book &#x8981;&#x5728; deployBook &#x914D;&#x7F6E;&#x4E00;&#x4E0B;&#x624D;&#x4F1A;&#x771F;&#x6B63;&#x53D1;&#x5E03;&#x5230; http server&#xFF0C;&#x9700;&#x8981;&#x4E0B;&#x7EBF;&#x7684; book &#x8981;&#x5728; dropBook &#x914D;&#x7F6E;&#x4E00;&#x4E0B;&#x3002;&#x4FEE;&#x6539;&#x5B8C;&#x914D;&#x7F6E;&#x63A8;&#x9001;&#x53D8;&#x66F4;&#x5230;&#x670D;&#x52A1;&#x5668;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x90E8;&#x7F72;&#x66F4;&#x65B0;&#x3002;</p>
+<ul>
+<li><p>mygitbook &#x76EE;&#x5F55;&#x91CC;&#x662F;&#x5F53;&#x524D;&#x6587;&#x7AE0;&#x771F;&#x6B63;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>gitbook init</code> &#x521D;&#x59CB;&#x5316;&#x3002;&#x4E3A;&#x4E86;&#x66F4;&#x65B9;&#x4FBF;&#x7684;&#x7BA1;&#x7406;&#xFF0C;&#x6211;&#x521B;&#x5EFA;&#x4E86; <code>gitbookgen.js</code> &#x811A;&#x672C;&#xFF0C;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x751F;&#x6210;&#x7535;&#x5B50;&#x4E66;&#x6A21;&#x677F;&#x3002;</p>
+</li>
+<li><p>node_modules &#x4E3A;&#x5F53;&#x524D;&#x9879;&#x76EE;&#x4F9D;&#x8D56;&#x7684; npm &#x5305;&#xFF0C;&#x4E3B;&#x8981;&#x662F; http server &#x548C; shelljs&#xFF0C;&#x540E;&#x8005;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x8C03;&#x7528;&#x7CFB;&#x7EDF; shell &#x547D;&#x4EE4;&#x3002;</p>
+</li>
+<li><p>package.json &#x4E3A; Node.js &#x9879;&#x76EE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+</li>
+</ul>
+<pre class="language-"><code class="lang-javascript"><span class="token punctuation">{</span>
+  <span class="token string-property property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;mybook&quot;</span><span class="token punctuation">,</span>
+  <span class="token string-property property">&quot;version&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0.0.0&quot;</span><span class="token punctuation">,</span>
+  <span class="token string-property property">&quot;private&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string-property property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;bin/www&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string-property property">&quot;dependencies&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">&quot;http-server&quot;</span><span class="token operator">:</span> <span class="token string">&quot;^0.12.3&quot;</span><span class="token punctuation">,</span>
+    <span class="token string-property property">&quot;shelljs&quot;</span><span class="token operator">:</span> <span class="token string">&quot;^0.8.4&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li><p>public &#x76EE;&#x5F55;&#x4E3A; http server &#x9759;&#x6001;&#x5185;&#x5BB9;&#x5B58;&#x50A8;&#x7684;&#x76EE;&#x5F55;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x628A;&#x7535;&#x5B50;&#x4E66;&#x90E8;&#x7F72;&#x5728;&#x8FD9;&#x4E2A;&#x76EE;&#x5F55;&#x4E0B;</p>
+</li>
+<li><p>scripts/deploy.js &#x76EE;&#x5F55;&#x4E3A;&#x90E8;&#x7F72; book &#x7684;&#x811A;&#x672C;&#x6587;&#x4EF6;&#xFF0C;&#x4F1A;&#x88AB; git server &#x4E0A;&#x9762;&#x7684; hooks &#x811A;&#x672C;&#x8C03;&#x7528;</p>
+</li>
+</ul>
+<pre class="language-"><code class="lang-javascript"><span class="token hashbang comment">#!/usr/bin/env node</span>
+
+<span class="token comment">// run from project root dir with command &apos;./scripts/deploy.js&apos;</span>
+<span class="token keyword">const</span> shell <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;shelljs&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;fs&apos;</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">pwd: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>shell<span class="token punctuation">.</span><span class="token function">pwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span>shell<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">&apos;git pull&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;!&gt; deploy error -&gt; git pull failed&apos;</span><span class="token punctuation">)</span>
+  process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> publicDir <span class="token operator">=</span> <span class="token string">&apos;public&apos;</span>
+<span class="token keyword">const</span> mybookJson <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token string">&apos;mybook.json&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&gt; load mybook.json: </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> mybookJson<span class="token punctuation">)</span>
+
+mybookJson<span class="token punctuation">.</span>dropBook<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">book</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&gt; drop book: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>book<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+
+  <span class="token keyword">var</span> tmp <span class="token operator">=</span> book<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;|&apos;</span><span class="token punctuation">)</span>
+  book <span class="token operator">=</span> tmp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+  <span class="token keyword">var</span> bookid <span class="token operator">=</span> tmp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">&apos;&apos;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">!</span>bookid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> bookDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>publicDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>bookid<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    shell<span class="token punctuation">.</span><span class="token function">rm</span><span class="token punctuation">(</span><span class="token string">&apos;-rf&apos;</span><span class="token punctuation">,</span> bookDir<span class="token punctuation">)</span>
+    shell<span class="token punctuation">.</span><span class="token function">rm</span><span class="token punctuation">(</span><span class="token string">&apos;-rf&apos;</span><span class="token punctuation">,</span> book<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">!&gt; delete book failed -&gt;lack of param bookid.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+mybookJson<span class="token punctuation">.</span>deployBook<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">book</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&gt; deploy book: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>book<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>book<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">!&gt; deploy error with </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>book<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> -&gt; not exist</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+    shell<span class="token punctuation">.</span><span class="token function">cd</span><span class="token punctuation">(</span>book<span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> bookJson <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">book.json</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&gt; load book.json:</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> bookJson<span class="token punctuation">)</span>
+    <span class="token keyword">const</span> bookDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>publicDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>bookJson<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>shell<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">&apos;gitbook build&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      shell<span class="token punctuation">.</span><span class="token function">cd</span><span class="token punctuation">(</span><span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>bookDir<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        shell<span class="token punctuation">.</span><span class="token function">mkdir</span><span class="token punctuation">(</span>bookDir<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        shell<span class="token punctuation">.</span><span class="token function">rm</span><span class="token punctuation">(</span><span class="token string">&apos;-rf&apos;</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>bookDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/*</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      shell<span class="token punctuation">.</span><span class="token function">cp</span><span class="token punctuation">(</span><span class="token string">&apos;-r&apos;</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>book<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/_book/*</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> bookDir<span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&gt; deploy succeed with </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>book<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">!&gt; deploy error with </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>book<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x5C31;&#x662F;&#x7B49;&#x53D8;&#x66F4;&#x63A8;&#x9001;&#x5230;&#x670D;&#x52A1;&#x5668;&#x540E;&#xFF0C;&#x628A;&#x914D;&#x7F6E;&#x5728; deployBook &#x4E0B;&#x7684; book &#x53D1;&#x5E03;&#x51FA;&#x53BB;&#xFF0C;&#x671F;&#x95F4;&#x8C03;&#x7528;&#x4E86; <code>gitbook build</code> &#x628A; markdown &#x5185;&#x5BB9;&#x8F6C;&#x4E3A; html&#x3002;&#x628A;&#x914D;&#x7F6E;&#x5728; dropBook &#x4E0B;&#x7684; book &#x4E0B;&#x7EBF;&#x6389;&#x3002;&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x662F;&#x88AB; git server &#x4E0A;&#x7684; <code>post-receive</code> hooks &#x8C03;&#x7528;&#x7684;&#x3002;<code>post-receive</code> &#x662F;&#x5728; git server &#x63A5;&#x53D7; push &#x540E;&#x81EA;&#x52A8;&#x89E6;&#x53D1;&#x8C03;&#x7528;&#x7684;&#x3002;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x662F;&#x5B8C;&#x6210;&#x63A8;&#x9001;&#x53D8;&#x66F4;&#xFF0C;&#x81EA;&#x52A8;&#x90E8;&#x7F72;&#x66F4;&#x65B0; book &#x7684;&#x5173;&#x952E;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x5B58;&#x653E;&#x5728; git server &#x4E0A;&#x7684; <code>post-receive</code> hooks&#x3002;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x8DEF;&#x5F84;&#x4E3A;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">ls</span> <span class="token parameter variable">-l</span> /home/git/mybook.git/hooks/post-receive 
+-rwxr-xr-- <span class="token number">1</span> <span class="token function">git</span> <span class="token function">git</span> <span class="token number">103</span> Mar <span class="token number">23</span> <span class="token number">15</span>:59 /home/git/mybook.git/hooks/post-receive
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x7684;&#x5185;&#x5BB9;&#x975E;&#x5E38;&#x7B80;&#x5355;</p>
+<pre class="language-"><code class="lang-bash"><span class="token shebang important">#!/bin/sh</span>
+
+<span class="token builtin class-name">cd</span> /home/git/vswork/mybook
+
+<span class="token builtin class-name">unset</span> GIT_DIR
+
+./scripts/deploy.js
+
+<span class="token builtin class-name">exec</span> git-update-server-info
+</code></pre>
+<p>&#x4E3B;&#x8981;&#x903B;&#x8F91;&#x5C31;&#x662F;&#x8C03;&#x7528;&#x4E86; <code>./scripts/deploy.js</code> &#x90E8;&#x7F72;&#x811A;&#x672C;&#xFF0C;&#x5176;&#x4E2D; <code>/home/git/vswork/mybook</code> &#x662F;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;&#x547D;&#x4EE4;&#x514B;&#x9686;&#x7684;&#xFF0C;&#x4E5F;&#x662F;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5BF9;&#x5E94;&#x7684;&#x535A;&#x5BA2;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token builtin class-name">cd</span> /home/git/vswork
+$ <span class="token function">sudo</span> <span class="token function">git</span> clone /home/git/mybook.git
+$ <span class="token builtin class-name">cd</span> mybook
+$ <span class="token function">npm</span> <span class="token function">install</span>
+</code></pre>
+<p>&#x5B89;&#x88C5;&#x597D;&#x4F9D;&#x8D56;&#x540E;&#xFF0C;&#x4FEE;&#x6539;&#x4E0B;&#x7528;&#x6237;&#x5F52;&#x5C5E;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git mybook
+</code></pre>
+<p>&#x5230;&#x6B64;&#x4E3A;&#x6B62;&#xFF0C;&#x9879;&#x76EE;&#x57FA;&#x672C;&#x5DF2;&#x7ECF;&#x90E8;&#x7F72;&#x914D;&#x7F6E;&#x5B8C;&#x6210;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x662F;&#x6253;&#x5F00; vscode&#xFF0C;&#x7F16;&#x8F91; mygitbook &#x7535;&#x5B50;&#x4E66;&#x3002;&#x7F16;&#x8F91;&#x5B8C;&#x6210;&#x540E; push &#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5B8C;&#x6210;&#x6587;&#x7AE0;&#x81EA;&#x52A8;&#x90E8;&#x7F72;&#x66F4;&#x65B0;&#x3002;&#x4E0B;&#x9762;&#x662F; push &#x4EE3;&#x7801;&#x540E;&#x7684;&#x8F93;&#x51FA;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230; scripts/deploy.js &#x811A;&#x672C;&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x540E;&#x7684;&#x8F93;&#x51FA;&#xFF0C;&#x6709;&#x5728;&#x81EA;&#x52A8;&#x90E8;&#x7F72; mygitbook&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> push
+&#x5BF9;&#x8C61;&#x8BA1;&#x6570;&#x4E2D;: <span class="token number">4</span>, &#x5B8C;&#x6210;.
+Delta compression using up to <span class="token number">8</span> threads.
+&#x538B;&#x7F29;&#x5BF9;&#x8C61;&#x4E2D;: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">4</span>/4<span class="token punctuation">)</span>, &#x5B8C;&#x6210;.
+&#x5199;&#x5165;&#x5BF9;&#x8C61;&#x4E2D;: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">4</span>/4<span class="token punctuation">)</span>, <span class="token number">1.94</span> KiB <span class="token operator">|</span> <span class="token number">1.94</span> MiB/s, &#x5B8C;&#x6210;.
+Total <span class="token number">4</span> <span class="token punctuation">(</span>delta <span class="token number">2</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>
+remote: pwd: /home/git/vswork/mybook
+remote: From /home/git/mybook
+remote:    4fe0a5e<span class="token punctuation">..</span>6e62e3d  master     -<span class="token operator">&gt;</span> origin/master
+remote: Updating 4fe0a5e<span class="token punctuation">..</span>6e62e3d
+remote: Fast-forward
+remote:  mygitbook/README.md <span class="token operator">|</span> <span class="token number">108</span> ++++++++++++++++++++++++++++++++++++++++++++++++++--
+remote:  <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">104</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">4</span> deletions<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+remote: <span class="token operator">&gt;</span> load mybook.json:  <span class="token punctuation">{</span>
+remote:   <span class="token string">&apos;// deployBook&apos;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;[&apos;firstbook&apos;,&apos;secondbook&apos;]&quot;</span>,
+remote:   deployBook: <span class="token punctuation">[</span> <span class="token string">&apos;mygitbook&apos;</span> <span class="token punctuation">]</span>,
+remote:   <span class="token string">&apos;// dropBook&apos;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;[&apos;firstbook|f44b5ae08bb611ebbf5b4f5ee88ae545&apos;,&apos;secondbook|f44b5ae08bb611ebbf5b4f5ee88ae545&apos;]&quot;</span>,
+remote:   dropBook: <span class="token punctuation">[</span><span class="token punctuation">]</span>
+remote: <span class="token punctuation">}</span>
+remote: <span class="token operator">&gt;</span> deploy book: mygitbook
+remote: <span class="token operator">&gt;</span> load book.json: <span class="token punctuation">{</span>
+remote:   id: <span class="token string">&apos;c0a4a7508bc011eb952e418fdf675f27&apos;</span>,
+remote:   name: <span class="token string">&apos;mygitbook&apos;</span>,
+remote:   title: <span class="token string">&apos;&#x4F7F;&#x7528; Git &#x4E0E; Gitbook &#x521B;&#x5EFA;&#x7BA1;&#x7406;&#x7535;&#x5B50;&#x4E66;&apos;</span>,
+remote:   author: <span class="token string">&apos;huoyijie&apos;</span>,
+remote:   description: <span class="token string">&apos;&#x4F7F;&#x7528; Git &#x4E0E; Gitbook &#x521B;&#x5EFA;&#x7BA1;&#x7406;&#x7535;&#x5B50;&#x4E66;&apos;</span>,
+remote:   introduce: <span class="token string">&apos;&#x8FD9;&#x91CC;&#x662F;&#x5185;&#x5BB9;&#x4ECB;&#x7ECD;...&apos;</span>,
+remote:   coverImg: <span class="token string">&apos;https://cdn.huoyijie.cn/ab/c0a4a7508bc011eb952e418fdf675f27/mygitbook-cover.jpg&apos;</span>,
+remote:   language: <span class="token string">&apos;zh-hans&apos;</span>,
+remote:   plugins: <span class="token punctuation">[</span> <span class="token string">&apos;-lunr&apos;</span>, <span class="token string">&apos;-search&apos;</span>, <span class="token string">&apos;-sharing&apos;</span>, <span class="token string">&apos;-fontsettings&apos;</span> <span class="token punctuation">]</span>,
+remote:   links: <span class="token punctuation">{</span> sidebar: <span class="token punctuation">{</span> <span class="token string">&apos;&#x9996;&#x9875;&apos;</span><span class="token builtin class-name">:</span> <span class="token string">&apos;https://huoyijie.cn/?from=article_mygitbook&apos;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+remote: <span class="token punctuation">}</span>
+remote: info: <span class="token number">7</span> plugins are installed 
+remote: info: <span class="token number">2</span> explicitly listed 
+remote: info: loading plugin <span class="token string">&quot;highlight&quot;</span><span class="token punctuation">..</span>. OK 
+remote: info: loading plugin <span class="token string">&quot;theme-default&quot;</span><span class="token punctuation">..</span>. OK 
+remote: info: found <span class="token number">1</span> pages 
+remote: info: found <span class="token number">0</span> asset files 
+remote: info: <span class="token operator">&gt;&gt;</span> generation finished with success <span class="token keyword">in</span> <span class="token number">0</span>.4s <span class="token operator">!</span> 
+remote: <span class="token operator">&gt;</span> deploy succeed with mygitbook
+To huoyijie.cn:/home/git/mybook.git
+   4fe0a5e<span class="token punctuation">..</span>6e62e3d  master -<span class="token operator">&gt;</span> master
+</code></pre>
+<p>OK&#xFF0C;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x4F7F;&#x7528; Git &#x4E0E; Gitbook &#x521B;&#x5EFA;&#x7BA1;&#x7406;&#x7535;&#x5B50;&#x4E66;&#x7684;&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x4ECB;&#x7ECD;&#x5B8C;&#x4E86;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"使用 Git 与 Gitbook 创建管理电子书","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T11:29:33.845Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T11:30:57.964Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+
