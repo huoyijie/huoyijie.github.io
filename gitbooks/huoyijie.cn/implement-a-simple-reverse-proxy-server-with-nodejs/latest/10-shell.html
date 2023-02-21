@@ -1,0 +1,351 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>启停脚本管理 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="11-lastword.html" />
+    
+    
+    <link rel="prev" href="09-cluster.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    反向代理服务器实现原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="01-app.html">
+            
+                <a href="01-app.html">
+            
+                    
+                    启动监听服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="02-config.html">
+            
+                <a href="02-config.html">
+            
+                    
+                    配置文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="03-client.html">
+            
+                <a href="03-client.html">
+            
+                    
+                    远程连接管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="04-stream.html">
+            
+                <a href="04-stream.html">
+            
+                    
+                    HTTP/2.0 请求处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="05-websocket.html">
+            
+                <a href="05-websocket.html">
+            
+                    
+                    Websocket 请求处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="06-request.html">
+            
+                <a href="06-request.html">
+            
+                    
+                    HTTP/1.1 请求处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="07-static.html">
+            
+                <a href="07-static.html">
+            
+                    
+                    实现静态服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="08-log.html">
+            
+                <a href="08-log.html">
+            
+                    
+                    流水日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="09-cluster.html">
+            
+                <a href="09-cluster.html">
+            
+                    
+                    集群管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.11" data-path="10-shell.html">
+            
+                <a href="10-shell.html">
+            
+                    
+                    启停脚本管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="11-lastword.html">
+            
+                <a href="11-lastword.html">
+            
+                    
+                    写在最后
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >启停脚本管理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x542F;&#x505C;&#x811A;&#x672C;&#x7BA1;&#x7406;">&#x542F;&#x505C;&#x811A;&#x672C;&#x7BA1;&#x7406;</h1>
+<ul>
+<li>&#x542F;&#x52A8;&#x670D;&#x52A1;&#x5668;&#x811A;&#x672C; <code>start.sh</code></li>
+</ul>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">node</span> app.js <span class="token operator">&gt;</span> logs/console.log <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> logs/error.log <span class="token operator">&amp;</span>
+</code></pre>
+<ul>
+<li>&#x5173;&#x95ED;&#x670D;&#x52A1;&#x5668;&#x811A;&#x672C; <code>stop.sh</code></li>
+</ul>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">kill</span> <span class="token variable"><span class="token variable">`</span><span class="token function">cat</span> hawkey.pid<span class="token variable">`</span></span>
+</code></pre>
+<p>&#x5176;&#x4E2D; hawkey.pid &#x8BB0;&#x5F55;&#x7684;&#x662F;&#x4E3B;&#x8FDB;&#x7A0B; ID&#xFF0C;&#x4E3B;&#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#x540E;&#x4F1A;&#x628A; process.pid &#x5199;&#x5165;&#x8BE5;&#x6587;&#x4EF6;&#xFF0C;&#x4E3B;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x524D;&#x4F1A;&#x5220;&#x9664;&#x8BE5;&#x6587;&#x4EF6;&#x3002;</p>
+<ul>
+<li>&#x91CD;&#x542F;&#x670D;&#x52A1;&#x5668;&#x811A;&#x672C; <code>restart.sh</code></li>
+</ul>
+<pre class="language-"><code class="lang-bash">./stop.sh <span class="token operator">&amp;&amp;</span> ./start.sh
+</code></pre>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="09-cluster.html" class="navigation navigation-prev " aria-label="Previous page: 集群管理">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="11-lastword.html" class="navigation navigation-next " aria-label="Next page: 写在最后">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"启停脚本管理","level":"1.11","depth":1,"next":{"title":"写在最后","level":"1.12","depth":1,"path":"11-lastword.md","ref":"11-lastword.md","articles":[]},"previous":{"title":"集群管理","level":"1.10","depth":1,"path":"09-cluster.md","ref":"09-cluster.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"10-shell.md","mtime":"2023-02-21T11:13:39.922Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T11:18:33.402Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+
