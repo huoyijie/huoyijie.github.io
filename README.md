@@ -1,5 +1,17 @@
 # My daily keynotes
 
-我在平时的开发过程中，总会遇到一些没见过的问题，就需要 Google 检索技术资料，然后逐渐理解和解决问题。把问题解决的过程和思路记录下来，后面再查阅时会很方便，而且对后来的学习者也是有帮助的。我也会尝试记录一些实践过的编程技巧，不定期记录更新。
+网站通过 [keynote](https://github.com/huoyijie/keynote) 生成。更多内容请关注 [我的网站](https://huoyijie.cn)。
 
-更多内容请关注 [我的网站](https://huoyijie.cn)。
+## 添加 gitbook
+
+```bash
+npm init -y
+
+npm i gitbook-plugin-prism gitbook-plugin-code --save
+```
+
+## 生成静态网站
+
+```bash
+keynote -gen
+```
