@@ -1,0 +1,929 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>9.5 代理服务端 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="9.6-pkg.html" />
+    
+    
+    <link rel="prev" href="9.4-client.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../chapter-01/">
+            
+                <a href="../chapter-01/">
+            
+                    
+                    第一章 UDPack 协议
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../chapter-01/1.1-basic-concept.html">
+            
+                <a href="../chapter-01/1.1-basic-concept.html">
+            
+                    
+                    1.1 基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../chapter-01/1.2-binary-protocal.html">
+            
+                <a href="../chapter-01/1.2-binary-protocal.html">
+            
+                    
+                    1.2 二进制帧格式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../chapter-01/1.3-udpack-interface.html">
+            
+                <a href="../chapter-01/1.3-udpack-interface.html">
+            
+                    
+                    1.3 UDPack Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter-02/">
+            
+                <a href="../chapter-02/">
+            
+                    
+                    第二章 会话(Session)管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../chapter-02/2.1-session-id.html">
+            
+                <a href="../chapter-02/2.1-session-id.html">
+            
+                    
+                    2.1 会话 ID
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../chapter-02/2.2-session-state.html">
+            
+                <a href="../chapter-02/2.2-session-state.html">
+            
+                    
+                    2.2 会话状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../chapter-02/2.3-handshake.html">
+            
+                <a href="../chapter-02/2.3-handshake.html">
+            
+                    
+                    2.3 连接握手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../chapter-02/2.4-goaway.html">
+            
+                <a href="../chapter-02/2.4-goaway.html">
+            
+                    
+                    2.4 关闭会话
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../chapter-02/2.5-keepalive.html">
+            
+                <a href="../chapter-02/2.5-keepalive.html">
+            
+                    
+                    2.5 会话保持与过期清理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../chapter-02/2.6-session-reconnect.html">
+            
+                <a href="../chapter-02/2.6-session-reconnect.html">
+            
+                    
+                    2.6 断线重连
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../chapter-02/2.7-session-interface.html">
+            
+                <a href="../chapter-02/2.7-session-interface.html">
+            
+                    
+                    2.7 Session Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter-03/">
+            
+                <a href="../chapter-03/">
+            
+                    
+                    第三章 双向流(Stream)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-03/3.1-stream-state.html">
+            
+                <a href="../chapter-03/3.1-stream-state.html">
+            
+                    
+                    3.1 流状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-03/3.2-openstream.html">
+            
+                <a href="../chapter-03/3.2-openstream.html">
+            
+                    
+                    3.2 打开流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../chapter-03/3.3-closestream.html">
+            
+                <a href="../chapter-03/3.3-closestream.html">
+            
+                    
+                    3.3 关闭流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../chapter-03/3.4-stream-interface.html">
+            
+                <a href="../chapter-03/3.4-stream-interface.html">
+            
+                    
+                    3.4 Stream Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../chapter-04/">
+            
+                <a href="../chapter-04/">
+            
+                    
+                    第四章 数据包(Packet)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../chapter-04/4.1-packet-state.html">
+            
+                <a href="../chapter-04/4.1-packet-state.html">
+            
+                    
+                    4.1 数据包(Packet)状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../chapter-04/4.2-send-packet.html">
+            
+                <a href="../chapter-04/4.2-send-packet.html">
+            
+                    
+                    4.2 发送数据包(Packet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../chapter-04/4.3-recv-packet.html">
+            
+                <a href="../chapter-04/4.3-recv-packet.html">
+            
+                    
+                    4.3 接收数据包(Packet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../chapter-04/4.4-check-send-packs.html">
+            
+                <a href="../chapter-04/4.4-check-send-packs.html">
+            
+                    
+                    4.4 周期检查发送缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../chapter-04/4.5-check-recv-packs.html">
+            
+                <a href="../chapter-04/4.5-check-recv-packs.html">
+            
+                    
+                    4.5 周期检查接收缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../chapter-05/">
+            
+                <a href="../chapter-05/">
+            
+                    
+                    第五章 包分片(Fragment)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../chapter-05/5.1-fragment-state.html">
+            
+                <a href="../chapter-05/5.1-fragment-state.html">
+            
+                    
+                    5.1 分片(Fragment)状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../chapter-05/5.2-send-fragment.html">
+            
+                <a href="../chapter-05/5.2-send-fragment.html">
+            
+                    
+                    5.2 发送分片(Fragment)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../chapter-05/5.3-recv-fragment.html">
+            
+                <a href="../chapter-05/5.3-recv-fragment.html">
+            
+                    
+                    5.3 接收分片(Fragment)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../chapter-05/5.4-check-send-frags.html">
+            
+                <a href="../chapter-05/5.4-check-send-frags.html">
+            
+                    
+                    5.4 周期检查分片(Fragment)发送缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../chapter-05/5.5-check-recv-frags.html">
+            
+                <a href="../chapter-05/5.5-check-recv-frags.html">
+            
+                    
+                    5.5 周期检查分片(Fragment)接收缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../chapter-06/">
+            
+                <a href="../chapter-06/">
+            
+                    
+                    第六章 心跳检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../chapter-07/">
+            
+                <a href="../chapter-07/">
+            
+                    
+                    第七章 拥塞控制与流控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../chapter-08/">
+            
+                <a href="../chapter-08/">
+            
+                    
+                    第八章 协议 Node.js 实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    第九章 UDPack 应用之代理服务器
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="9.1-socks5.html">
+            
+                <a href="9.1-socks5.html">
+            
+                    
+                    9.1 SOCKS 5 代理协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="9.2-udpack.html">
+            
+                <a href="9.2-udpack.html">
+            
+                    
+                    9.2 创建 UDPack 对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="9.3-custom-protocol.html">
+            
+                <a href="9.3-custom-protocol.html">
+            
+                    
+                    9.3 自定义代理协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="9.4-client.html">
+            
+                <a href="9.4-client.html">
+            
+                    
+                    9.4 代理客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10.5" data-path="9.5-server.html">
+            
+                <a href="9.5-server.html">
+            
+                    
+                    9.5 代理服务端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="9.6-pkg.html">
+            
+                <a href="9.6-pkg.html">
+            
+                    
+                    9.6 应用程序打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../chapter-10/">
+            
+                <a href="../chapter-10/">
+            
+                    
+                    第十章 UDPack 应用之实时双向通信框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../chapter-11/">
+            
+                <a href="../chapter-11/">
+            
+                    
+                    附录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >9.5 代理服务端</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="95-&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x7AEF;">9.5 &#x4EE3;&#x7406;&#x670D;&#x52A1;&#x7AEF;</h1>
+<p>UDPack Server &#x7AEF;&#x521B;&#x5EFA; UDPack &#x5B9E;&#x4F8B;&#x5BF9;&#x8C61; udpack &#x540E;&#xFF0C;&#x53EF;&#x901A;&#x8FC7;&#x5728; udpack &#x4E0A;&#x76D1;&#x542C; stream &#x4E8B;&#x4EF6;&#x83B7;&#x5F97;&#x65B0;&#x6253;&#x5F00;&#x7684; Stream &#x5B9E;&#x4F8B;&#x5BF9;&#x8C61; stream&#x3002;</p>
+<pre class="language-"><code class="lang-javascript">updack<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;stream&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">stream</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x7136;&#x540E;&#x53EF;&#x901A;&#x8FC7;&#x5728; stream &#x5BF9;&#x8C61;&#x4E0A;&#x76D1;&#x542C; data &#x4E8B;&#x4EF6;&#x83B7;&#x5F97;&#x4ECE; UDPack Client &#x53D1;&#x8FC7;&#x6765;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<pre class="language-"><code class="lang-javascript">stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x7136;&#x540E;&#x901A;&#x8FC7; protobuf &#x89E3;&#x7801;&#x6570;&#x636E;&#x83B7;&#x5F97; Packet &#x5BF9;&#x8C61;&#xFF0C;&#x6839;&#x636E; cmd &#x547D;&#x4EE4;&#x5B57;&#x8FDB;&#x884C;&#x4E0D;&#x540C;&#x7684;&#x903B;&#x8F91;&#x5904;&#x7406;&#x3002;&#x5982; <code>if (packet.cmd === &apos;connect&apos;)</code> &#x4F1A;&#x6839;&#x636E; <code>packet.authority</code> &#x53C2;&#x6570;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x5230; authority(&#x5982;: www.google.com) &#x7684;&#x8FDE;&#x63A5;&#x901A;&#x9053;&#x3002;&#x540E;&#x7EED; <code>if (packet.cmd === &apos;data&apos;)</code> &#x5219;&#x4F1A;&#x628A; UDPack Client &#x53D1;&#x8FC7;&#x6765;&#x7684;&#x6570;&#x636E;&#x901A;&#x8FC7;&#x521A;&#x521A;&#x6253;&#x5F00;&#x7684;&#x8FDE;&#x63A5;&#x901A;&#x9053;&#x8F6C;&#x53D1;&#x7ED9; authority(&#x5982;: www.google.com)&#x3002;</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> dstSocket <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">port</span><span class="token operator">:</span> packet<span class="token punctuation">.</span>authority<span class="token punctuation">.</span>port<span class="token punctuation">,</span>
+  <span class="token literal-property property">host</span><span class="token operator">:</span> ip
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x4E0A;&#x65B9;&#x4E3A;&#x6253;&#x5F00;&#x5230; authority &#x7684;&#x8FDE;&#x63A5;&#x901A;&#x9053;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x4ECE; authority(&#x5982;: www.google.com) &#x53D1;&#x56DE;&#x6765;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7; stream &#x8F6C;&#x53D1;&#x7ED9; UDPack Client&#x3002;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#x6240;&#x793A;:</p>
+<pre class="language-"><code class="lang-javascript">dstSocket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> <span class="token parameter">resdata</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  stream<span class="token punctuation">.</span>_$writeStream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>resdata<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;_cache.write&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      stream<span class="token punctuation">.</span>_$bytesWritten <span class="token operator">+=</span> resdata<span class="token punctuation">.</span>length
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x6D4F;&#x89C8;&#x7F51;&#x9875;&#x65F6;&#xFF0C;&#x901A;&#x5E38;&#x4E0A;&#x884C;&#x6570;&#x636E;&#x8FDC;&#x5C0F;&#x4E8E;&#x4E0B;&#x884C;&#x6570;&#x636E;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4E0B;&#x8F7D;&#x6587;&#x4EF6;&#x65F6;&#x4F1A;&#x6709;&#x6E90;&#x6E90;&#x4E0D;&#x65AD;&#x7684;&#x6570;&#x636E;&#x4ECE;&#x8D44;&#x6E90;&#x7F51;&#x7AD9;&#x8FD4;&#x56DE;&#x5230; UDPack Server&#xFF0C;&#x518D;&#x4ECE; UDPack Server &#x8F6C;&#x53D1;&#x7ED9; UDPack Client&#xFF0C;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x7ED9; Browser&#x3002;&#x5982;&#x679C;&#x4F01;&#x4E1A;&#x5185;&#x90E8;&#x5458;&#x5DE5;&#x8F83;&#x591A;&#xFF0C;&#x5927;&#x5BB6;&#x90FD;&#x901A;&#x8FC7;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7F51;&#xFF0C;&#x5982;&#x679C;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x7F13;&#x5B58;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6EA2;&#x51FA;&#x3002;&#x56E0;&#x6B64;&#x6700;&#x597D;&#x91C7;&#x7528;&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x7F13;&#x51B2;&#xFF0C;UDPack Server &#x4ECE;&#x8D44;&#x6E90;&#x7F51;&#x7AD9;&#x63A5;&#x6536;&#x7684;&#x6570;&#x636E;&#x5148;&#x5199;&#x5165;&#x4E34;&#x65F6;&#x7F13;&#x5B58;&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x4ECE;&#x7F13;&#x5B58;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x901A;&#x8FC7; stream &#x8F6C;&#x53D1;&#x7ED9; UDPack Client&#x3002;&#x901A;&#x8FC7;&#x6587;&#x4EF6;&#x7F13;&#x51B2;&#x533A;&#xFF0C;&#x53EF;&#x4EE5;&#x907F;&#x514D; UDPack Server &#x7AEF;&#x5185;&#x5B58;&#x7684;&#x5927;&#x91CF;&#x5360;&#x7528;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x7ED9;&#x51FA;&#x8F83;&#x5B8C;&#x6574;&#x7684;&#x4EE3;&#x7801;:</p>
+<pre class="language-"><code class="lang-javascript">udpack<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;stream&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">stream</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  stream<span class="token punctuation">.</span>_$interval <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  stream<span class="token punctuation">.</span>_$sendMaxSpeedKBps <span class="token operator">=</span> <span class="token number">25</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">,</span>
+  stream<span class="token punctuation">.</span>_$bytesRead <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  stream<span class="token punctuation">.</span>_$bytesWritten <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  stream<span class="token punctuation">.</span>_$sendBuffersInterval <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stream<span class="token punctuation">.</span>_$readStream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> maxBytes <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span><span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$sendMaxSpeedKBps <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">)</span> <span class="token operator">*</span> stream<span class="token punctuation">.</span>_$interval<span class="token punctuation">)</span>
+      <span class="token keyword">let</span> start <span class="token operator">=</span> stream<span class="token punctuation">.</span>_$bytesRead<span class="token punctuation">,</span>
+        end <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$bytesRead <span class="token operator">+</span> <span class="token punctuation">(</span>maxBytes <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stream<span class="token punctuation">.</span>_$bytesWritten <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        emitClose <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        highWaterMark <span class="token operator">=</span> <span class="token number">256</span> <span class="token operator">*</span> <span class="token number">1024</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;=</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        stream<span class="token punctuation">.</span>_$readStream <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span>
+          stream<span class="token punctuation">.</span>_$filename<span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> start<span class="token punctuation">,</span> end<span class="token punctuation">,</span> emitClose<span class="token punctuation">,</span> highWaterMark <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span>
+        stream<span class="token punctuation">.</span>_$readStream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">chunk</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          stream<span class="token punctuation">.</span>_$bytesRead <span class="token operator">+=</span> chunk<span class="token punctuation">.</span>length
+
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>stream<span class="token punctuation">.</span><span class="token function">isReady</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> sPacket <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token literal-property property">sid</span><span class="token operator">:</span> stream<span class="token punctuation">.</span>sid<span class="token punctuation">,</span>
+              <span class="token literal-property property">cmd</span><span class="token operator">:</span> <span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span>
+              <span class="token literal-property property">buf</span><span class="token operator">:</span> chunk
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">let</span> buffer <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sPacket<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">finish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            stream<span class="token punctuation">.</span>_$readStream<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">let</span> <span class="token function-variable function">cb</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                stream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> cb<span class="token punctuation">)</span>
+              <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$readStream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  stream<span class="token punctuation">.</span>_$readStream<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            stream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> cb<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;close&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">delete</span> stream<span class="token punctuation">.</span>_$readStream
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> stream<span class="token punctuation">.</span>_$interval<span class="token punctuation">)</span>
+
+  stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">buffer</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> packet <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span>
+    stream<span class="token punctuation">.</span>sid <span class="token operator">=</span> packet<span class="token punctuation">.</span>sid
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>packet<span class="token punctuation">.</span>cmd <span class="token operator">===</span> <span class="token string">&apos;connect&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> dstHost <span class="token operator">=</span> packet<span class="token punctuation">.</span>authority<span class="token punctuation">.</span>domain <span class="token operator">||</span> packet<span class="token punctuation">.</span>authority<span class="token punctuation">.</span>ip
+      dns<span class="token punctuation">.</span><span class="token function">lookup</span><span class="token punctuation">(</span>dstHost<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">family</span><span class="token operator">:</span> <span class="token number">4</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> ip</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err <span class="token operator">||</span> <span class="token operator">!</span>ip<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;dnslookup&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">,</span> ip<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> dstSocket <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            <span class="token literal-property property">port</span><span class="token operator">:</span> packet<span class="token punctuation">.</span>authority<span class="token punctuation">.</span>port<span class="token punctuation">,</span>
+            <span class="token literal-property property">host</span><span class="token operator">:</span> ip
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+          stream<span class="token punctuation">.</span>dstSocket <span class="token operator">=</span> dstSocket
+
+          dstSocket
+          <span class="token punctuation">.</span><span class="token function">setNoDelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;connect&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> connectRes <span class="token operator">=</span> ConnectRes<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token literal-property property">succeeded</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+              <span class="token literal-property property">localAddress</span><span class="token operator">:</span> dstSocket<span class="token punctuation">.</span>localAddress<span class="token punctuation">,</span>
+              <span class="token literal-property property">localPort</span><span class="token operator">:</span> dstSocket<span class="token punctuation">.</span>localPort
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">let</span> sPacket <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token literal-property property">sid</span><span class="token operator">:</span> packet<span class="token punctuation">.</span>sid<span class="token punctuation">,</span>
+              <span class="token literal-property property">cmd</span><span class="token operator">:</span> <span class="token string">&apos;connect&apos;</span><span class="token punctuation">,</span>
+              connectRes
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">let</span> buffer <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sPacket<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">finish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+            stream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">,</span> err<span class="token punctuation">.</span>stack<span class="token punctuation">)</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            stream<span class="token punctuation">.</span>_$filename <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>_cacheDir<span class="token punctuation">,</span> stream<span class="token punctuation">.</span>sid<span class="token punctuation">)</span>
+            stream<span class="token punctuation">.</span>_$writeStream <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createWriteStream</span><span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$filename<span class="token punctuation">)</span>
+            stream<span class="token punctuation">.</span>_$writeStream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;_cache.write.on.error&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> <span class="token parameter">resdata</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            stream<span class="token punctuation">.</span>_$writeStream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>resdata<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;_cache.write&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+              <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                stream<span class="token punctuation">.</span>_$bytesWritten <span class="token operator">+=</span> resdata<span class="token punctuation">.</span>length
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;end&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            stream<span class="token punctuation">.</span>_$writeStream<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;close&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> sPacket <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token literal-property property">sid</span><span class="token operator">:</span> packet<span class="token punctuation">.</span>sid<span class="token punctuation">,</span>
+              <span class="token literal-property property">cmd</span><span class="token operator">:</span> <span class="token string">&apos;terminate&apos;</span><span class="token punctuation">,</span>
+              <span class="token literal-property property">reason</span><span class="token operator">:</span> <span class="token string">&apos;dstSocket closed&apos;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token keyword">let</span> buffer <span class="token operator">=</span> Packet<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sPacket<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">finish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            stream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">,</span> err<span class="token punctuation">.</span>stack<span class="token punctuation">)</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>packet<span class="token punctuation">.</span>cmd <span class="token operator">===</span> <span class="token string">&apos;data&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> reqdata <span class="token operator">=</span> packet<span class="token punctuation">.</span>buf
+      <span class="token keyword">let</span> dstSocket <span class="token operator">=</span> stream<span class="token punctuation">.</span>dstSocket
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">!</span>dstSocket <span class="token operator">&amp;&amp;</span> dstSocket<span class="token punctuation">.</span>writable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        dstSocket<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>reqdata<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>packet<span class="token punctuation">.</span>cmd <span class="token operator">===</span> <span class="token string">&apos;terminate&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      stream<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;close&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token function">clearInterval</span><span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$sendBuffersInterval<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>stream<span class="token punctuation">.</span>dstSocket<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stream<span class="token punctuation">.</span>dstSocket<span class="token punctuation">.</span>destroyed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        stream<span class="token punctuation">.</span>dstSocket<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$filename<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      fs<span class="token punctuation">.</span><span class="token function">rm</span><span class="token punctuation">(</span>stream<span class="token punctuation">.</span>_$filename<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">force</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">_cache.delete </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>stream<span class="token punctuation">.</span>_$filename<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> error</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          logger<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">_cache.delete </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>stream<span class="token punctuation">.</span>_$filename<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="9.4-client.html" class="navigation navigation-prev " aria-label="Previous page: 9.4 代理客户端">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="9.6-pkg.html" class="navigation navigation-next " aria-label="Next page: 9.6 应用程序打包">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"9.5 代理服务端","level":"1.10.5","depth":2,"next":{"title":"9.6 应用程序打包","level":"1.10.6","depth":2,"path":"chapter-09/9.6-pkg.md","ref":"chapter-09/9.6-pkg.md","articles":[]},"previous":{"title":"9.4 代理客户端","level":"1.10.4","depth":2,"path":"chapter-09/9.4-client.md","ref":"chapter-09/9.4-client.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"chapter-09/9.5-server.md","mtime":"2023-02-21T13:19:32.407Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T13:58:08.753Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

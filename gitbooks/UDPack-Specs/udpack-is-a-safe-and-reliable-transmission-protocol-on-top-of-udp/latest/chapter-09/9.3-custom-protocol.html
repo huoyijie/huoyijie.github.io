@@ -1,0 +1,832 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>9.3 自定义代理协议 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="9.4-client.html" />
+    
+    
+    <link rel="prev" href="9.2-udpack.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../chapter-01/">
+            
+                <a href="../chapter-01/">
+            
+                    
+                    第一章 UDPack 协议
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../chapter-01/1.1-basic-concept.html">
+            
+                <a href="../chapter-01/1.1-basic-concept.html">
+            
+                    
+                    1.1 基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../chapter-01/1.2-binary-protocal.html">
+            
+                <a href="../chapter-01/1.2-binary-protocal.html">
+            
+                    
+                    1.2 二进制帧格式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../chapter-01/1.3-udpack-interface.html">
+            
+                <a href="../chapter-01/1.3-udpack-interface.html">
+            
+                    
+                    1.3 UDPack Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter-02/">
+            
+                <a href="../chapter-02/">
+            
+                    
+                    第二章 会话(Session)管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../chapter-02/2.1-session-id.html">
+            
+                <a href="../chapter-02/2.1-session-id.html">
+            
+                    
+                    2.1 会话 ID
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../chapter-02/2.2-session-state.html">
+            
+                <a href="../chapter-02/2.2-session-state.html">
+            
+                    
+                    2.2 会话状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../chapter-02/2.3-handshake.html">
+            
+                <a href="../chapter-02/2.3-handshake.html">
+            
+                    
+                    2.3 连接握手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../chapter-02/2.4-goaway.html">
+            
+                <a href="../chapter-02/2.4-goaway.html">
+            
+                    
+                    2.4 关闭会话
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../chapter-02/2.5-keepalive.html">
+            
+                <a href="../chapter-02/2.5-keepalive.html">
+            
+                    
+                    2.5 会话保持与过期清理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../chapter-02/2.6-session-reconnect.html">
+            
+                <a href="../chapter-02/2.6-session-reconnect.html">
+            
+                    
+                    2.6 断线重连
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../chapter-02/2.7-session-interface.html">
+            
+                <a href="../chapter-02/2.7-session-interface.html">
+            
+                    
+                    2.7 Session Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter-03/">
+            
+                <a href="../chapter-03/">
+            
+                    
+                    第三章 双向流(Stream)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-03/3.1-stream-state.html">
+            
+                <a href="../chapter-03/3.1-stream-state.html">
+            
+                    
+                    3.1 流状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-03/3.2-openstream.html">
+            
+                <a href="../chapter-03/3.2-openstream.html">
+            
+                    
+                    3.2 打开流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../chapter-03/3.3-closestream.html">
+            
+                <a href="../chapter-03/3.3-closestream.html">
+            
+                    
+                    3.3 关闭流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../chapter-03/3.4-stream-interface.html">
+            
+                <a href="../chapter-03/3.4-stream-interface.html">
+            
+                    
+                    3.4 Stream Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../chapter-04/">
+            
+                <a href="../chapter-04/">
+            
+                    
+                    第四章 数据包(Packet)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../chapter-04/4.1-packet-state.html">
+            
+                <a href="../chapter-04/4.1-packet-state.html">
+            
+                    
+                    4.1 数据包(Packet)状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../chapter-04/4.2-send-packet.html">
+            
+                <a href="../chapter-04/4.2-send-packet.html">
+            
+                    
+                    4.2 发送数据包(Packet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../chapter-04/4.3-recv-packet.html">
+            
+                <a href="../chapter-04/4.3-recv-packet.html">
+            
+                    
+                    4.3 接收数据包(Packet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../chapter-04/4.4-check-send-packs.html">
+            
+                <a href="../chapter-04/4.4-check-send-packs.html">
+            
+                    
+                    4.4 周期检查发送缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../chapter-04/4.5-check-recv-packs.html">
+            
+                <a href="../chapter-04/4.5-check-recv-packs.html">
+            
+                    
+                    4.5 周期检查接收缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../chapter-05/">
+            
+                <a href="../chapter-05/">
+            
+                    
+                    第五章 包分片(Fragment)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../chapter-05/5.1-fragment-state.html">
+            
+                <a href="../chapter-05/5.1-fragment-state.html">
+            
+                    
+                    5.1 分片(Fragment)状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../chapter-05/5.2-send-fragment.html">
+            
+                <a href="../chapter-05/5.2-send-fragment.html">
+            
+                    
+                    5.2 发送分片(Fragment)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../chapter-05/5.3-recv-fragment.html">
+            
+                <a href="../chapter-05/5.3-recv-fragment.html">
+            
+                    
+                    5.3 接收分片(Fragment)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../chapter-05/5.4-check-send-frags.html">
+            
+                <a href="../chapter-05/5.4-check-send-frags.html">
+            
+                    
+                    5.4 周期检查分片(Fragment)发送缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../chapter-05/5.5-check-recv-frags.html">
+            
+                <a href="../chapter-05/5.5-check-recv-frags.html">
+            
+                    
+                    5.5 周期检查分片(Fragment)接收缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../chapter-06/">
+            
+                <a href="../chapter-06/">
+            
+                    
+                    第六章 心跳检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../chapter-07/">
+            
+                <a href="../chapter-07/">
+            
+                    
+                    第七章 拥塞控制与流控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../chapter-08/">
+            
+                <a href="../chapter-08/">
+            
+                    
+                    第八章 协议 Node.js 实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    第九章 UDPack 应用之代理服务器
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="9.1-socks5.html">
+            
+                <a href="9.1-socks5.html">
+            
+                    
+                    9.1 SOCKS 5 代理协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="9.2-udpack.html">
+            
+                <a href="9.2-udpack.html">
+            
+                    
+                    9.2 创建 UDPack 对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10.3" data-path="9.3-custom-protocol.html">
+            
+                <a href="9.3-custom-protocol.html">
+            
+                    
+                    9.3 自定义代理协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="9.4-client.html">
+            
+                <a href="9.4-client.html">
+            
+                    
+                    9.4 代理客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="9.5-server.html">
+            
+                <a href="9.5-server.html">
+            
+                    
+                    9.5 代理服务端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="9.6-pkg.html">
+            
+                <a href="9.6-pkg.html">
+            
+                    
+                    9.6 应用程序打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../chapter-10/">
+            
+                <a href="../chapter-10/">
+            
+                    
+                    第十章 UDPack 应用之实时双向通信框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../chapter-11/">
+            
+                <a href="../chapter-11/">
+            
+                    
+                    附录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >9.3 自定义代理协议</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="93-&#x81EA;&#x5B9A;&#x4E49;&#x4EE3;&#x7406;&#x534F;&#x8BAE;">9.3 &#x81EA;&#x5B9A;&#x4E49;&#x4EE3;&#x7406;&#x534F;&#x8BAE;</h1>
+<p>UDPack Client &#x4E0E; UDPack Server &#x4E4B;&#x95F4;&#x901A;&#x8FC7; UDPack &#x534F;&#x8BAE;&#x901A;&#x4FE1;&#x5E76;&#x76F8;&#x4E92;&#x8F6C;&#x53D1;&#x6D41;&#x91CF;&#x3002;&#x5728; UDPack &#x534F;&#x8BAE;&#x4E4B;&#x4E0A;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4EE3;&#x7406;&#x534F;&#x8BAE;&#x3002;&#x8BE5;&#x4EE3;&#x7406;&#x534F;&#x8BAE;&#x540C;&#x6837;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x534F;&#x8BAE;&#xFF0C;&#x5E76;&#x57FA;&#x4E8E; protobuf &#x5B9A;&#x4E49;&#x3002;</p>
+<h2 id="&#x81EA;&#x5B9A;&#x4E49;&#x4EE3;&#x7406;&#x534F;&#x8BAE;">&#x81EA;&#x5B9A;&#x4E49;&#x4EE3;&#x7406;&#x534F;&#x8BAE;</h2>
+<pre class="language-"><code class="lang-protobuf"><span class="token comment">// proto/packet.proto</span>
+<span class="token keyword">syntax</span> <span class="token operator">=</span> <span class="token string">&quot;proto3&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Packet</span>
+<span class="token punctuation">{</span>
+
+  <span class="token builtin">string</span> sid <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">string</span> cmd <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token positional-class-name class-name">Authority</span> authority <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  <span class="token positional-class-name class-name">ConnectRes</span> connectRes <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+  <span class="token builtin">bytes</span> buf <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token builtin">string</span> reason <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Authority</span> <span class="token punctuation">{</span>
+
+    <span class="token builtin">string</span> domain <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> ip <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token builtin">uint32</span> port <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">ConnectRes</span> <span class="token punctuation">{</span>
+
+    <span class="token builtin">bool</span> succeeded <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> local_address <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token builtin">uint32</span> local_port <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>sid: &#x552F;&#x4E00;&#x6807;&#x8BC6; Browser &#x4E0E; UDPack Client &#x4E4B;&#x95F4;&#x7684;&#x4E00;&#x4E2A; TCP &#x8FDE;&#x63A5;</li>
+<li>cmd: &#x547D;&#x4EE4;&#x5B57;<ul>
+<li>connect: &#x8868;&#x793A; UDPack Client &#x8BF7;&#x6C42; UDPack Server &#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x5230;&#x67D0;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7684;&#x8FDE;&#x63A5;&#x901A;&#x9053;&#xFF0C;&#x6216;&#x8005; UDPack Server &#x6253;&#x5F00;&#x901A;&#x9053;&#x540E;&#x7684;&#x54CD;&#x5E94;<ul>
+<li>authority: UDPack Client &#x8BF7;&#x6C42;&#x6253;&#x5F00;&#x8FDE;&#x63A5;&#x7684;&#x7F51;&#x7AD9;&#x57DF;<ul>
+<li>domain: &#x57DF;&#x540D;</li>
+<li>ip: ip &#x5730;&#x5740;</li>
+<li>port: &#x7AEF;&#x53E3;</li>
+</ul>
+</li>
+<li>connectRes: UDPack Server &#x6253;&#x5F00;&#x901A;&#x9053;&#x540E;&#x7684;&#x54CD;&#x5E94;<ul>
+<li>succeeded: &#x662F;&#x5426;&#x6210;&#x529F;</li>
+<li>local_address: UDPack Server &#x6253;&#x5F00;&#x8FDE;&#x63A5;&#x901A;&#x9053;&#x65F6;&#x7684; ip &#x5730;&#x5740;</li>
+<li>local_port: UDPack Server &#x6253;&#x5F00;&#x8FDE;&#x63A5;&#x901A;&#x9053;&#x65F6;&#x7684;&#x7AEF;&#x53E3;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>data: UDPack Client &#x4E0E; UDPack Server &#x4E4B;&#x95F4;&#x4E92;&#x76F8;&#x8F6C;&#x53D1;&#x6570;&#x636E;<ul>
+<li>buf: &#x8F6C;&#x53D1;&#x5B57;&#x8282;&#x6570;&#x7EC4;</li>
+</ul>
+</li>
+<li>terminate: &#x901A;&#x77E5;&#x53E6;&#x4E00;&#x7AEF;&#xFF0C;&#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5DF2;&#x7ED3;&#x675F;<ul>
+<li>reason: &#x7ED3;&#x675F;&#x539F;&#x56E0;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x751F;&#x6210;&#x7F16;&#x89E3;&#x7801;&#x4EE3;&#x7801;">&#x751F;&#x6210;&#x7F16;&#x89E3;&#x7801;&#x4EE3;&#x7801;</h2>
+<ul>
+<li>&#x5B89;&#x88C5; protobufjs</li>
+</ul>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> i protobufjs <span class="token parameter variable">--save</span>
+</code></pre>
+<ul>
+<li>&#x4EE3;&#x7801;&#x751F;&#x6210;</li>
+</ul>
+<pre class="language-"><code class="lang-bash">$ node_modules/protobufjs/bin/pbjs <span class="token parameter variable">-t</span> static-module proto/packet.proto <span class="token parameter variable">-o</span> proto/packet.js
+</code></pre>
+<p>&#x9879;&#x76EE;&#x4E2D;&#x5F15;&#x5165; proto/packet.js &#x6A21;&#x5757;&#xFF0C;&#x53EF;&#x4EE5;&#x628A;&#x4E0A;&#x65B9;&#x5B9A;&#x4E49; Packet &#x5BF9;&#x8C61;&#x5E8F;&#x5217;&#x5316;&#x4E3A;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x628A;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x4E3A; Packet &#x5BF9;&#x8C61;&#x3002;UDPack &#x534F;&#x8BAE;&#x53EF;&#x4EE5;&#x53D1;&#x9001;&#x4EFB;&#x610F;&#x957F;&#x5EA6;&#x7684;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#xFF0C;&#x56E0;&#x6B64;&#x548C; protobuf &#x7ED3;&#x5408;&#x4F7F;&#x7528;&#x662F;&#x5F88;&#x65B9;&#x4FBF;&#x7684;&#xFF0C;&#x901A;&#x8FC7; <code>proto/packet.js</code> &#x5E8F;&#x5217;&#x5316; Packet &#x4E3A;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x7136;&#x540E;&#x628A;&#x6570;&#x636E;&#x53D1;&#x9001;&#x51FA;&#x53BB;&#x3002;&#x6536;&#x5230;&#x7684;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>proto/packet.js</code> &#x53CD;&#x5E8F;&#x5217;&#x5316;&#x4E3A; Packet &#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x76F8;&#x5173;&#x5904;&#x7406;&#x903B;&#x8F91;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="9.2-udpack.html" class="navigation navigation-prev " aria-label="Previous page: 9.2 创建 UDPack 对象">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="9.4-client.html" class="navigation navigation-next " aria-label="Next page: 9.4 代理客户端">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"9.3 自定义代理协议","level":"1.10.3","depth":2,"next":{"title":"9.4 代理客户端","level":"1.10.4","depth":2,"path":"chapter-09/9.4-client.md","ref":"chapter-09/9.4-client.md","articles":[]},"previous":{"title":"9.2 创建 UDPack 对象","level":"1.10.2","depth":2,"path":"chapter-09/9.2-udpack.md","ref":"chapter-09/9.2-udpack.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"chapter-09/9.3-custom-protocol.md","mtime":"2023-02-21T13:19:32.367Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T13:58:08.753Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,776 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>第七章 拥塞控制与流控制 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../chapter-08/" />
+    
+    
+    <link rel="prev" href="../chapter-06/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../chapter-01/">
+            
+                <a href="../chapter-01/">
+            
+                    
+                    第一章 UDPack 协议
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../chapter-01/1.1-basic-concept.html">
+            
+                <a href="../chapter-01/1.1-basic-concept.html">
+            
+                    
+                    1.1 基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../chapter-01/1.2-binary-protocal.html">
+            
+                <a href="../chapter-01/1.2-binary-protocal.html">
+            
+                    
+                    1.2 二进制帧格式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../chapter-01/1.3-udpack-interface.html">
+            
+                <a href="../chapter-01/1.3-udpack-interface.html">
+            
+                    
+                    1.3 UDPack Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter-02/">
+            
+                <a href="../chapter-02/">
+            
+                    
+                    第二章 会话(Session)管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../chapter-02/2.1-session-id.html">
+            
+                <a href="../chapter-02/2.1-session-id.html">
+            
+                    
+                    2.1 会话 ID
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../chapter-02/2.2-session-state.html">
+            
+                <a href="../chapter-02/2.2-session-state.html">
+            
+                    
+                    2.2 会话状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../chapter-02/2.3-handshake.html">
+            
+                <a href="../chapter-02/2.3-handshake.html">
+            
+                    
+                    2.3 连接握手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../chapter-02/2.4-goaway.html">
+            
+                <a href="../chapter-02/2.4-goaway.html">
+            
+                    
+                    2.4 关闭会话
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../chapter-02/2.5-keepalive.html">
+            
+                <a href="../chapter-02/2.5-keepalive.html">
+            
+                    
+                    2.5 会话保持与过期清理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../chapter-02/2.6-session-reconnect.html">
+            
+                <a href="../chapter-02/2.6-session-reconnect.html">
+            
+                    
+                    2.6 断线重连
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../chapter-02/2.7-session-interface.html">
+            
+                <a href="../chapter-02/2.7-session-interface.html">
+            
+                    
+                    2.7 Session Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter-03/">
+            
+                <a href="../chapter-03/">
+            
+                    
+                    第三章 双向流(Stream)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-03/3.1-stream-state.html">
+            
+                <a href="../chapter-03/3.1-stream-state.html">
+            
+                    
+                    3.1 流状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-03/3.2-openstream.html">
+            
+                <a href="../chapter-03/3.2-openstream.html">
+            
+                    
+                    3.2 打开流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../chapter-03/3.3-closestream.html">
+            
+                <a href="../chapter-03/3.3-closestream.html">
+            
+                    
+                    3.3 关闭流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../chapter-03/3.4-stream-interface.html">
+            
+                <a href="../chapter-03/3.4-stream-interface.html">
+            
+                    
+                    3.4 Stream Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../chapter-04/">
+            
+                <a href="../chapter-04/">
+            
+                    
+                    第四章 数据包(Packet)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../chapter-04/4.1-packet-state.html">
+            
+                <a href="../chapter-04/4.1-packet-state.html">
+            
+                    
+                    4.1 数据包(Packet)状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../chapter-04/4.2-send-packet.html">
+            
+                <a href="../chapter-04/4.2-send-packet.html">
+            
+                    
+                    4.2 发送数据包(Packet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../chapter-04/4.3-recv-packet.html">
+            
+                <a href="../chapter-04/4.3-recv-packet.html">
+            
+                    
+                    4.3 接收数据包(Packet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../chapter-04/4.4-check-send-packs.html">
+            
+                <a href="../chapter-04/4.4-check-send-packs.html">
+            
+                    
+                    4.4 周期检查发送缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../chapter-04/4.5-check-recv-packs.html">
+            
+                <a href="../chapter-04/4.5-check-recv-packs.html">
+            
+                    
+                    4.5 周期检查接收缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../chapter-05/">
+            
+                <a href="../chapter-05/">
+            
+                    
+                    第五章 包分片(Fragment)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../chapter-05/5.1-fragment-state.html">
+            
+                <a href="../chapter-05/5.1-fragment-state.html">
+            
+                    
+                    5.1 分片(Fragment)状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../chapter-05/5.2-send-fragment.html">
+            
+                <a href="../chapter-05/5.2-send-fragment.html">
+            
+                    
+                    5.2 发送分片(Fragment)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../chapter-05/5.3-recv-fragment.html">
+            
+                <a href="../chapter-05/5.3-recv-fragment.html">
+            
+                    
+                    5.3 接收分片(Fragment)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../chapter-05/5.4-check-send-frags.html">
+            
+                <a href="../chapter-05/5.4-check-send-frags.html">
+            
+                    
+                    5.4 周期检查分片(Fragment)发送缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../chapter-05/5.5-check-recv-frags.html">
+            
+                <a href="../chapter-05/5.5-check-recv-frags.html">
+            
+                    
+                    5.5 周期检查分片(Fragment)接收缓存
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../chapter-06/">
+            
+                <a href="../chapter-06/">
+            
+                    
+                    第六章 心跳检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    第七章 拥塞控制与流控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../chapter-08/">
+            
+                <a href="../chapter-08/">
+            
+                    
+                    第八章 协议 Node.js 实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../chapter-09/">
+            
+                <a href="../chapter-09/">
+            
+                    
+                    第九章 UDPack 应用之代理服务器
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../chapter-09/9.1-socks5.html">
+            
+                <a href="../chapter-09/9.1-socks5.html">
+            
+                    
+                    9.1 SOCKS 5 代理协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../chapter-09/9.2-udpack.html">
+            
+                <a href="../chapter-09/9.2-udpack.html">
+            
+                    
+                    9.2 创建 UDPack 对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter-09/9.3-custom-protocol.html">
+            
+                <a href="../chapter-09/9.3-custom-protocol.html">
+            
+                    
+                    9.3 自定义代理协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../chapter-09/9.4-client.html">
+            
+                <a href="../chapter-09/9.4-client.html">
+            
+                    
+                    9.4 代理客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../chapter-09/9.5-server.html">
+            
+                <a href="../chapter-09/9.5-server.html">
+            
+                    
+                    9.5 代理服务端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../chapter-09/9.6-pkg.html">
+            
+                <a href="../chapter-09/9.6-pkg.html">
+            
+                    
+                    9.6 应用程序打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../chapter-10/">
+            
+                <a href="../chapter-10/">
+            
+                    
+                    第十章 UDPack 应用之实时双向通信框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../chapter-11/">
+            
+                <a href="../chapter-11/">
+            
+                    
+                    附录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >第七章 拥塞控制与流控制</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x7B2C;&#x4E03;&#x7AE0;-&#x62E5;&#x585E;&#x63A7;&#x5236;&#x4E0E;&#x6D41;&#x63A7;&#x5236;">&#x7B2C;&#x4E03;&#x7AE0; &#x62E5;&#x585E;&#x63A7;&#x5236;&#x4E0E;&#x6D41;&#x63A7;&#x5236;</h1>
+<h2 id="&#x53D1;&#x9001;&#x7A97;&#x53E3;">&#x53D1;&#x9001;&#x7A97;&#x53E3;</h2>
+<p>&#x65E0;&#x8BBA;&#x662F;&#x9047;&#x5230;&#x7F51;&#x7EDC;&#x62E5;&#x585E;&#x6216;&#x8005;&#x63A5;&#x6536;&#x65B9;&#x7F13;&#x5B58;&#x5DF2;&#x6EE1;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x964D;&#x4F4E;&#x53D1;&#x9001;&#x7AEF;&#x7684;&#x53D1;&#x5305;&#x901F;&#x7387;&#xFF0C;&#x5F53;&#x7F51;&#x7EDC;&#x6216;&#x63A5;&#x6536;&#x65B9;&#x7F13;&#x5B58;&#x6062;&#x590D;&#x540E;&#xFF0C;&#x9700;&#x8981;&#x80FD;&#x591F;&#x5FEB;&#x901F;&#x6062;&#x590D;&#x53D1;&#x5305;&#x901F;&#x7387;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x53D1;&#x9001;&#x7AEF;&#x9700;&#x8981;&#x4E00;&#x79CD;&#x8C03;&#x8282;&#x53D1;&#x5305;&#x901F;&#x7387;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x5728; UDPack &#x534F;&#x8BAE;&#x4E2D;&#xFF0C;&#x91C7;&#x7528;&#x4E86;&#x7C7B;&#x4F3C; TCP &#x534F;&#x8BAE;&#x7684;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x673A;&#x5236;&#x3002;</p>
+<p>&#x53D1;&#x9001;&#x7AEF;&#x6BCF;&#x9694;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4F1A;&#x5468;&#x671F;&#x5904;&#x7406;&#x53D1;&#x9001;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5B9A;&#x4E49;&#x4E3A;&#x6BCF;&#x4E2A;&#x5468;&#x671F;&#x5185;&#x53D1;&#x9001;&#x7684;&#x6570;&#x636E;&#x5305;&#x4E2A;&#x6570;&#x3002;&#x5F00;&#x59CB;&#x65F6;&#xFF0C;&#x7B2C; 1 &#x6B21;&#x53D1;&#x9001; 1 &#x4E2A;&#xFF0C;&#x7B2C; 2 &#x6B21;&#x53D1;&#x9001; 2 &#x4E2A;&#xFF0C;&#x7B2C; 3 &#x6B21;&#x53D1;&#x9001; 4 &#x4E2A;&#xFF0C;&#x4EE5;&#x6307;&#x6570;&#x5FEB;&#x901F;&#x589E;&#x52A0;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x3002;&#x5F53;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5230;&#x9600;&#x503C;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x91C7;&#x7528;&#x7EBF;&#x6027;&#x7F13;&#x6162;&#x589E;&#x52A0;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x3002;&#x901A;&#x8FC7;&#x589E;&#x52A0;&#x6BCF;&#x4E2A;&#x5468;&#x671F;&#x5185;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x4E2A;&#x6570;&#xFF0C;&#x63D0;&#x5347;&#x4E86;&#x53D1;&#x5305;&#x901F;&#x7387;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#xFF0C;&#x53D1;&#x5305;&#x901F;&#x7387;&#x4E0D;&#x53EF;&#x80FD;&#x65E0;&#x9650;&#x589E;&#x957F;&#x4E0B;&#x53BB;&#xFF0C;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x4E5F;&#x4E0D;&#x80FD;&#x4E00;&#x76F4;&#x589E;&#x5927;&#x3002;&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x5982;&#x679C;&#x4EA7;&#x751F;&#x6570;&#x636E;&#x5305;&#x7684;&#x901F;&#x7387;&#x5F88;&#x9AD8;&#xFF0C;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x4F1A;&#x6301;&#x7EED;&#x589E;&#x52A0;&#xFF0C;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x540E;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x9047;&#x5230;&#x7F51;&#x7EDC;&#x62E5;&#x585E;&#xFF0C;&#x6570;&#x636E;&#x5305;&#x91CD;&#x8BD5;&#x6B21;&#x6570;&#x5347;&#x9AD8;&#x3002;&#x6216;&#x8005;&#x4E5F;&#x53EF;&#x80FD;&#x4F1A;&#x9047;&#x5230;&#x63A5;&#x6536;&#x7AEF;&#x6765;&#x4E0D;&#x53CA;&#x5904;&#x7406;&#xFF0C;&#x63A5;&#x6536;&#x7F13;&#x5B58;&#x6EE1;&#x7684;&#x60C5;&#x51B5;&#x3002;&#x6B64;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x91CD;&#x7F6E;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#xFF0C;&#x5FEB;&#x901F;&#x964D;&#x4F4E;&#x53D1;&#x5305;&#x901F;&#x7387;&#x3002;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x88AB;&#x91CD;&#x7F6E;&#x540E;&#xFF0C;&#x4F1A;&#x518D;&#x6B21;&#x5148;&#x4EE5;&#x6307;&#x6570;&#xFF0C;&#x7136;&#x540E;&#x4EE5;&#x7EBF;&#x6027;&#x901F;&#x5EA6;&#x6062;&#x590D;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A; Session &#x6709;&#x81EA;&#x5DF1;&#x7684;&#x72EC;&#x7ACB;&#x7684;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#xFF0C;&#x72EC;&#x7ACB;&#x8FDB;&#x884C;&#x62E5;&#x585E;&#x63A7;&#x5236;&#x548C;&#x6D41;&#x63A7;&#x5236;&#x3002;</p>
+<h2 id="&#x62E5;&#x585E;&#x63A7;&#x5236;">&#x62E5;&#x585E;&#x63A7;&#x5236;</h2>
+<p>&#x4F17;&#x591A;&#x5468;&#x77E5;&#xFF0C;&#x7F51;&#x7EDC;&#x60C5;&#x51B5;&#x5904;&#x4E8E;&#x5B9E;&#x65F6;&#x52A8;&#x6001;&#x53D8;&#x5316;&#x4E4B;&#x4E2D;&#xFF0C;&#x4E14;&#x65E0;&#x6CD5;&#x9884;&#x6D4B;&#x3002;&#x9047;&#x5230;&#x7F51;&#x7EDC;&#x597D;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x8F83;&#x9AD8;&#x7684;&#x4F20;&#x8F93;&#x901F;&#x5EA6;&#x3002;&#x9047;&#x5230;&#x7F51;&#x7EDC;&#x62E5;&#x585E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5EF6;&#x65F6;&#x4E0A;&#x5347;&#xFF0C;&#x4E22;&#x5305;&#x7387;&#x4E0A;&#x5347;&#xFF0C;&#x4F20;&#x8F93;&#x901F;&#x5EA6;&#x4F1A;&#x964D;&#x4F4E;&#x5F88;&#x591A;&#x3002;&#x4E92;&#x8054;&#x7F51;&#x4E0A;&#x6240;&#x6709;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E3A;&#x4E86;&#x6700;&#x5927;&#x5316;&#x5229;&#x7528;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x6570;&#x636E;&#xFF0C;&#x90FD;&#x4F1A;&#x5C1D;&#x8BD5;&#x66F4;&#x9AD8;&#x7684;&#x53D1;&#x5305;&#x901F;&#x7387;&#x3002;&#x7F51;&#x7EDC;&#x9AD8;&#x5CF0;&#x65F6;&#x671F;&#xFF0C;&#x7F51;&#x7EDC;&#x62E5;&#x585E;&#x662F;&#x4E0D;&#x53EF;&#x907F;&#x514D;&#x7684;&#x3002;&#x6B64;&#x65F6;&#x8DEF;&#x7531;&#x4E2D;&#x7684;&#x4E2D;&#x95F4;&#x8BBE;&#x5907;&#x4F1A;&#x5BF9;&#x5F80;&#x6765;&#x6570;&#x636E;&#x5305;&#x8FDB;&#x884C;&#x6392;&#x961F;&#x5904;&#x7406;&#xFF0C;&#x9020;&#x6210;&#x5EF6;&#x65F6;&#x4E0A;&#x5347;&#xFF0C;&#x751A;&#x81F3;&#x76F4;&#x63A5;&#x4E22;&#x5F03;&#x5904;&#x7406;&#xFF0C;&#x9020;&#x6210;&#x4E22;&#x5305;&#x7387;&#x4E0A;&#x5347;&#x3002;&#x800C;&#x4E14;&#x4E2D;&#x95F4;&#x8BBE;&#x5907;&#x5728;&#x5904;&#x7406;&#x6570;&#x636E;&#x5305;&#x65F6;&#xFF0C;&#x6839;&#x636E;&#x534F;&#x8BAE;&#x7684;&#x4E0D;&#x540C;&#x4E5F;&#x53EF;&#x80FD;&#x91C7;&#x53D6;&#x4E0D;&#x540C;&#x7684;&#x7B56;&#x7565;&#x3002;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#xFF0C;&#x6240;&#x6709;&#x4E2D;&#x95F4;&#x8BBE;&#x5907;&#x4F1A;&#x66F4;&#x91CD;&#x89C6; TCP &#x534F;&#x8BAE;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x6BD5;&#x7ADF; TCP &#x662F;&#x5F53;&#x524D;&#x4E92;&#x8054;&#x7F51;&#x4E0A;&#x5E94;&#x7528;&#x6700;&#x5E7F;&#x6CDB;&#x7684;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x3002;</p>
+<p>&#x9047;&#x5230;&#x7F51;&#x7EDC;&#x62E5;&#x585E;&#x65F6;&#xFF0C;&#x4E92;&#x8054;&#x7F51;&#x4E0A;&#x7684;&#x6240;&#x6709;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x90FD;&#x5E94;&#x8BE5;&#x4E3B;&#x52A8;&#x964D;&#x4F4E;&#x53D1;&#x5305;&#x901F;&#x7387;&#xFF0C;&#x4F7F;&#x5F97;&#x7F51;&#x7EDC;&#x62E5;&#x585E;&#x5F97;&#x4EE5;&#x7F13;&#x89E3;&#x548C;&#x6062;&#x590D;&#x3002;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x4ECD;&#x7136;&#x91C7;&#x53D6;&#x8F83;&#x9AD8;&#x7684;&#x53D1;&#x5305;&#x901F;&#x7387;&#xFF0C;&#x4F1A;&#x52A0;&#x5267;&#x62E5;&#x585E;&#x72B6;&#x51B5;&#xFF0C;&#x5EF6;&#x65F6;&#x548C;&#x4E22;&#x5305;&#x7387;&#x5F02;&#x5E38;&#x9AD8;&#xFF0C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0D;&#x65AD;&#x5C1D;&#x8BD5;&#x91CD;&#x53D1;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x9020;&#x6210;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x6548;&#x7387;&#x53CA;&#x5176;&#x4F4E;&#x4E0B;&#x3002;&#x5F53;&#x524D;&#x5DF2;&#x6709;&#x5F88;&#x591A;&#x8457;&#x540D;&#x7684;&#x62E5;&#x585E;&#x63A7;&#x5236;&#x7B97;&#x6CD5;&#x53EF;&#x4EE5;&#x8BC6;&#x522B;&#x62E5;&#x585E;&#x5E76;&#x6709;&#x6548;&#x8C03;&#x8282;&#x53D1;&#x5305;&#x901F;&#x7387;&#x3002;&#x4F46;&#x662F;&#x5728; UDPack &#x534F;&#x8BAE;&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x5B83;&#x4EEC;&#xFF0C;&#x800C;&#x662F;&#x8BBE;&#x8BA1;&#x4E86;&#x4E00;&#x4E2A;&#x66F4;&#x7B80;&#x5355;&#x548C;&#x5BB9;&#x6613;&#x5B9E;&#x73B0;&#x7684;&#x62E5;&#x585E;&#x63A7;&#x5236;&#x7B97;&#x6CD5;&#xFF0C;&#x662F;&#x5426;&#x6709;&#x6548;&#x6709;&#x5F85;&#x5B9E;&#x8DF5;&#x68C0;&#x9A8C;&#x3002;</p>
+<p>&#x8BE5;&#x7B97;&#x6CD5;&#x7684;&#x6838;&#x5FC3;&#x6307;&#x6807;&#x662F; AvgRetryRatio&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x53D1;&#x9001;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x6B63;&#x5728;&#x53D1;&#x9001;&#x4E2D;&#x7684; Packet &#x7684;&#x5E73;&#x5747;&#x91CD;&#x8BD5;&#x6BD4;&#x7387;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x53D1;&#x9001;&#x7F13;&#x5B58;&#x4E2D;&#x6709; p1, p2, p3 &#x4E2A;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x91CD;&#x8BD5;&#x6B21;&#x6570;&#x5206;&#x522B;&#x4E3A; 0, 1, 0&#xFF0C;&#x5219; AvgRetryRatio = 0.33 (1/3)&#x3002;&#x5206;&#x5B50;&#x4E3A;&#x603B;&#x7684;&#x91CD;&#x8BD5;&#x6B21;&#x6570; 1&#xFF0C;&#x5206;&#x6BCD;&#x4E3A;&#x603B;&#x7684;&#x6570;&#x636E;&#x5305;&#x4E2A;&#x6570; 3&#x3002;AvgRetryRatio &#x53EF;&#x4EE5;&#x53CD;&#x6620;&#x51FA;&#x5F53;&#x524D;&#x7F51;&#x7EDC;&#x72B6;&#x51B5;&#x4E0B;&#x7684;&#x6570;&#x636E;&#x5305;&#x91CD;&#x8BD5;&#x6C34;&#x5E73;&#x3002;AvgRetryRatio &#x8D8A;&#x8D8B;&#x8FD1;&#x4E8E; 0 &#x4EE3;&#x8868;&#x7F51;&#x7EDC;&#x72B6;&#x51B5;&#x8D8A;&#x597D;&#xFF0C;&#x8D8A;&#x5927;&#x5219;&#x4EE3;&#x8868;&#x7F51;&#x7EDC;&#x8D8A;&#x5DEE;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x66F4;&#x591A;&#x7684;&#x91CD;&#x8BD5;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x5408;&#x7406;&#x7684;&#x9600;&#x503C;&#xFF0C;&#x5F53; AvgRetryRatio &#x8D85;&#x8FC7;&#x9600;&#x503C;&#x65F6;&#xFF0C;&#x5219;&#x8BA4;&#x4E3A;&#x53D1;&#x9001;&#x4E86;&#x62E5;&#x585E;&#xFF0C;&#x6B64;&#x65F6;&#x53EF;&#x901A;&#x8FC7;&#x91CD;&#x7F6E;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x6765;&#x964D;&#x4F4E;&#x53D1;&#x5305;&#x901F;&#x7387;&#x3002;</p>
+<h2 id="&#x6D41;&#x63A7;&#x5236;">&#x6D41;&#x63A7;&#x5236;</h2>
+<p>&#x53D1;&#x9001;&#x7AEF;&#x53D1;&#x9001;&#x901F;&#x7387;&#x548C;&#x63A5;&#x6536;&#x7AEF;&#x63A5;&#x6536;&#x901F;&#x7387;&#x4E0D;&#x4E00;&#x5B9A;&#x5339;&#x914D;&#xFF0C;&#x53D1;&#x9001;&#x901F;&#x7387;&#x8FC7;&#x4F4E;&#x5219;&#x53EF;&#x80FD;&#x6CA1;&#x6709;&#x6709;&#x6548;&#x5229;&#x7528;&#x7F51;&#x7EDC;&#xFF0C;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x6162;&#x3002;&#x53D1;&#x9001;&#x901F;&#x7387;&#x8FC7;&#x9AD8;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x5360;&#x7528;&#x4E86;&#x66F4;&#x591A;&#x4E86;&#x7F51;&#x7EDC;&#x8D44;&#x6E90;&#xFF0C;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x63A5;&#x6536;&#x7AEF;&#x53EF;&#x80FD;&#x6765;&#x4E0D;&#x53CA;&#x5904;&#x7406;&#xFF0C;&#x88C5;&#x6EE1;&#x7F13;&#x51B2;&#x533A;&#x3002;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x4E00;&#x79CD;&#x6D41;&#x63A7;&#x5236;&#x673A;&#x5236;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x63A7;&#x5236;&#x53D1;&#x9001;&#x7AEF;&#x7684;&#x53D1;&#x9001;&#x901F;&#x7387;&#x3002;</p>
+<p>&#x53D1;&#x9001;&#x7AEF;&#x4E3A;&#x6BCF;&#x4E2A; Session &#x8BBE;&#x7F6E;&#x53D1;&#x9001;&#x7F13;&#x51B2;&#x533A;&#xFF0C;&#x5982;&#x679C; Packet &#x4EA7;&#x751F;&#x8FC7;&#x5FEB;&#x9020;&#x6210;&#x7F13;&#x51B2;&#x533A;&#x6EE1;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x62D2;&#x7EDD;&#x53D1;&#x9001;&#x65B0;&#x7684; Packet&#x3002;&#x901A;&#x8FC7;&#x628A;&#x53D1;&#x9001;&#x7F13;&#x51B2;&#x533A;&#x7684;&#x8BBE;&#x7F6E;&#x5C0F;&#x4E00;&#x4E9B;&#xFF0C;&#x4F7F;&#x5F97;&#x53D1;&#x9001;&#x7AEF;&#x5FC5;&#x987B;&#x964D;&#x4F4E;&#x53D1;&#x5305;&#x901F;&#x7387;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x88AB;&#x62D2;&#x7EDD;&#x3002;</p>
+<p>&#x63A5;&#x6536;&#x7AEF;&#x53EF;&#x4EE5;&#x4E3A;&#x6BCF;&#x4E2A; Session &#x8BBE;&#x7F6E;&#x63A5;&#x6536;&#x7F13;&#x51B2;&#x533A;&#xFF0C;&#x5982;&#x679C;&#x63A5;&#x6536;&#x7F13;&#x51B2;&#x533A;&#x6EE1;&#xFF0C;&#x53EF;&#x901A;&#x8FC7; ACK &#x5E27;&#x8BBE;&#x7F6E; SLOW &#x6807;&#x8BB0;&#xFF0C;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x7AEF;&#x964D;&#x4F4E;&#x53D1;&#x9001;&#x901F;&#x7387;&#xFF0C;&#x53D1;&#x9001;&#x7AEF;&#x6536;&#x5230; ACK &#x5E27;&#xFF0C;&#x8BFB;&#x53D6; SLOW &#x6807;&#x8BB0;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x91CD;&#x7F6E;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x6765;&#x964D;&#x4F4E;&#x53D1;&#x9001;&#x901F;&#x5EA6;&#x3002;</p>
+<p>&#x8BA1;&#x7B97; Session &#x7684;&#x53D1;&#x9001;&#x6216;&#x8005;&#x63A5;&#x6536;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#x65F6;&#xFF0C;&#x9700;&#x5408;&#x5E76;&#x8BA1;&#x7B97; Session &#x672C;&#x8EAB;&#x7684;&#x7F13;&#x51B2;&#x533A;&#x53CA; Session &#x4E4B;&#x4E0A;&#x6253;&#x5F00;&#x7684;&#x6240;&#x6709; Stream &#x7684;&#x7F13;&#x51B2;&#x533A;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../chapter-06/" class="navigation navigation-prev " aria-label="Previous page: 第六章 心跳检测">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../chapter-08/" class="navigation navigation-next " aria-label="Next page: 第八章 协议 Node.js 实现">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"第七章 拥塞控制与流控制","level":"1.8","depth":1,"next":{"title":"第八章 协议 Node.js 实现","level":"1.9","depth":1,"path":"chapter-08/README.md","ref":"chapter-08/README.md","articles":[]},"previous":{"title":"第六章 心跳检测","level":"1.7","depth":1,"path":"chapter-06/README.md","ref":"chapter-06/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"chapter-07/README.md","mtime":"2023-02-21T13:19:32.303Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T13:58:08.753Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+
