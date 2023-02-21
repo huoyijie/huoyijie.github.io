@@ -1,0 +1,7 @@
+keynote: []
+docsify:
+  - 'AdvancedEAST-is-an-algorithm-used-for-image-text-detect.md'
+gitbook: []
+ignore:
+  - 'demo'
+  - 'image'
