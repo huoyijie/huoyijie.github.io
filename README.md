@@ -8,6 +8,13 @@
 npm init -y
 
 npm i gitbook-plugin-prism gitbook-plugin-code --save
+
+gitbook build ./ latest
+```
+## 本地测试
+
+```bash
+keynote
 ```
 
 ## 生成静态网站

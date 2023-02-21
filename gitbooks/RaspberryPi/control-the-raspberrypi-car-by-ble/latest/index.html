@@ -1,0 +1,556 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>微信小程序(蓝牙BLE)远程遥控树莓派小车 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    微信小程序(蓝牙BLE)远程遥控树莓派小车
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >微信小程序(蓝牙BLE)远程遥控树莓派小车</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x84DD;&#x7259;ble&#x8FDC;&#x7A0B;&#x9065;&#x63A7;&#x6811;&#x8393;&#x6D3E;&#x5C0F;&#x8F66;">&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;(&#x84DD;&#x7259;BLE)&#x8FDC;&#x7A0B;&#x9065;&#x63A7;&#x6811;&#x8393;&#x6D3E;&#x5C0F;&#x8F66;</h1>
+<p>&#x672C;&#x6587;&#x63A5;&#x4E0A;&#x7BC7;<a href="https://huoyijie.cn/article/3b8281b1e8aa6a1d8bc6718a4256b141/" target="_blank">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x5236;&#x4F5C;&#x6811;&#x8393;&#x6D3E;&#x9065;&#x63A7;&#x5C0F;&#x8F66;</a>&#x3002;&#x524D;&#x9762;&#x90A3;&#x7BC7;&#x6587;&#x7AE0;&#x91CC;&#x4ECB;&#x7ECD;&#x4E86;&#x7B2C;&#x4E00;&#x7248;&#x5C0F;&#x8F66;&#x662F;&#x901A;&#x8FC7;&#x84DD;&#x7259;&#x4EFF;&#x771F;&#x4E32;&#x53E3;&#x534F;&#x8BAE;(RFCOMM)&#x8FDC;&#x7A0B;&#x9065;&#x63A7;&#x7684;&#x3002;RFCOMM &#x534F;&#x8BAE;&#x4E5F;&#x662F;&#x7ECF;&#x5178;&#x84DD;&#x7259;&#x534F;&#x8BAE;&#xFF0C;&#x8FDE;&#x63A5;&#x53CC;&#x65B9;&#x662F;&#x5BF9;&#x7B49;&#x7684;&#xFF0C;&#x8017;&#x7535;&#x91CF;&#x6BD4;&#x8F83;&#x5927;&#xFF0C;&#x53E6;&#x5916;&#x624B;&#x673A;&#x7AEF;&#x5BF9;&#x7ECF;&#x5178;&#x84DD;&#x7259;&#x7684;&#x5F00;&#x53D1;&#x652F;&#x6301;&#x4E5F;&#x4E0D;&#x592A;&#x597D;&#x3002;&#x5982;&#x679C;&#x60F3;&#x81EA;&#x5DF1;&#x5C1D;&#x8BD5;&#x5F00;&#x53D1;&#x4E00;&#x4E2A;&#x624B;&#x673A;&#x9065;&#x63A7;&#x5668;&#xFF0C;&#x9009;&#x62E9;&#x84DD;&#x7259;BLE&#x534F;&#x8BAE;&#x4F1A;&#x66F4;&#x597D;&#x3002;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#x5982;&#x4F55;&#x901A;&#x8FC7;&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;(&#x84DD;&#x7259;BLE)&#x8FDC;&#x7A0B;&#x9065;&#x63A7;&#x6811;&#x8393;&#x6D3E;&#x5C0F;&#x8F66;&#x3002;</p>
+<p>&#x9065;&#x63A7;&#x7A0B;&#x5E8F;&#x4E3B;&#x8981;&#x5206;&#x4E3A;3&#x4E2A;&#x90E8;&#x5206;:</p>
+<ol>
+<li>&#x624B;&#x673A;&#x84DD;&#x7259;&#x901A;&#x4FE1;&#x5BA2;&#x6237;&#x7AEF;(&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;)</li>
+<li>&#x6811;&#x8393;&#x6D3E;&#x84DD;&#x7259;&#x901A;&#x4FE1;&#x670D;&#x52A1;&#x7AEF;</li>
+<li>&#x6811;&#x8393;&#x6D3E;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#x63A5;&#x6536;&#x547D;&#x4EE4;</li>
+</ol>
+<p>&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x9065;&#x63A7;&#x5BA2;&#x6237;&#x7AEF;&#x754C;&#x9762;&#x64CD;&#x4F5C;&#xFF0C;&#x8F6C;&#x5316;&#x4E3A;&#x6307;&#x4EE4;&#x901A;&#x8FC7;&#x84DD;&#x7259;&#x4F20;&#x8F93;&#x7ED9;&#x6811;&#x8393;&#x6D3E;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x7A0B;&#x5E8F;&#xFF0C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x518D;&#x628A;&#x6307;&#x4EE4;&#x4E0B;&#x8FBE;&#x7ED9;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#xFF0C;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x6307;&#x4EE4;&#x6539;&#x53D8;&#x5C0F;&#x8F66;&#x7684;&#x52A8;&#x4F5C;&#x3002;</p>
+<p>Clone &#x4EE3;&#x7801;(<a href="https://github.com/huoyijie/raspberrypi-car" target="_blank">&#x4EE3;&#x7801;&#x5730;&#x5740;</a>)</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">git</span> clone git@github.com:huoyijie/raspberrypi-car.git
+</code></pre>
+<p>&#x76EE;&#x5F55;&#x8BF4;&#x660E;</p>
+<pre class="language-"><code class="lang-bash">$ tree <span class="token parameter variable">-L</span> <span class="token number">3</span>
+<span class="token builtin class-name">.</span>
+&#x251C;&#x2500;&#x2500; ble
+&#x2502;   &#x251C;&#x2500;&#x2500; car.py
+&#x2502;   &#x251C;&#x2500;&#x2500; miniclientctl
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; app.js
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; app.json
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; app.wxss
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; index
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; project.config.json
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; sitemap.json
+&#x2502;   &#x2514;&#x2500;&#x2500; rpicarctl
+&#x2502;       &#x251C;&#x2500;&#x2500; characteristic.js
+&#x2502;       &#x251C;&#x2500;&#x2500; main.js
+&#x2502;       &#x251C;&#x2500;&#x2500; node_modules
+&#x2502;       &#x251C;&#x2500;&#x2500; package.json
+&#x2502;       &#x2514;&#x2500;&#x2500; package-lock.json
+&#x251C;&#x2500;&#x2500; car.py
+&#x251C;&#x2500;&#x2500; LICENSE
+&#x2514;&#x2500;&#x2500; README.md
+</code></pre>
+<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x7684;&#x6240;&#x6709;&#x4EE3;&#x7801;&#x90FD;&#x5728;ble&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;ble/car.py&#x4E3A;&#x65B0;&#x7248;&#x672C;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#xFF0C;miniclientctl &#x4E3A;&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x9065;&#x63A7;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;rpicarctl &#x4E3A;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x7A0B;&#x5E8F;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x5148;&#x4ECB;&#x7ECD;&#x4E0B;&#x5904;&#x4E8E;&#x4E2D;&#x95F4;&#x4F4D;&#x7F6E;&#x7684;&#x84DD;&#x7259;&#x901A;&#x4FE1;&#x670D;&#x52A1;&#x7AEF;&#x7A0B;&#x5E8F;&#x3002;</p>
+<p>&#x6811;&#x8393;&#x6D3E;&#x5B98;&#x65B9;&#x652F;&#x6301;&#x7684;&#x5F00;&#x53D1;&#x8BED;&#x8A00;&#x662F; Python&#xFF0C;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#x4E5F;&#x662F;&#x57FA;&#x4E8E; Python &#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x57FA;&#x4E8E; Python &#x7684;&#x84DD;&#x7259; BLE &#x5C01;&#x88C5;&#x5E93;&#x8D44;&#x6599;&#x6BD4;&#x8F83;&#x5C11;&#xFF0C;&#x800C;&#x57FA;&#x4E8E; Node.js &#x7684;&#x5E93;&#x66F4;&#x6613;&#x4E0A;&#x624B;&#xFF0C;&#x6240;&#x4EE5;&#x672C;&#x6587;&#x9009;&#x62E9;&#x4E86;&#x57FA;&#x4E8E; Node.js &#x7684;<a href="https://github.com/noble/bleno" target="_blank">bleno</a>&#x5E93;&#x6765;&#x5B9E;&#x73B0;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x3002;&#x4F46;&#x662F;&#x5728;&#x5B89;&#x88C5;&#x5B8C;&#x540E;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#x62A5;&#x9519;&#xFF0C;&#x7F3A;&#x5C11; <code>bluetooth-hci-socket</code> &#x5E93;&#xFF0C;&#x7136;&#x540E;&#x5B89;&#x88C5;&#x8FD9;&#x4E2A;&#x5E93;&#x786E;&#x4E00;&#x76F4;&#x65E0;&#x6CD5;&#x5B89;&#x88C5;&#x6210;&#x529F;&#x3002;&#x4E8E;&#x662F;&#x67E5;&#x770B;&#x4E86;&#x4E00;&#x4E0B; bleno github &#x4E0A;&#x7684; issues&#xFF0C;&#x627E;&#x5230;&#x4E86;&#x540C;&#x6837;&#x7684;&#x95EE;&#x9898;&#x3002;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x4E3B;&#x8981;&#x662F;&#x91C7;&#x7528;&#x53E6;&#x4E00;&#x4E2A; fork &#x5E93;&#xFF0C;&#x90A3;&#x4E2A;&#x5E93;&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x5148;&#x67E5;&#x770B;&#x4E0B;&#x6811;&#x8393;&#x6D3E; Node.js &#x73AF;&#x5883;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">node</span> <span class="token parameter variable">-v</span>
+v14.16.0
+</code></pre>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token parameter variable">-v</span>
+<span class="token number">7.6</span>.1
+</code></pre>
+<p>&#x5B89;&#x88C5;&#x4F9D;&#x8D56;</p>
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">cd</span> ble/rpicarctl
+<span class="token function">npm</span> i @abandonware/bleno
+<span class="token function">npm</span> i @abandonware/bluetooth-hci-socket
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">node</span> main.js
+</code></pre>
+<p>&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#x4E0B;&#x9762;&#x4EE3;&#x8868;&#x5DF2;&#x7ECF;&#x6210;&#x529F;&#x8FD0;&#x884C;</p>
+<pre class="language-"><code class="lang-log">bleno <span class="token operator">-</span> rpicarctl
+on <span class="token operator">-</span><span class="token operator">&gt;</span> stateChange<span class="token operator">:</span> poweredOn
+on <span class="token operator">-</span><span class="token operator">&gt;</span> advertisingStart<span class="token operator">:</span> success
+</code></pre>
+<p>&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x5171;&#x6709; 2 &#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x5206;&#x522B;&#x5B9A;&#x4E49;&#x4E86; rpicarctl &#x670D;&#x52A1;(service)&#x548C;&#x7279;&#x5F81;(character)&#xFF0C;&#x5148;&#x770B;&#x7A0B;&#x5E8F;&#x5165;&#x53E3; main.js</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">var</span> bleno <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;@abandonware/bleno&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> BlenoPrimaryService <span class="token operator">=</span> bleno<span class="token punctuation">.</span>PrimaryService<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> CarCtlCharacteristic <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./characteristic&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;bleno - rpicarctl&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+bleno<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;stateChange&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;on -&gt; stateChange: &apos;</span> <span class="token operator">+</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>state <span class="token operator">===</span> <span class="token string">&apos;poweredOn&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    bleno<span class="token punctuation">.</span><span class="token function">startAdvertising</span><span class="token punctuation">(</span><span class="token string">&apos;rpicarctl&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;cc00&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    bleno<span class="token punctuation">.</span><span class="token function">stopAdvertising</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+bleno<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;advertisingStart&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;on -&gt; advertisingStart: &apos;</span> <span class="token operator">+</span> <span class="token punctuation">(</span>error <span class="token operator">?</span> <span class="token string">&apos;error &apos;</span> <span class="token operator">+</span> error <span class="token operator">:</span> <span class="token string">&apos;success&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    bleno<span class="token punctuation">.</span><span class="token function">setServices</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token keyword">new</span> <span class="token class-name">BlenoPrimaryService</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">uuid</span><span class="token operator">:</span> <span class="token string">&apos;cc00&apos;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">characteristics</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token keyword">new</span> <span class="token class-name">CarCtlCharacteristic</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x518D;&#x770B;&#x4E00;&#x4E0B;&#x7279;&#x5F81;&#x5B9A;&#x4E49;&#x6587;&#x4EF6; characteristic.js</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;http&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> util <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;util&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> bleno <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;@abandonware/bleno&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> BlenoCharacteristic <span class="token operator">=</span> bleno<span class="token punctuation">.</span>Characteristic<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">CarCtlCharacteristic</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  CarCtlCharacteristic<span class="token punctuation">.</span><span class="token function">super_</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">uuid</span><span class="token operator">:</span> <span class="token string">&apos;cc0e&apos;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">properties</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&apos;read&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;write&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;notify&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">alloc</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_updateValueCallback <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+util<span class="token punctuation">.</span><span class="token function">inherits</span><span class="token punctuation">(</span>CarCtlCharacteristic<span class="token punctuation">,</span> BlenoCharacteristic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name">CarCtlCharacteristic</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">onReadRequest</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">offset<span class="token punctuation">,</span> callback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;CarCtlCharacteristic - onReadRequest: value = &apos;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">&apos;hex&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">callback</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">RESULT_SUCCESS</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token class-name">CarCtlCharacteristic</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">onWriteRequest</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">data<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> withoutResponse<span class="token punctuation">,</span> callback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> data<span class="token punctuation">;</span>
+
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;CarCtlCharacteristic - onWriteRequest: value = &apos;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">&apos;hex&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  http<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://127.0.0.1:8888/car/ctl/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">.</span><span class="token function">readUInt8</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token parameter">resp</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// console.log(resp.statusCode);</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_updateValueCallback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;CarCtlCharacteristic - onWriteRequest: notifying&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_updateValueCallback</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">callback</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">RESULT_SUCCESS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token class-name">CarCtlCharacteristic</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">onSubscribe</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">maxValueSize<span class="token punctuation">,</span> updateValueCallback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;CarCtlCharacteristic - onSubscribe&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_updateValueCallback <span class="token operator">=</span> updateValueCallback<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token class-name">CarCtlCharacteristic</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">onUnsubscribe</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;CarCtlCharacteristic - onUnsubscribe&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_updateValueCallback <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> CarCtlCharacteristic<span class="token punctuation">;</span>
+</code></pre>
+<p>&#x91CD;&#x70B9;&#x770B;&#x4E0B;&#x8FD9;&#x53E5;&#x8BDD;&#xFF0C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x518D;&#x6536;&#x5230;&#x6765;&#x81EA;&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x7684;&#x6307;&#x4EE4;&#x6570;&#x5B57; <code>${this._value.readUInt8()}</code> &#x540E;&#x4F1A;&#x8F6C;&#x53D1;&#x7ED9;&#x76D1;&#x542C;&#x5728;&#x672C;&#x673A;8888&#x7AEF;&#x53E3;&#x7684;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#xFF0C;&#x7531;&#x540E;&#x8005;&#x63A7;&#x5236;&#x5C0F;&#x8F66;&#x6267;&#x884C;&#x52A8;&#x4F5C;&#x3002;</p>
+<pre class="language-"><code class="lang-javascript">http<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://127.0.0.1:8888/car/ctl/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">.</span><span class="token function">readUInt8</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token parameter">resp</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// console.log(resp.statusCode);</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x518D;&#x770B;&#x4E00;&#x4E0B;&#x65B0;&#x7248;&#x672C;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F; <code>ble/car.py</code></p>
+<pre class="language-"><code class="lang-python"><span class="token comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="token keyword">import</span> time
+<span class="token keyword">import</span> RPi<span class="token punctuation">.</span>GPIO <span class="token keyword">as</span> GPIO
+
+GPIO<span class="token punctuation">.</span>setmode<span class="token punctuation">(</span>GPIO<span class="token punctuation">.</span>BOARD<span class="token punctuation">)</span>
+GPIO<span class="token punctuation">.</span>setwarnings<span class="token punctuation">(</span><span class="token boolean">False</span><span class="token punctuation">)</span> 
+
+<span class="token comment">########&#x7535;&#x673A;&#x9A71;&#x52A8;&#x63A5;&#x53E3;&#x5B9A;&#x4E49;#################</span>
+ENA <span class="token operator">=</span> <span class="token number">13</span>    <span class="token comment"># L298&#x4F7F;&#x80FD;A</span>
+ENB <span class="token operator">=</span> <span class="token number">15</span>    <span class="token comment"># L298&#x4F7F;&#x80FD;B</span>
+IN1 <span class="token operator">=</span> <span class="token number">31</span>    <span class="token comment"># &#x7535;&#x673A;&#x63A5;&#x53E3;1</span>
+IN2 <span class="token operator">=</span> <span class="token number">33</span>    <span class="token comment"># &#x7535;&#x673A;&#x63A5;&#x53E3;2</span>
+IN3 <span class="token operator">=</span> <span class="token number">35</span>    <span class="token comment"># &#x7535;&#x673A;&#x63A5;&#x53E3;3</span>
+IN4 <span class="token operator">=</span> <span class="token number">37</span>    <span class="token comment"># &#x7535;&#x673A;&#x63A5;&#x53E3;4</span>
+
+frequency <span class="token operator">=</span> <span class="token number">30</span> <span class="token comment"># &#x7535;&#x673A;&#x9891;&#x7387;</span>
+dc <span class="token operator">=</span> <span class="token number">50</span> <span class="token comment"># &#x5360;&#x7A7A;&#x6BD4;&#xFF0C;&#x5373;&#x7535;&#x673A;&#x5DE5;&#x4F5C;&#x65F6;&#x95F4;&#x5360;&#x6BD4;</span>
+
+<span class="token comment">#########&#x7535;&#x673A;&#x521D;&#x59CB;&#x5316;&#x4E3A;LOW#################</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> initial<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>LOW<span class="token punctuation">)</span>
+ENA_pwm <span class="token operator">=</span> GPIO<span class="token punctuation">.</span>PWM<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> frequency<span class="token punctuation">)</span>
+ENA_pwm<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token comment"># ENA_pwm.ChangeFrequency(frequency)</span>
+ENA_pwm<span class="token punctuation">.</span>ChangeDutyCycle<span class="token punctuation">(</span>dc<span class="token punctuation">)</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>IN1<span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> initial<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>LOW<span class="token punctuation">)</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>IN2<span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> initial<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>LOW<span class="token punctuation">)</span>
+
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> initial<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>LOW<span class="token punctuation">)</span>
+ENB_pwm <span class="token operator">=</span> GPIO<span class="token punctuation">.</span>PWM<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> frequency<span class="token punctuation">)</span>
+ENB_pwm<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token comment"># ENB_pwm.ChangeFrequency(frequency)</span>
+ENB_pwm<span class="token punctuation">.</span>ChangeDutyCycle<span class="token punctuation">(</span>dc<span class="token punctuation">)</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>IN3<span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> initial<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>LOW<span class="token punctuation">)</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>IN4<span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> initial<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>LOW<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">Motor_Forward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">&apos;motor forward&apos;</span> <span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN1<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN2<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN3<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN4<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">Motor_Backward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">&apos;motor_backward&apos;</span> <span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN1<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN2<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN3<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN4<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">Motor_TurnLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">&apos;motor_turnleft&apos;</span> <span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN1<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN2<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN3<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN4<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">Motor_TurnRight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">&apos;motor_turnright&apos;</span> <span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN1<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN2<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN3<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN4<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">Motor_Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">&apos;motor_stop&apos;</span> <span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENA<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>ENB<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN1<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN2<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN3<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+    GPIO<span class="token punctuation">.</span>output<span class="token punctuation">(</span>IN4<span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+
+
+<span class="token comment">##########&#x5206;&#x5272;&#x7EBF;##############################################</span>
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">&apos;/car/ctl/&lt;int:action&gt;&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">do_carctl</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&apos;action={}&apos;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># &#x63A7;&#x5236;&#x5C0F;&#x8F66;&#x6267;&#x884C;&#x547D;&#x4EE4;</span>
+    <span class="token keyword">if</span> action <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>       <span class="token comment"># &#x524D;&#x8FDB;</span>
+        Motor_Forward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">:</span>     <span class="token comment"># &#x540E;&#x9000;</span>
+        Motor_Backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">:</span>     <span class="token comment"># &#x5DE6;&#x8F6C;</span>
+        Motor_TurnLeft<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">:</span>     <span class="token comment"># &#x53F3;&#x8F6C;</span>
+        Motor_TurnRight<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">:</span>     <span class="token comment"># &#x505C;&#x6B62;</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">6</span><span class="token punctuation">:</span>     <span class="token comment"># clockwise circle</span>
+        Motor_TurnRight<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">7</span><span class="token punctuation">:</span>     <span class="token comment"># anti-clockwise circle</span>
+        Motor_TurnLeft<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>                 <span class="token comment"># &#x672A;&#x77E5;&#x547D;&#x4EE4;&#xFF0C;&#x5C0F;&#x8F66;&#x505C;&#x6B62;</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token string">&apos;action={}&apos;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">do_index</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">&apos;Welcome to RaspberryPi Car!&apos;</span>
+
+app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>host<span class="token operator">=</span><span class="token string">&apos;127.0.0.1&apos;</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">8888</span><span class="token punctuation">,</span> debug<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x4EE5;&#x524D;&#x63A7;&#x5236;&#x5C0F;&#x8F66;&#x52A8;&#x4F5C;&#x7684;&#x7A0B;&#x5E8F;&#x505A;&#x4E86;&#x5982;&#x4E0B;&#x6539;&#x5199;(&#x53EF;&#x4EE5;&#x53C2;&#x7167;&#x4E0A;&#x7BC7;&#x6587;&#x7AE0;<a href="https://huoyijie.cn/article/3b8281b1e8aa6a1d8bc6718a4256b141/" target="_blank">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x5236;&#x4F5C;&#x6811;&#x8393;&#x6D3E;&#x9065;&#x63A7;&#x5C0F;&#x8F66;</a>&#x5BF9;&#x6BD4;&#x770B;&#x4E0B;)&#xFF0C;&#x66B4;&#x9732;&#x4E86;&#x672C;&#x673A; 8888 &#x7AEF;&#x53E3;&#x7684; http &#x63A5;&#x53E3;&#xFF0C;Node.js &#x8FDB;&#x7A0B;(&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;)&#x901A;&#x8FC7; http &#x63A5;&#x53E3;&#x548C; Python &#x8FDB;&#x7A0B;(&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;)&#x901A;&#x4FE1;&#xFF0C;Python &#x642D;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; http server &#x662F;&#x975E;&#x5E38;&#x5BB9;&#x6613;&#x7684;&#x3002;</p>
+<pre class="language-"><code class="lang-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">&apos;/car/ctl/&lt;int:action&gt;&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">do_carctl</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&apos;action={}&apos;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># &#x63A7;&#x5236;&#x5C0F;&#x8F66;&#x6267;&#x884C;&#x547D;&#x4EE4;</span>
+    <span class="token keyword">if</span> action <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>       <span class="token comment"># &#x524D;&#x8FDB;</span>
+        Motor_Forward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">:</span>     <span class="token comment"># &#x540E;&#x9000;</span>
+        Motor_Backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">:</span>     <span class="token comment"># &#x5DE6;&#x8F6C;</span>
+        Motor_TurnLeft<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">:</span>     <span class="token comment"># &#x53F3;&#x8F6C;</span>
+        Motor_TurnRight<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">:</span>     <span class="token comment"># &#x505C;&#x6B62;</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">6</span><span class="token punctuation">:</span>     <span class="token comment"># clockwise circle</span>
+        Motor_TurnRight<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> action <span class="token operator">==</span> <span class="token number">7</span><span class="token punctuation">:</span>     <span class="token comment"># anti-clockwise circle</span>
+        Motor_TurnLeft<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>                 <span class="token comment"># &#x672A;&#x77E5;&#x547D;&#x4EE4;&#xFF0C;&#x5C0F;&#x8F66;&#x505C;&#x6B62;</span>
+        Motor_Stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token string">&apos;action={}&apos;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">do_index</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">&apos;Welcome to RaspberryPi Car!&apos;</span>
+
+app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>host<span class="token operator">=</span><span class="token string">&apos;127.0.0.1&apos;</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">8888</span><span class="token punctuation">,</span> debug<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x5148;&#x5B89;&#x88C5;&#x4E0B; Flusk &#x4F9D;&#x8D56;</p>
+<pre class="language-"><code class="lang-bash">pip3 <span class="token function">install</span> Flask
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x65B0;&#x7248;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#xFF0C;&#x6B64;&#x65F6;&#x4F1A;&#x76D1;&#x542C;&#x672C;&#x673A;8888&#x7AEF;&#x53E3;&#xFF0C;&#x7B49;&#x5F85;&#x6765;&#x81EA;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x6307;&#x4EE4;</p>
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">cd</span> ble/
+python3 car.py
+</code></pre>
+<p>&#x7136;&#x540E;&#x914D;&#x7F6E;&#x4E00;&#x4E0B;&#x6811;&#x8393;&#x6D3E;&#x542F;&#x52A8;&#x540E;&#x81EA;&#x52A8;&#x8FD0;&#x884C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x548C;&#x5C0F;&#x8F66;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#xFF0C;&#x8F93;&#x5165;&#x547D;&#x4EE4;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">crontab</span> <span class="token parameter variable">-e</span>
+</code></pre>
+<p>&#x518D;&#x6587;&#x4EF6;&#x540E;&#x9762;&#x6DFB;&#x52A0;&#x4E0B;&#x9762;&#x4E24;&#x53E5;&#x8BDD;&#xFF0C;&#x6CE8;&#x610F;&#x8FD0;&#x884C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x7A0B;&#x5E8F;(<code>sudo node main.js</code>)&#x65F6;&#x9700;&#x8981;&#x5EF6;&#x65F6;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;(sleep 10s)&#xFF0C;&#x7B49;&#x5F85;&#x7CFB;&#x7EDF;&#x521D;&#x59CB;&#x5316;&#x597D;&#x4E86;&#x624D;&#x80FD;&#x6B63;&#x786E;&#x8FD0;&#x884C;&#x3002;&#x53E6;&#x5916;&#x8FD0;&#x884C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x9700;&#x8981;&#x83B7;&#x5F97;root&#x6743;&#x9650;&#x3002;</p>
+<pre class="language-"><code class="lang-conf">@reboot cd /home/pi/pywork/raspberrypi-car/ble; python3 car.py  &gt; car.log 2&gt;<span class="token entity named-entity" title="&amp;1;">&amp;1;</span>
+
+@reboot cd /home/pi/pywork/raspberrypi-car/ble/rpicarctl; sleep 10s; sudo node main.js &gt; console.log 2&gt;<span class="token entity named-entity" title="&amp;1;">&amp;1;</span>
+</code></pre>
+<p>&#x5982;&#x4E0A;&#x914D;&#x7F6E;&#x597D;&#x540E;&#xFF0C;&#x4EE5;&#x540E;&#x6811;&#x8393;&#x6D3E;&#x5F00;&#x673A;&#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x542F;&#x52A8;&#x4E0A;&#x9762;&#x4E24;&#x4E2A;&#x670D;&#x52A1;&#xFF0C;&#x8FD9;&#x6837;&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x9065;&#x63A7;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x5728;&#x5C0F;&#x8F66;&#x5F00;&#x673A;&#x540E;&#x968F;&#x65F6;&#x8FDE;&#x63A5;&#x4E0A;&#x6765;&#x3002;&#x6700;&#x540E;&#x518D;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x5C0F;&#x7A0B;&#x5E8F;&#x9065;&#x63A7;&#x7AEF;&#x3002;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/769dba20801c11eb983f31fd884051bb/rpicarctl-miniclient.jpg" alt="&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;"></p>
+<p>&#x4E0A;&#x56FE;&#x662F;&#x5C0F;&#x7A0B;&#x5E8F;&#x9065;&#x63A7;&#x754C;&#x9762;&#x3002;&#x6253;&#x5F00;&#x5C0F;&#x7A0B;&#x5E8F;&#x540E;&#xFF0C;&#x5148;&#x70B9;&#x51FB;&#x626B;&#x63CF;&#x6309;&#x94AE;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x53D1;&#x73B0;&#x6811;&#x8393;&#x6D3E;&#x5C0F;&#x8F66;&#x3002;&#x70B9;&#x51FB;&#x5BF9;&#x5E94;&#x53D1;&#x73B0;&#x7684;&#x8BBE;&#x5907;&#x5373;&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x4E0A;&#x6811;&#x8393;&#x6D3E;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x3002;&#x8FDE;&#x63A5;&#x540E;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E0B;&#x9762;&#x51FA;&#x73B0;&#x4E86;&#x9065;&#x63A7;&#x6309;&#x94AE;&#x3002;&#x901A;&#x8FC7;&#x8FD9;&#x4E9B;&#x6309;&#x94AE;&#x5C31;&#x53EF;&#x4EE5;&#x64CD;&#x4F5C;&#x5C0F;&#x8F66;&#x7684;&#x52A8;&#x4F5C;&#x4E86;&#x3002;</p>
+<p>&#x5C0F;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x6587;&#x4EF6;&#x6709;&#x70B9;&#x957F;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x8D34;&#x51FA;&#x5168;&#x90E8;&#x4E86;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x5230;github&#x4ED3;&#x5E93;&#x770B;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;&#x3002;&#x4E0B;&#x9762;&#x53EA;&#x770B;&#x4E0B;&#x548C;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x76F4;&#x63A5;&#x4EA4;&#x4E92;&#x7684;&#x90E8;&#x5206;&#x3002;</p>
+<pre class="language-"><code class="lang-javascript"><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token parameter">action</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// &#x5411;&#x84DD;&#x7259;&#x8BBE;&#x5907;&#x53D1;&#x9001;&#x4E00;&#x4E2A;0x00&#x7684;16&#x8FDB;&#x5236;&#x6570;&#x636E;</span>
+    <span class="token keyword">let</span> buffer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayBuffer</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">let</span> dataView <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DataView</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span>
+    dataView<span class="token punctuation">.</span><span class="token function">setUint8</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span>
+    wx<span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">deviceId</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_deviceId<span class="token punctuation">,</span>
+        <span class="token literal-property property">serviceId</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_serviceId<span class="token punctuation">,</span>
+        <span class="token literal-property property">characteristicId</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_characteristicId<span class="token punctuation">,</span>
+        <span class="token literal-property property">value</span><span class="token operator">:</span> buffer<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">forward</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">backward</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">left</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">right</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">clockwise</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">anticlockwise</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">writeBLECharacteristicValue</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5728;&#x70B9;&#x51FB;&#x754C;&#x9762;&#x76F8;&#x5E94;&#x6309;&#x94AE;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x901A;&#x8FC7;BLE&#x8FDE;&#x63A5;&#x53D1;&#x9001;&#x76F8;&#x5173;&#x6307;&#x4EE4;&#x5230;&#x84DD;&#x7259;&#x670D;&#x52A1;&#x7AEF;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD;&#x4E86;&#x5B9E;&#x73B0;&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x9065;&#x63A7;&#x5C0F;&#x8F66;&#x7684;&#x4E3B;&#x8981;&#x6B65;&#x9AA4;&#x65B9;&#x6CD5;&#xFF0C;&#x4EE3;&#x7801;&#x7EC6;&#x8282;&#x6CA1;&#x6709;&#x8BB2;&#xFF0C;&#x4E0D;&#x8FC7;&#x62C9;&#x4E00;&#x4E0B; Github &#x4E0A;&#x9879;&#x76EE;&#x4EE3;&#x7801;&#x5F88;&#x5BB9;&#x6613;&#x5C31;&#x770B;&#x61C2;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"微信小程序(蓝牙BLE)远程遥控树莓派小车","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T09:26:22.998Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T09:29:01.681Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+
