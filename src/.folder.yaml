@@ -2,3 +2,4 @@ keynote: []
 docsify: []
 gitbook:
   - 'build-a-AI-Go-device-with-raspberrypi-epaper-and-katago'
+  - 'writing-a-cloud-encrypting-file-system-with-golang-and-FUSE'
