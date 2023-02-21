@@ -1,0 +1,17 @@
+{
+  "language": "zh-hans",
+  "plugins": [
+    "-lunr",
+    "-search",
+    "-sharing",
+    "-fontsettings",
+    "-highlight",
+    "prism",
+    "code"
+  ],
+  "links": {
+    "sidebar": {
+      "huoyijie.cn": "https://huoyijie.cn"
+    }
+  }
+}
