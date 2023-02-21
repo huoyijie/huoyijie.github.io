@@ -1,0 +1,24 @@
+{
+  "id": "fa1b6d507d7111eb9aeae3d030369a53",
+  "name": "cdn-service",
+  "title": "快速搭建CDN回源服务器",
+  "author": "huoyijie",
+  "description": "快速搭建CDN回源服务器",
+  "introduce": "本文接上篇《网站图片视频接入CDN》，上篇文章介绍了如何把图片接入CDN，里面提到了需要搭建自有的回源服务器。本文将会介绍如何快速搭建一个简单的回源服务器。我的服务器是 Ubuntu 系统，后面的操作都是基于 Ubuntu...",
+  "coverImg": "https://cdn.huoyijie.cn/ab/fa1b6d507d7111eb9aeae3d030369a53/cdnservice-cover.jpg",
+  "language": "zh-hans",
+  "plugins": [
+    "-lunr",
+    "-search",
+    "-sharing",
+    "-fontsettings",
+    "-highlight",
+    "prism",
+    "code"
+  ],
+  "links": {
+    "sidebar": {
+      "首页": "https://huoyijie.cn/?from=article_cdnservice"
+    }
+  }
+}
