@@ -20,31 +20,14 @@
 
 上面是调试小车时拍的照片，线路没有焊接，组件是胶布粘的，看起来一碰就散，跑起来还挺稳的。下面是我们录制的视频。
 
-<video
-  id="playing_car_video"
-  class="video-js"
-  controls
-  muted
-  preload="auto"
-  width="720"
-  poster="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car_poster.jpg"
-  data-setup="{}"
->
-  <source src="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car/0001.m3u8" type="application/x-mpegURL"/>
-</video>
+<br><video id="playing_car_video" class="video-js" controls muted preload="auto" width="720" data-setup="{}">
+  <source src="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car@home.mp4" type="video/mp4">
+</video><br>
 
-<video
-  id="playing_car_metro_video"
-  class="video-js"
-  style="margin-bottom: 30px;"
-  controls
-  muted
-  preload="auto"
-  width="400"
-  poster="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car_@metro_poster.jpg"
-  data-setup="{}"
+<br><video
+  id="playing_car_metro_video" class="video-js" controls muted preload="auto" width="400" data-setup="{}"
 >
-  <source src="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car_metro/0001.m3u8" type="application/x-mpegURL"/>
-</video>
+  <source src="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car@metro.mp4" type="video/mp4">
+</video><br>
 
 我们人类对细节的记忆其实挺差的，至少我是这样，很多东西过段时间就几乎忘干净，好像没发生过一样。现在把制作小车的过程记录下来，未来还可以偶尔翻出来看看，也希望这个记录能够对那些同样想做小车的初学者有所帮助。
