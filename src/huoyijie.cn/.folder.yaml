@@ -1,7 +1,7 @@
 keynote: []
 docsify: []
 gitbook:
-  - 'host-static-resources-of-website-with-tencent-cdn'
+  - 'host-static-resources-of-website-with-tencent-CDN'
   - 'build-a-CDN-back-to-source-server-with-nodejs'
   - 'website-support-http2'
   - 'implement-a-simple-reverse-proxy-server-with-nodejs'
