@@ -9,3 +9,7 @@ summry: '我在平时的开发过程中，总会遇到一些没见过的问题�
 copyright: 'huoyijie.cn'
 beian: '沪ICP备20008057号-1'
 beianlink: 'https://beian.miit.gov.cn/'
+# This is a server mode parameter, please restart server after modification.
+staticpath:
+  - 'article'
+  - 'blog'

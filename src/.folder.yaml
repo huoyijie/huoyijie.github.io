@@ -4,3 +4,5 @@ gitbook:
   - 'build-a-AI-Go-device-with-raspberrypi-epaper-and-katago'
   - 'writing-a-cloud-encrypting-file-system-with-golang-and-FUSE'
   - 'writing-a-chat-program-with-golang-and-protobuf'
+ignore:
+  - '82c8e470-7562-11ea-98d3-6d733527e90f'
