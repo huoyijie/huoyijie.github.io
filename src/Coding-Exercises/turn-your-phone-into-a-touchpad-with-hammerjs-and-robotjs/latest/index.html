@@ -1,0 +1,513 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>如何把手机触摸屏变成触控板（Touchpad） · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    如何把手机触摸屏变成触控板（Touchpad）
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >如何把手机触摸屏变成触控板（Touchpad）</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5982;&#x4F55;&#x628A;&#x624B;&#x673A;&#x89E6;&#x6478;&#x5C4F;&#x53D8;&#x6210;&#x89E6;&#x63A7;&#x677F;&#xFF08;touchpad&#xFF09;">&#x5982;&#x4F55;&#x628A;&#x624B;&#x673A;&#x89E6;&#x6478;&#x5C4F;&#x53D8;&#x6210;&#x89E6;&#x63A7;&#x677F;&#xFF08;Touchpad&#xFF09;</h1>
+<p>&#x9F20;&#x6807;&#x4F7F;&#x7528;&#x7B80;&#x5355;&#x76F4;&#x89C2;&#xFF0C;&#x638C;&#x63E1;&#x8D77;&#x6765;&#x4E5F;&#x5BB9;&#x6613;&#xFF0C;&#x4F46;&#x662F;&#x901A;&#x8FC7;&#x624B;&#x52BF;&#x89E6;&#x63A7;&#x64CD;&#x4F5C;&#x7684;&#x89E6;&#x63A7;&#x677F;&#x5374;&#x53D7;&#x5230;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#x7684;&#x6B22;&#x8FCE;&#x3002;&#x9F20;&#x6807;&#x79FB;&#x52A8;&#x8D77;&#x6765;&#x9700;&#x8981;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#x5E73;&#x9762;&#x7A7A;&#x95F4;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x9F20;&#x6807;&#x57AB;&#xFF0C;&#x4F7F;&#x7528;&#x9650;&#x5236;&#x5927;&#xFF0C;&#x65F6;&#x95F4;&#x957F;&#x4E86;&#xFF0C;&#x624B;&#x8155;&#x4F1A;&#x7D2F;&#x3002;&#x89E6;&#x63A7;&#x677F;&#x514B;&#x670D;&#x4E86;&#x8FD9;&#x4E9B;&#x7F3A;&#x9677;&#xFF0C;&#x638C;&#x63E1;&#x5E38;&#x7528;&#x7684;&#x64CD;&#x4F5C;&#x624B;&#x52BF;&#x540E;&#xFF0C;&#x7528;&#x8D77;&#x6765;&#x975E;&#x5E38;&#x65B9;&#x4FBF;&#x3002;&#x6211;&#x7684;&#x53F0;&#x5F0F;&#x7535;&#x8111;&#x6709;&#x65F6;&#x4F1A;&#x63A5;&#x6295;&#x5F71;&#x4EEA;&#x6295;&#x5C4F;&#xFF0C;&#x901A;&#x8FC7;&#x9F20;&#x6807;&#x64CD;&#x4F5C;&#x4E0D;&#x592A;&#x65B9;&#x4FBF;&#x3002;&#x6211;&#x5C31;&#x60F3;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x6709;&#x8DA3;&#x7684;&#x9879;&#x76EE;&#xFF0C;&#x628A;&#x624B;&#x673A;&#x89E6;&#x6478;&#x5C4F;&#x6539;&#x9020;&#x4E3A;&#x9065;&#x63A7;&#x5668;&#x6765;&#x63A7;&#x5236;&#x6295;&#x5F71;&#x4EEA;&#x3002;</p>
+<p>&#x60F3;&#x8981;&#x5B9E;&#x73B0;&#x624B;&#x673A;&#x89E6;&#x63A7;&#x8FDC;&#x7A0B;&#x64CD;&#x4F5C;&#x7535;&#x8111;&#x9F20;&#x6807;&#xFF0C;&#x9700;&#x8981;&#x89E3;&#x51B3;3&#x4E2A;&#x6700;&#x91CD;&#x8981;&#x7684;&#x95EE;&#x9898;:</p>
+<h2 id="1-&#x8BC6;&#x522B;&#x624B;&#x673A;&#x89E6;&#x63A7;&#x624B;&#x52BF;">1. &#x8BC6;&#x522B;&#x624B;&#x673A;&#x89E6;&#x63A7;&#x624B;&#x52BF;</h2>
+<p>&#x6D4F;&#x89C8;&#x5668;&#x5DF2;&#x6709;&#x624B;&#x52BF;&#x64CD;&#x4F5C;&#x76F8;&#x5173;&#x6807;&#x51C6;&#xFF0C;&#x57FA;&#x4E8E; Web &#x5929;&#x7136;&#x8DE8;&#x5E73;&#x53F0;&#x7684;&#x4F18;&#x52BF;&#xFF0C;&#x91C7;&#x7528;&#x6D4F;&#x89C8;&#x5668;&#x6765;&#x8BC6;&#x522B;&#x624B;&#x52BF;&#x4E5F;&#x662F;&#x5F88;&#x81EA;&#x7136;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x800C;&#x4E14;&#x6709;&#x73B0;&#x6210;&#x7684;&#x5F00;&#x6E90;&#x5E93; <a href="https://github.com/hammerjs/hammer.js" target="_blank">hammer.js</a> &#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x3002;hammer.js &#x53EF;&#x4EE5;&#x8BC6;&#x522B;&#x5404;&#x79CD;&#x624B;&#x52BF;&#x4EE5;&#x53CA;&#x624B;&#x6307;&#x4E0E;&#x5C4F;&#x5E55;&#x7684;&#x63A5;&#x89E6;&#x70B9;&#x5750;&#x6807;&#x3002;</p>
+<p>&#x67E5;&#x770B; hammer.js <a href="http://hammerjs.github.io/getting-started/" target="_blank">&#x5B98;&#x65B9; Doc</a>&#xFF0C;&#x4E3B;&#x8981;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x624B;&#x52BF;:</p>
+<ul>
+<li>Pan - &#x79FB;&#x52A8;/&#x62D6;&#x52A8;</li>
+</ul>
+<p>&#x901A;&#x8FC7; Hammer.Pan(options) &#x53EF;&#x4EE5;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x79FB;&#x52A8;&#x624B;&#x52BF;&#x5BF9;&#x8C61;&#xFF0C;&#x540E;&#x9762;&#x9700;&#x8981;&#x628A; Hammer &#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x5173;&#x8054;&#x5230; Dom &#x7684;&#x67D0;&#x4E2A; element &#x5143;&#x7D20;&#x4E0A;&#x9762;&#xFF0C;&#x8FD9;&#x4E2A; element &#x5373;&#x652F;&#x6301;&#x76F8;&#x5E94;&#x7684;&#x624B;&#x52BF;&#x64CD;&#x4F5C;&#x4E86;&#x3002;&#x9700;&#x8981;&#x652F;&#x6301;&#x54EA;&#x4E9B;&#x624B;&#x52BF;&#xFF0C;&#x5C31;&#x628A;&#x76F8;&#x5E94;&#x6784;&#x5EFA;&#x597D;&#x7684;&#x624B;&#x52BF;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#x6DFB;&#x52A0;&#x5230; Hanmmer &#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x4E2D;&#x5373;&#x53EF;&#xFF0C;&#x5982; Hammer.Pan&#x3002;Pan &#x5BF9;&#x8C61;&#x63A5;&#x53D7;&#x4E00;&#x4E2A; options &#x53C2;&#x6570;&#x5BF9;&#x8C61;&#xFF0C;&#x4E3B;&#x8981;&#x9009;&#x9879;&#x5982;&#x4E0B;&#x8868;:</p>
+<table>
+<thead>
+<tr>
+<th>&#x9009;&#x9879;</th>
+<th>&#x9ED8;&#x8BA4;&#x503C;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>pan</td>
+<td>&#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#xFF0C;Pan &#x5B9E;&#x4F8B;&#x4F1A;&#x89E6;&#x53D1;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x6240;&#x652F;&#x6301;&#x7684;&#x4E8B;&#x4EF6;&#x5217;&#x8868;&#x540E;&#x9762;&#x7ED9;&#x51FA;</td>
+</tr>
+<tr>
+<td>pointers</td>
+<td>1</td>
+<td>&#x4E0E;&#x5C4F;&#x5E55;&#x63A5;&#x89E6;&#x70B9;&#x6570;&#x91CF;&#xFF0C;&#x5982;&#x679C;&#x79FB;&#x52A8;&#x9F20;&#x6807;&#x6307;&#x9488;&#xFF0C;&#x53EA;&#x9700;&#x4E3A; 1&#xFF0C;&#x5982;&#x679C;&#x6ED1;&#x52A8;&#x6EDA;&#x52A8;&#x6761;&#xFF0C;&#x901A;&#x5E38;&#x9700;&#x8981;&#x4E3A; 2</td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>10</td>
+<td>&#x8BC6;&#x522B;&#x8BE5;&#x624B;&#x52BF;&#x6240;&#x9700;&#x6700;&#x5C0F;&#x7684;&#x79FB;&#x52A8;&#x8DDD;&#x79BB;&#xFF08;&#x5355;&#x4F4D;: &#x50CF;&#x7D20;&#xFF09;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>DIRECTION_ALL</td>
+<td>&#x79FB;&#x52A8;&#x65B9;&#x5411;&#xFF0C;&#x5305;&#x542B;&#x4E0A;&#x3001;&#x4E0B;&#x3001;&#x5DE6;&#x3001;&#x53F3;&#x56DB;&#x4E2A;&#x65B9;&#x5411;&#xFF0C;&#x6ED1;&#x52A8;&#x6EDA;&#x52A8;&#x6761;&#x65F6;&#x5F88;&#x6709;&#x7528;</td>
+</tr>
+</tbody>
+</table>
+<p>pan: &#x4EE3;&#x8868;&#x4E0B;&#x9762;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#x90FD;&#x9700;&#x8981;&#x89E6;&#x53D1;</p>
+<p>panstart: &#x79FB;&#x52A8;&#x5F00;&#x59CB;&#x4E8B;&#x4EF6;</p>
+<p>panmove: &#x79FB;&#x52A8;&#x4E2D;&#x4E8B;&#x4EF6;</p>
+<p>panend: &#x79FB;&#x52A8;&#x7ED3;&#x675F;&#x4E8B;&#x4EF6;</p>
+<p>pancancel: &#x79FB;&#x52A8;&#x53D6;&#x6D88;&#x4E8B;&#x4EF6;</p>
+<p>panleft: &#x5411;&#x5DE6;&#x79FB;&#x52A8;&#x4E8B;&#x4EF6;</p>
+<p>panright: &#x5411;&#x53F3;&#x79FB;&#x52A8;&#x4E8B;&#x4EF6;</p>
+<p>panup: &#x5411;&#x4E0A;&#x79FB;&#x52A8;&#x4E8B;&#x4EF6;</p>
+<p>pandown: &#x5411;&#x4E0B;&#x79FB;&#x52A8;&#x4E8B;&#x4EF6;</p>
+<p>&#x5176;&#x4E2D; panleft/panright &#x624B;&#x52BF;&#x914D;&#x5408; 2 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x6EDA;&#x52A8;&#x6761;&#x5DE6;&#x53F3;&#x6ED1;&#x52A8;&#x3002;&#x540C;&#x7406;&#xFF0C;panup/pandown &#x624B;&#x52BF;&#x914D;&#x5408; 2 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x6EDA;&#x52A8;&#x6761;&#x4E0A;&#x4E0B;&#x6ED1;&#x52A8;&#x3002;&#x8FDB;&#x800C;&#x66FF;&#x4EE3;&#x9F20;&#x6807;&#x6EDA;&#x8F6E;&#x3002;</p>
+<p>panstart/panmove/panend &#x914D;&#x5408; 1 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x9F20;&#x6807;&#x6307;&#x9488;&#x79FB;&#x52A8;&#xFF0C;&#x5982;&#x679C;&#x518D;&#x914D;&#x5408;&#x540E;&#x9762;&#x4F1A;&#x63D0;&#x5230;&#x7684; press&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x63A7;&#x5236;&#x9F20;&#x6807;&#x62D6;&#x52A8;&#x3002;panmove &#x4E8B;&#x4EF6;&#x4F1A;&#x5B9E;&#x65F6;&#x4E0A;&#x62A5;&#x63A5;&#x89E6;&#x70B9;&#x7684;&#x7EDD;&#x5BF9;&#x5750;&#x6807;&#x6216;&#x8005;&#x76F8;&#x5BF9;&#x4F4D;&#x79FB;&#xFF0C;&#x4EE5;&#x6B64;&#x53EF;&#x4EE5;&#x5B9E;&#x65F6;&#x8BA1;&#x7B97;&#x9F20;&#x6807;&#x6307;&#x9488;&#x5E94;&#x8BE5;&#x79FB;&#x52A8;&#x7684;&#x65B9;&#x5411;&#x548C;&#x8DDD;&#x79BB;&#x3002;</p>
+<ul>
+<li>Pinch - &#x7F29;&#x653E;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; 2 &#x4E2A;&#x6216;&#x66F4;&#x591A;&#x7684;&#x63A5;&#x89E6;&#x70B9;&#xFF0C;&#x5B9E;&#x73B0;&#x624B;&#x52BF;&#x63A7;&#x5236;&#x7F29;&#x653E;&#xFF0C;&#x672C;&#x4F8B;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x7528;&#x5230;</p>
+<ul>
+<li>Press - &#x6309;&#x538B;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x8BC6;&#x522B; 1 &#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x7684;&#x6309;&#x538B;&#x548C;&#x91CA;&#x653E;&#x624B;&#x52BF;&#xFF0C;&#x548C; Tap &#x70B9;&#x51FB;&#x624B;&#x52BF;&#x6709;&#x6240;&#x533A;&#x522B;&#x3002;&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x4E86;&#xFF0C;press &#x914D;&#x5408; panstart/panmove/panend &#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x9F20;&#x6807;&#x62D6;&#x52A8;</p>
+<table>
+<thead>
+<tr>
+<th>&#x9009;&#x9879;</th>
+<th>&#x9ED8;&#x8BA4;&#x503C;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>press</td>
+<td>&#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#xFF0C;Hammer.Press &#x5B9E;&#x4F8B;&#x4F1A;&#x89E6;&#x53D1;</td>
+</tr>
+<tr>
+<td>pointers</td>
+<td>1</td>
+<td>&#x4E0E;&#x5C4F;&#x5E55;&#x63A5;&#x89E6;&#x70B9;&#x6570;&#x91CF;&#xFF0C;&#x5982;&#x62D6;&#x52A8;&#x9F20;&#x6807;&#xFF08;&#x6309;&#x4F4F;&#x5DE6;&#x952E;&#x79FB;&#x52A8;&#x9F20;&#x6807;&#xFF09;&#xFF0C;&#x9700;&#x4E3A; 1</td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>9</td>
+<td>&#x6309;&#x538B;&#x65F6;&#x63A5;&#x89E6;&#x70B9;&#x5141;&#x8BB8;&#x79FB;&#x52A8;&#x7684;&#x6700;&#x5927;&#x8DDD;&#x79BB;&#xFF08;&#x5355;&#x4F4D;: &#x50CF;&#x7D20;&#xFF09;</td>
+</tr>
+<tr>
+<td>time</td>
+<td>251</td>
+<td>&#x8BC6;&#x522B;&#x8BE5;&#x624B;&#x52BF;&#x8981;&#x6C42;&#x4FDD;&#x6301;&#x6309;&#x538B;&#x72B6;&#x6001;&#x7684;&#x6700;&#x77ED;&#x65F6;&#x95F4;&#xFF08;&#x5355;&#x4F4D;: &#x6BEB;&#x79D2;&#xFF09;</td>
+</tr>
+</tbody>
+</table>
+<p>press: &#x6309;&#x538B;&#x4E8B;&#x4EF6;
+pressup: &#x91CA;&#x653E;&#x4E8B;&#x4EF6;</p>
+<ul>
+<li>Rotate - &#x65CB;&#x8F6C;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; 2 &#x4E2A;&#x6216;&#x66F4;&#x591A;&#x7684;&#x63A5;&#x89E6;&#x70B9;&#xFF0C;&#x5B9E;&#x73B0;&#x624B;&#x52BF;&#x63A7;&#x5236;&#x65CB;&#x8F6C;&#xFF0C;&#x672C;&#x4F8B;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x7528;&#x5230;</p>
+<ul>
+<li>Swipe - &#x5FEB;&#x901F;&#x6ED1;&#x52A8;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; 1 &#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x7684;&#x5FEB;&#x901F;&#x79FB;&#x52A8;&#xFF0C;&#x5B9E;&#x73B0;&#x624B;&#x52BF;&#x63A7;&#x5236;&#x7FFB;&#x9875;&#x3001;&#x5207;&#x6362; Tab &#x6807;&#x7B7E;&#x9875;&#x7B49;&#xFF0C;&#x672C;&#x4F8B;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x7528;&#x5230;</p>
+<ul>
+<li>Tap - &#x70B9;&#x51FB;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; 1 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#xFF0C;&#x5B9E;&#x73B0;&#x9F20;&#x6807;&#x5DE6;&#x952E;&#x5355;&#x51FB;&#x3001;&#x53CC;&#x51FB;&#x3001;&#x751A;&#x81F3;&#x4E09;&#x8FDE;&#x51FB;&#x7B49;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; 2 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x70B9;&#x51FB;&#x6A21;&#x62DF;&#x9F20;&#x6807;&#x53F3;&#x952E;&#x70B9;&#x51FB;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x9009;&#x9879;</th>
+<th>&#x9ED8;&#x8BA4;&#x503C;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>tap</td>
+<td>&#x4E8B;&#x4EF6;&#x540D;&#x79F0;</td>
+</tr>
+<tr>
+<td>pointers</td>
+<td>1</td>
+<td>1 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x70B9;&#x51FB;&#x4EE3;&#x8868;&#x9F20;&#x6807;&#x5DE6;&#x952E;&#x5355;&#x51FB;&#xFF0C;2 &#x4E2A;&#x63A5;&#x89E6;&#x70B9;&#x70B9;&#x51FB;&#x4EE3;&#x8868;&#x9F20;&#x6807;&#x53F3;&#x952E;&#x5355;&#x51FB;</td>
+</tr>
+<tr>
+<td>taps</td>
+<td>1</td>
+<td>&#x8BC6;&#x522B;&#x8BE5;&#x624B;&#x52BF;&#x7684;&#x70B9;&#x51FB;&#x6B21;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x5355;&#x51FB;&#x4E3A; 1&#xFF0C;&#x53CC;&#x51FB;&#x4E3A; 2</td>
+</tr>
+<tr>
+<td>interval</td>
+<td>300</td>
+<td>&#x591A;&#x6B21;&#x70B9;&#x51FB;&#x88AB;&#x8BC6;&#x522B;&#x4E3A;&#x540C;&#x4E00;&#x4E2A;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x7684;&#x6700;&#x5927;&#x65F6;&#x95F4;&#x95F4;&#x9694; (&#x5355;&#x4F4D;: &#x6BEB;&#x79D2;)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>250</td>
+<td>&#x70B9;&#x51FB;&#x65F6;&#x6309;&#x538B;&#x72B6;&#x6001;&#x4FDD;&#x6301;&#x7684;&#x6700;&#x5927;&#x65F6;&#x957F; &#xFF08;&#x5355;&#x4F4D;&#xFF1A; &#x6BEB;&#x79D2;&#xFF09;</td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>2</td>
+<td>&#x70B9;&#x51FB;&#x65F6;&#x6240;&#x5141;&#x8BB8;&#x7684;&#x63A5;&#x89E6;&#x70B9;&#x79FB;&#x52A8;&#x8DDD;&#x79BB; &#xFF08;&#x5355;&#x4F4D;: &#x50CF;&#x7D20;&#xFF09;</td>
+</tr>
+<tr>
+<td>posThreshold</td>
+<td>10</td>
+<td>&#x591A;&#x6B21;&#x5355;&#x51FB;&#x4F4D;&#x7F6E;&#x7684;&#x6700;&#x5927;&#x5DEE;&#x8DDD;&#x8DDD;&#x79BB;&#xFF08;&#x5355;&#x4F4D;: &#x50CF;&#x7D20;&#xFF09;</td>
+</tr>
+</tbody>
+</table>
+<p>tap: &#x70B9;&#x51FB;&#x4E8B;&#x4EF6;</p>
+<h2 id="2-&#x624B;&#x673A;&#x4E0E;&#x7535;&#x8111;&#x4E4B;&#x95F4;&#x4F4E;&#x65F6;&#x5EF6;&#x5B9E;&#x65F6;&#x901A;&#x4FE1;">2. &#x624B;&#x673A;&#x4E0E;&#x7535;&#x8111;&#x4E4B;&#x95F4;&#x4F4E;&#x65F6;&#x5EF6;&#x5B9E;&#x65F6;&#x901A;&#x4FE1;</h2>
+<p>&#x624B;&#x673A;&#x548C;&#x7535;&#x8111;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; WIFI &#x5EFA;&#x7ACB; TCP &#x8FDE;&#x63A5;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x8981;&#x6C42;&#x624B;&#x673A;&#x548C;&#x7535;&#x8111;&#x8FDE;&#x63A5;&#x76F8;&#x540C;&#x7684; WIFI&#xFF0C;&#x8FD9;&#x6837;&#x5F7C;&#x6B64;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x3002;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x8FC7; socket.io &#x5F00;&#x6E90;&#x5E93;&#x5B9E;&#x73B0;&#xFF0C;&#x7535;&#x8111;&#x7AEF;&#x901A;&#x8FC7; Node.js &#x5B9E;&#x73B0;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x624B;&#x673A;&#x7AEF;&#x6D4F;&#x89C8;&#x5668;&#x4F5C;&#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x56E0;&#x4E3A;&#x662F;&#x5185;&#x7F51;&#xFF0C;&#x8FDE;&#x63A5;&#x8D28;&#x91CF;&#x6709;&#x6240;&#x4FDD;&#x8BC1;&#xFF0C;&#x6CE8;&#x610F;&#x5728;&#x521D;&#x59CB;&#x5316; socket.io &#x670D;&#x52A1;&#x7AEF;&#x548C;&#x5BA2;&#x6237;&#x7AEF;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x9009;&#x9879;&#x63A7;&#x5236;&#x76F4;&#x63A5;&#x5EFA;&#x7ACB; websocket &#x8FDE;&#x63A5;&#x3002;&#x800C;&#x4E14; socket.io &#x5BF9;&#x65AD;&#x7EBF;&#x91CD;&#x8FDE;&#x6709;&#x975E;&#x5E38;&#x597D;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x610F;&#x5916;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#xFF0C;&#x6216;&#x8005;&#x91CD;&#x542F;&#x670D;&#x52A1;&#x7AEF;&#x7A0B;&#x5E8F;&#xFF0C;&#x751A;&#x81F3;&#x77ED;&#x65F6;&#x95F4;&#x5185;&#x91CD;&#x542F;&#x7535;&#x8111;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x91CD;&#x65B0;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x867D;&#x7136;&#x7535;&#x8111;&#x548C;&#x624B;&#x673A;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x91CF;&#x4E0D;&#x5927;&#xFF0C;&#x4F46;&#x662F;&#x5B9E;&#x65F6;&#x6027;&#x8981;&#x6C42;&#x975E;&#x5E38;&#x9AD8;&#xFF0C;&#x5C24;&#x5176;&#x5728;&#x9F20;&#x6807;&#x79FB;&#x52A8;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x4E0D;&#x505C;&#x7684;&#x8BA1;&#x7B97;&#x9F20;&#x6807;&#x6307;&#x9488;&#x7684;&#x4F4D;&#x7F6E;&#x5E76;&#x4E0D;&#x65AD;&#x7684;&#x79FB;&#x52A8;&#x9F20;&#x6807;&#x3002;&#x5982;&#x679C;&#x6570;&#x636E;&#x5305;&#x5EF6;&#x65F6;&#x8F83;&#x5927;&#xFF0C;&#x9F20;&#x6807;&#x7684;&#x79FB;&#x52A8;&#x63A7;&#x5236;&#x5C31;&#x6709;&#x987F;&#x9519;&#x611F;&#xFF0C;&#x4F53;&#x9A8C;&#x5F88;&#x5DEE;&#x3002;&#x6240;&#x4EE5;&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x624B;&#x673A;&#x63A7;&#x5236;&#x7535;&#x8111;&#x65F6;&#xFF0C;&#x8981;&#x6CE8;&#x610F;&#x624B;&#x673A;&#x548C;&#x7535;&#x8111;&#x7684; WIFI &#x4FE1;&#x53F7;&#x8D28;&#x91CF;&#x3001;&#x5468;&#x56F4;&#x662F;&#x5426;&#x6709;&#x84DD;&#x7259;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x76F8;&#x540C;&#x9891;&#x9053;&#x7684;&#x5E72;&#x6270;&#x4FE1;&#x53F7;&#x3002;&#x8FD9;&#x4E9B;&#x5E72;&#x6270;&#x4FE1;&#x53F7;&#x4F1A;&#x4F7F;&#x5F97;&#x901A;&#x4FE1;&#x901F;&#x5EA6;&#x4E0B;&#x964D;&#xFF0C;&#x9020;&#x6210;&#x65F6;&#x5EF6;&#x589E;&#x52A0;&#xFF0C;&#x4F7F;&#x5F97;&#x9F20;&#x6807;&#x51FA;&#x73B0;&#x6EDE;&#x540E;&#x7684;&#x987F;&#x9519;&#x611F;&#x3002;&#x540C;&#x7406;&#xFF0C;&#x5982;&#x679C;&#x8DEF;&#x7531;&#x5668;&#x8BBE;&#x5907;&#x6BD4;&#x8F83;&#x8001;&#x4E86;&#xFF0C;&#x8FD8;&#x5728;&#x7528; 2.4G &#x9891;&#x7387;&#x901A;&#x4FE1;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x89C2;&#x770B;&#x5728;&#x7EBF;&#x89C6;&#x9891;&#x751A;&#x81F3;&#x6E38;&#x620F;&#x573A;&#x666F;&#xFF0C;&#x7535;&#x8111;&#x548C;&#x8DEF;&#x7531;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x5305;&#x5F88;&#x591A;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x9020;&#x6210;&#x624B;&#x673A;&#x53D1;&#x51FA;&#x7684;&#x89E6;&#x63A7;&#x6570;&#x636E;&#x5305;&#x7684;&#x5B9E;&#x65F6;&#x6027;&#x3002;</p>
+<p>&#x6700;&#x7406;&#x60F3;&#x7684;&#x60C5;&#x51B5;&#x662F;&#xFF0C;&#x5BB6;&#x91CC;&#x7684;&#x8DEF;&#x7531;&#x5668;&#x652F;&#x6301; 5G &#x4FE1;&#x53F7;&#xFF0C;&#x5E76;&#x4E14;&#x4FE1;&#x53F7;&#x8986;&#x76D6;&#x6BD4;&#x8F83;&#x7406;&#x60F3;&#xFF0C;&#x7535;&#x8111;&#x548C;&#x624B;&#x673A; WIFI &#x4FE1;&#x53F7;&#x4E5F;&#x4E0D;&#x9519;&#xFF0C;&#x4E5F;&#x6CA1;&#x6709;&#x5176;&#x4ED6;&#x65E0;&#x7EBF;&#x5E72;&#x6270;&#x4FE1;&#x53F7;&#x3002;2.4G &#x9891;&#x6BB5;&#x5E72;&#x6270;&#x4FE1;&#x53F7;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x5982;&#x84DD;&#x7259;&#x3001;&#x6216;&#x8005;&#x65E0;&#x7EBF;&#x9F20;&#x6807;&#x952E;&#x76D8;&#x7B49;&#x90FD;&#x5728;&#x8FD9;&#x4E2A;&#x9891;&#x6BB5;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x548C; 2.4G WIFI &#x76F8;&#x4E92;&#x4E4B;&#x95F4;&#x4EA7;&#x751F;&#x4FE1;&#x53F7;&#x5E72;&#x6270;&#x3002;</p>
+<p>&#x5F53;&#x7136;&#x5982;&#x679C;&#x7ED9;&#x53F0;&#x5F0F;&#x673A;&#x5355;&#x72EC;&#x914D;&#x7F6E;&#x4E00;&#x4E2A; USB &#x65E0;&#x7EBF;&#x7F51;&#x5361;&#xFF0C;&#x5355;&#x72EC;&#x7ED9;&#x624B;&#x673A;&#x6765;&#x8FDE;&#x63A5;&#xFF0C;&#x8FDB;&#x884C;&#x89E6;&#x63A7;&#x6570;&#x636E;&#x5305;&#x7684;&#x5B9E;&#x65F6;&#x4F20;&#x8F93;&#xFF0C;&#x6548;&#x679C;&#x5E94;&#x8BE5;&#x4F1A;&#x66F4;&#x597D;&#xFF0C;&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x5305;&#x4E0D;&#x5728;&#x7ECF;&#x8FC7;&#x8DEF;&#x7531;&#x5668;&#x8F6C;&#x53D1;&#xFF0C;&#x624B;&#x673A;&#x548C;&#x7535;&#x8111;&#x8DDD;&#x79BB;&#x53C8;&#x8FD1;&#xFF0C;&#x4F53;&#x9A8C;&#x5E94;&#x8BE5;&#x975E;&#x5E38;&#x63A5;&#x8FD1;&#x4E8E;&#x65E0;&#x7EBF;&#x84DD;&#x7259;&#x9F20;&#x6807;&#x4E86;&#x3002;</p>
+<h2 id="3-&#x624B;&#x52BF;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x4E3A;&#x76F8;&#x5E94;&#x7684;&#x9F20;&#x6807;&#x64CD;&#x4F5C;">3. &#x624B;&#x52BF;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x4E3A;&#x76F8;&#x5E94;&#x7684;&#x9F20;&#x6807;&#x64CD;&#x4F5C;</h2>
+<p>&#x73B0;&#x5728;&#x624B;&#x673A;&#x4EA7;&#x751F;&#x7684;&#x624B;&#x52BF;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x5B9E;&#x65F6;&#x4F20;&#x8F93;&#x5230;&#x4E86;&#x7535;&#x8111;&#x7AEF;&#xFF0C;&#x73B0;&#x5728;&#x9700;&#x8981;&#x8C03;&#x7528;&#x9F20;&#x6807;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#xFF0C;&#x5BF9;&#x9F20;&#x6807;&#x8FDB;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x63A7;&#x5236;&#x3002;&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;Node.js &#x7AEF;&#x6709;&#x4E2A; <a href="https://github.com/octalmage/robotjs" target="_blank">robotjs</a> &#x5F00;&#x6E90;&#x5E93;&#xFF0C;&#x5C31;&#x50CF;&#x540D;&#x5B57;&#x6240;&#x6697;&#x793A;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; js &#x5B9E;&#x73B0; robot &#x63A7;&#x5236;&#x7535;&#x8111;&#xFF0C;&#x8BA9;&#x7535;&#x8111;&#x53EF;&#x4EE5;&#x81EA;&#x4E3B;&#x64CD;&#x4F5C;&#xFF0C;&#x5B9E;&#x73B0;&#x684C;&#x9762;&#x81EA;&#x52A8;&#x5316;&#x3002;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E00;&#x4E9B;&#x684C;&#x9762;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x4EFB;&#x52A1;&#xFF0C;&#x751A;&#x81F3;&#x5B9E;&#x73B0;&#x6E38;&#x620F;&#x5916;&#x6302;&#x3002;</p>
+<p>&#x901A;&#x8FC7; robotjs &#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x9F20;&#x6807;&#x3001;&#x952E;&#x76D8;&#x3001;&#x663E;&#x793A;&#x5668;&#x7B49;&#x3002;&#x4E0B;&#x9762;&#x5217;&#x51FA;&#x4E86; Mouse &#x7684;&#x4E3B;&#x8981; API:</p>
+<p>setMouseDelay(ms): &#x8BBE;&#x7F6E;&#x9F20;&#x6807;&#x65F6;&#x95F4;&#x5EF6;&#x65F6;&#xFF08;&#x9ED8;&#x8BA4; 10ms&#xFF09;</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ms</td>
+<td>&#x5EF6;&#x65F6; (ms)</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>moveMouse(x, y): &#x79FB;&#x52A8;&#x9F20;&#x6807;&#x5230; (x, y)</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>x &#x5750;&#x6807;</td>
+<td>None</td>
+</tr>
+<tr>
+<td>y</td>
+<td>y &#x5750;&#x6807;</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>moveMouseSmooth(x, y): &#x6A21;&#x62DF;&#x4EBA;&#x7C7B;&#x64CD;&#x4F5C;&#xFF0C;&#x79FB;&#x52A8;&#x66F4;&#x5E73;&#x6ED1;</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>x &#x5750;&#x6807;</td>
+<td>None</td>
+</tr>
+<tr>
+<td>y</td>
+<td>y &#x5750;&#x6807;</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>mouseClick([button], [double]): &#x70B9;&#x51FB;&#x9F20;&#x6807;</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>button</td>
+<td>&#x63A5;&#x53D7;&#x5DE6;&#x952E; &apos;left&apos;&#xFF0C;&#x53F3;&#x952E; &apos;right&apos;, &#x4E2D;&#x95F4;&#x6EDA;&#x8F6E;&#x952E; &apos;middle&apos;</td>
+<td>&apos;left&apos;</td>
+</tr>
+<tr>
+<td>double</td>
+<td>&#x662F;&#x5426;&#x53CC;&#x51FB;</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>mouseToggle([down], [button]): &#x6309;&#x538B;&#x9F20;&#x6807;</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>down</td>
+<td>&#x6309;&#x4E0B; &apos;down&apos;&#xFF0C;&#x91CA;&#x653E; &apos;up&apos;</td>
+<td>&apos;down&apos;</td>
+</tr>
+<tr>
+<td>button</td>
+<td>&#x63A5;&#x53D7;&#x5DE6;&#x952E; &apos;left&apos;&#xFF0C;&#x53F3;&#x952E; &apos;right&apos;, &#x4E2D;&#x95F4;&#x6EDA;&#x8F6E;&#x952E; &apos;middle&apos;</td>
+<td>&apos;left&apos;</td>
+</tr>
+</tbody>
+</table>
+<p>dragMouse(x, y): &#x62D6;&#x52A8;&#x9F20;&#x6807;&#x5230; (x, y)</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>x &#x5750;&#x6807;</td>
+<td>None</td>
+</tr>
+<tr>
+<td>y</td>
+<td>y &#x5750;&#x6807;</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>getMousePos(): &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x9F20;&#x6807;&#x4F4D;&#x7F6E;</p>
+<p>scrollMouse(x, y): &#x6ED1;&#x52A8;&#x6EDA;&#x52A8;&#x6761;</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>&#x8D1F;&#x6570;&#x5411;&#x5DE6;&#x6ED1;&#x52A8;&#xFF0C;&#x6B63;&#x6570;&#x5411;&#x53F3;&#x6ED1;&#x52A8;</td>
+<td>None</td>
+</tr>
+<tr>
+<td>y</td>
+<td>&#x8D1F;&#x6570;&#x5411;&#x4E0B;&#x6ED1;&#x52A8;&#xFF0C;&#x6B63;&#x6570;&#x5411;&#x4E0A;&#x6ED1;&#x52A8;</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>getScreenSize(): &#x83B7;&#x53D6;&#x5C4F;&#x5E55;&#x5206;&#x8FA8;&#x7387; (width * height)</p>
+<p>&#x73B0;&#x5728;&#x6240;&#x6709;&#x7684;&#x79EF;&#x6728;&#x6A21;&#x5757;&#x90FD;&#x5DF2;&#x7ECF;&#x51C6;&#x5907;&#x597D;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x5C31;&#x662F;&#x628A;&#x79EF;&#x6728;&#x7EC4;&#x88C5;&#x8D77;&#x6765;&#x3002;&#x56E0;&#x4E3A;&#x624B;&#x673A;&#x7AEF;&#x57FA;&#x4E8E;&#x6D4F;&#x89C8;&#x5668; html5 &#x5B9E;&#x73B0;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x642D;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; web app&#xFF0C;&#x53EF;&#x4EE5;&#x57FA;&#x4E8E; <a href="https://github.com/koajs/koa" target="_blank">Koa</a>&#xFF0C;&#x542F;&#x52A8;&#x4E00;&#x4E2A; web &#x670D;&#x52A1;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x542F;&#x52A8; web server &#x7684;&#x540C;&#x65F6;&#x521D;&#x59CB;&#x5316;&#x597D; socket.io &#x670D;&#x52A1;&#x3002;&#x5728; html &#x9875;&#x9762;&#x4E0A;&#x5F15;&#x5165; hammer.js &#x5B9E;&#x73B0;&#x624B;&#x52BF;&#x7684;&#x8BC6;&#x522B;&#xFF0C;&#x5E76;&#x901A;&#x8FC7; socket.io &#x8FDE;&#x63A5;&#x628A;&#x624B;&#x52BF;&#x6570;&#x636E;&#x5B9E;&#x65F6;&#x4F20;&#x8F93;&#x5230;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x670D;&#x52A1;&#x7AEF;&#x89E3;&#x6790;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x5E76;&#x901A;&#x8FC7; robotjs &#x9A71;&#x52A8;&#x9F20;&#x6807;&#xFF0C;&#x5B9E;&#x73B0;&#x5BF9;&#x9F20;&#x6807;&#x7684;&#x63A7;&#x5236;&#x3002;</p>
+<p>&#x5728;&#x8FDB;&#x884C; socket.io &#x901A;&#x4FE1;&#x65F6;&#x53EF;&#x4EE5;&#x53C2;&#x7167;<a href="https://socket.io/docs/v4/performance-tuning/" target="_blank">&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x8FDB;&#x884C;&#x6027;&#x80FD;&#x4F18;&#x5316;&#xFF0C;&#x5B9E;&#x73B0;&#x6700;&#x4F73;&#x901A;&#x4FE1;&#x6027;&#x80FD;&#x3002;&#x540C;&#x65F6;&#x6BCF;&#x6B21;&#x901A;&#x4FE1;&#x65F6;&#xFF0C;&#x53EA;&#x4F20;&#x8F93;&#x5FC5;&#x8981;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x51CF;&#x5C11;&#x5197;&#x4F59;&#x6570;&#x636E;&#xFF0C;&#x6570;&#x636E;&#x7ECF;&#x8FC7;&#x4E8C;&#x8FDB;&#x5236;&#x5E8F;&#x5217;&#x5316;&#x7B49;&#x90FD;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x5305;&#x5927;&#x5C0F;&#xFF0C;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x5305;&#x65F6;&#x5EF6;&#xFF0C;&#x63D0;&#x5347;&#x64CD;&#x63A7;&#x4F53;&#x9A8C;&#x3002;</p>
+<h1 id="mobile-touchpad">mobile-touchpad</h1>
+<p>mobile-touchpad &#x9879;&#x76EE;&#x5DF2;&#x5F00;&#x6E90;&#xFF0C;&#x9879;&#x76EE;&#x5730;&#x5740; <a href="https://github.com/huoyijie/mobile-touchpad/" target="_blank">https://github.com/huoyijie/mobile-touchpad/</a>&#x3002;</p>
+<h2 id="&#x5B89;&#x88C5;">&#x5B89;&#x88C5;</h2>
+<p>1.&#x68C0;&#x67E5; Node &#x7248;&#x672C;&#xFF0C;&#x9AD8;&#x4E8E;&#x6B64;&#x7248;&#x672C;&#x5E94;&#x8BE5;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x7684;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">node</span> <span class="token parameter variable">-v</span>
+v14.16.0
+
+$ <span class="token function">npm</span> <span class="token parameter variable">-v</span>
+<span class="token number">6.14</span>.13
+</code></pre>
+<p>2.&#x514B;&#x9686;&#x4EE3;&#x7801;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">git</span> clone https://github.com/huoyijie/mobile-touchpad.git
+</code></pre>
+<p>3.&#x5B89;&#x88C5;&#x4F9D;&#x8D56;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">npm</span> i
+</code></pre>
+<p>4.&#x8FD0;&#x884C;&#x670D;&#x52A1;&#x7AEF;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">npm</span> start
+</code></pre>
+<p>5.&#x6253;&#x5F00;&#x624B;&#x673A;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x8BBF;&#x95EE; <a href="http://ip:3000&#xFF0C;&#x5176;&#x4E2D;" target="_blank">http://ip:3000&#xFF0C;&#x5176;&#x4E2D;</a> ip &#x4E3A;&#x7535;&#x8111; ip &#x5730;&#x5740;</p>
+<p>&#x7B49;&#x5F85;&#x9875;&#x9762;&#x52A0;&#x8F7D;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x624B;&#x673A;&#x89E6;&#x63A7;&#x64CD;&#x4F5C;&#x7535;&#x8111;&#x4E86;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"如何把手机触摸屏变成触控板（Touchpad）","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T12:56:15.163Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T12:59:12.019Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

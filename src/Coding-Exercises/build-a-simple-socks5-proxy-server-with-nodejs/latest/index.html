@@ -1,0 +1,922 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>三百行代码搭建一个简单的 SOCKS5 代理服务器 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    三百行代码搭建一个简单的 SOCKS5 代理服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >三百行代码搭建一个简单的 SOCKS5 代理服务器</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x4E09;&#x767E;&#x884C;&#x4EE3;&#x7801;&#x642D;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;-socks5-&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;">&#x4E09;&#x767E;&#x884C;&#x4EE3;&#x7801;&#x642D;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; SOCKS5 &#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;</h1>
+<p>SOCKS&#x662F;&#x4E00;&#x79CD;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x534F;&#x8BAE;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x5916;&#x7F51;&#x670D;&#x52A1;&#x5668;&#x4E4B;&#x95F4;&#x901A;&#x8BAF;&#x7684;&#x4E2D;&#x95F4;&#x4F20;&#x9012;&#x3002;&#x5F53;&#x9632;&#x706B;&#x5899;&#x540E;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x8981;&#x8BBF;&#x95EE;&#x5916;&#x90E8;&#x7684;&#x670D;&#x52A1;&#x5668;&#x65F6;&#xFF0C;&#x5C31;&#x8DDF;SOCKS&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x3002;&#x8FD9;&#x4E2A;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x63A7;&#x5236;&#x5BA2;&#x6237;&#x7AEF;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#x7684;&#x8D44;&#x683C;&#xFF0C;&#x5141;&#x8BB8;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x5C06;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#x53D1;&#x5F80;&#x5916;&#x90E8;&#x7684;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x534F;&#x8BAE;&#x6700;&#x521D;&#x7531;David Koblas&#x5F00;&#x53D1;&#xFF0C;&#x800C;&#x540E;&#x7531;NEC&#x7684;Ying-Da Lee&#x5C06;&#x5176;&#x6269;&#x5C55;&#x5230;SOCKS4&#x3002;&#x6700;&#x65B0;&#x534F;&#x8BAE;&#x662F;SOCKS5&#xFF0C;&#x4E0E;&#x524D;&#x4E00;&#x7248;&#x672C;&#x76F8;&#x6BD4;&#xFF0C;&#x589E;&#x52A0;&#x652F;&#x6301;UDP&#x3001;&#x9A8C;&#x8BC1;&#xFF0C;&#x4EE5;&#x53CA;IPv6&#x3002;&#x6839;&#x636E;OSI&#x6A21;&#x578B;&#xFF0C;SOCKS&#x662F;&#x4F1A;&#x8BDD;&#x5C42;&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x4F4D;&#x4E8E;&#x8868;&#x793A;&#x5C42;&#x4E0E;&#x4F20;&#x8F93;&#x5C42;&#x4E4B;&#x95F4;&#x3002;</p>
+<p>SOCKS&#x5DE5;&#x4F5C;&#x5728;&#x6BD4;HTTP&#x4EE3;&#x7406;&#x66F4;&#x4F4E;&#x7684;&#x5C42;&#x6B21;&#xFF1A;SOCKS&#x4F7F;&#x7528;&#x63E1;&#x624B;&#x534F;&#x8BAE;&#x6765;&#x901A;&#x77E5;&#x4EE3;&#x7406;&#x8F6F;&#x4EF6;&#x5176;&#x5BA2;&#x6237;&#x7AEF;&#x8BD5;&#x56FE;&#x8FDB;&#x884C;&#x7684;SOCKS&#x8FDE;&#x63A5;&#xFF0C;&#x7136;&#x540E;&#x5C3D;&#x53EF;&#x80FD;&#x900F;&#x660E;&#x5730;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x800C;&#x5E38;&#x89C4;&#x4EE3;&#x7406;&#x53EF;&#x80FD;&#x4F1A;&#x89E3;&#x91CA;&#x548C;&#x91CD;&#x5199;&#x62A5;&#x5934;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x4F7F;&#x7528;&#x53E6;&#x4E00;&#x79CD;&#x5E95;&#x5C42;&#x534F;&#x8BAE;&#xFF0C;&#x4F8B;&#x5982;FTP&#xFF1B;&#x7136;&#x800C;&#xFF0C;HTTP&#x4EE3;&#x7406;&#x53EA;&#x662F;&#x5C06;HTTP&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x5230;&#x6240;&#x9700;&#x7684;HTTP&#x670D;&#x52A1;&#x5668;&#xFF09;&#x3002;&#x867D;&#x7136;HTTP&#x4EE3;&#x7406;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x4F7F;&#x7528;&#x6A21;&#x5F0F;&#xFF0C;HTTP CONNECT&#x65B9;&#x6CD5;&#x5141;&#x8BB8;&#x8F6C;&#x53D1;TCP&#x8FDE;&#x63A5;&#xFF1B;&#x7136;&#x800C;&#xFF0C;SOCKS&#x4EE3;&#x7406;&#x8FD8;&#x53EF;&#x4EE5;&#x8F6C;&#x53D1;UDP&#x6D41;&#x91CF;&#xFF08;&#x4EC5;SOCKS5&#xFF09;&#xFF0C;&#x800C;HTTP&#x4EE3;&#x7406;&#x4E0D;&#x80FD;&#x3002;HTTP&#x4EE3;&#x7406;&#x901A;&#x5E38;&#x66F4;&#x4E86;&#x89E3;HTTP&#x534F;&#x8BAE;&#xFF0C;&#x6267;&#x884C;&#x66F4;&#x9AD8;&#x5C42;&#x6B21;&#x7684;&#x8FC7;&#x6EE4;&#xFF08;&#x867D;&#x7136;&#x901A;&#x5E38;&#x53EA;&#x7528;&#x4E8E;GET&#x548C;POST&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x4E8E;CONNECT&#x65B9;&#x6CD5;&#xFF09;&#x3002;</p>
+<p><em>(&#x4EE5;&#x4E0A;&#x6458;&#x81EA;&#x7EF4;&#x57FA;&#x767E;&#x79D1;)</em></p>
+<h1 id="&#x534F;&#x8BAE;&#x90E8;&#x5206;">&#x534F;&#x8BAE;&#x90E8;&#x5206;</h1>
+<p>SOCKS5 &#x534F;&#x8BAE;&#x662F; 1996 &#x5E74;&#x53D1;&#x5E03;&#x7684;&#xFF0C;&#x8FC4;&#x4ECA;&#x4E3A;&#x6B62;&#x5DF2;&#x7ECF; 25 &#x5E74;&#x4E86;&#xFF0C;&#x5F88;&#x591A;&#x8F6F;&#x4EF6;&#x5185;&#x90E8;&#x90FD;&#x652F;&#x6301; SOCKS5 &#x4EE3;&#x7406;&#x3002;&#x6BD4;&#x5982;&#x6D4F;&#x89C8;&#x5668;&#x4E00;&#x822C;&#x90FD;&#x4F1A;&#x652F;&#x6301;&#xFF0C;&#x65B9;&#x4FBF;&#x6709;&#x4E9B;&#x7528;&#x6237;&#x901A;&#x8FC7; SOCK5 &#x4EE3;&#x7406;&#x6D4F;&#x89C8;&#x7F51;&#x9875;&#x3002;&#x6211;&#x5728;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E5F;&#x4F7F;&#x7528; CURL &#x8FDB;&#x884C;&#x8FC7;&#x6D4B;&#x8BD5;&#xFF0C;&#x4E5F;&#x662F;&#x652F;&#x6301;&#x7684;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x7CFB;&#x7EDF;&#x8BBE;&#x7F6E;&#x91CC;&#x9762;&#x627E;&#x5230;&#x4EE3;&#x7406;&#x8BBE;&#x7F6E;&#x3002;&#x5728;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x6D4B;&#x8BD5;&#x9886;&#x57DF;&#xFF0C;&#x4E5F;&#x6709;&#x5F88;&#x591A;&#x5DE5;&#x5177;&#x8F6F;&#x4EF6;&#x652F;&#x6301;&#x3002;&#x9700;&#x8981;&#x6D4B;&#x8BD5;&#x7684;&#x8BBE;&#x5907;&#x8FDE;&#x4E0A;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x540E;&#xFF0C;&#x6240;&#x6709;&#x6D41;&#x91CF;&#x90FD;&#x4F1A;&#x7ECF;&#x8FC7;&#x76F8;&#x5173;&#x5DE5;&#x5177;&#x8F6F;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x6D4B;&#x8BD5;&#x3001;&#x8C03;&#x8BD5;&#x8F6F;&#x4EF6;&#x3002;</p>
+<p>&#x5982;&#x901A;&#x8FC7; Charles &#x53EF;&#x4EE5;&#x67E5;&#x770B; HTTP Request/Response &#x62A5;&#x6587;&#x4FE1;&#x606F;&#xFF08;&#x975E; HTTPS &#x7F51;&#x7AD9;&#xFF09;&#x3002;&#x53EF;&#x4EE5;&#x7EDF;&#x8BA1; URL &#x8BBF;&#x95EE;&#x6B21;&#x6570;&#x3001;&#x8FD4;&#x56DE;&#x5EF6;&#x65F6;&#x3001;&#x6570;&#x636E;&#x5305;&#x5927;&#x5C0F;&#x7B49;&#x975E;&#x5E38;&#x6709;&#x7528;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x672C;&#x8EAB;&#x4E0D;&#x4F1A;&#x67E5;&#x770B;&#x548C;&#x4FEE;&#x6539;&#x6240;&#x8F6C;&#x53D1;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x53EA;&#x662F;&#x8FDB;&#x884C;&#x7B80;&#x5355;&#x7684;&#x8F6C;&#x53D1;&#x3002;&#x751A;&#x81F3;&#x4E0D;&#x7406;&#x89E3;&#x8F6C;&#x53D1;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x73B0;&#x5728;&#x5927;&#x90E8;&#x5206;&#x7F51;&#x7AD9;&#x90FD;&#x662F;&#x57FA;&#x4E8E; HTTPS &#x52A0;&#x5BC6;&#x7684;&#xFF0C;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x6CA1;&#x529E;&#x6CD5;&#x4E86;&#x89E3;&#x5177;&#x4F53;&#x901A;&#x4FE1;&#x5185;&#x5BB9;&#x3002;&#x5F53;&#x7136;&#x5982;&#x679C;&#x662F; HTTP &#x7F51;&#x7AD9;&#xFF0C;&#x6570;&#x636E;&#x90FD;&#x662F;&#x660E;&#x6587;&#x4F20;&#x8F93;&#xFF0C;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD; <a href="https://www.ietf.org/rfc/rfc1928.txt" target="_blank">SOCKS Protocol Version 5</a>&#x534F;&#x8BAE;&#xFF0C;&#x539F;&#x6587;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x89C4;&#x5B9A;&#x7684;&#x662F;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5982;&#x4F55;&#x4E0E;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x63E1;&#x624B;&#xFF0C;&#x63E1;&#x624B;&#x6210;&#x529F;&#x540E;&#x5C31;&#x884C;&#x6D41;&#x91CF;&#x7684;&#x6B63;&#x5411;&#x53CA;&#x53CD;&#x5411;&#x8F6C;&#x53D1;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x4F1A;&#x5148;&#x4ECB;&#x7ECD;&#x4E0B; SOCKS5 &#x534F;&#x8BAE;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7; Node.js &#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<h2 id="1&#x534F;&#x8BAE;&#x4ECE;&#x534F;&#x5546;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x5F00;&#x59CB;">1.&#x534F;&#x8BAE;&#x4ECE;&#x534F;&#x5546;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x5F00;&#x59CB;</h2>
+<pre class="language-"><code>/**
+ * The client connects to the server, and sends a version identifier/method selection message:
+ * +----+----------+----------+
+ * |VER | NMETHODS | METHODS  |
+ * +----+----------+----------+
+ * | 1  |    1     | 1 to 255 |
+ * +----+----------+----------+
+ */
+</code></pre><p>&#x5BA2;&#x6237;&#x7AEF;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FDE;&#x63A5;&#x4E0A;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53D1;&#x9001;&#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;&#x3001;&#x5BA2;&#x6237;&#x7AEF;&#x652F;&#x6301;&#x7684;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x5217;&#x8868;&#x7ED9;&#x670D;&#x52A1;&#x5668;&#x3002;&#x4E0A;&#x9762;&#x6CE8;&#x91CA;&#x4E2D;&#x6570;&#x5B57;&#x4EE3;&#x8868;&#x5B57;&#x8282;&#x957F;&#x5EA6;&#xFF0C;&#x6BD4;&#x5982; VER &#x4E3A; 1 &#x5B57;&#x8282;&#x957F;&#xFF0C;&#x540E;&#x6587;&#x4E2D;&#x51FA;&#x73B0;&#x7C7B;&#x4F3C;&#x7684;&#x6570;&#x5B57;&#x90FD;&#x4EE3;&#x8868;&#x5B57;&#x8282;&#x957F;&#x5EA6;&#xFF0C;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;&#x3002;</p>
+<ul>
+<li>VER &#x5B57;&#x6BB5;&#x662F; SOCKS &#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4F20; X&apos;05&apos;&#xFF0C;1 &#x5B57;&#x8282;&#x957F;</li>
+<li>NMETHODS &#x5B57;&#x6BB5;&#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x652F;&#x6301;&#x7684;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x6570;&#x91CF;&#xFF0C;&#x6BCF;&#x79CD;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x7528; 1 &#x5B57;&#x8282;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x51B3;&#x5B9A;&#x4E86; METHODS &#x5B57;&#x6BB5;&#x7684;&#x957F;&#x5EA6;</li>
+<li>METHODS &#x4F9D;&#x6B21;&#x5199;&#x5165;&#x652F;&#x6301;&#x7684;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x7F16;&#x7801;</li>
+</ul>
+<h2 id="2&#x670D;&#x52A1;&#x5668;&#x6839;&#x636E;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x62A5;&#x7684;&#x65B9;&#x6CD5;&#x5217;&#x8868;&#x9009;&#x62E9;&#xFF0C;&#x56DE;&#x590D;&#x65B9;&#x6CD5;&#x7F16;&#x7801;">2.&#x670D;&#x52A1;&#x5668;&#x6839;&#x636E;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x62A5;&#x7684;&#x65B9;&#x6CD5;&#x5217;&#x8868;&#x9009;&#x62E9;&#xFF0C;&#x56DE;&#x590D;&#x65B9;&#x6CD5;&#x7F16;&#x7801;</h2>
+<pre class="language-"><code>/**
+ * The server selects from one of the methods given in METHODS, and sends a METHOD selection message
+ * +----+--------+
+ * |VER | METHOD |
+ * +----+--------+
+ * | 1  |   1    |
+ * +----+--------+
+ */
+</code></pre><ul>
+<li>VER &#x5B57;&#x6BB5;&#x662F; SOCKS &#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4F20; X&apos;05&apos;&#xFF0C;1 &#x5B57;&#x8282;&#x957F;</li>
+<li>METHOD &#x5B57;&#x6BB5;&#x662F;&#x670D;&#x52A1;&#x5668;&#x9009;&#x62E9;&#x7684;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x7F16;&#x7801;, 1 &#x5B57;&#x8282;&#x957F;</li>
+</ul>
+<p>&#x4E0B;&#x9762;&#x5B9A;&#x4E49;&#x4E86;&#x8BA4;&#x8BC1;&#x65B9;&#x6CD5;&#x7684;&#x7F16;&#x7801; <code>X&apos;00&apos;</code> &#x4EE3;&#x8868; 1 &#x5B57;&#x8282;&#x957F;&#x7684;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x6570;&#x5B57;</p>
+<ul>
+<li>X&apos;00&apos; NO AUTHENTICATION REQUIRED // &#x4E0D;&#x9700;&#x8981;&#x8BA4;&#x8BC1;</li>
+<li>X&apos;01&apos; GSSAPI // GSSAPI &#x8BA4;&#x8BC1;&#xFF0C;&#x5728; <a href="https://tools.ietf.org/html/rfc1961" target="_blank">RFC 1961</a> &#x91CC;&#x89C4;&#x5B9A;</li>
+<li>X&apos;02&apos; USERNAME/PASSWORD // &#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;&#xFF0C;&#x5728; <a href="https://www.ietf.org/rfc/rfc1929.txt" target="_blank">RFC 1929</a> &#x91CC;&#x89C4;&#x5B9A;</li>
+<li>X&apos;03&apos; to X&apos;7F&apos; IANA ASSIGNED // &#x672A;&#x5206;&#x914D;</li>
+<li>X&apos;80&apos; to X&apos;FE&apos; RESERVED FOR PRIVATE METHODS // &#x4FDD;&#x7559;</li>
+<li>X&apos;FF&apos; NO ACCEPTABLE METHODS // &#x670D;&#x52A1;&#x5668;&#x53D1;&#x73B0;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x62A5;&#x7684;&#x65B9;&#x6CD5;&#x5217;&#x8868;&#x90FD;&#x4E0D;&#x5408;&#x9002;&#x65F6;&#x56DE;&#x590D; X&apos;FF&apos;</li>
+</ul>
+<p>&#x4E00;&#x822C;&#x670D;&#x52A1;&#x5668;&#x5FC5;&#x987B;&#x5B9E;&#x73B0; GSSAPI &#x65B9;&#x6CD5;&#xFF0C;&#x5EFA;&#x8BAE;&#x5B9E;&#x73B0; USERNAME/PASSWORD&#x3002;&#x6BD4;&#x8F83;&#x5B89;&#x5168;&#x7684;&#x73AF;&#x5883;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x8BA4;&#x8BC1;&#x3002;</p>
+<h2 id="3&#x5BA2;&#x6237;&#x7AEF;&#x8BA4;&#x8BC1;&#x6210;&#x529F;&#x540E;&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#x4FE1;&#x606F;">3.&#x5BA2;&#x6237;&#x7AEF;&#x8BA4;&#x8BC1;&#x6210;&#x529F;&#x540E;&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#x4FE1;&#x606F;</h2>
+<pre class="language-"><code>/**
+ * The SOCKS request is formed as follows:
+ * +----+-----+-------+------+----------+----------+
+ * |VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |
+ * +----+-----+-------+------+----------+----------+
+ * | 1  |  1  | X&apos;00&apos; |  1   | Variable |    2     |
+ * +----+-----+-------+------+----------+----------+
+ */
+</code></pre><ul>
+<li>VER &#x5B57;&#x6BB5;&#x662F; SOCKS &#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4F20; X&apos;05&apos;&#xFF0C;1 &#x5B57;&#x8282;&#x957F;</li>
+<li>CMD &#x5B57;&#x6BB5;&#x662F;&#x8BF7;&#x6C42;&#x547D;&#x4EE4;&#xFF0C;1&#x5B57;&#x8282;&#x957F;<ul>
+<li>CONNECT X&apos;01&apos; &#x4EE3;&#x8868;&#x8FDE;&#x63A5;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#x547D;&#x4EE4;&#xFF0C;&#x672C;&#x6587;&#x4F1A;&#x5B9E;&#x73B0; CONNECT &#x8BF7;&#x6C42;&#x547D;&#x4EE4;</li>
+<li>BIND X&apos;02&apos; &#x6682;&#x65F6;&#x4E0D;&#x4ECB;&#x7ECD;</li>
+<li>UDP ASSOCIATE X&apos;03&apos; &#x6682;&#x65F6;&#x4E0D;&#x4ECB;&#x7ECD;</li>
+</ul>
+</li>
+<li>RSV &#x4FDD;&#x7559;&#x5B57;&#x8282;&#xFF0C;&#x4F20; X&apos;00&apos;&#xFF0C;1&#x5B57;&#x8282;&#x957F;</li>
+<li>ATYP &#x76EE;&#x6807;&#x5730;&#x5740;&#x7C7B;&#x578B;&#xFF0C;1&#x5B57;&#x8282;&#x957F;<ul>
+<li>IP V4 address: X&apos;01&apos; IPV4</li>
+<li>DOMAINNAME: X&apos;03&apos; &#x57DF;&#x540D;</li>
+<li>IP V6 address: X&apos;04&apos; IPV6</li>
+</ul>
+</li>
+<li>DST.ADDR &#x5BA2;&#x6237;&#x7AEF;&#x60F3;&#x8981;&#x8BF7;&#x6C42;&#x7684;&#x76EE;&#x6807;&#x5730;&#x5740;</li>
+<li>DST.PORT &#x5BA2;&#x6237;&#x7AEF;&#x60F3;&#x8FDE;&#x63A5;&#x7684;&#x76EE;&#x6807;&#x7AEF;&#x53E3;&#x53F7;&#xFF0C;2 &#x5B57;&#x8282;&#x957F;&#xFF0C;&#x7F51;&#x7EDC;&#x5B57;&#x8282;&#x5E8F;</li>
+</ul>
+<p>DST.ADDR &#x5B57;&#x6BB5;&#x6839;&#x636E;&#x5730;&#x5740;&#x7C7B;&#x578B;&#x4E0D;&#x540C;&#xFF0C;&#x957F;&#x5EA6;&#x4E0D;&#x540C;&#x3002;</p>
+<ul>
+<li>&#x5982;&#x679C;IPV4 &#x662F;&#x56FA;&#x5B9A; 4 &#x5B57;&#x8282;&#x957F;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x662F;&#x57DF;&#x540D;&#xFF0C;&#x5219;&#x9996;&#x4E2A;&#x5B57;&#x8282;&#x4EE3;&#x8868;&#x57DF;&#x540D;&#x7684;&#x957F;&#x5EA6;&#xFF08;&#x5B57;&#x8282;&#x6570;&#xFF09;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x53EF;&#x53D8;&#x957F;&#x5EA6;&#x662F;&#x57DF;&#x540D;&#x5B57;&#x7B26;&#x4E32;</li>
+</ul>
+<h2 id="4&#x670D;&#x52A1;&#x7AEF;&#x8BC4;&#x4F30;&#x8BE5;&#x8BF7;&#x6C42;&#x5E76;&#x56DE;&#x590D;">4.&#x670D;&#x52A1;&#x7AEF;&#x8BC4;&#x4F30;&#x8BE5;&#x8BF7;&#x6C42;&#x5E76;&#x56DE;&#x590D;</h2>
+<pre class="language-"><code>/**
+ * The server evaluates the request, and returns a reply formed as follows:
+ * +----+-----+-------+------+----------+----------+
+ * |VER | REP |  RSV  | ATYP | BND.ADDR | BND.PORT |
+ * +----+-----+-------+------+----------+----------+
+ * | 1  |  1  | X&apos;00&apos; |  1   | Variable |    2     |
+ * +----+-----+-------+------+----------+----------+
+ */
+</code></pre><ul>
+<li>VER &#x5B57;&#x6BB5;&#x662F; SOCKS &#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4F20; X&apos;05&apos;&#xFF0C;1 &#x5B57;&#x8282;&#x957F;</li>
+<li>REP &#x56DE;&#x590D;&#x5B57;&#x6BB5;:<ul>
+<li>X&apos;00&apos; &#x6210;&#x529F;</li>
+<li>X&apos;01&apos; general SOCKS server failure</li>
+<li>X&apos;02&apos; connection not allowed by ruleset</li>
+<li>X&apos;03&apos; Network unreachable</li>
+<li>X&apos;04&apos; Host unreachable</li>
+<li>X&apos;05&apos; Connection refused</li>
+<li>X&apos;06&apos; TTL expired</li>
+<li>X&apos;07&apos; &#x8BF7;&#x6C42;&#x547D;&#x4EE4;&#x4E0D;&#x652F;&#x6301;</li>
+<li>X&apos;08&apos; &#x5730;&#x5740;&#x7C7B;&#x578B;&#x4E0D;&#x652F;&#x6301;</li>
+<li>X&apos;09&apos; to X&apos;FF&apos; &#x672A;&#x5206;&#x914D;</li>
+</ul>
+</li>
+<li>RSV &#x4FDD;&#x7559;&#x5B57;&#x6BB5;&#xFF0C;&#x4F20; X&apos;00&apos;</li>
+<li>ATYP &#x5730;&#x5740;&#x7C7B;&#x578B;<ul>
+<li>IP V4 address: X&apos;01&apos;</li>
+<li>DOMAINNAME: X&apos;03&apos;</li>
+<li>IP V6 address: X&apos;04&apos;</li>
+</ul>
+</li>
+<li>BND.ADDR &#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5730;&#x5740;</li>
+<li>BND.PORT &#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;2 &#x5B57;&#x8282;&#x957F;&#xFF0C;&#x7F51;&#x7EDC;&#x5B57;&#x8282;&#x5E8F;</li>
+</ul>
+<p>&#x670D;&#x52A1;&#x5668;&#x53EF;&#x4EE5;&#x8BC4;&#x4F30;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x8BE5;&#x8BF7;&#x6C42;&#xFF0C;&#x5982;&#x679C;&#x5141;&#x8BB8;&#x5219;&#x4EE3;&#x8868;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;( DST.ADDR:DST.PORT )&#xFF0C;&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x540E;&#x56DE;&#x590D;&#x5BA2;&#x6237;&#x7AEF; REP &#x4E3A;&#x6210;&#x529F;&#xFF0C;&#x63E1;&#x624B;&#x8FC7;&#x7A0B;&#x5B8C;&#x6210;&#xFF0C;&#x540E;&#x9762;&#x5C31;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x4EE3;&#x7406;&#x8F6C;&#x53D1;&#x6570;&#x636E;&#x4E86;&#x3002;&#x5982;&#x679C;&#x8BC4;&#x4F30;&#x4E0D;&#x5141;&#x8BB8;&#x8BE5;&#x8BF7;&#x6C42;&#x6216;&#x8005;&#x56E0;&#x4E3A;&#x5176;&#x4ED6;&#x539F;&#x56E0;&#x4E0D;&#x80FD;&#x8FDE;&#x63A5;&#x4E0A;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5219;&#x9700;&#x8FD4;&#x56DE;&#x5BF9;&#x5E94;&#x56DE;&#x590D;&#x4FE1;&#x606F;&#x3002;</p>
+<p><em>(&#x4EE5;&#x4E0A;&#x4E3A;&#x534F;&#x8BAE;&#x90E8;&#x5206;)</em></p>
+<h1 id="&#x4EE3;&#x7801;&#x90E8;&#x5206;">&#x4EE3;&#x7801;&#x90E8;&#x5206;</h1>
+<h2 id="constsjs-&#x5E38;&#x91CF;&#x5B9A;&#x4E49;&#x6587;&#x4EF6;">consts.js &#x5E38;&#x91CF;&#x5B9A;&#x4E49;&#x6587;&#x4EF6;</h2>
+<pre class="language-"><code class="lang-javascript"><span class="token comment">/** socks 5 */</span>
+<span class="token keyword">const</span> <span class="token constant">SOCKS_VERSION</span> <span class="token operator">=</span> <span class="token number">0x05</span><span class="token punctuation">,</span>
+
+      <span class="token constant">STATE</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token constant">METHOD_NEGOTIATION</span><span class="token operator">:</span> <span class="token number">0x00</span><span class="token punctuation">,</span>
+        <span class="token constant">AUTHENTICATION</span><span class="token operator">:</span> <span class="token number">0x01</span><span class="token punctuation">,</span>
+        <span class="token constant">REQUEST_CONNECT</span><span class="token operator">:</span> <span class="token number">0x02</span><span class="token punctuation">,</span>
+        <span class="token constant">PROXY_FORWARD</span><span class="token operator">:</span> <span class="token number">0x03</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/**
+       * o  X&apos;00&apos; NO AUTHENTICATION REQUIRED
+       * o  X&apos;01&apos; GSSAPI
+       * o  X&apos;02&apos; USERNAME/PASSWORD
+       * o  X&apos;03&apos; to X&apos;7F&apos; IANA ASSIGNED
+       * o  X&apos;80&apos; to X&apos;FE&apos; RESERVED FOR PRIVATE METHODS
+       * o  X&apos;FF&apos; NO ACCEPTABLE METHODS
+       */</span>
+      <span class="token constant">METHODS</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token constant">NO_AUTH</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token string">&apos;no_auth&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">GSSAPI</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x01</span><span class="token punctuation">,</span> <span class="token string">&apos;gssapi&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">USERNAME_PASSWD</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token string">&apos;username_password&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">NO_ACCEPTABLE</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0xFF</span><span class="token punctuation">,</span> <span class="token string">&apos;no_acceptable_methods&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+        <span class="token function">get</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">switch</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">NO_AUTH</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">NO_AUTH</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">GSSAPI</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">GSSAPI</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD</span>
+          <span class="token punctuation">}</span>
+          console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">method [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] is not supported</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/**
+       * o  CONNECT X&apos;01&apos;
+       * o  BIND X&apos;02&apos;
+       * o  UDP ASSOCIATE X&apos;03&apos;
+       */</span>
+      <span class="token constant">REQUEST_CMD</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token constant">CONNECT</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x01</span><span class="token punctuation">,</span> <span class="token string">&apos;connect&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">BIND</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token string">&apos;bind&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">UDP_ASSOCIATE</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x03</span><span class="token punctuation">,</span> <span class="token string">&apos;udp_associate&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+        <span class="token function">get</span><span class="token punctuation">(</span>cmd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">switch</span><span class="token punctuation">(</span>cmd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">CONNECT</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">CONNECT</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">BIND</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">BIND</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">UDP_ASSOCIATE</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">UDP_ASSOCIATE</span>
+          <span class="token punctuation">}</span>
+          console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">cmd [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] is not supported</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/** reserved byte value */</span>
+      <span class="token constant">RSV</span> <span class="token operator">=</span> <span class="token number">0x00</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/**
+       * o  IP V4 address: X&apos;01&apos;
+       * o  DOMAINNAME: X&apos;03&apos;
+       * o  IP V6 address: X&apos;04&apos;
+       */</span>
+      <span class="token constant">ATYP</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token constant">IPV4</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x01</span><span class="token punctuation">,</span> <span class="token string">&apos;ipv4&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">FQDN</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x03</span><span class="token punctuation">,</span> <span class="token string">&apos;domain name&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">IPV6</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x04</span><span class="token punctuation">,</span> <span class="token string">&apos;ipv6&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+        <span class="token function">get</span><span class="token punctuation">(</span>atyp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">switch</span><span class="token punctuation">(</span>atyp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">IPV4</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">IPV4</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">FQDN</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">FQDN</span>
+            <span class="token keyword">case</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">IPV6</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">:</span>
+              <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token constant">IPV6</span>
+          <span class="token punctuation">}</span>
+          console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">atpy [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>atyp<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] is not supported</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/**
+       * o  X&apos;00&apos; succeeded
+       * o  X&apos;01&apos; general SOCKS server failure
+       * o  X&apos;02&apos; connection not allowed by ruleset
+       * o  X&apos;03&apos; Network unreachable
+       * o  X&apos;04&apos; Host unreachable
+       * o  X&apos;05&apos; Connection refused
+       * o  X&apos;06&apos; TTL expired
+       * o  X&apos;07&apos; Command not supported
+       * o  X&apos;08&apos; Address type not supported
+       * o  X&apos;09&apos; to X&apos;FF&apos; unassigned
+       */</span>
+      <span class="token constant">REP</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token constant">SUCCEEDED</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token string">&apos;succeeded&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">GENERAL_FAILURE</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x01</span><span class="token punctuation">,</span> <span class="token string">&apos;general SOCKS server failure&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">NOT_ALLOWED</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token string">&apos;connection not allowed by ruleset&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">NETWORK_UNREACHABLE</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x03</span><span class="token punctuation">,</span> <span class="token string">&apos;Network unreachable&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">HOST_UNREACHABLE</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x04</span><span class="token punctuation">,</span> <span class="token string">&apos;Host unreachable&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">CONNECTION_REFUSED</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x05</span><span class="token punctuation">,</span> <span class="token string">&apos;Connection refused&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">TTL_EXPIRED</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x06</span><span class="token punctuation">,</span> <span class="token string">&apos;TTL expired&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">COMMAND_NOT_SUPPORTED</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x07</span><span class="token punctuation">,</span> <span class="token string">&apos;Command not supported&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token constant">ADDRESS_TYPE_NOT_SUPPORTED</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x08</span><span class="token punctuation">,</span> <span class="token string">&apos;Address type not supported&apos;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/**
+       * The VER field contains the current version of the subnegotiation, which is X&apos;01&apos;
+       * username/password auth version
+       */</span>
+      <span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span> <span class="token operator">=</span> <span class="token number">0x01</span><span class="token punctuation">,</span>
+
+      <span class="token comment">/**
+       * auth status
+       */</span>
+      <span class="token constant">AUTH_STATUS</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token constant">SUCCESS</span><span class="token operator">:</span> <span class="token number">0x00</span><span class="token punctuation">,</span>
+        <span class="token constant">FAILURE</span><span class="token operator">:</span> <span class="token number">0X01</span>
+      <span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token constant">SOCKS_VERSION</span><span class="token operator">:</span> <span class="token constant">SOCKS_VERSION</span><span class="token punctuation">,</span>
+    <span class="token constant">STATE</span><span class="token operator">:</span> <span class="token constant">STATE</span><span class="token punctuation">,</span>
+    <span class="token constant">METHODS</span><span class="token operator">:</span> <span class="token constant">METHODS</span><span class="token punctuation">,</span>
+    <span class="token constant">REQUEST_CMD</span><span class="token operator">:</span> <span class="token constant">REQUEST_CMD</span><span class="token punctuation">,</span>
+    <span class="token constant">RSV</span><span class="token operator">:</span> <span class="token constant">RSV</span><span class="token punctuation">,</span>
+    <span class="token constant">ATYP</span><span class="token operator">:</span> <span class="token constant">ATYP</span><span class="token punctuation">,</span>
+    <span class="token constant">REP</span><span class="token operator">:</span> <span class="token constant">REP</span><span class="token punctuation">,</span>
+    <span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span><span class="token punctuation">,</span> <span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span><span class="token punctuation">,</span>
+    <span class="token constant">AUTH_STATUS</span><span class="token operator">:</span> <span class="token constant">AUTH_STATUS</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="configjs-&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;">config.js &#x7A0B;&#x5E8F;&#x914D;&#x7F6E;</h2>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> consts <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;../consts&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      app <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">port</span><span class="token operator">:</span> <span class="token number">3000</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">&apos;0.0.0.0&apos;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">auth_method</span><span class="token operator">:</span> consts<span class="token punctuation">.</span><span class="token constant">METHODS</span><span class="token punctuation">.</span><span class="token constant">NO_AUTH</span>
+      <span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> app
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5982;&#x4E0A;&#xFF0C;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x76D1;&#x542C;&#x5728; 3000 &#x7AEF;&#x53E3;&#xFF0C;&#x91C7;&#x7528;&#x65E0;&#x8BA4;&#x8BC1;&#x65B9;&#x5F0F;</p>
+<h2 id="appjs-&#x7A0B;&#x5E8F;&#x542F;&#x52A8;">app.js &#x7A0B;&#x5E8F;&#x542F;&#x52A8;</h2>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> net <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;net&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">net<span class="token punctuation">.</span>createServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./config&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      Proxy <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./proxy&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span>
+
+server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>port<span class="token punctuation">,</span> config<span class="token punctuation">.</span>host<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;listening&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">simple-proxy server listening on </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>config<span class="token punctuation">.</span>port<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;close&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;simple-proxy server closed&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;simple-proxy server throw error&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;connection&apos;</span><span class="token punctuation">,</span> <span class="token parameter">socket</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> proxy <span class="token operator">=</span> <span class="token function">Proxy</span><span class="token punctuation">(</span>socket<span class="token punctuation">)</span>
+        <span class="token comment">// data package come in</span>
+        socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> <span class="token parameter">buf</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          proxy<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;end&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>proxy<span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> end</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;close&apos;</span><span class="token punctuation">,</span> <span class="token parameter">hadError</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>proxy<span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> closed with error </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>hadError<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>proxy<span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> throw error</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;timeout&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>proxy<span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> timeout</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5176;&#x4E2D;&#x4F9D;&#x8D56;&#x4E86;&#x6838;&#x5FC3; Proxy &#x7C7B;&#x5B8C;&#x6210;&#x4EE3;&#x7406;&#x529F;&#x80FD;</p>
+<h2 id="proxyjs-&#x6838;&#x5FC3;&#x4EE3;&#x7406;&#x5B9E;&#x73B0;&#x903B;&#x8F91;">proxy.js &#x6838;&#x5FC3;&#x4EE3;&#x7406;&#x5B9E;&#x73B0;&#x903B;&#x8F91;</h2>
+<p>&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x662F;&#x6838;&#x5FC3;&#x4EE3;&#x7406;&#x903B;&#x8F91;&#xFF0C;&#x4E5F;&#x5B9E;&#x73B0;&#x4E86;&#x7B80;&#x5355;&#x7684;&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;&#x65B9;&#x5F0F;&#x3002;&#x5982;&#x679C;&#x53BB;&#x6389;&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;&#x548C;&#x6CE8;&#x91CA;&#xFF0C;&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#x5C31; 300 &#x884C;&#x5DE6;&#x53F3;&#x3002;Proxy &#x7C7B;&#x4E3B;&#x8981;&#x662F;&#x5B9E;&#x73B0;&#x4E86; SOCKS5 &#x63E1;&#x624B;&#x534F;&#x8BAE;&#xFF0C;&#x4E0E;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x8F6C;&#x53D1;&#x3002;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x4E0A;&#x9762;&#x90FD;&#x6709;&#x6CE8;&#x91CA;&#xFF0C;&#x5E94;&#x8BE5;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x770B;&#x61C2;&#x3002;</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> net <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;net&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      dns <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;dns&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> assert <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;console&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      uuid <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;uuid&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+      utils <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;../utils&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      consts <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;../consts&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./config&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">function</span> <span class="token function">Proxy</span><span class="token punctuation">(</span><span class="token parameter">socket</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * proxy socket
+     */</span>
+    <span class="token literal-property property">_socket</span><span class="token operator">:</span> socket<span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * session
+     */</span>
+    <span class="token literal-property property">_session</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">id</span><span class="token operator">:</span> uuid<span class="token punctuation">.</span><span class="token function">v1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">buffer</span><span class="token operator">:</span> Buffer<span class="token punctuation">.</span><span class="token function">alloc</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">offset</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">state</span><span class="token operator">:</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">METHOD_NEGOTIATION</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * The client connects to the server, and sends a version identifier/method selection message:
+     * +----+----------+----------+
+     * |VER | NMETHODS | METHODS  |
+     * +----+----------+----------+
+     * | 1  |    1     | 1 to 255 |
+     * +----+----------+----------+
+     */</span>
+    <span class="token function">parseMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> buf <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer
+      <span class="token keyword">let</span> offset <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset
+
+      <span class="token keyword">var</span> <span class="token function-variable function">checkNull</span> <span class="token operator">=</span> <span class="token parameter">offset</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">typeof</span> buf<span class="token punctuation">[</span>offset<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token keyword">undefined</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> socksVersion <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>socksVersion <span class="token operator">==</span> consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> only support socks version 5, got [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>socksVersion<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>socksVersion <span class="token operator">!=</span> consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> methodLen <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>methodLen <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> methodLen <span class="token operator">&lt;=</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> methodLen&apos;s value [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>methodLen<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] is invalid</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> methodLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> methods <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> methodLen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> method <span class="token operator">=</span> consts<span class="token punctuation">.</span><span class="token constant">METHODS</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">!</span>method<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          methods<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> SOCKS_VERSION: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>socksVersion<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> METHODS: </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> methods<span class="token punctuation">)</span>
+
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset <span class="token operator">=</span> offset
+
+      <span class="token keyword">return</span> methods
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/** socks server select auth method */</span>
+    <span class="token function">selectMethod</span><span class="token punctuation">(</span><span class="token parameter">methods</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> method <span class="token operator">=</span> consts<span class="token punctuation">.</span><span class="token constant">METHODS</span><span class="token punctuation">.</span><span class="token constant">NO_ACCEPTABLE</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> methods<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>methods<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> config<span class="token punctuation">.</span>auth_method<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          method <span class="token operator">=</span> config<span class="token punctuation">.</span>auth_method
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT METHOD [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>method <span class="token operator">=</span> method
+
+      <span class="token keyword">return</span> method
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * The server selects from one of the methods given in METHODS, and sends a METHOD selection message
+     * +----+--------+
+     * |VER | METHOD |
+     * +----+--------+
+     * | 1  |   1    |
+     * +----+--------+
+     * @param {*} method auth method selected
+     */</span>
+    <span class="token function">replyMethod</span><span class="token punctuation">(</span><span class="token parameter">method</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token punctuation">[</span>consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">,</span> method<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * This begins with the client producing a Username/Password request:
+     * +----+------+----------+------+----------+
+     * |VER | ULEN |  UNAME   | PLEN |  PASSWD  |
+     * +----+------+----------+------+----------+
+     * | 1  |  1   | 1 to 255 |  1   | 1 to 255 |
+     * +----+------+----------+------+----------+
+     */</span>
+    <span class="token function">parseUsernamePasswd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> buf <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer
+      <span class="token keyword">let</span> offset <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset
+
+      <span class="token keyword">var</span> req <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+      <span class="token keyword">var</span> <span class="token function-variable function">checkNull</span> <span class="token operator">=</span> <span class="token parameter">offset</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">typeof</span> buf<span class="token punctuation">[</span>offset<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token keyword">undefined</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> authVersion <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>authVersion <span class="token operator">==</span> consts<span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span><span class="token punctuation">,</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> only support auth version </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>consts<span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">, got [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>authVersion<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>authVersion <span class="token operator">!=</span> consts<span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> uLen <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>uLen <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> uLen <span class="token operator">&lt;=</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> got wrong ULEN [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>uLen<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>uLen <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> uLen <span class="token operator">&lt;=</span> <span class="token number">255</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> uLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        req<span class="token punctuation">.</span>username <span class="token operator">=</span> buf<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>offset<span class="token punctuation">,</span> offset <span class="token operator">+</span> uLen<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">&apos;utf8&apos;</span><span class="token punctuation">)</span>
+        offset <span class="token operator">+=</span> uLen
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> pLen <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>pLen <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> pLen <span class="token operator">&lt;=</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> got wrong PLEN [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>pLen<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>pLen <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> pLen <span class="token operator">&lt;=</span> <span class="token number">255</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> pLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        req<span class="token punctuation">.</span>passwd <span class="token operator">=</span> buf<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>offset<span class="token punctuation">,</span> offset <span class="token operator">+</span> pLen<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">&apos;utf8&apos;</span><span class="token punctuation">)</span>
+        offset <span class="token operator">+=</span> pLen
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset <span class="token operator">=</span> offset
+
+      <span class="token keyword">return</span> req
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * The server verifies the supplied UNAME and PASSWD, and sends the following response:
+     *  +----+--------+
+     *  |VER | STATUS |
+     *  +----+--------+
+     *  | 1  |   1    |
+     *  +----+--------+
+     */</span>
+    <span class="token function">replyAuth</span><span class="token punctuation">(</span><span class="token parameter">succeeded</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> reply <span class="token operator">=</span> <span class="token punctuation">[</span>
+        consts<span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD_AUTH_VERSION</span><span class="token punctuation">,</span>
+        succeeded <span class="token operator">?</span> consts<span class="token punctuation">.</span><span class="token constant">AUTH_STATUS</span><span class="token punctuation">.</span><span class="token constant">SUCCESS</span> <span class="token operator">:</span> consts<span class="token punctuation">.</span><span class="token constant">AUTH_STATUS</span><span class="token punctuation">.</span><span class="token constant">FAILURE</span>
+      <span class="token punctuation">]</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>succeeded<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>reply<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>reply<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * The SOCKS request is formed as follows:
+     * +----+-----+-------+------+----------+----------+
+     * |VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |
+     * +----+-----+-------+------+----------+----------+
+     * | 1  |  1  | X&apos;00&apos; |  1   | Variable |    2     |
+     * +----+-----+-------+------+----------+----------+
+     */</span>
+    <span class="token function">parseRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> buf <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer
+      <span class="token keyword">let</span> offset <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset
+
+      <span class="token keyword">let</span> req <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+      <span class="token keyword">var</span> <span class="token function-variable function">checkNull</span> <span class="token operator">=</span> <span class="token parameter">offset</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">typeof</span> buf<span class="token punctuation">[</span>offset<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token keyword">undefined</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">let</span> socksVersion <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>socksVersion <span class="token operator">==</span> consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> only support socks version 5, got [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>socksVersion<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>socksVersion <span class="token operator">!=</span> consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      req<span class="token punctuation">.</span>cmd <span class="token operator">=</span> consts<span class="token punctuation">.</span><span class="token constant">REQUEST_CMD</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>req<span class="token punctuation">.</span>cmd <span class="token operator">||</span> req<span class="token punctuation">.</span>cmd <span class="token operator">!=</span> consts<span class="token punctuation">.</span><span class="token constant">REQUEST_CMD</span><span class="token punctuation">.</span><span class="token constant">CONNECT</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// &#x4E0D;&#x652F;&#x6301;&#x7684; cmd || &#x6682;&#x65F6;&#x53EA;&#x652F;&#x6301; connect</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      req<span class="token punctuation">.</span>rsv <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+      <span class="token function">assert</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>rsv <span class="token operator">==</span> consts<span class="token punctuation">.</span><span class="token constant">RSV</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> rsv should be </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>consts<span class="token punctuation">.</span><span class="token constant">RSV</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      req<span class="token punctuation">.</span>atyp <span class="token operator">=</span> consts<span class="token punctuation">.</span><span class="token constant">ATYP</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>req<span class="token punctuation">.</span>atyp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// &#x4E0D;&#x652F;&#x6301;&#x7684; atyp</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>atyp <span class="token operator">==</span> consts<span class="token punctuation">.</span><span class="token constant">ATYP</span><span class="token punctuation">.</span><span class="token constant">IPV4</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> ipLen <span class="token operator">=</span> <span class="token number">4</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> ipLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        req<span class="token punctuation">.</span>ip <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>atyp <span class="token operator">==</span> consts<span class="token punctuation">.</span><span class="token constant">ATYP</span><span class="token punctuation">.</span><span class="token constant">FQDN</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">let</span> domainLen <span class="token operator">=</span> buf<span class="token punctuation">[</span>offset<span class="token operator">++</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> domainLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        req<span class="token punctuation">.</span>domain <span class="token operator">=</span> buf<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>offset<span class="token punctuation">,</span> offset <span class="token operator">+</span> domainLen<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">&apos;utf8&apos;</span><span class="token punctuation">)</span>
+        offset <span class="token operator">+=</span> domainLen
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// &#x5176;&#x4ED6;&#x6682;&#x65F6;&#x4E0D;&#x652F;&#x6301;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">let</span> portLen <span class="token operator">=</span> <span class="token number">2</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">checkNull</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> portLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      req<span class="token punctuation">.</span>port <span class="token operator">=</span> buf<span class="token punctuation">.</span><span class="token function">readUInt16BE</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span>
+      offset <span class="token operator">+=</span> portLen
+
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> parse requests succeeded</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> req<span class="token punctuation">)</span>
+
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset <span class="token operator">=</span> offset
+
+      <span class="token keyword">return</span> req
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * The server evaluates the request, and returns a reply formed as follows:
+     * +----+-----+-------+------+----------+----------+
+     * |VER | REP |  RSV  | ATYP | BND.ADDR | BND.PORT |
+     * +----+-----+-------+------+----------+----------+
+     * | 1  |  1  | X&apos;00&apos; |  1   | Variable |    2     |
+     * +----+-----+-------+------+----------+----------+
+     * @param {*} req client requests
+     */</span>
+    <span class="token function">dstConnect</span><span class="token punctuation">(</span><span class="token parameter">req</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> dstHost <span class="token operator">=</span> req<span class="token punctuation">.</span>domain <span class="token operator">||</span> req<span class="token punctuation">.</span>ip
+      dns<span class="token punctuation">.</span><span class="token function">lookup</span><span class="token punctuation">(</span>dstHost<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">family</span><span class="token operator">:</span> <span class="token number">4</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> ip</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err <span class="token operator">||</span> <span class="token operator">!</span>ip<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// failure reply</span>
+          <span class="token keyword">let</span> reply <span class="token operator">=</span> <span class="token punctuation">[</span>
+            consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">,</span>
+            consts<span class="token punctuation">.</span><span class="token constant">REP</span><span class="token punctuation">.</span><span class="token constant">HOST_UNREACHABLE</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            consts<span class="token punctuation">.</span><span class="token constant">RSV</span><span class="token punctuation">,</span>
+            consts<span class="token punctuation">.</span><span class="token constant">ATYP</span><span class="token punctuation">.</span><span class="token constant">IPV4</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+          <span class="token punctuation">]</span>
+          <span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>utils<span class="token punctuation">.</span><span class="token function">ipbytes</span><span class="token punctuation">(</span><span class="token string">&apos;127.0.0.1&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// ip: 127.0.0.1</span>
+          <span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment">// port: 0x0000</span>
+          <span class="token comment">// close connection</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>reply<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token comment">// connect target host</span>
+          <span class="token keyword">const</span> dstSocket <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            <span class="token literal-property property">port</span><span class="token operator">:</span> req<span class="token punctuation">.</span>port<span class="token punctuation">,</span> <span class="token comment">// port from client&apos;s requests</span>
+            <span class="token literal-property property">host</span><span class="token operator">:</span> ip <span class="token comment">// ip from dns lookup of socks proxy server</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+          dstSocket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;connect&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token comment">// success reply</span>
+            <span class="token keyword">let</span> bytes <span class="token operator">=</span> <span class="token punctuation">[</span>
+              consts<span class="token punctuation">.</span><span class="token constant">SOCKS_VERSION</span><span class="token punctuation">,</span>
+              consts<span class="token punctuation">.</span><span class="token constant">REP</span><span class="token punctuation">.</span><span class="token constant">SUCCEEDED</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              consts<span class="token punctuation">.</span><span class="token constant">RSV</span><span class="token punctuation">,</span>
+              consts<span class="token punctuation">.</span><span class="token constant">ATYP</span><span class="token punctuation">.</span><span class="token constant">IPV4</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            <span class="token punctuation">]</span>
+            <span class="token comment">// dstSocket.localAddress or default 127.0.0.1</span>
+            <span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>utils<span class="token punctuation">.</span><span class="token function">ipbytes</span><span class="token punctuation">(</span>dstSocket<span class="token punctuation">.</span>localAddress <span class="token operator">||</span> <span class="token string">&apos;127.0.0.1&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token comment">// default port 0x00</span>
+            <span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">let</span> reply <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>
+
+            <span class="token comment">// use dstSocket.localPort override default port 0x0000</span>
+            reply<span class="token punctuation">.</span><span class="token function">writeUInt16BE</span><span class="token punctuation">(</span>dstSocket<span class="token punctuation">.</span>localPort<span class="token punctuation">,</span> reply<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>reply<span class="token punctuation">)</span>
+
+            <span class="token comment">// pipe for proxy forward</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>dstSocket<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> -&gt; dstSocket</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;end&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> -&gt; dstSocket end</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;close&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">socket </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> -&gt; dstSocket close</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+          <span class="token comment">// save dstSocket to session</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>dstSocket <span class="token operator">=</span> dstSocket
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/**
+     * called by socket&apos;s &apos;data&apos; event listener
+     * @param {Buffer} buf data buffer
+     */</span>
+    <span class="token function">handle</span><span class="token punctuation">(</span><span class="token parameter">buf</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// before proxy forward phase, otherwise do nothing</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>state <span class="token operator">&lt;</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">PROXY_FORWARD</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// append data to session.buffer</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer<span class="token punctuation">,</span> buf<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+        <span class="token comment">// discard processed bytes and move on to the next phase</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">discardProcessedBytes</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">nextState</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset<span class="token punctuation">)</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>offset <span class="token operator">=</span> <span class="token number">0</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>state <span class="token operator">=</span> nextState
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">switch</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">METHOD_NEGOTIATION</span><span class="token operator">:</span>
+            <span class="token keyword">let</span> methods <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">parseMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">!</span>methods<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// read complete data</span>
+              <span class="token keyword">let</span> method <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectMethod</span><span class="token punctuation">(</span>methods<span class="token punctuation">)</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">replyMethod</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span>
+              <span class="token keyword">switch</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">METHODS</span><span class="token punctuation">.</span><span class="token constant">USERNAME_PASSWD</span><span class="token operator">:</span>
+                  <span class="token function">discardProcessedBytes</span><span class="token punctuation">(</span>consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">AUTHENTICATION</span><span class="token punctuation">)</span>
+                  <span class="token keyword">break</span>
+                <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">METHODS</span><span class="token punctuation">.</span><span class="token constant">NO_AUTH</span><span class="token operator">:</span>
+                  <span class="token function">discardProcessedBytes</span><span class="token punctuation">(</span>consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">REQUEST_CONNECT</span><span class="token punctuation">)</span>
+                  <span class="token keyword">break</span>
+                <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">METHODS</span><span class="token punctuation">.</span><span class="token constant">NO_ACCEPTABLE</span><span class="token operator">:</span>
+                  <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                  <span class="token keyword">break</span>
+                <span class="token keyword">default</span><span class="token operator">:</span>
+                  <span class="token keyword">this</span><span class="token punctuation">.</span>_socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+              <span class="token punctuation">}</span> 
+            <span class="token punctuation">}</span>
+            <span class="token keyword">break</span>
+          <span class="token comment">// curl www.baidu.com --socks5 127.0.0.1:3000 --socks5-basic --proxy-user  oiuytre:yhntgbrfvedc</span>
+          <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">AUTHENTICATION</span><span class="token operator">:</span>
+            <span class="token comment">// add gssapi support</span>
+            <span class="token comment">// need check this._session.method for parse data</span>
+            <span class="token keyword">let</span> userinfo <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">parseUsernamePasswd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">!</span>userinfo<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// read complete data</span>
+              <span class="token keyword">let</span> succeeded <span class="token operator">=</span> <span class="token punctuation">(</span>
+                userinfo<span class="token punctuation">.</span>username <span class="token operator">===</span> config<span class="token punctuation">.</span>username <span class="token operator">&amp;&amp;</span>
+                userinfo<span class="token punctuation">.</span>passwd <span class="token operator">===</span> config<span class="token punctuation">.</span>passwd
+              <span class="token punctuation">)</span>
+              <span class="token function">discardProcessedBytes</span><span class="token punctuation">(</span>
+                succeeded <span class="token operator">?</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">REQUEST_CONNECT</span> <span class="token operator">:</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">AUTHENTICATION</span>
+              <span class="token punctuation">)</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">replyAuth</span><span class="token punctuation">(</span>succeeded<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">break</span>
+          <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">REQUEST_CONNECT</span><span class="token operator">:</span>
+            <span class="token keyword">let</span> req <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">parseRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">!</span>req<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// read complete data</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">dstConnect</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span>
+              <span class="token function">discardProcessedBytes</span><span class="token punctuation">(</span>consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">PROXY_FORWARD</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">break</span>
+          <span class="token keyword">case</span> consts<span class="token punctuation">.</span><span class="token constant">STATE</span><span class="token punctuation">.</span><span class="token constant">PROXY_FORWARD</span><span class="token operator">:</span>
+          <span class="token keyword">default</span><span class="token operator">:</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">handle state [</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">.</span>state<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_session<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token parameter">server</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> Proxy
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x542F;&#x52A8;&#x670D;&#x52A1;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">node</span> app.js
+</code></pre>
+<p>&#x6B64;&#x65F6;&#x6253;&#x5F00; Chrome &#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x5B89;&#x88C5; <code>SwitchyOmega</code> &#x63D2;&#x4EF6;&#xFF0C;&#x914D;&#x7F6E;&#x4EE3;&#x7406;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/43d8648090fe11ebafa22393c04133cd/SwitchyOmega.png" alt="&#x914D;&#x7F6E;&#x4EE3;&#x7406;"></p>
+<p>&#x914D;&#x7F6E;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x540E;&#x9762;&#x6240;&#x6709;&#x7684;&#x8BF7;&#x6C42;&#x90FD;&#x662F;&#x901A;&#x8FC7; SOCKS5 &#x670D;&#x52A1;&#x5668; 127.0.0.1:3000 &#x8F6C;&#x53D1;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x4ECB;&#x7ECD;&#x5B8C;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x4E00;&#x4EFD;&#x5B8C;&#x6574;&#x7684;&#x9879;&#x76EE;&#x4EE3;&#x7801;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0E;&#x6211;&#x8054;&#x7CFB;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"三百行代码搭建一个简单的 SOCKS5 代理服务器","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T13:02:46.116Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T13:03:03.922Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

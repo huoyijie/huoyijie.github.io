@@ -1,0 +1,351 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>安装 postfix · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="2-install-dovecot.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    搭建配置邮件服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="1-install-postfix.html">
+            
+                <a href="1-install-postfix.html">
+            
+                    
+                    安装 postfix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="2-install-dovecot.html">
+            
+                <a href="2-install-dovecot.html">
+            
+                    
+                    安装 dovecot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="3-config-ssl.html">
+            
+                <a href="3-config-ssl.html">
+            
+                    
+                    配置 SSL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="4-sendmail-with-nodejs.html">
+            
+                <a href="4-sendmail-with-nodejs.html">
+            
+                    
+                    通过 Node.js 程序发送邮件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="5-config-auth.html">
+            
+                <a href="5-config-auth.html">
+            
+                    
+                    配置用户认证
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="6-config-dns-ptr-spf-dkim-dmarc.html">
+            
+                <a href="6-config-dns-ptr-spf-dkim-dmarc.html">
+            
+                    
+                    配置 DNS|PTR|SPF|DKIM|DMARC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >安装 postfix</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5B89;&#x88C5;-postfix">&#x5B89;&#x88C5; postfix</h1>
+<p>postfix &#x662F; Wietse Venema &#x5728; IBM &#x7684; GPL &#x534F;&#x8BAE;&#x4E4B;&#x4E0B;&#x5F00;&#x53D1;&#x7684; MTA&#xFF08;&#x90AE;&#x4EF6;&#x4F20;&#x8F93;&#x4EE3;&#x7406;&#xFF09;&#x8F6F;&#x4EF6;&#x3002;&#x5B9E;&#x73B0;&#x4E86; SMTP &#x534F;&#x8BAE;&#xFF0C;&#x7528;&#x6765;&#x53D1;&#x9001;&#x6216;&#x8005;&#x4E2D;&#x8F6C;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x3002;&#x6211;&#x9009;&#x62E9;&#x4E86;&#x57FA;&#x4E8E; postfix &#x642D;&#x5EFA;&#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x786E;&#x4FDD;&#x5DF2;&#x6709;&#x57DF;&#x540D;&#x3001;&#x516C;&#x7F51; IP &#x53CA;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5BF9;&#x4E8E;&#x5C0F;&#x7684;&#x7F51;&#x7AD9;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x53EF;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x5176;&#x4ED6; Web &#x670D;&#x52A1;&#x3002;&#x6211;&#x4F1A;&#x57FA;&#x4E8E; Ubuntu &#x7CFB;&#x7EDF;&#x6765;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x5B89;&#x88C5;&#x548C;&#x914D;&#x7F6E;&#x90AE;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5176;&#x4ED6; Linux &#x53D1;&#x884C;&#x7248;&#x662F;&#x7C7B;&#x4F3C;&#x7684;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">cat</span> /etc/issue
+Ubuntu <span class="token number">18.04</span>.1 LTS
+</code></pre>
+<p>&#x6709;&#x4E00;&#x4EF6;&#x4E8B;&#x5FC5;&#x987B;&#x5148;&#x505A;&#xFF0C;&#x5C31;&#x662F;&#x4FEE;&#x6539;&#x670D;&#x52A1;&#x5668; hostname&#xFF0C;hostname &#x6807;&#x8BC6;&#x4E86;&#x90AE;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#x7684;&#x8EAB;&#x4EFD;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x7528;&#x5168;&#x9650;&#x5B9A;&#x57DF;&#x540D;&#x3002;&#x6211;&#x7684;&#x57DF;&#x540D;&#x662F; huoyijie.cn&#xFF0C;&#x60EF;&#x4F8B;&#x662F;&#x7528; mail.huoyijie.cn &#x6765;&#x6807;&#x8BC6;&#x672C;&#x90AE;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> hostnamectl set-hostname mail.huoyijie.cn
+</code></pre>
+<p>&#x8BBE;&#x7F6E;&#x5B8C;&#x6210;&#x518D;&#x68C0;&#x67E5;&#x786E;&#x8BA4;&#x4E0B;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">hostname</span> <span class="token parameter variable">-f</span>
+mail.huoyijie.cn
+</code></pre>
+<p>&#x7136;&#x540E;&#x5148;&#x5B89;&#x88C5; postfix</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> update
+$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> postfix <span class="token parameter variable">-y</span>
+</code></pre>
+<p>&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E3B;&#x8981;&#x4F1A;&#x8BE2;&#x95EE; 2 &#x4E2A;&#x95EE;&#x9898;</p>
+<ol>
+<li>&#x9009;&#x62E9; Internet Site&#xFF0C;&#x901A;&#x8FC7; STMP &#x6536;&#x53D1;&#x90AE;&#x4EF6;</li>
+</ol>
+<p><img src="https://cdn.huoyijie.cn/ab/84f0486086be11ebaf1339e97396ca47/install-postfix-1.jpg" alt="install postfix 1"></p>
+<p>&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F1A;&#x505C;&#x5728;&#x4E0A;&#x56FE;&#x8FD9;&#x91CC;&#xFF0C;&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x662F;&#x8BA9;&#x4F60;&#x4E86;&#x89E3;&#x4E0B;&#x51E0;&#x4E2A;&#x9009;&#x9879;&#x7684;&#x542B;&#x4E49;&#xFF0C;&#x6309;Tab&#x952E;&#x9009;&#x4E2D;&lt;&#x786E;&#x5B9A;&gt;&#x6309;&#x94AE;&#xFF0C;&#x6572;&#x56DE;&#x8F66;&#x952E;&#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x6B65;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/84f0486086be11ebaf1339e97396ca47/install-postfix-2.jpg" alt="install postfix 2"></p>
+<p>&#x9ED8;&#x8BA4;&#x4F1A;&#x9009;&#x4E2D; Internet Site &#x9009;&#x9879;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x662F;&#xFF0C;&#x6309;&#x4E0A;&#x4E0B;&#x7BAD;&#x5934;&#x8C03;&#x6574;&#x3002;&#x8C03;&#x6574;&#x5B8C;&#x6210;&#x540E;&#x6309; Tab &#x952E;&#x9009;&#x4E2D; &lt;&#x786E;&#x5B9A;&gt; &#x6309;&#x94AE;&#x5E76;&#x6572;&#x56DE;&#x8F66;&#x952E;&#x3002;</p>
+<ol>
+<li>&#x586B;&#x5199;&#x7528;&#x6765;&#x9650;&#x5B9A;&#x90AE;&#x7BB1;&#x5730;&#x5740;&#x7684;&#x57DF;&#x540D;</li>
+</ol>
+<p><img src="https://cdn.huoyijie.cn/ab/84f0486086be11ebaf1339e97396ca47/install-postfix-3.jpg" alt="install postfix 3"></p>
+<p>&#x6211;&#x7684;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x662F; author@huoyijie.cn&#xFF0C;&#x8FD9;&#x91CC;&#x586B;&#x5199; @ &#x540E;&#x9762;&#x7684;&#x57DF;&#x540D; huoyijie.cn</p>
+<p>&#x7136;&#x540E;&#x5C31;&#x662F;&#x7B49;&#x5F85;&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x3002;&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x670D;&#x52A1;&#x5DF2;&#x7ECF;&#x542F;&#x52A8;&#xFF0C;&#x76D1;&#x542C; 25 &#x7AEF;&#x53E3;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-nap</span> <span class="token operator">|</span><span class="token function">grep</span> :25
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:25              <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">13332</span>/master        
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::25                   :::*                    LISTEN      <span class="token number">13332</span>/master
+</code></pre>
+<p>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E3B;&#x8981;&#x662F; 2 &#x4E2A;</p>
+<ol>
+<li>/etc/postfix/main.cf</li>
+<li>/etc/postfix/master.cf</li>
+</ol>
+<p>&#x6B63;&#x5E38;&#x914D;&#x7F6E;&#x4E0D;&#x9700;&#x8981;&#x8C03;&#x6574;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x53D1;&#x9001;&#x90AE;&#x4EF6;&#x4E86;&#x3002;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7CFB;&#x7EDF;&#x7528;&#x6237;&#x90FD;&#x5206;&#x914D;&#x4E86;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#xFF0C;&#x53EF;&#x4EE5;&#x6536;&#x53D1;&#x90AE;&#x4EF6;&#x3002;&#x6211;&#x662F;&#x7528; huoyijie &#x7528;&#x6237;&#x767B;&#x5F55;&#x670D;&#x52A1;&#x5668;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x53D1;&#x90AE;&#x4EF6;&#x6D4B;&#x8BD5;&#x4E0B;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x968F; postfix &#x4E00;&#x8D77;&#x5B89;&#x88C5;&#x7684; sendmail &#x5DE5;&#x5177;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token builtin class-name">echo</span> <span class="token string">&quot;test email&quot;</span> <span class="token operator">|</span> <span class="token function">sendmail</span> huoyijie@huoyijie.cn
+</code></pre>
+<p>&#x7136;&#x540E;&#x5B89;&#x88C5; mailutils &#x5DE5;&#x5177;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x6765;&#x67E5;&#x770B;&#x90AE;&#x4EF6;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> mailutils
+</code></pre>
+<pre class="language-"><code class="lang-bash">$ mail
+<span class="token string">&quot;/var/mail/huoyijie&quot;</span><span class="token builtin class-name">:</span> <span class="token number">1</span> message <span class="token number">1</span> new
+<span class="token operator">&gt;</span>N   <span class="token number">1</span> huoyijie           &#x4E09; <span class="token number">3</span>&#x6708; <span class="token number">17</span> <span class="token number">11</span>:3  <span class="token number">10</span>/348   
+? 
+Return-Path: <span class="token operator">&lt;</span>huoyijie@huoyijie.cn<span class="token operator">&gt;</span>
+X-Original-To: huoyijie@huoyijie.cn
+Delivered-To: huoyijie@huoyijie.cn
+Received: by xps <span class="token punctuation">(</span>Postfix, from userid <span class="token number">1000</span><span class="token punctuation">)</span>
+    <span class="token function">id</span> 15F4063007D2<span class="token punctuation">;</span> Wed, <span class="token number">17</span> Mar <span class="token number">2021</span> <span class="token number">11</span>:33:17 +0800 <span class="token punctuation">(</span>CST<span class="token punctuation">)</span>
+Message-Id: <span class="token operator">&lt;</span><span class="token number">20210317033317</span>.15F4063007D2@xps<span class="token operator">&gt;</span>
+Date: Wed, <span class="token number">17</span> Mar <span class="token number">2021</span> <span class="token number">11</span>:33:17 +0800 <span class="token punctuation">(</span>CST<span class="token punctuation">)</span>
+From: huoyijie@huoyijie.cn <span class="token punctuation">(</span>huoyijie<span class="token punctuation">)</span>
+
+<span class="token builtin class-name">test</span> email
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x53D1;&#x9001;&#x90AE;&#x4EF6;&#x4E86;&#x3002;&#x8FDE;&#x7EED;&#x6309; 2 &#x6B21; Ctrl+D &#x9000;&#x51FA; mail &#x547D;&#x4EE4;&#x540E;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E0B;&#x9762;&#x7684;&#x6D88;&#x606F;</p>
+<pre class="language-"><code class="lang-log">Saved <span class="token number">1</span> message in <span class="token file-path string">/home/huoyijie/mbox</span>
+</code></pre>
+<p>postfix &#x9ED8;&#x8BA4;&#x662F;&#x4EE5; mbox &#x683C;&#x5F0F;&#x5B58;&#x50A8;&#x90AE;&#x4EF6;&#xFF0C;&#x6BCF;&#x4E2A;&#x90AE;&#x7BB1;&#x7528;&#x6237;&#x7684;&#x6240;&#x6709;&#x7684;&#x90AE;&#x4EF6;&#x90FD;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x6070;&#x597D;&#x540C;&#x65F6;&#x5728;&#x63A5;&#x6536;&#x90AE;&#x4EF6;&#x548C;&#x8BFB;&#x53D6;&#x90AE;&#x4EF6;&#x65F6;&#x4F1A;&#x5BF9;&#x6587;&#x4EF6;&#x52A0;&#x9501;&#xFF0C;&#x6BD4;&#x8F83;&#x5F71;&#x54CD;&#x6027;&#x80FD;&#x3002;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x53E6;&#x5916;&#x4E00;&#x79CD; Maildir &#x683C;&#x5F0F;&#x6765;&#x5B58;&#x50A8;&#x90AE;&#x4EF6;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x6240;&#x6709;&#x90AE;&#x4EF6;&#x90FD;&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#xFF0C;&#x6BCF;&#x4E2A;&#x90AE;&#x4EF6;&#x5355;&#x72EC;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/etc/postfix/main.cf</code>&#xFF0C;&#x5728;&#x6587;&#x4EF6;&#x6700;&#x540E;&#x52A0;&#x4E0A;&#x4E00;&#x884C; <code>home_mailbox = Maildir/</code></p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">service</span> postfix reload
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x5B8C; reload &#x4E00;&#x4E0B;&#x4F7F;&#x4FEE;&#x6539;&#x751F;&#x6548;&#x3002;&#x4F1A;&#x5728;&#x7528;&#x6237; home &#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA; <code>MailDir</code> &#x6587;&#x4EF6;&#x5939;&#x5B58;&#x653E;&#x8BE5;&#x7528;&#x6237;&#x7684;&#x6240;&#x6709;&#x90AE;&#x4EF6;&#x3002;&#x5982;&#x679C;&#x7EE7;&#x7EED;&#x53D1;&#x90AE;&#x4EF6;&#x6D4B;&#x8BD5;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728; <code>~/Maildir/new</code> &#x76EE;&#x5F55;&#x4E0B;&#x53D1;&#x73B0;&#x65B0;&#x53D1;&#x9001;&#x7684;&#x90AE;&#x4EF6;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">ls</span> ~/Maildir/
+cur  new  tmp
+$ $ <span class="token function">ls</span> ~/Maildir/new
+<span class="token number">1615882507</span>.Vfc01I449d3M362690.mail.huoyijie.cn
+</code></pre>
+<p>&#x90AE;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#x7CFB;&#x7EDF;&#x7528;&#x6237;&#x5373;&#x4E3A;&#x90AE;&#x4EF6;&#x7528;&#x6237;&#xFF0C;&#x6240;&#x4EE5;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x90AE;&#x7BB1;&#x7528;&#x6237; <code>author@huoyijie.cn</code></p>
+<p>&#x53EF;&#x4EE5;&#x628A;&#x6240;&#x6709;&#x90AE;&#x7BB1;&#x7528;&#x6237;&#x7684;&#x6570;&#x636E;&#x6307;&#x5B9A;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x52A0;&#x5165;&#x540C;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x7EC4;&#xFF0C;&#x65B9;&#x4FBF;&#x7BA1;&#x7406;&#x90AE;&#x4EF6;&#x6570;&#x636E;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">mkdir</span> /home/mailusers
+$ <span class="token function">sudo</span> <span class="token function">groupadd</span> mailusers
+$ <span class="token function">sudo</span> <span class="token function">useradd</span> <span class="token parameter variable">-m</span> <span class="token parameter variable">-d</span> /home/mailusers/author <span class="token parameter variable">-g</span> mailusers  author
+$ <span class="token function">sudo</span> <span class="token function">passwd</span> author
+</code></pre>
+<p>&#x6240;&#x6709;&#x7528;&#x6237;&#x96C6;&#x4E2D;&#x5728; <code>/home/mailusers</code> &#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x6DFB;&#x52A0; <code>author</code> &#x7528;&#x6237;&#xFF0C;&#x5E76;&#x6DFB;&#x52A0;&#x5BC6;&#x7801;&#xFF0C;&#x90AE;&#x7BB1;&#x5E10;&#x53F7;&#x914D;&#x7F6E;&#x597D;&#x4E86;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 搭建配置邮件服务器">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="2-install-dovecot.html" class="navigation navigation-next " aria-label="Next page: 安装 dovecot">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"安装 postfix","level":"1.2","depth":1,"next":{"title":"安装 dovecot","level":"1.3","depth":1,"path":"2-install-dovecot.md","ref":"2-install-dovecot.md","articles":[]},"previous":{"title":"搭建配置邮件服务器","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"1-install-postfix.md","mtime":"2023-02-21T11:33:05.730Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T11:34:57.673Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

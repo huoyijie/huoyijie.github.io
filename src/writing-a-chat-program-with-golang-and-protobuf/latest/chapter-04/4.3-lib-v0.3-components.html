@@ -1,0 +1,612 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>4.3 Lib v0.3 组件图 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="4.4-gochat-v0.3-sequence.html" />
+    
+    
+    <link rel="prev" href="4.2-client-v0.3-components.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Golang 经典入门实践教程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../chapter-01/">
+            
+                <a href="../chapter-01/">
+            
+                    
+                    第一章 Go 起步
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../chapter-01/1.1-install-go.html">
+            
+                <a href="../chapter-01/1.1-install-go.html">
+            
+                    
+                    1.1 安装 Go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../chapter-01/1.2-run-helloworld.html">
+            
+                <a href="../chapter-01/1.2-run-helloworld.html">
+            
+                    
+                    1.2 运行 Hello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../chapter-01/1.3-install-git.html">
+            
+                <a href="../chapter-01/1.3-install-git.html">
+            
+                    
+                    1.3 安装 Git
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter-02/">
+            
+                <a href="../chapter-02/">
+            
+                    
+                    第二章 创建开源 GoChat 项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../chapter-02/2.1-create-blank-project.html">
+            
+                <a href="../chapter-02/2.1-create-blank-project.html">
+            
+                    
+                    2.1 创建项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../chapter-02/2.2-server-v0.1.html">
+            
+                <a href="../chapter-02/2.2-server-v0.1.html">
+            
+                    
+                    2.2 实现 Server v0.1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../chapter-02/2.3-client-v0.1.html">
+            
+                <a href="../chapter-02/2.3-client-v0.1.html">
+            
+                    
+                    2.3 实现 Client v0.1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../chapter-02/2.4-lib-v0.1.html">
+            
+                <a href="../chapter-02/2.4-lib-v0.1.html">
+            
+                    
+                    2.4 实现 Lib v0.1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../chapter-02/2.5-run-gochat-v0.1.html">
+            
+                <a href="../chapter-02/2.5-run-gochat-v0.1.html">
+            
+                    
+                    2.5 运行 GoChat v0.1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter-03/">
+            
+                <a href="../chapter-03/">
+            
+                    
+                    第三章 实现 GoChat v0.2 群聊
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-03/3.1-server-v0.2.html">
+            
+                <a href="../chapter-03/3.1-server-v0.2.html">
+            
+                    
+                    3.1 实现 Server v0.2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-03/3.2-client-v0.2.html">
+            
+                <a href="../chapter-03/3.2-client-v0.2.html">
+            
+                    
+                    3.2 实现 Client v0.2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../chapter-03/3.3-lib-v0.2.html">
+            
+                <a href="../chapter-03/3.3-lib-v0.2.html">
+            
+                    
+                    3.3 实现 Lib v0.2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../chapter-03/3.4-run-gochat-v0.2.html">
+            
+                <a href="../chapter-03/3.4-run-gochat-v0.2.html">
+            
+                    
+                    3.4 运行 GoChat v0.2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    第四章 实现 GoChat v0.3
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="4.1-server-v0.3-components.html">
+            
+                <a href="4.1-server-v0.3-components.html">
+            
+                    
+                    4.1 Server v0.3 组件图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="4.2-client-v0.3-components.html">
+            
+                <a href="4.2-client-v0.3-components.html">
+            
+                    
+                    4.2 Client v0.3 组件图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.3" data-path="4.3-lib-v0.3-components.html">
+            
+                <a href="4.3-lib-v0.3-components.html">
+            
+                    
+                    4.3 Lib v0.3 组件图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="4.4-gochat-v0.3-sequence.html">
+            
+                <a href="4.4-gochat-v0.3-sequence.html">
+            
+                    
+                    4.4 GoChat v0.3 顺序图
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../chapter-last/">
+            
+                <a href="../chapter-last/">
+            
+                    
+                    结语
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >4.3 Lib v0.3 组件图</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="43-lib-v03-&#x7EC4;&#x4EF6;&#x56FE;">4.3 Lib v0.3 &#x7EC4;&#x4EF6;&#x56FE;</h1>
+<p><img src="https://cdn.huoyijie.cn/ab/63abece07abe11edabe8959dec69346b/gochat-lib-uml.svg" alt="gochat-lib-uml"></p>
+<p>&#x7531;&#x4E0A;&#x56FE;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;Lib &#x4E3B;&#x8981;&#x7531; protobuf &#x5B9A;&#x4E49;(packet.proto) &#x548C; commons &#x901A;&#x7528;&#x7EC4;&#x4EF6;&#x7EC4;&#x6210;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x901A;&#x4FE1;&#x91C7;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x534F;&#x8BAE;&#xFF0C;&#x5E76;&#x91C7;&#x7528; protobuf &#x5E8F;&#x5217;&#x5316;/&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x534F;&#x8BAE;&#x3002;</p>
+<h2 id="&#x901A;&#x4FE1;&#x534F;&#x8BAE;">&#x901A;&#x4FE1;&#x534F;&#x8BAE;</h2>
+<pre class="language-"><code>+--------+----------------------+
+| length |     packet data      |
++--------+----------------------+
+</code></pre><h2 id="protobuf-&#x5B9A;&#x4E49;">Protobuf &#x5B9A;&#x4E49;</h2>
+<pre class="language-"><code class="lang-protobuf"><span class="token keyword">syntax</span> <span class="token operator">=</span> <span class="token string">&quot;proto3&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">package</span> lib<span class="token punctuation">;</span>
+
+<span class="token keyword">option</span> go_package <span class="token operator">=</span> <span class="token string">&quot;github.com/huoyijie/GoChat/lib&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">PackKind</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Server</span>
+  PONG    <span class="token operator">=</span>  <span class="token number">0</span><span class="token punctuation">;</span>
+  ERR     <span class="token operator">=</span>  <span class="token number">1</span><span class="token punctuation">;</span>
+  RES     <span class="token operator">=</span>  <span class="token number">2</span><span class="token punctuation">;</span>
+  PUSH    <span class="token operator">=</span>  <span class="token number">3</span><span class="token punctuation">;</span>
+  <span class="token comment">// All</span>
+  MSG     <span class="token operator">=</span>  <span class="token number">4</span><span class="token punctuation">;</span>
+  <span class="token comment">// Client</span>
+  PING    <span class="token operator">=</span>  <span class="token number">5</span><span class="token punctuation">;</span>
+  SIGNUP  <span class="token operator">=</span>  <span class="token number">6</span><span class="token punctuation">;</span>
+  SIGNIN  <span class="token operator">=</span>  <span class="token number">7</span><span class="token punctuation">;</span>
+  TOKEN   <span class="token operator">=</span>  <span class="token number">8</span><span class="token punctuation">;</span>
+  SIGNOUT <span class="token operator">=</span>  <span class="token number">9</span><span class="token punctuation">;</span>
+  USERS   <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Packet</span> <span class="token punctuation">{</span>
+  <span class="token positional-class-name class-name">PackKind</span> kind <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">uint64</span>   id   <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token builtin">bytes</span>    data <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Ping</span><span class="token punctuation">{</span>
+  <span class="token builtin">bytes</span> payload <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Pong</span><span class="token punctuation">{</span>
+  <span class="token builtin">bytes</span> payload <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Auth</span> <span class="token punctuation">{</span>
+  <span class="token builtin">string</span> username <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">bytes</span>  passhash <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Signup</span> <span class="token punctuation">{</span>
+  <span class="token positional-class-name class-name">Auth</span> auth <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Signin</span> <span class="token punctuation">{</span>
+  <span class="token positional-class-name class-name">Auth</span> auth <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Token</span> <span class="token punctuation">{</span>
+  <span class="token builtin">bytes</span> token <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">TokenRes</span> <span class="token punctuation">{</span>
+  <span class="token builtin">int32</span>  code     <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">uint64</span> id       <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token builtin">string</span> username <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  <span class="token builtin">bytes</span>  token    <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Signout</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">SignoutRes</span> <span class="token punctuation">{</span>
+  <span class="token builtin">int32</span> code  <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token builtin">string</span> username <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">bool</span>   online   <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Users</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">UsersRes</span> <span class="token punctuation">{</span>
+  <span class="token builtin">int32</span>         code  <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword">repeated</span> <span class="token positional-class-name class-name">User</span> users <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">MsgKind</span> <span class="token punctuation">{</span>
+  TEXT <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Msg</span> <span class="token punctuation">{</span>
+  <span class="token builtin">int64</span>   id   <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token positional-class-name class-name">MsgKind</span> kind <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token builtin">string</span>  from <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  <span class="token builtin">string</span>  to   <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+  <span class="token builtin">bytes</span>   data <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">ErrRes</span> <span class="token punctuation">{</span>
+  <span class="token builtin">int32</span> code  <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">PushKind</span> <span class="token punctuation">{</span>
+  ONLINE  <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Push</span> <span class="token punctuation">{</span>
+  <span class="token positional-class-name class-name">PushKind</span> kind <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">bytes</span>    data <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">OnlineKind</span> <span class="token punctuation">{</span>
+  ON  <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  OFF <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">message</span> <span class="token class-name">Online</span> <span class="token punctuation">{</span>
+  <span class="token positional-class-name class-name">OnlineKind</span> kind     <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token builtin">string</span>     username <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="commons">Commons</h2>
+<p>&#x4E3B;&#x8981;&#x662F;&#x5C01;&#x88C5;&#x4E00;&#x4E9B;&#x5DE5;&#x5177;&#x65B9;&#x6CD5;&#x548C;&#x9519;&#x8BEF;&#x7801;&#x5B9A;&#x4E49;&#xFF0C;&#x5982;&#x7F16;&#x89E3;&#x7801;&#x3001;&#x52A0;&#x89E3;&#x5BC6;&#x7B49;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="4.2-client-v0.3-components.html" class="navigation navigation-prev " aria-label="Previous page: 4.2 Client v0.3 组件图">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="4.4-gochat-v0.3-sequence.html" class="navigation navigation-next " aria-label="Next page: 4.4 GoChat v0.3 顺序图">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"4.3 Lib v0.3 组件图","level":"1.5.3","depth":2,"next":{"title":"4.4 GoChat v0.3 顺序图","level":"1.5.4","depth":2,"path":"chapter-04/4.4-gochat-v0.3-sequence.md","ref":"chapter-04/4.4-gochat-v0.3-sequence.md","articles":[]},"previous":{"title":"4.2 Client v0.3 组件图","level":"1.5.2","depth":2,"path":"chapter-04/4.2-client-v0.3-components.md","ref":"chapter-04/4.2-client-v0.3-components.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"chapter-04/4.3-lib-v0.3-components.md","mtime":"2023-02-21T12:35:57.864Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T12:45:09.522Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

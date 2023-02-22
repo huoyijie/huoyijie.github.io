@@ -1,0 +1,335 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>配置 SSL · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="4-sendmail-with-nodejs.html" />
+    
+    
+    <link rel="prev" href="2-install-dovecot.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    搭建配置邮件服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1-install-postfix.html">
+            
+                <a href="1-install-postfix.html">
+            
+                    
+                    安装 postfix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="2-install-dovecot.html">
+            
+                <a href="2-install-dovecot.html">
+            
+                    
+                    安装 dovecot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="3-config-ssl.html">
+            
+                <a href="3-config-ssl.html">
+            
+                    
+                    配置 SSL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="4-sendmail-with-nodejs.html">
+            
+                <a href="4-sendmail-with-nodejs.html">
+            
+                    
+                    通过 Node.js 程序发送邮件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="5-config-auth.html">
+            
+                <a href="5-config-auth.html">
+            
+                    
+                    配置用户认证
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="6-config-dns-ptr-spf-dkim-dmarc.html">
+            
+                <a href="6-config-dns-ptr-spf-dkim-dmarc.html">
+            
+                    
+                    配置 DNS|PTR|SPF|DKIM|DMARC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >配置 SSL</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x914D;&#x7F6E;ssl&#x5B89;&#x5168;&#x4F20;&#x8F93;">&#x914D;&#x7F6E;SSL&#x5B89;&#x5168;&#x4F20;&#x8F93;</h1>
+<p>&#x4E3A;&#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;SSL&#xFF0C;&#x9700;&#x8981;&#x4E3A;&#x90AE;&#x7BB1;&#x57DF;&#x540D;&#x7533;&#x8BF7;&#x8BC1;&#x4E66;&#xFF0C;&#x5148;&#x53BB;&#x57DF;&#x540D;&#x670D;&#x52A1;&#x5546;&#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x627E;&#x5230;&#x57DF;&#x540D; <code>mail.huoyijie.cn</code>&#xFF0C;&#x70B9;&#x51FB;&#x7533;&#x8BF7;SSL&#x8BC1;&#x4E66;&#x3002;&#x8F93;&#x5165;&#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x57DF;&#x540D; <code>mail.huoyijie.cn</code>&#xFF0C;&#x8F93;&#x5165;&#x7533;&#x8BF7;&#x90AE;&#x7BB1;&#x3002;&#x70B9;&#x4E0B;&#x4E00;&#x6B65;&#xFF0C;&#x9009;&#x62E9;&#x81EA;&#x52A8;&#x9A8C;&#x8BC1;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5927;&#x6982;&#x51E0;&#x79D2;&#x4E2D;&#x65F6;&#x95F4;&#xFF0C;&#x8BC1;&#x4E66;&#x4F1A;&#x81EA;&#x52A8;&#x7B7E;&#x53D1;&#x3002;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/84f0486086be11ebaf1339e97396ca47/apply-ssl-cert.jpg" alt="&#x7533;&#x8BF7;ssl&#x8BC1;&#x4E66;"></p>
+<p>&#x6CE8;&#xFF1A;&#x5982;&#x679C;&#x6682;&#x65F6;&#x4E0D;&#x80FD;&#x7533;&#x8BF7;&#x8BC1;&#x4E66;&#xFF0C;&#x4F7F;&#x7528;&#x672C;&#x5730;&#x751F;&#x6210;&#x7684;&#x81EA;&#x7B7E;&#x540D;&#x8BC1;&#x4E66;&#x4E5F;&#x53EF;&#x4EE5;&#x5148;&#x7528;&#x6765;&#x6D4B;&#x8BD5;</p>
+<p>&#x8BC1;&#x4E66;&#x7B7E;&#x53D1;&#x4E0B;&#x6765;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0B;&#x8F7D;&#x5230;&#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#xFF0C;&#x628A;&#x516C;&#x94A5;&#x3001;&#x79C1;&#x94A5;&#x6587;&#x4EF6;&#x5206;&#x522B;&#x90E8;&#x7F72;&#x914D;&#x7F6E;&#x597D;&#x3002;</p>
+<p>&#x8BC1;&#x4E66;&#x6587;&#x4EF6;: <code>/etc/ssl/certs/ssl-cert-mail.crt</code>
+&#x79C1;&#x94A5;&#x6587;&#x4EF6;: <code>/etc/ssl/private/ssl-cert-mail.key</code></p>
+<p>&#x786E;&#x4FDD;&#x79C1;&#x94A5;&#x6587;&#x4EF6;&#x6743;&#x9650; <code>640</code>&#xFF0C;&#x53EA;&#x6709; root &#x7528;&#x6237;&#x624D;&#x6709;&#x6743;&#x9650;&#x8BFB;&#x5199;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">ls</span> <span class="token parameter variable">-l</span> /etc/ssl/private/ssl-cert-mail.key
+-rw-r----- <span class="token number">1</span> root root <span class="token number">1704</span> Mar <span class="token number">16</span> <span class="token number">15</span>:00 /etc/ssl/private/ssl-cert-mail.key
+</code></pre>
+<p>&#x8BC1;&#x4E66;&#x6587;&#x4EF6;&#x6743;&#x9650; <code>644</code>&#xFF0C;&#x8BC1;&#x4E66;&#x662F;&#x516C;&#x5F00;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5176;&#x4ED6;&#x7528;&#x6237;&#x53EF;&#x8BFB;&#x53D6;&#x4E00;&#x822C;&#x4E5F;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">ls</span> <span class="token parameter variable">-l</span> /etc/ssl/certs/ssl-cert-mail.crt
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">3735</span> Mar <span class="token number">16</span> <span class="token number">14</span>:59 /etc/ssl/certs/ssl-cert-mail.crt
+</code></pre>
+<p>&#x5148;&#x6765;&#x914D;&#x7F6E; postfix&#xFF0C;&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/etc/postfix/main.cf</code></p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">vi</span> /etc/postfix/main.cf
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x914D;&#x7F6E;</p>
+<pre class="language-"><code class="lang-conf">smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-mail.crt
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-mail.key
+smtpd_use_tls=yes
+</code></pre>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/etc/postfix/master.cf</code></p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">vi</span> /etc/postfix/master.cf
+</code></pre>
+<p>&#x627E;&#x5230; <code>smtps</code> &#x8FDB;&#x7A0B;&#x914D;&#x7F6E;&#xFF0C;&#x6253;&#x5F00;&#x6CE8;&#x91CA;</p>
+<pre class="language-"><code class="lang-conf">smtps     inet  n       -       y       -       -       smtpd
+   -o syslog_name=postfix/smtps
+   -o smtpd_tls_wrappermode=yes
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x5B8C;&#x914D;&#x7F6E;&#x540E;&#xFF0C;reload &#x914D;&#x7F6E;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">service</span> postfix reload
+</code></pre>
+<p><code>smtps</code> &#x8FDB;&#x7A0B;&#x4F1A;&#x6253;&#x5F00; 465 &#x7AEF;&#x53E3;&#xFF0C;&#x73B0;&#x5728;&#x68C0;&#x67E5;&#x4E00;&#x4E0B;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-nap</span> <span class="token operator">|</span><span class="token function">grep</span> <span class="token number">465</span>
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:465             <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">17041</span>/master        
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::465                  :::*                    LISTEN      <span class="token number">17041</span>/master
+</code></pre>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x914D;&#x7F6E; dovecot</p>
+<p>&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/etc/dovecot/conf.d/10-ssl.conf</code></p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">vi</span> /etc/dovecot/conf.d/10-ssl.conf
+</code></pre>
+<p>&#x627E;&#x5230;&#x4E0B;&#x9762;3&#x4E2A;&#x914D;&#x7F6E;&#x9879;&#x8FDB;&#x884C;&#x8C03;&#x6574;&#xFF0C;&#x6CE8;&#x610F;&#x4E0B;&#x65B9;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x65F6;&#x6709; <code>&lt;</code></p>
+<pre class="language-"><code class="lang-conf">ssl = required
+ssl_cert = &lt;/etc/ssl/certs/ssl-cert-mail.crt
+ssl_key = &lt;/etc/ssl/private/ssl-cert-mail.key
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x5B8C;&#x914D;&#x7F6E;&#x540E;&#xFF0C;reload &#x914D;&#x7F6E;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">service</span> dovecot reload
+</code></pre>
+<p><code>pop3s</code> &#x5360;&#x7528;&#x7AEF;&#x53E3; 995&#xFF0C;<code>imaps</code> &#x5360;&#x7528;&#x7AEF;&#x53E3; 993&#xFF0C;&#x68C0;&#x67E5;&#x4E00;&#x4E0B;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-nap</span> <span class="token operator">|</span><span class="token function">grep</span> <span class="token number">993</span>
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:993             <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">1</span>/init
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::993                  :::*                    LISTEN      <span class="token number">1</span>/init
+</code></pre>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-nap</span> <span class="token operator">|</span><span class="token function">grep</span> <span class="token number">995</span>
+tcp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:995             <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">17133</span>/dovecot       
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::995                  :::*                    LISTEN      <span class="token number">17133</span>/dovecot
+</code></pre>
+<p>&#x6700;&#x540E;&#x9700;&#x8981;&#x8C03;&#x6574;&#x4E00;&#x4E0B;&#x90AE;&#x4EF6;&#x5BA2;&#x6237;&#x7AEF; <code>Thunderbird</code> &#x7684;&#x53D1;&#x4EF6;/&#x6536;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x3002;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/84f0486086be11ebaf1339e97396ca47/config-thunderbird-ssl.jpg" alt="&#x914D;&#x7F6E;SSL for Thunderbird"></p>
+<p>&#x6253;&#x5F00;&#x90AE;&#x7BB1;&#x5E10;&#x53F7;&#x8BBE;&#x7F6E;&#xFF0C;&#x63A5;&#x6536; IMAP &#x914D;&#x7F6E;&#x4E86; 993 &#x7AEF;&#x53E3;&#x3002;&#x800C;&#x53D1;&#x51FA;SMTP &#x914D;&#x7F6E;&#x4E86; 465 &#x7AEF;&#x53E3;&#x3002;&#x70B9;&#x51FB;&#x5B8C;&#x6210;&#xFF0C;&#x8BBE;&#x7F6E;&#x5B8C;&#x6210;&#x3002;</p>
+<p><code>mail.huoyijie.cn</code> &#x4F5C;&#x4E3A; <code>SMTP</code> &#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x670D;&#x52A1;&#x7AEF;&#x65F6;&#xFF0C;&#x4F1A;&#x63A5;&#x6536;&#x6765;&#x81EA;&#x5176;&#x4ED6;&#x57DF;&#x540D;&#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x7684;&#x90AE;&#x4EF6;&#x6295;&#x9012;&#x8BF7;&#x6C42;&#xFF0C;&#x4E5F;&#x4F1A;&#x63A5;&#x6536;&#x6765;&#x81EA;&#x90AE;&#x4EF6;&#x5BA2;&#x6237;&#x7AEF; <code>Thunderbird</code> &#x7684;&#x53D1;&#x9001;&#x90AE;&#x4EF6;&#x8BF7;&#x6C42;&#x3002;&#x6765;&#x81EA;&#x5176;&#x4ED6;&#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x7684;&#x8BF7;&#x6C42;&#x4F1A;&#x8D70; <code>25</code> &#x7AEF;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x673A;&#x4F1A;&#x52A0;&#x5BC6;StartTLS&#x673A;&#x5236;&#x6765;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x52A0;&#x5BC6;&#x4F20;&#x8F93;&#x6570;&#x636E;&#x5305;&#x62EC;&#x90AE;&#x4EF6;&#x3002;&#x8FD8;&#x8BB0;&#x5F97;&#x5728;&#x914D;&#x7F6E; SSL &#x90A3;&#x8282;&#x65F6;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x6211;&#x914D;&#x7F6E;&#x4E86; <code>TrustAsia TLS RSA CA</code> &#x8BC1;&#x4E66;&#xFF0C;&#x5305;&#x542B;&#x516C;&#x94A5;&#xFF0C;&#x53EF;&#x4EE5;&#x548C;&#x8FDE;&#x63A5;&#x4E0A;&#x6765;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x5B8C;&#x6210;&#x52A0;&#x5BC6;&#x534F;&#x5546;&#xFF08;&#x5BA2;&#x6237;&#x7AEF;&#x4FA7;&#x4E00;&#x822C;&#x4E0D;&#x9A8C;&#x8BC1;&#x8BC1;&#x4E66;&#xFF09;&#x3002;&#x6765;&#x81EA;&#x90AE;&#x4EF6;&#x5BA2;&#x6237;&#x7AEF; <code>Thunderbird</code> &#x7684;&#x53D1;&#x4EF6;&#x8BF7;&#x6C42;&#x4F1A;&#x8D70; <code>465</code> &#x7AEF;&#x53E3;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4FA7;&#x662F;&#x8981;&#x9A8C;&#x8BC1;&#x8BC1;&#x4E66;&#xFF0C;&#x5E76;&#x5B8C;&#x6210;&#x52A0;&#x5BC6;&#x534F;&#x5546;&#xFF0C;&#x540E;&#x9762;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x662F;&#x52A0;&#x5BC6;&#x4F20;&#x8F93;&#x3002;</p>
+<p><code>mail.huoyijie.cn</code> &#x4F5C;&#x4E3A; <code>IMAP</code> &#x90AE;&#x7BB1;&#x670D;&#x52A1;&#x5668;&#x670D;&#x52A1;&#x7AEF;&#x65F6;&#xFF0C;&#x6765;&#x81EA;&#x90AE;&#x4EF6;&#x5BA2;&#x6237;&#x7AEF; <code>Thunderbird</code> &#x7684;&#x53D6;&#x4EF6;&#x8BF7;&#x6C42;&#x4F1A;&#x8D70; <code>993</code> &#x7AEF;&#x53E3;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4FA7;&#x662F;&#x8981;&#x9A8C;&#x8BC1;&#x8BC1;&#x4E66;&#xFF0C;&#x5E76;&#x5B8C;&#x6210;&#x52A0;&#x5BC6;&#x534F;&#x5546;&#xFF0C;&#x540E;&#x9762;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x662F;&#x52A0;&#x5BC6;&#x4F20;&#x8F93;&#x3002;&#x56E0;&#x4E3A;&#x6D89;&#x53CA;&#x5230;&#x4E0B;&#x8F7D;&#x7528;&#x6237;&#x90AE;&#x7BB1;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x4EE5; <code>IMAP</code> &#x670D;&#x52A1;&#x7AEF;&#x8981;&#x6C42;&#x8FDE;&#x63A5;&#x4E0A;&#x6765;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x4E00;&#x5B9A;&#x8981;&#x8FDB;&#x884C;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#xFF0C;&#x901A;&#x8FC7;&#x8BA4;&#x8BC1;&#x624D;&#x80FD;&#x6536;&#x53D6;&#x90AE;&#x4EF6;&#x3002;</p>
+<p><code>SMTP</code> &#x670D;&#x52A1;&#x7AEF;&#x9ED8;&#x8BA4;&#x6CA1;&#x6709;&#x8981;&#x6C42;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x4E0A;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x5C31;&#x53EF;&#x4EE5;&#x53D1;&#x9001;&#x53D1;&#x4EF6;&#x8BF7;&#x6C42;&#x3002;&#x540E;&#x9762;&#x4F1A;&#x4E3A; <code>SMTP</code> &#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="2-install-dovecot.html" class="navigation navigation-prev " aria-label="Previous page: 安装 dovecot">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="4-sendmail-with-nodejs.html" class="navigation navigation-next " aria-label="Next page: 通过 Node.js 程序发送邮件">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"配置 SSL","level":"1.4","depth":1,"next":{"title":"通过 Node.js 程序发送邮件","level":"1.5","depth":1,"path":"4-sendmail-with-nodejs.md","ref":"4-sendmail-with-nodejs.md","articles":[]},"previous":{"title":"安装 dovecot","level":"1.3","depth":1,"path":"2-install-dovecot.md","ref":"2-install-dovecot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"3-config-ssl.md","mtime":"2023-02-21T11:33:05.754Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T11:34:57.673Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

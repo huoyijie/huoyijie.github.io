@@ -1,0 +1,522 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>UDPack 2.0 协议 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    UDPack 2.0 协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >UDPack 2.0 协议</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="udpack-20-&#x534F;&#x8BAE;">UDPack 2.0 &#x534F;&#x8BAE;</h1>
+<p>UDPack 2.0 &#x662F;&#x4E00;&#x79CD;&#x57FA;&#x4E8E; UDP &#x7684;&#x5B89;&#x5168;&#x53EF;&#x9760;&#x6570;&#x636E;&#x5305;&#x4F20;&#x8F93;&#x534F;&#x8BAE;&#x3002;UDPack &#x4E3A;&#x4E0A;&#x5C42;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x4E86;&#x9762;&#x5411;&#x6570;&#x636E;&#x5305;(Packet)&#x7684;&#x5B89;&#x5168;&#x3001;&#x53EF;&#x9760;&#x7684;&#x53CC;&#x5411;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x80FD;&#x529B;&#x3002;</p>
+<p>&#x76F8;&#x6BD4; <a href="https://huoyijie.cn/article/1b11c0d06ef311eda78619d87c80c179/" target="_blank">UDPack 1.0</a> &#x534F;&#x8BAE;&#xFF0C;2.0 &#x534F;&#x8BAE;&#x8FDB;&#x884C;&#x4E86;&#x6781;&#x5927;&#x7684;&#x7B80;&#x5316;&#xFF0C;&#x67D0;&#x4E9B;&#x5730;&#x65B9;&#x501F;&#x9274;&#x4E86; <code>TCP</code> &#x534F;&#x8BAE;&#x4E2D;&#x7684;&#x6982;&#x5FF5;&#x3002;&#x8FD9;&#x4E2A;&#x534F;&#x8BAE;&#x7684;&#x76EE;&#x6807;&#x662F;&#x5728; <code>TCP</code> &#x534F;&#x8BAE;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#x6216;&#x8005;&#x66F4;&#x9002;&#x5B9C; <code>UDP</code> &#x534F;&#x8BAE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x5B89;&#x5168;&#x53EF;&#x9760;&#x7684;&#x4F20;&#x8F93;&#x534F;&#x8BAE;&#xFF0C;&#x5B9E;&#x73B0;&#x8981;&#x6BD4; <code>QUIC</code> &#x534F;&#x8BAE;&#x66F4;&#x7B80;&#x5355;&#x3001;&#x66F4;&#x8F7B;&#x91CF;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x66F4;&#x6E05;&#x6670;&#x4E86;&#x89E3;&#x534F;&#x8BAE;&#x53D8;&#x5316;&#xFF0C;&#x4E0B;&#x9762;&#x7ED9;&#x51FA;&#x5E27;&#x683C;&#x5F0F;&#x5B9A;&#x4E49;:</p>
+<h2 id="&#x4E8C;&#x8FDB;&#x5236;&#x5E27;&#x683C;&#x5F0F;">&#x4E8C;&#x8FDB;&#x5236;&#x5E27;&#x683C;&#x5F0F;</h2>
+<h3 id="10-&#x534F;&#x8BAE;&#x5E27;&#x683C;&#x5F0F;">1.0 &#x534F;&#x8BAE;&#x5E27;&#x683C;&#x5F0F;</h3>
+<pre class="language-"><code>0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------------------------------------------------------+
+|                        Session Id (32)                        |
++---------------------------------------------------------------+
+|                        timestamp ...                          |
++ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+|                    ... timestamp (64)                         |
++-+-+-+-----+-+-+-------+-------+-------------------------------+
+|S|P|F| RSV |S|F|  RSV  |OPCODE |          Payload len          |
+|T|A|R| (3) |L|I|  (4)  | (4)   |             (16)              |
+|R|C|A|     |O|N|       |       |                               |
+|E|K|G|     |W| |       |       |                               |
++-+-+-+-----+-+-+-------+-------+-------------------------------+
+|                        Stream Id (32)                         |
+|                       (if STRE set to 1)                      |
++---------------------------------------------------------------+
+|                        Packet Id (32)                         |
+|                       (if PACK set to 1)                      |
++---------------------------------------------------------------+
+|                        Fragment Id (32)                       |
+|                       (if FRAG set to 1)                      |
++---------------------------------------------------------------+
+:                        Payload Data ...                       :
++---------------------------------------------------------------+
+</code></pre><h3 id="20-&#x534F;&#x8BAE;&#x5E27;&#x683C;&#x5F0F;">2.0 &#x534F;&#x8BAE;&#x5E27;&#x683C;&#x5F0F;</h3>
+<pre class="language-"><code>+--------------------+-----------------+
+|      required      |    optional     |
++--------------------+-------+---------+
+|           header           |  body   |
++------+------+------+-------+---------+
+| uuid | kind | flag |pack id|pack data|
++------+------+------+-------+---------+
+|  8   |  1   |  1   |   4   |   len   |
++------+------+------+-------+---------+
+</code></pre><p>&#x4E0B;&#x9762;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x5E27;&#x5B57;&#x6BB5;&#x8BF4;&#x660E;:</p>
+<table>
+<thead>
+<tr>
+<th>&#x5B57;&#x6BB5;</th>
+<th>&#x957F;&#x5EA6;(&#x5355;&#x4F4D;: &#x5B57;&#x8282;)</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uuid</td>
+<td>8</td>
+<td>&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x4F1A;&#x8BDD;&#x9012;&#x589E; ID&#xFF0C;&#x7531; SonyFlake &#x7B97;&#x6CD5;&#x751F;&#x6210;&#xFF0C;&#x7C7B;&#x4F3C; SnowFlake &#x7B97;&#x6CD5;</td>
+</tr>
+<tr>
+<td>kind</td>
+<td>1</td>
+<td>&#x5E27;&#x7C7B;&#x578B;</td>
+</tr>
+<tr>
+<td>flag</td>
+<td>1</td>
+<td>&#x5E27;&#x4F4D;&#x6807;&#x8BC6;&#xFF0C;&#x4E0D;&#x540C;&#x5E27;&#x7C7B;&#x578B;&#x53EF;&#x80FD;&#x4F1A;&#x5229;&#x7528;&#x4F4D; 0~7 &#x8FDB;&#x884C;&#x7279;&#x6B8A;&#x8BBE;&#x5B9A;</td>
+</tr>
+<tr>
+<td>pack id</td>
+<td>4</td>
+<td>&#x5728;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x4F1A;&#x8BDD;&#x5185;&#x9012;&#x589E; ID&#xFF0C;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5305;</td>
+</tr>
+<tr>
+<td>pack data</td>
+<td>len</td>
+<td>&#x8F7D;&#x8377;&#x6570;&#x636E;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x70B9;&#x51FB;&#x4E86;&#x89E3; <a href="https://github.com/sony/sonyflake" target="_blank">SonyFlake</a> &#x7B97;&#x6CD5;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5E27;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;&#x548C;&#x8BF4;&#x660E;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token attribute attr-name">#[derive(Debug)]</span>
+<span class="token keyword">pub</span> <span class="token keyword">enum</span> <span class="token type-definition class-name">FrameKind</span> <span class="token punctuation">{</span>
+  <span class="token class-name">Open</span><span class="token punctuation">(</span><span class="token keyword">bool</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token class-name">Ready</span><span class="token punctuation">,</span>
+  <span class="token class-name">Ping</span><span class="token punctuation">,</span>
+  <span class="token class-name">Pong</span><span class="token punctuation">,</span>
+  <span class="token class-name">Data</span> <span class="token punctuation">{</span> pack_id<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span> bytes<span class="token punctuation">:</span> <span class="token class-name">Bytes</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token class-name">Ack</span> <span class="token punctuation">{</span> pack_id<span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token class-name">Sync</span> <span class="token punctuation">{</span> pack_id<span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token class-name">Slow</span> <span class="token punctuation">{</span> pack_id<span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token class-name">Lost</span> <span class="token punctuation">{</span> pack_id<span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token class-name">Shutdown</span><span class="token punctuation">,</span>
+  <span class="token class-name">Close</span><span class="token punctuation">,</span>
+  <span class="token class-name">Error</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>&#x5E27;&#x7C7B;&#x578B;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open</td>
+<td>&#x8BF7;&#x6C42;&#x5EFA;&#x7ACB;&#x4F1A;&#x8BDD;&#x8FDE;&#x63A5;</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td>&#x5DF2;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;</td>
+</tr>
+<tr>
+<td>Ping</td>
+<td>&#x5FC3;&#x8DF3;&#x68C0;&#x67E5;&#x8BF7;&#x6C42;</td>
+</tr>
+<tr>
+<td>Pong</td>
+<td>&#x5FC3;&#x8DF3;&#x68C0;&#x67E5;&#x5E94;&#x7B54;</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>&#x6570;&#x636E;&#x5E27;</td>
+</tr>
+<tr>
+<td>Ack</td>
+<td>Ack &#x5E27;</td>
+</tr>
+<tr>
+<td>Sync</td>
+<td>&#x4E0E;&#x53D1;&#x9001;&#x65B9;&#x540C;&#x6B65;&#x63A5;&#x6536;&#x8FDB;&#x5EA6;&#x5E27;</td>
+</tr>
+<tr>
+<td>Slow</td>
+<td>&#x901A;&#x77E5;&#x53D1;&#x9001;&#x65B9;&#x964D;&#x901F;&#x5E27;</td>
+</tr>
+<tr>
+<td>Lost</td>
+<td>&#x901A;&#x77E5;&#x53D1;&#x9001;&#x65B9;&#x6570;&#x636E;&#x4E22;&#x5931;&#x5E27;</td>
+</tr>
+<tr>
+<td>Shutdown</td>
+<td>&#x6570;&#x636E;&#x53D1;&#x9001;&#x5B8C;&#x6BD5;&#xFF0C;&#x51C6;&#x5907;&#x5173;&#x95ED;&#x8FDE;&#x63A5;</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>&#x5173;&#x95ED;&#x8FDE;&#x63A5;</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>&#x53D1;&#x751F;&#x9519;&#x8BEF;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="&#x4E3B;&#x8981;&#x53D8;&#x5316;">&#x4E3B;&#x8981;&#x53D8;&#x5316;</h3>
+<ol>
+<li>&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x8FDE;&#x63A5;&#x7684; 4 &#x5B57;&#x8282; <code>Session Id</code> &#x6539;&#x4E3A; 8 &#x5B57;&#x8282; <code>uuid</code>&#x3002;</li>
+<li>&#x5220;&#x9664; <code>timestamp</code> &#x65F6;&#x95F4;&#x6233;&#xFF0C;&#x4E92;&#x8054;&#x7F51;&#x4E3B;&#x673A;&#x65F6;&#x95F4;&#x5B58;&#x5728;&#x8F83;&#x5927;&#x8BEF;&#x5DEE;&#xFF0C;&#x5DEE;&#x8DDD;&#x751A;&#x81F3;&#x8FBE;&#x5230;&#x767E;&#x6BEB;&#x79D2;&#xFF0C;&#x8BE5;&#x5B57;&#x6BB5;&#x610F;&#x4E49;&#x4E0D;&#x5927;&#x3002;</li>
+<li><code>OPCODE</code> &#x5B57;&#x6BB5;&#x53CA;&#x5404;&#x79CD; <code>Flag</code> &#x4F4D;&#xFF0C;&#x7531; 1 &#x5B57;&#x8282; <code>kind</code> &#x548C; 1 &#x5B57;&#x8282; <code>flag</code> &#x53D6;&#x4EE3;&#x3002;.</li>
+<li>&#x5220;&#x9664; <code>Payload len</code> &#x5B57;&#x6BB5;</li>
+<li>&#x5220;&#x9664; <code>Stream Id</code> &#x5B57;&#x6BB5;</li>
+<li>&#x5220;&#x9664; <code>Fragment Id</code> &#x5B57;&#x6BB5;</li>
+</ol>
+<p>2.0 &#x534F;&#x8BAE;&#x5E9F;&#x9664;&#x4E86; <code>Stream</code> &#x4E0E; <code>Fragment</code> &#x6982;&#x5FF5;&#xFF0C;&#x4F7F;&#x5F97;&#x534F;&#x8BAE;&#x5F97;&#x5230;&#x4E86;&#x6781;&#x5927;&#x7B80;&#x5316;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x9700;&#x8981;&#x914D;&#x5408;&#x4E0A;&#x5C42; <code>SocketIO</code> &#x534F;&#x8BAE;&#x6765;&#x5B9E;&#x73B0;&#x53D1;&#x9001;&#x4EFB;&#x610F;&#x957F;&#x5EA6;&#x7684;&#x6570;&#x636E;&#x5305;&#x3002;<code>SocketIO</code> &#x534F;&#x8BAE;&#x5728;&#x540E;&#x9762;&#x4F1A;&#x4ECB;&#x7ECD;&#x3002;</p>
+<p>1.0 &#x534F;&#x8BAE;&#x5185;&#x4F1A;&#x81EA;&#x52A8;&#x5BF9;&#x6570;&#x636E;&#x5305;&#x8FDB;&#x884C;&#x5206;&#x7247;&#x4E0E;&#x7EC4;&#x88C5;&#xFF0C;&#x4F20;&#x8F93;&#x5C42;&#x4F20;&#x8F93;&#x7684;&#x5206;&#x7247; <code>Fragment</code> &#x6700;&#x5927;&#x957F;&#x5EA6;&#x4E3A; 65535&#xFF0C;&#x5B9E;&#x9645;&#x4F20;&#x8F93;&#x7684; <code>Packet</code> &#x7406;&#x8BBA;&#x4E0A;&#x6CA1;&#x6709;&#x5927;&#x5C0F;&#x9650;&#x5236;&#xFF0C;&#x534F;&#x8BAE;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x4F1A;&#x8BBE;&#x5B9A;&#x6700;&#x5927;&#x5206;&#x7247;&#x6570;&#x91CF;&#xFF0C;&#x8FDB;&#x800C;&#x9650;&#x5B9A;&#x4E86; <code>Packet</code> &#x957F;&#x5EA6;&#x4E0A;&#x9650;&#x3002;</p>
+<p>2.0 &#x534F;&#x8BAE;&#x56E0;&#x4E3A;&#x6CA1;&#x6709;&#x5206;&#x7247;&#x8BBE;&#x5B9A;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x53D1;&#x9001;&#x4EFB;&#x610F;&#x957F;&#x5EA6;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x628A;&#x6570;&#x636E;&#x5305;&#x5212;&#x5206;&#x6210;&#x5C0F;&#x7684;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x51FA;&#x53BB;&#xFF0C;&#x5E76;&#x7531;&#x6570;&#x636E;&#x63A5;&#x6536;&#x65B9;&#x8FDB;&#x884C;&#x7F13;&#x51B2;&#x4E0E;&#x7EC4;&#x88C5;&#xFF0C;&#x4F46;&#x662F; 2.0 &#x534F;&#x8BAE;&#x6CA1;&#x6709;&#x89C4;&#x5B9A;&#x6570;&#x636E;&#x5305;&#x5927;&#x5C0F;&#xFF0C;&#x56E0;&#x6B64;&#x5728; <code>UDPack</code> &#x534F;&#x8BAE;&#x5C42;&#x65E0;&#x6CD5;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x7EC4;&#x88C5;&#x3002;&#x8FD9;&#x662F;&#x8FDB;&#x884C;&#x534F;&#x8BAE;&#x7B80;&#x5316;&#x5E26;&#x6765;&#x7684;&#x5F0A;&#x7AEF;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x63A5;&#x6536;&#x7AEF;&#x4F1A;&#x5B9A;&#x671F;&#x53D1;&#x9001; <code>Sync</code> &#x5E27;&#xFF0C;&#x4E0E;&#x6570;&#x636E;&#x53D1;&#x9001;&#x7AEF;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#xFF0C;&#x5FEB;&#x901F;&#x540C;&#x6B65;&#x63A5;&#x6536;&#x8FDB;&#x5EA6;&#xFF0C;&#x9632;&#x6B62;&#x56E0;&#x4E3A; <code>Ack</code> &#x5E27;&#x4E22;&#x5931;&#x9020;&#x6210;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x8D85;&#x65F6;&#x6570;&#x636E;&#x91CD;&#x53D1;&#x3002;<code>Sync</code> &#x4E0E; <code>Ack</code> &#x7684;&#x533A;&#x522B;&#x662F;&#xFF0C;&#x540E;&#x8005;&#x53EA;&#x9488;&#x5BF9;&#x5355;&#x4E2A;&#x6570;&#x636E;&#x5305;&#x8FDB;&#x884C;&#x786E;&#x8BA4;&#xFF0C;&#x524D;&#x8005;&#x4F1A;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x7AEF;&#x5C0F;&#x4E8E;&#x67D0;&#x4E2A;&#x5E8F;&#x53F7;&#x7684; <code>Packet</code> &#x5DF2;&#x5168;&#x90E8;&#x6536;&#x5230;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x53D1;&#x9001;&#x7AEF;&#x53D1;&#x9001;&#x6570;&#x636E;&#x8FC7;&#x5FEB;&#x9020;&#x6210;&#x63A5;&#x6536;&#x7AEF;&#x7F13;&#x5B58;&#x5DF2;&#x6EE1;&#xFF0C;&#x4F1A;&#x53D1;&#x9001; <code>Slow</code> &#x5E27;&#x7ED9;&#x53D1;&#x9001;&#x7AEF;&#xFF0C;&#x901A;&#x77E5;&#x5176;&#x964D;&#x4F4E;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x901F;&#x5EA6;&#x3002;&#x5982;&#x679C;&#x53D1;&#x9001;&#x7AEF;&#x81EA;&#x5DF1;&#x68C0;&#x6D4B;&#x5230;&#x6570;&#x636E;&#x5305;&#x91CD;&#x53D1;&#x6BD4;&#x4F8B;&#x8D85;&#x8FC7;&#x4E00;&#x5B9A;&#x9608;&#x503C;&#x540E;&#xFF0C;&#x4E5F;&#x4F1A;&#x4E3B;&#x52A8;&#x964D;&#x4F4E;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x901F;&#x5EA6;&#x3002;&#x53D1;&#x9001;&#x7AEF;&#x7684;&#x53D1;&#x9001;&#x901F;&#x7387;&#x4E3B;&#x8981;&#x662F;&#x9760;&#x6ED1;&#x52A8;&#x7A97;&#x53E3;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x6BCF;&#x4E2A;&#x53D1;&#x9001;&#x5468;&#x671F;&#x5185;&#x53EA;&#x53D1;&#x9001;&#x7A97;&#x53E3;&#x5927;&#x5C0F;&#x7684;&#x6570;&#x636E;&#x5305;&#x6570;&#x91CF;&#xFF0C;&#x5982;&#x679C;&#x7F51;&#x7EDC;&#x60C5;&#x51B5;&#x826F;&#x597D;&#xFF0C;&#x6ED1;&#x52A8;&#x7A97;&#x53E3;&#x4F1A;&#x5FEB;&#x901F;&#x53D8;&#x5927;&#xFF0C;&#x4EE5;&#x5C3D;&#x5FEB;&#x63D0;&#x5347;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x901F;&#x7387;&#x3002;&#x5982;&#x679C;&#x6536;&#x5230; <code>Slow</code> &#x5E27;&#x6216;&#x8005;&#x53D1;&#x9001;&#x7AEF;&#x91CD;&#x8BD5;&#x7387;&#x8D85;&#x8FC7;&#x9608;&#x503C;&#xFF0C;&#x90FD;&#x4F1A;&#x51CF;&#x5C0F;&#x6ED1;&#x52A8;&#x7A97;&#x53E3;&#x3002;&#x9700;&#x8981;&#x63A7;&#x5236;&#x901F;&#x7387;&#x7684;&#x4E3B;&#x8981;&#x662F; <code>Data</code> &#x5E27;&#xFF0C;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x65F6;&#xFF0C;&#x53EF;&#x5C3D;&#x91CF;&#x4F18;&#x5148;&#x53D1;&#x9001;&#x63A7;&#x5236;&#x5E27;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x4E0A;&#x5C42;&#x534F;&#x8BAE;&#x53EF;&#x4EE5;&#x6309;&#x7167;&#x987A;&#x5E8F;&#x63A5;&#x6536;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x9700;&#x8981;&#x6309;&#x7167;&#x5E8F;&#x53F7;&#x987A;&#x5E8F;&#x8FD4;&#x56DE;&#x6570;&#x636E;&#x7ED9;&#x4E0A;&#x5C42;&#x534F;&#x8BAE;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5E8F;&#x53F7;&#x7684;&#x6570;&#x636E;&#x5305;&#x4E22;&#x5931;&#xFF0C;&#x5373;&#x65F6;&#x6536;&#x5230;&#x4E86;&#x5728;&#x8FD9;&#x4E2A;&#x5E8F;&#x53F7;&#x4E4B;&#x540E;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x4E5F;&#x53EA;&#x80FD;&#x7F13;&#x5B58;&#x5728;&#x63A5;&#x6536;&#x7F13;&#x5B58;&#x4E2D;&#x3002;&#x6B64;&#x65F6;&#xFF0C;&#x53EF;&#x901A;&#x8FC7;&#x53D1;&#x9001; <code>Lost</code> &#x5E27;&#x7ED9;&#x53D1;&#x9001;&#x7AEF;&#xFF0C;&#x901A;&#x77E5;&#x5176;&#x5C3D;&#x5FEB;&#x91CD;&#x65B0;&#x53D1;&#x9001;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x53D1;&#x9001;&#x7AEF;&#x7B49;&#x5230;&#x53D1;&#x9001;&#x8D85;&#x65F6;&#x540E;&#x91CD;&#x8BD5;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x63A5;&#x6536;&#x7AEF;&#x63A5;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#x90FD;&#x53EA;&#x80FD;&#x5148;&#x7F13;&#x5B58;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x7F13;&#x5B58;&#x6EE1;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x7AEF;&#x964D;&#x901F;&#x3002;&#x63A5;&#x6536;&#x7AEF;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x4E0D;&#x80FD;&#x591F;&#x5411;&#x4E0A;&#x4EA4;&#x4ED8;&#x6570;&#x636E;&#xFF0C;&#x4F1A;&#x9020;&#x6210;&quot;&#x5835;&#x585E;&quot;&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x5728;&#x5B9E;&#x73B0;&#x534F;&#x8BAE;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9;&#x5F85;&#x53D1;&#x9001;&#x7684;&#x6570;&#x636E;&#x5E27;&#x8FDB;&#x884C;&#x4F18;&#x5148;&#x7EA7;&#x6392;&#x961F;&#xFF0C;&#x4E3B;&#x8981;&#x7684;&#x76EE;&#x6807;&#x662F;&#x964D;&#x4F4E;&#x6574;&#x4F53;&#x6570;&#x636E;&#x5305;&#x91CD;&#x8BD5;&#x7387;&#xFF0C;&#x5373;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x603B;&#x7684;&#x6570;&#x636E;&#x5305;&#x91CD;&#x8BD5;&#x6B21;&#x6570;&#x9664;&#x4EE5;&#x603B;&#x7684;&#x6B63;&#x5728;&#x53D1;&#x9001;&#x6570;&#x636E;&#x5305;&#x6570;&#x91CF;&#x3002;&#x91CD;&#x8BD5;&#x7387;&#x8D8A;&#x4F4E;&#xFF0C;&#x8BF4;&#x660E;&#x7F51;&#x7EDC;&#x60C5;&#x51B5;&#x8D8A;&#x597D;&#xFF0C;&#x53EF;&#x4EE5;&#x66F4;&#x5FEB;&#x7684;&#x4EA4;&#x4ED8;&#x66F4;&#x591A;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x8FDE;&#x63A5;&#x671F;&#x95F4;&#xFF0C;&#x9047;&#x5230;&#x4E0D;&#x53EF;&#x6062;&#x590D;&#x9519;&#x8BEF;&#xFF0C;&#x5219;&#x53EF;&#x5411;&#x5BF9;&#x65B9;&#x53D1;&#x9001; <code>Error</code> &#x5E27;&#xFF0C;&#x8FDE;&#x63A5;&#x53CC;&#x65B9;&#x4F1A;&#x5C3D;&#x5FEB;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x53EF;&#x91CD;&#x65B0;&#x8FDB;&#x884C;&#x8FDE;&#x63A5;&#x3002;</p>
+<h2 id="20-&#x534F;&#x8BAE;&#x5B9E;&#x73B0;">2.0 &#x534F;&#x8BAE;&#x5B9E;&#x73B0;</h2>
+<p>&#x6211;&#x66FE;&#x91C7;&#x7528; <code>nodejs</code> &#x5B9E;&#x73B0;&#x4E86; 1.0 &#x534F;&#x8BAE;&#xFF0C;&#x5E76;&#x4E14;&#x7ECF;&#x8FC7;&#x4E86;&#x5927;&#x91CF;&#x7684;&#x6D4B;&#x8BD5;&#xFF0C;&#x5E76;&#x57FA;&#x4E8E;&#x8BE5;&#x534F;&#x8BAE;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#x5DE5;&#x5177;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5B9E;&#x73B0; 1.0 &#x534F;&#x8BAE;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x53D1;&#x73B0;&#x81EA;&#x5DF1;&#x5BF9; <code>js</code> &#x8BED;&#x8A00;&#x7684;&#x638C;&#x63E1;&#x6709;&#x9650;&#xFF0C;&#x603B;&#x662F;&#x4E0D;&#x80FD;&#x7528;&#x6700;&#x597D;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x5199;&#xFF0C;&#x52A0;&#x4E0A; <code>js</code> &#x8BED;&#x8A00;&#x672C;&#x8EAB;&#x7684;&#x5F0A;&#x7AEF;&#xFF0C;&#x4EE3;&#x7801;&#x91CF;&#x4E0A;&#x6765;&#x540E;&#x53EF;&#x8BFB;&#x6027;&#x8F83;&#x5DEE;&#xFF0C;&#x800C;&#x4E14; <code>nodejs</code> &#x672C;&#x8EAB;&#x4E5F;&#x6CA1;&#x6709;&#x5565;&#x6027;&#x80FD;&#x4F18;&#x52BF;&#x3002;</p>
+<p>&#x5B9E;&#x73B0; 2.0 &#x534F;&#x8BAE;&#x65F6;&#xFF0C;&#x6211;&#x6700;&#x65E9;&#x5C1D;&#x8BD5;&#x901A;&#x8FC7; C &#x8BED;&#x8A00;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x521D;&#x6B65;&#x5199;&#x597D;&#x534F;&#x8BAE;&#x4EE3;&#x7801;&#x540E;&#xFF0C;&#x8FD8;&#x662F;&#x9009;&#x62E9;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#x5DE5;&#x5177;&#x6765;&#x6D4B;&#x8BD5;&#xFF0C;&#x521A;&#x542F;&#x52A8;&#x7A0B;&#x5E8F;&#x65F6;&#x534F;&#x8BAE;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#xFF0C;&#x8FC7;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5C31;&#x4F1A;&#x53D1;&#x751F;&#x5185;&#x5B58;&#x6BB5;&#x9519;&#x8BEF;&#x95EA;&#x9000;&#x3002;&#x6211;&#x53D1;&#x73B0;&#x4EE5;&#x6211;&#x7684;&#x6C34;&#x5E73;&#xFF0C;&#x624B;&#x52A8;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#x662F;&#x5F88;&#x96BE;&#x4E0D;&#x51FA;&#x73B0;&#x5185;&#x5B58;&#x9519;&#x8BEF;&#x7684;&#xFF0C;&#x800C;&#x4E14;&#x8FD8;&#x5F88;&#x591A;&#xFF0C;&#x8C03;&#x8BD5;&#x8FC7;&#x7A0B;&#x771F;&#x7684;&#x5F88;&#x96BE;&#xFF0C;&#x5F88;&#x96BE;&#x5B9A;&#x4F4D;&#x5230;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x51B3;&#x5B9A;&#x653E;&#x5F03;&#x4F7F;&#x7528; C &#x8BED;&#x8A00;&#x4E86;&#x3002;</p>
+<p>&#x540E;&#x6765;&#xFF0C;&#x6211;&#x4E86;&#x89E3;&#x5230;&#x4E86; <code>Rust</code> &#x8FD9;&#x4E2A;&#x80FD;&#x591F;&#x6700;&#x5927;&#x7A0B;&#x5EA6;&#x4E0A;&#x4FDD;&#x8BC1;<code>&#x5185;&#x5B58;&#x5B89;&#x5168;</code>&#xFF0C;&#x800C;&#x6027;&#x80FD;&#x4E0A;&#x53C8;&#x975E;&#x5E38;&#x7406;&#x60F3;&#x7684;&#x8BED;&#x8A00;&#x3002;<code>Rust</code> &#x63D0;&#x4F9B;&#x4E86;&#x5927;&#x91CF;&#x7684;&#x65B0;&#x9896;&#x7684;&#x73B0;&#x4EE3;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x7279;&#x6027;&#xFF0C;&#x63D0;&#x4F9B;&#x5185;&#x5B58;&#x5B89;&#x5168;&#x53C8;&#x4E0D;&#x5F15;&#x5165;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#xFF0C;&#x4F46;&#x4E5F;&#x51FA;&#x73B0;&#x4E86;&#x53D8;&#x91CF;&#x6240;&#x6709;&#x6743;&#x3001;&#x501F;&#x7528;&#x7B49;&#x7B49;&#x5F88;&#x591A;&#x590D;&#x6742;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4E0A;&#x624B;&#x96BE;&#x5EA6;&#x4E0D;&#x5C0F;&#x3002;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6211;&#x8FD8;&#x662F;&#x51B3;&#x5B9A;&#x91C7;&#x7528; <code>Rust</code> &#x5B9E;&#x73B0; 2.0 &#x534F;&#x8BAE;&#xFF0C;&#x5E76;&#x91CD;&#x65B0;&#x5B9E;&#x73B0;&#x4E86;&#x90A3;&#x4E2A;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#x5DE5;&#x5177;&#x3002;&#x8FB9;&#x5B66;&#x4E60; <code>Rust</code> &#x8FB9;&#x5199;&#x4EE3;&#x7801;&#x7684;&#x8FC7;&#x7A0B;&#x8FD8;&#x662F;&#x633A;&#x75DB;&#x82E6;&#x7684;&#xFF0C;&#x5F88;&#x591A;&#x65B0;&#x6982;&#x5FF5;&#x7406;&#x89E3;&#x8D77;&#x6765;&#x633A;&#x56F0;&#x96BE;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x53D8;&#x91CF;&#x6240;&#x6709;&#x6743;&#x3001;&#x5F15;&#x7528;&#x548C;&#x534F;&#x7A0B;&#x7B49;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x57FA;&#x4E8E; <code>UDPack</code> &#x5B9E;&#x73B0;&#x7684;&#x5BA2;&#x6237;/&#x670D;&#x52A1;&#x7AEF;&#x901A;&#x4FE1;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x3002;</p>
+<h3 id="server">Server</h3>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">rust_udpack<span class="token punctuation">::</span></span><span class="token punctuation">{</span><span class="token class-name">Transport</span><span class="token punctuation">,</span> <span class="token class-name">Udpack</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>io<span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token punctuation">{</span>signal<span class="token punctuation">,</span> <span class="token namespace">task<span class="token punctuation">::</span></span><span class="token class-name">JoinHandle</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token attribute attr-name">#[tokio::main]</span>
+<span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token namespace">io<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> <span class="token keyword">mut</span> udpack<span class="token punctuation">:</span> <span class="token class-name">Udpack</span> <span class="token operator">=</span> <span class="token class-name">Udpack</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">&quot;0.0.0.0:8080&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">loop</span> <span class="token punctuation">{</span>
+    <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token macro property">select!</span> <span class="token punctuation">{</span>
+      res <span class="token operator">=</span> udpack<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> _handle<span class="token punctuation">:</span> <span class="token class-name">JoinHandle</span><span class="token operator">&lt;</span><span class="token namespace">io<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;&gt;</span> <span class="token operator">=</span> <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token function">spawn</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">move</span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> <span class="token keyword">mut</span> transport<span class="token punctuation">:</span> <span class="token class-name">Transport</span> <span class="token operator">=</span> res<span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">while</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span> <span class="token operator">=</span> transport<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;{:?}&quot;</span><span class="token punctuation">,</span> bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            transport<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+          <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      _ <span class="token operator">=</span> <span class="token namespace">signal<span class="token punctuation">::</span></span><span class="token function">ctrl_c</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;ctrl-c received!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        udpack<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="client">Client</h3>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">bytes<span class="token punctuation">::</span></span><span class="token class-name">Bytes</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">rust_udpack<span class="token punctuation">::</span></span><span class="token punctuation">{</span><span class="token class-name">Transport</span><span class="token punctuation">,</span> <span class="token class-name">Udpack</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>io<span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token punctuation">{</span>
+  signal<span class="token punctuation">,</span>
+  <span class="token namespace">time<span class="token punctuation">::</span></span><span class="token punctuation">{</span>interval<span class="token punctuation">,</span> <span class="token class-name">Duration</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token attribute attr-name">#[tokio::main]</span>
+<span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token namespace">io<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> udpack<span class="token punctuation">:</span> <span class="token class-name">Udpack</span> <span class="token operator">=</span> <span class="token class-name">Udpack</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">&quot;0.0.0.0:0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> <span class="token keyword">mut</span> transport<span class="token punctuation">:</span> <span class="token class-name">Transport</span> <span class="token operator">=</span> udpack<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">&quot;127.0.0.1:8080&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> <span class="token keyword">mut</span> interval <span class="token operator">=</span> <span class="token function">interval</span><span class="token punctuation">(</span><span class="token class-name">Duration</span><span class="token punctuation">::</span><span class="token function">from_secs</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">loop</span> <span class="token punctuation">{</span>
+    <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token macro property">select!</span> <span class="token punctuation">{</span>
+      res <span class="token operator">=</span> transport<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span> <span class="token operator">=</span> res <span class="token punctuation">{</span>
+          <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;{:?}&quot;</span><span class="token punctuation">,</span> bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      _ <span class="token operator">=</span> interval<span class="token punctuation">.</span><span class="token function">tick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        transport<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">Bytes</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      _ <span class="token operator">=</span> <span class="token namespace">signal<span class="token punctuation">::</span></span><span class="token function">ctrl_c</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;ctrl-c received!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        udpack<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x4E3B;&#x8981;&#x6709;&#x4E24;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;<code>Udpack</code> &#x548C; <code>Transport</code>&#x3002;&#x901A;&#x8FC7; <code>Udpack</code> &#x5EFA;&#x7ACB; endpoint&#xFF0C;&#x7136;&#x540E;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x8FD4;&#x56DE; <code>Transport</code>&#xFF0C;&#x901A;&#x8FC7; <code>Transport</code>&#xFF0C;&#x53EF;&#x4EE5;&#x53CC;&#x5411;&#x8BFB;&#x5199;&#x6570;&#x636E;&#x3002;</p>
+<h2 id="socketio-&#x534F;&#x8BAE;">SocketIO &#x534F;&#x8BAE;</h2>
+<p>&#x524D;&#x9762;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;UDPack 2.0 &#x534F;&#x8BAE;&#x4E0D;&#x80FD;&#x591F;&#x53D1;&#x9001;&#x4EFB;&#x610F;&#x957F;&#x5EA6;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x539F;&#x56E0;&#x5728;&#x4E8E; Internet &#x5B58;&#x5728;&#x5BA2;&#x89C2;&#x7684;&#x6570;&#x636E;&#x957F;&#x5EA6;&#x9650;&#x5236;&#xFF0C;&#x8FD9;&#x662F;&#x4FE1;&#x53F7;&#x8F7D;&#x4F53;&#x7269;&#x7406;&#x6027;&#x8D28;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x4E00;&#x6B21;&#x8C03;&#x5236;&#x7684;&#x4FE1;&#x53F7;&#x957F;&#x5EA6;&#x8D85;&#x8FC7;&#x4E00;&#x5B9A;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x5404;&#x79CD;&#x5E72;&#x6270;&#x56E0;&#x7D20;&#x53EF;&#x80FD;&#x4F1A;&#x4F7F;&#x4FE1;&#x53F7;&#x5931;&#x771F;&#x3002;&#x867D;&#x7136; <code>IP</code> &#x534F;&#x8BAE;&#x652F;&#x6301;&#x6570;&#x636E;&#x5206;&#x7247;&#xFF0C;&#x4F46;&#x8FD9;&#x4E2A;&#x662F;&#x515C;&#x5E95;&#x7684;&#xFF0C;&#x4F1A;&#x9020;&#x6210;&#x4F20;&#x8F93;&#x6027;&#x80FD;&#x4E0B;&#x964D;&#x3002;&#x6240;&#x4EE5; <code>UDPack</code> 1.0 &#x534F;&#x8BAE;&#x652F;&#x6301; <code>Fragment</code> &#x6982;&#x5FF5;&#xFF0C;&#x534F;&#x8BAE;&#x4F1A;&#x81EA;&#x52A8;&#x5BF9;&#x6570;&#x636E;&#x5305;&#x8FDB;&#x884C;&#x5206;&#x7247;&#x548C;&#x7EC4;&#x88C5;&#x3002;&#x4E3A;&#x4E86;&#x7B80;&#x5316;&#x534F;&#x8BAE;&#xFF0C;2.0 &#x534F;&#x8BAE;&#x4E2D;&#x6CA1;&#x6709; <code>Fragment</code> &#x6982;&#x5FF5;&#x4E86;&#xFF0C;&#x901A;&#x8FC7; 2.0 &#x534F;&#x8BAE;&#x53D1;&#x9001;&#x7684;&#x6570;&#x636E;&#x5305;&#x540C;&#x6837;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x5206;&#x5272;&#x6210;&#x5C0F;&#x7684;&#x6570;&#x636E;&#x5305;&#x6309;&#x7167;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x53D1;&#x9001;&#xFF0C;&#x6B64;&#x65F6;&#xFF0C;&#x5FC5;&#x987B;&#x501F;&#x52A9;&#x4E0A;&#x5C42;&#x989D;&#x5916;&#x7684; <code>SocketIO</code> &#x534F;&#x8BAE;&#x6765;&#x8F85;&#x52A9;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5305;&#x7EC4;&#x88C5;&#x3002;</p>
+<p>SocketIO &#x4E3B;&#x8981;&#x57FA;&#x4E8E; <code>LengthDelimitedCodec</code> &#x5B9E;&#x73B0;&#xFF0C;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x5C31;&#x662F;&#x5728;&#x6570;&#x636E;&#x5305;&#x524D;&#x52A0;&#x4E00;&#x4E2A; <code>length</code> &#x5B57;&#x6BB5;&#x3002;&#x6570;&#x636E;&#x63A5;&#x6536;&#x7AEF;&#x6309;&#x7167;&#x5E8F;&#x53F7;&#x7F13;&#x5B58;&#x6536;&#x5230;&#x7684; <code>packet</code>&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x8BFB;&#x53D6; <code>length</code> &#x5B57;&#x6BB5;&#x5F97;&#x5230;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5305;&#x957F;&#x5EA6;&#xFF0C;&#x518D;&#x8BFB;&#x53D6;&#x76F8;&#x5E94;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x7136;&#x540E;&#x8FD4;&#x56DE;&#x7ED9;&#x4E0A;&#x5C42;&#x5E94;&#x7528;&#x3002;</p>
+<p>&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;<code>UDPack</code> 2.0 &#x534F;&#x8BAE;&#x672C;&#x8EAB;&#x6CA1;&#x6709;&#x5BF9;&#x901A;&#x4FE1;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;<code>SocketIO</code> &#x5C42;&#x589E;&#x52A0;&#x4E86;&#x6570;&#x636E;&#x81EA;&#x52A8;&#x52A0;&#x89E3;&#x5BC6;&#x5904;&#x7406;&#x3002;</p>
+<p><code>SocketIO</code> &#x534F;&#x8BAE;&#x683C;&#x5F0F;&#x5982;&#x4E0B;:</p>
+<pre class="language-"><code>+--------+----------------------+
+| length | ecrypted packet data |
++--------+----------------------+
+</code></pre><p>&#x4E0B;&#x9762;&#x662F;&#x57FA;&#x4E8E; <code>SocketIO</code> &#x5B9E;&#x73B0;&#x7684;&#x5BA2;&#x6237;/&#x670D;&#x52A1;&#x7AEF;&#x901A;&#x4FE1;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x3002;</p>
+<h3 id="server">Server</h3>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">rust_socketio<span class="token punctuation">::</span></span><span class="token class-name">SocketIO</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>io<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token constant">SECRET_KEY</span><span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">32</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">b&quot;ade2ff15798d44959d2846974bbf0bb3&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">SECRET_IV</span><span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">16</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">b&quot;bd3c01bfb8c2edca&quot;</span><span class="token punctuation">;</span>
+
+<span class="token attribute attr-name">#[tokio::main]</span>
+<span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token namespace">io<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> <span class="token keyword">mut</span> io <span class="token operator">=</span> <span class="token class-name">SocketIO</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">&quot;0.0.0.0:8080&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token constant">SECRET_KEY</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token constant">SECRET_IV</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+  <span class="token keyword">loop</span> <span class="token punctuation">{</span>
+    <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token macro property">select!</span> <span class="token punctuation">{</span>
+      res <span class="token operator">=</span> io<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> <span class="token keyword">mut</span> socket <span class="token operator">=</span> res<span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token function">spawn</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">move</span> <span class="token punctuation">{</span>
+          <span class="token keyword">loop</span> <span class="token punctuation">{</span>
+            <span class="token keyword">match</span> socket<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span> <span class="token punctuation">{</span>
+              <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">Some</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Err</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span> socket<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span> <span class="token punctuation">{</span>
+                  <span class="token macro property">eprintln!</span><span class="token punctuation">(</span><span class="token string">&quot;socket.write failed; err = {:?}&quot;</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
+              <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">None</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">return</span><span class="token punctuation">,</span>
+              <span class="token class-name">Err</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token macro property">eprintln!</span><span class="token punctuation">(</span><span class="token string">&quot;socket.read failed; err = {:?}&quot;</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      _ <span class="token operator">=</span> <span class="token namespace">tokio<span class="token punctuation">::</span>signal<span class="token punctuation">::</span></span><span class="token function">ctrl_c</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;ctrl-c received!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        io<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="client">Client</h3>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">bytes<span class="token punctuation">::</span></span><span class="token class-name">Bytes</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">rust_socketio<span class="token punctuation">::</span></span><span class="token class-name">SocketIO</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>io<span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token punctuation">{</span>time<span class="token punctuation">,</span> <span class="token namespace">time<span class="token punctuation">::</span></span><span class="token class-name">Duration</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token constant">SECRET_KEY</span><span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">32</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">b&quot;ade2ff15798d44959d2846974bbf0bb3&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">SECRET_IV</span><span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">16</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">b&quot;bd3c01bfb8c2edca&quot;</span><span class="token punctuation">;</span>
+
+<span class="token attribute attr-name">#[tokio::main]</span>
+<span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token namespace">io<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> io<span class="token punctuation">:</span> <span class="token class-name">SocketIO</span> <span class="token operator">=</span> <span class="token class-name">SocketIO</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">&quot;0.0.0.0:0&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token constant">SECRET_KEY</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token constant">SECRET_IV</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> <span class="token keyword">mut</span> socket <span class="token operator">=</span> io<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">&quot;127.0.0.1:8080&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> <span class="token keyword">mut</span> interval <span class="token operator">=</span> <span class="token namespace">time<span class="token punctuation">::</span></span><span class="token function">interval</span><span class="token punctuation">(</span><span class="token class-name">Duration</span><span class="token punctuation">::</span><span class="token function">from_secs</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">loop</span> <span class="token punctuation">{</span>
+    <span class="token namespace">tokio<span class="token punctuation">::</span></span><span class="token macro property">select!</span> <span class="token punctuation">{</span>
+      res <span class="token operator">=</span> socket<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span> <span class="token operator">=</span> res<span class="token operator">?</span> <span class="token punctuation">{</span>
+          <span class="token macro property">eprintln!</span><span class="token punctuation">(</span><span class="token string">&quot;received {:?}&quot;</span><span class="token punctuation">,</span> bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;EOF&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          io<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      _ <span class="token operator">=</span> interval<span class="token punctuation">.</span><span class="token function">tick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        socket<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">Bytes</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      _ <span class="token operator">=</span> <span class="token namespace">tokio<span class="token punctuation">::</span>signal<span class="token punctuation">::</span></span><span class="token function">ctrl_c</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;ctrl-c received!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        io<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x5173;&#x4E8E;-udpack-20">&#x5173;&#x4E8E; UDPack 2.0</h2>
+<p>&#x56E0;&#x4E3A;&#x6587;&#x7AE0;&#x7BC7;&#x5E45;&#x6240;&#x9650;&#xFF0C;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x5C55;&#x5F00;&#x8BE6;&#x7EC6;&#x770B;&#x4EE3;&#x7801;&#x3002;&#x6211;&#x5DF2;&#x7ECF;&#x5728; Github &#x4E0A;&#x9762;&#x5F00;&#x6E90;&#x4E86;&#x76F8;&#x5173;&#x9879;&#x76EE;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x5BF9;&#x6E90;&#x4EE3;&#x7801;&#x611F;&#x5174;&#x8DA3;&#xFF0C;&#x6B22;&#x8FCE;&#x4E0B;&#x8F7D;&#x67E5;&#x770B;&#xFF0C;&#x6709;&#x95EE;&#x9898;&#x53EF;&#x4EE5;&#x4EA4;&#x6D41;&#x63A2;&#x8BA8;&#xFF01;UDPack 2.0 &#x9879;&#x76EE;&#x662F;&#x57FA;&#x4E8E;&#x4E1A;&#x4F59;&#x5174;&#x8DA3;&#xFF0C;&#x4E3A;&#x4E86;&#x5B66;&#x4E60;&#x7684;&#x76EE;&#x7684;&#x800C;&#x5EFA;&#x7ACB;&#x7684;&#xFF0C;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x53EF;&#x80FD;&#x4E0D;&#x591F;&#x4E25;&#x8C28;&#xFF0C;&#x6D4B;&#x8BD5;&#x53EF;&#x80FD;&#x4E5F;&#x4E0D;&#x591F;&#x5145;&#x5206;&#xFF0C;&#x8BF7;&#x52FF;&#x7528;&#x4E8E;&#x5546;&#x4E1A;&#x573A;&#x666F;&#xFF0C;&#x975E;&#x5E38;&#x611F;&#x8C22;&#x5927;&#x5BB6;&#x7684;&#x652F;&#x6301;&#xFF01;</p>
+<h3 id="udpack-20-&#x5B9E;&#x73B0;">UDPack 2.0 &#x5B9E;&#x73B0;</h3>
+<p><a href="https://github.com/huoyijie/rust-udpack" target="_blank">rust-udpack</a></p>
+<h3 id="socketio-&#x5B9E;&#x73B0;">SocketIO &#x5B9E;&#x73B0;</h3>
+<p><a href="https://github.com/huoyijie/rust-socketio" target="_blank">rust-socketio</a></p>
+<h3 id="socks5-&#x5B9E;&#x73B0;">Socks5 &#x5B9E;&#x73B0;</h3>
+<p><a href="https://github.com/huoyijie/rust-socks5" target="_blank">rust-socks5</a></p>
+<h3 id="vpn-proxy-&#x5B9E;&#x73B0;">VPN Proxy &#x5B9E;&#x73B0;</h3>
+<p><a href="https://github.com/huoyijie/rust-proxy" target="_blank">rust-proxy</a></p>
+<h3 id="fork-of-sonyflake">fork of SonyFlake</h3>
+<p><a href="https://github.com/huoyijie/rust-sonyflake" target="_blank">rust-sonyflake</a></p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"UDPack 2.0 协议","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T13:57:00.541Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T13:59:01.017Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

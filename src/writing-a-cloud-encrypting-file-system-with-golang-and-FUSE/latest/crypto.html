@@ -1,0 +1,669 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>密码学方法 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    EFS 加密文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="crypto.html">
+            
+                <a href="crypto.html">
+            
+                    
+                    密码学方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >密码学方法</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5BC6;&#x7801;&#x5B66;&#x65B9;&#x6CD5;">&#x5BC6;&#x7801;&#x5B66;&#x65B9;&#x6CD5;</h1>
+<h2 id="&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;">&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;</h2>
+<p>&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x9700;&#x8981;&#x9884;&#x5148;&#x751F;&#x6210; <code>key</code>&#xFF0C;<code>key</code> &#x7684;&#x5B57;&#x8282;&#x957F;&#x5EA6;&#x4F1A;&#x786E;&#x5B9A;&#x5177;&#x4F53;&#x7684;&#x52A0;&#x5BC6;&#x65B9;&#x6CD5;&#xFF0C;&#x5BF9;&#x5E94;&#x5173;&#x7CFB;&#x5982;&#x4E0B;:</p>
+<table>
+<thead>
+<tr>
+<th>key &#x5B57;&#x8282;&#x6570;</th>
+<th>&#x52A0;&#x5BC6;&#x65B9;&#x6CD5;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16</td>
+<td>AES-128</td>
+</tr>
+<tr>
+<td>24</td>
+<td>AES-192</td>
+</tr>
+<tr>
+<td>32</td>
+<td>AES-256</td>
+</tr>
+</tbody>
+</table>
+<p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x9009;&#x62E9;&#x66F4;&#x957F;&#x7684; <code>key</code>&#xFF0C;&#x8FD0;&#x7B97;&#x4F1A;&#x6162;&#x4E00;&#x4E9B;&#xFF0C;&#x5B89;&#x5168;&#x6027;&#x4F1A;&#x9AD8;&#x4E00;&#x4E9B;&#x3002;<code>NewEncryptionKey</code> &#x65B9;&#x6CD5;&#x53EF;&#x968F;&#x673A;&#x751F;&#x6210; <code>32</code> &#x5B57;&#x8282;&#x957F;&#x5EA6;&#x7684; <code>key</code>&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">NewEncryptionKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span><span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    key <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> io<span class="token punctuation">.</span><span class="token function">ReadFull</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> key<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>key
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x9009;&#x62E9; <code>AES-256-GCM</code> &#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x52A0;&#x89E3;&#x5BC6;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">newGCM</span><span class="token punctuation">(</span>key <span class="token operator">*</span><span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>gcm cipher<span class="token punctuation">.</span>AEAD<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    block<span class="token punctuation">,</span> err <span class="token operator">:=</span> aes<span class="token punctuation">.</span><span class="token function">NewCipher</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    gcm<span class="token punctuation">,</span> err <span class="token operator">=</span> cipher<span class="token punctuation">.</span><span class="token function">NewGCM</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x662F; <code>Encrypt</code> &#x52A0;&#x5BC6;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">Encrypt</span><span class="token punctuation">(</span>plaintext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> gcm cipher<span class="token punctuation">.</span>AEAD<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    <span class="token comment">// &#x968F;&#x673A;&#x751F;&#x6210;&#x5B57;&#x8282; slice&#xFF0C;&#x4F7F;&#x5F97;&#x6BCF;&#x6B21;&#x7684;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;&#x5177;&#x6709;&#x968F;&#x673A;&#x6027;</span>
+    nonce <span class="token operator">:=</span> <span class="token function">randNonce</span><span class="token punctuation">(</span>gcm<span class="token punctuation">.</span><span class="token function">NonceSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment">// Seal &#x65B9;&#x6CD5;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570; nonce&#xFF0C;&#x4F1A;&#x628A; nonce &#x672C;&#x8EAB;&#x52A0;&#x5165;&#x5230;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;</span>
+    <span class="token keyword">return</span> gcm<span class="token punctuation">.</span><span class="token function">Seal</span><span class="token punctuation">(</span>nonce<span class="token punctuation">,</span> nonce<span class="token punctuation">,</span> plaintext<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6700;&#x7EC8;&#x52A0;&#x5BC6;&#x7ED3;&#x679C; <code>ciphertext</code> &#x7531; <code>nonce|ciphertext|tag</code> &#x4E09;&#x90E8;&#x5206;&#x8FDE;&#x63A5;&#x7EC4;&#x6210;&#xFF0C;&#x4E0D;&#x5305;&#x62EC; <code>|</code>&#x3002;&#x4E0B;&#x9762;&#x662F;&#x751F;&#x6210;&#x968F;&#x673A; <code>nonce</code> &#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">randNonce</span><span class="token punctuation">(</span>nonceSize <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    nonce <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> nonceSize<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> io<span class="token punctuation">.</span><span class="token function">ReadFull</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> nonce<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> nonce
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x662F; <code>Decrypt</code> &#x89E3;&#x5BC6;&#x65B9;&#x6CD5;&#xFF0C;<code>ciphertext</code> &#x662F;&#x7531; <code>Encrypt</code> &#x65B9;&#x6CD5;&#x52A0;&#x5BC6;&#x5F97;&#x5230;&#x7684;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;&#xFF0C;&#x7531; <code>nonce|ciphertext|tag</code> &#x4E09;&#x90E8;&#x5206;&#x8FDE;&#x63A5;&#x7EC4;&#x6210;&#xFF0C;&#x4E0D;&#x5305;&#x62EC; <code>|</code>&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">Decrypt</span><span class="token punctuation">(</span>ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> gcm cipher<span class="token punctuation">.</span>AEAD<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// &#x9996;&#x5148;&#x5F97;&#x5230;&#x52A0;&#x5BC6;&#x65F6;&#x4F7F;&#x7528;&#x7684; nonce</span>
+    nonce <span class="token operator">:=</span> ciphertext<span class="token punctuation">[</span><span class="token punctuation">:</span>gcm<span class="token punctuation">.</span><span class="token function">NonceSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token comment">// &#x4F20;&#x5165; nonce &#x5E76;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x89E3;&#x5BC6;</span>
+    <span class="token keyword">return</span> gcm<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> nonce<span class="token punctuation">,</span> ciphertext<span class="token punctuation">[</span>gcm<span class="token punctuation">.</span><span class="token function">NonceSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4F7F;&#x7528;&#x4E0A;&#x8FF0;&#x52A0;&#x89E3;&#x5BC6;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x3002;&#x8FDE;&#x7EED;&#x4E24;&#x6B21;&#x5BF9; <code>Hello, world!</code> &#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#xFF0C;&#x6700;&#x540E;&#x624D;&#x8FDB;&#x884C;&#x89E3;&#x5BC6;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key <span class="token operator">:=</span> <span class="token function">NewEncryptionKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    gcm<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">newGCM</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    ciphertext <span class="token operator">:=</span> <span class="token function">Encrypt</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> gcm<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    ciphertext <span class="token operator">=</span> <span class="token function">Encrypt</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> gcm<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    plaintext<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Decrypt</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">,</span> gcm<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>plaintext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x7A0B;&#x5E8F;&#x8F93;&#x51FA;:</p>
+<pre class="language-"><code>3a1e10d33f73fcbce973a2765468286442142c97cb85c67d09c170988de0185235aad490b78c3a60dd
+36fc70905be24708420a25b81ae8666b9da37129447591826ccb4d3b426d04a117138c281ed04f362b
+Hello, world!
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8FDE;&#x7EED;&#x4E24;&#x6B21;&#x90FD;&#x662F;&#x5BF9; <code>Hello, world!</code> &#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#xFF0C;&#x7ED3;&#x679C;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x8FD9;&#x7B26;&#x5408;&#x9884;&#x671F;&#xFF0C;&#x786E;&#x4FDD;&#x4E86;&#x6BCF;&#x6B21;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;&#x7684;&#x968F;&#x673A;&#x6027;&#x3002;&#x800C;&#x6700;&#x540E;&#x4E5F;&#x6210;&#x529F;&#x89E3;&#x5BC6;&#x4E86;&#x3002;</p>
+<p>&#x70B9;&#x51FB; <a href="https://go.dev/play/p/I8QC2cQ2TZj" target="_blank">The Go Playground</a> &#x53BB;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5B8C;&#x6574;&#x7A0B;&#x5E8F;&#x6E05;&#x5355;:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;crypto/aes&quot;</span>
+    <span class="token string">&quot;crypto/cipher&quot;</span>
+    <span class="token string">&quot;crypto/rand&quot;</span>
+    <span class="token string">&quot;encoding/hex&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+    <span class="token string">&quot;io&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">randNonce</span><span class="token punctuation">(</span>nonceSize <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    nonce <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> nonceSize<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> io<span class="token punctuation">.</span><span class="token function">ReadFull</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> nonce<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> nonce
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">newGCM</span><span class="token punctuation">(</span>key <span class="token operator">*</span><span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>gcm cipher<span class="token punctuation">.</span>AEAD<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    block<span class="token punctuation">,</span> err <span class="token operator">:=</span> aes<span class="token punctuation">.</span><span class="token function">NewCipher</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    gcm<span class="token punctuation">,</span> err <span class="token operator">=</span> cipher<span class="token punctuation">.</span><span class="token function">NewGCM</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">NewEncryptionKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span><span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    key <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> io<span class="token punctuation">.</span><span class="token function">ReadFull</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> key<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>key
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">Encrypt</span><span class="token punctuation">(</span>plaintext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> gcm cipher<span class="token punctuation">.</span>AEAD<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    <span class="token comment">// &#x968F;&#x673A;&#x751F;&#x6210;&#x5B57;&#x8282; slice&#xFF0C;&#x4F7F;&#x5F97;&#x6BCF;&#x6B21;&#x7684;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;&#x5177;&#x6709;&#x968F;&#x673A;&#x6027;</span>
+    nonce <span class="token operator">:=</span> <span class="token function">randNonce</span><span class="token punctuation">(</span>gcm<span class="token punctuation">.</span><span class="token function">NonceSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment">// Seal &#x65B9;&#x6CD5;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570; nonce&#xFF0C;&#x4F1A;&#x628A; nonce &#x672C;&#x8EAB;&#x52A0;&#x5165;&#x5230;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;</span>
+    <span class="token keyword">return</span> gcm<span class="token punctuation">.</span><span class="token function">Seal</span><span class="token punctuation">(</span>nonce<span class="token punctuation">,</span> nonce<span class="token punctuation">,</span> plaintext<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">Decrypt</span><span class="token punctuation">(</span>ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> gcm cipher<span class="token punctuation">.</span>AEAD<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// &#x9996;&#x5148;&#x5F97;&#x5230;&#x52A0;&#x5BC6;&#x65F6;&#x4F7F;&#x7528;&#x7684; nonce</span>
+    nonce <span class="token operator">:=</span> ciphertext<span class="token punctuation">[</span><span class="token punctuation">:</span>gcm<span class="token punctuation">.</span><span class="token function">NonceSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token comment">// &#x4F20;&#x5165; nonce &#x5E76;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x89E3;&#x5BC6;</span>
+    <span class="token keyword">return</span> gcm<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> nonce<span class="token punctuation">,</span> ciphertext<span class="token punctuation">[</span>gcm<span class="token punctuation">.</span><span class="token function">NonceSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key <span class="token operator">:=</span> <span class="token function">NewEncryptionKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    gcm<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">newGCM</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    ciphertext <span class="token operator">:=</span> <span class="token function">Encrypt</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> gcm<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    ciphertext <span class="token operator">=</span> <span class="token function">Encrypt</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> gcm<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    plaintext<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Decrypt</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">,</span> gcm<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>plaintext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x975E;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;">&#x975E;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;</h2>
+<p><code>NewRsaKey</code> &#x65B9;&#x6CD5;&#x53EF;&#x968F;&#x673A;&#x751F;&#x6210; <code>2048</code> &#x4F4D;&#x957F;&#x5EA6; <code>RSA</code> &#x516C;/&#x79C1;&#x5BC6;&#x94A5;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">NewRsaKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>priv <span class="token operator">*</span>rsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 2048-bit</span>
+    priv<span class="token punctuation">,</span> err <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> <span class="token number">2048</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>EncryptOAEP</code> &#x65B9;&#x6CD5;&#x91C7;&#x7528; <code>RSA-OAEP</code> &#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">EncryptOAEP</span><span class="token punctuation">(</span>pub <span class="token operator">*</span>rsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">,</span> plaintext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> label <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// label &#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x7684;&#x52A0;&#x5BC6;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x80FD;&#x591F;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E2D;&#x89E3;&#x5BC6;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E0B;&#x7528;&#x76F8;&#x540C;&#x7684; label &#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#x548C;&#x89E3;&#x5BC6;</span>
+    ciphertext<span class="token punctuation">,</span> err <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">EncryptOAEP</span><span class="token punctuation">(</span>sha256<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> pub<span class="token punctuation">,</span> plaintext<span class="token punctuation">,</span> label<span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>DecryptOAEP</code> &#x65B9;&#x6CD5;&#x5BF9;&#x91C7;&#x7528; <code>RSA-OAEP</code> &#x7B97;&#x6CD5;&#x52A0;&#x5BC6;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x89E3;&#x5BC6;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>priv <span class="token operator">*</span>rsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> label <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>plaintext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// label &#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x7684;&#x52A0;&#x5BC6;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x80FD;&#x591F;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E2D;&#x89E3;&#x5BC6;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E0B;&#x7528;&#x76F8;&#x540C;&#x7684; label &#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#x548C;&#x89E3;&#x5BC6;</span>
+    plaintext<span class="token punctuation">,</span> err <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>sha256<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> priv<span class="token punctuation">,</span> ciphertext<span class="token punctuation">,</span> label<span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4F7F;&#x7528;&#x4E0A;&#x8FF0;&#x52A0;&#x89E3;&#x5BC6;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x3002;&#x8FDE;&#x7EED;&#x4E24;&#x6B21;&#x5BF9; <code>Hello, world!</code> &#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#xFF0C;&#x6700;&#x540E;&#x624D;&#x8FDB;&#x884C;&#x89E3;&#x5BC6;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    priv<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewRsaKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    ciphertext<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">EncryptOAEP</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;test data 1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    ciphertext<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">EncryptOAEP</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;test data 2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    plaintext<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>priv<span class="token punctuation">,</span> ciphertext<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;test data 2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>plaintext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x7A0B;&#x5E8F;&#x8F93;&#x51FA;:</p>
+<pre class="language-"><code>3ed39b1f8877acbb62ddd4374f1ae8a5e94f38e95f8e554a2718dd016780cebe4a7b70542b5a159864d2f3a7ddefe5f4b4f6f8c22e8feeb241c10d324529992f99f5d0829fe888dfcdbe0601bf55777afb20fa20d6666cffb29b3328df6d72d34d9a87d37e5d17c3b6f568e1c1f49f1e91679bda1c54caf25a51f562aa08097f6aab4d7be41e7881a4123d88af9e1df4d8751759105665c2b61fe1ad360a37be3a0f3b8ba269386bb6cf607f49bc4363468ae713c892cf3303fd64a3cf691b104b72f9015b7bc73a2a1f986aaeb2aa7d5bcba1262fc52310890142d388b48842a3ac5dcac120f415650da6a4f069dbdee48dcb4a03c41b75e066cbbd69c32627
+304d56f58d2ea878dfc8d01844cad6cc7df406233903343763e80e3a0974ca7a70f1ae43d30be0175ff09323720b22286c6be77d880cda7bc99096b5f2dffa539ef8a5f42f37b1c03e4c54cbce04570f0ab6f98214b2b7a687496bb48302ba07f8cb013642cc41f2428fa01dfd692cfbac25e48529426be58748d715e82ad3129060a5c85adbadefa59d290e97b386e57382aba8add37a248f39a4394d0ca3244d33e08beae92b1dcb3f48108aecc38974087244f0e9c5223bbcd3c449863715cab2ebde417e6740282b9998b82ff0ac097e926b257485b9e533c579cc9dfa964bef881b59749ea478e634606a7fba549de4bde270df35c8f37c60bf04478b92
+Hello, world!
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8FDE;&#x7EED;&#x4E24;&#x6B21;&#x90FD;&#x662F;&#x5BF9; <code>Hello, world!</code> &#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#xFF0C;&#x7ED3;&#x679C;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x8FD9;&#x7B26;&#x5408;&#x9884;&#x671F;&#xFF0C;&#x786E;&#x4FDD;&#x4E86;&#x6BCF;&#x6B21;&#x52A0;&#x5BC6;&#x7ED3;&#x679C;&#x7684;&#x968F;&#x673A;&#x6027;&#x3002;&#x800C;&#x6700;&#x540E;&#x4E5F;&#x6210;&#x529F;&#x89E3;&#x5BC6;&#x4E86;&#x3002;</p>
+<p>&#x70B9;&#x51FB; <a href="https://go.dev/play/p/GVbNAEeM5vj" target="_blank">The Go Playground</a> &#x53BB;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5B8C;&#x6574;&#x7A0B;&#x5E8F;&#x6E05;&#x5355;:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;crypto/rand&quot;</span>
+    <span class="token string">&quot;crypto/rsa&quot;</span>
+    <span class="token string">&quot;crypto/sha256&quot;</span>
+    <span class="token string">&quot;encoding/hex&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">NewRsaKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>priv <span class="token operator">*</span>rsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 2048-bit</span>
+    priv<span class="token punctuation">,</span> err <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> <span class="token number">2048</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">EncryptOAEP</span><span class="token punctuation">(</span>pub <span class="token operator">*</span>rsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">,</span> plaintext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> label <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// label &#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x7684;&#x52A0;&#x5BC6;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x80FD;&#x591F;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E2D;&#x89E3;&#x5BC6;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E0B;&#x7528;&#x76F8;&#x540C;&#x7684; label &#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#x548C;&#x89E3;&#x5BC6;</span>
+    ciphertext<span class="token punctuation">,</span> err <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">EncryptOAEP</span><span class="token punctuation">(</span>sha256<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> pub<span class="token punctuation">,</span> plaintext<span class="token punctuation">,</span> label<span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>priv <span class="token operator">*</span>rsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> label <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>plaintext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// label &#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x7684;&#x52A0;&#x5BC6;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x80FD;&#x591F;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E2D;&#x89E3;&#x5BC6;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x4E0B;&#x7528;&#x76F8;&#x540C;&#x7684; label &#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#x548C;&#x89E3;&#x5BC6;</span>
+    plaintext<span class="token punctuation">,</span> err <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>sha256<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> priv<span class="token punctuation">,</span> ciphertext<span class="token punctuation">,</span> label<span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    priv<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewRsaKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    ciphertext<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">EncryptOAEP</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;test data 1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    ciphertext<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">EncryptOAEP</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;test data 2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    plaintext<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>priv<span class="token punctuation">,</span> ciphertext<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;test data 2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>plaintext<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x4FE1;&#x606F;&#x6458;&#x8981;">&#x4FE1;&#x606F;&#x6458;&#x8981;</h2>
+<p>&#x5F88;&#x591A;&#x573A;&#x666F;&#x90FD;&#x9700;&#x8981;&#x4FE1;&#x606F;&#x6458;&#x8981;&#x7B97;&#x6CD5;&#xFF0C;&#x6BD4;&#x5982;&#x6570;&#x636E;&#x7B7E;&#x540D;&#xFF0C;&#x9996;&#x5148;&#x901A;&#x8FC7;&#x4FE1;&#x606F;&#x6458;&#x8981;&#x7B97;&#x6CD5; <code>sha256</code> &#x5F97;&#x5230; <code>32</code> &#x5B57;&#x8282;&#x957F;&#x5EA6;&#x5B57;&#x8282; slice&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5BF9;&#x8BE5;&#x5B57;&#x8282; slice &#x8FDB;&#x884C;&#x7B7E;&#x540D;&#x3002;</p>
+<p>&#x70B9;&#x51FB; <a href="https://go.dev/play/p/QcUaSSrr7o3" target="_blank">The Go Playground</a> &#x53BB;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x7A0B;&#x5E8F;&#x6E05;&#x5355;:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;crypto/sha256&quot;</span>
+    <span class="token string">&quot;encoding/hex&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    data <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x7B7E;&#x540D;&#x9A8C;&#x8BC1;">&#x7B7E;&#x540D;&#x9A8C;&#x8BC1;</h2>
+<p><code>NewSigningKey</code> &#x662F;&#x751F;&#x6210; <code>Ecdsa</code> &#x7B7E;&#x540D;&#x9A8C;&#x8BC1;&#x516C;/&#x79C1;&#x94A5;&#x65B9;&#x6CD5;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">NewSigningKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key<span class="token punctuation">,</span> err <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>elliptic<span class="token punctuation">.</span><span class="token function">P256</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> key<span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>Sign</code> &#x662F;&#x6570;&#x636E;&#x7B7E;&#x540D;&#x65B9;&#x6CD5;&#xFF0C;&#x9996;&#x5148;&#x901A;&#x8FC7; <code>sha256</code> &#x7B97;&#x6CD5;&#x5F97;&#x5230;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x6458;&#x8981;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7; <code>Ecdsa</code> &#x79C1;&#x94A5;&#x5B8C;&#x6210;&#x4E86;&#x6570;&#x636E;&#x7B7E;&#x540D;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">Sign</span><span class="token punctuation">(</span>data <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> privkey <span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// hash message</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    <span class="token comment">// sign the hash</span>
+    r<span class="token punctuation">,</span> s<span class="token punctuation">,</span> err <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">Sign</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> privkey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// encode the signature {R, S}</span>
+    <span class="token comment">// big.Int.Bytes() will need padding in the case of leading zero bytes</span>
+    params <span class="token operator">:=</span> privkey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    curveOrderByteSize <span class="token operator">:=</span> params<span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+    rBytes<span class="token punctuation">,</span> sBytes <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    signature <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>rBytes<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> rBytes<span class="token punctuation">)</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>sBytes<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sBytes<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> signature<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>Verify</code> &#x662F;&#x7B7E;&#x540D;&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;&#xFF0C;&#x9996;&#x5148;&#x901A;&#x8FC7; <code>sha256</code> &#x7B97;&#x6CD5;&#x5F97;&#x5230;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x6458;&#x8981;&#xFF0C;&#x7136;&#x540E;&#x5BF9;&#x6570;&#x636E;&#x6458;&#x8981;&#x548C;&#x7B7E;&#x540D;&#x8FDB;&#x884C;&#x4E86;&#x6821;&#x9A8C;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">Verify</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> signature <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> pubkey <span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token comment">// hash message</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    curveOrderByteSize <span class="token operator">:=</span> pubkey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+
+    r<span class="token punctuation">,</span> s <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span><span class="token punctuation">:</span>curveOrderByteSize<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> ecdsa<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span>pubkey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x662F;&#x7B7E;&#x540D;&#x9A8C;&#x8BC1;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    priv<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewSigningKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    signature<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Sign</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> priv<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> ok <span class="token operator">:=</span> <span class="token function">Verify</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> signature<span class="token punctuation">,</span> <span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;verified ok&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x7A0B;&#x5E8F;&#x8F93;&#x51FA;:</p>
+<pre class="language-"><code>eb5a28450f221e888237249e03b07acff0cbb524bc8f2082d5ef996bed4eb957cfcdb9ba1aa103954ac427468565cb8e904111a5fd1c589df94d9309b24e9e3f
+verified ok
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x9996;&#x5148;&#x5BF9; <code>Hello, world!</code> &#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x4E86;&#x7B7E;&#x540D;&#xFF0C;&#x7136;&#x540E;&#x53C8;&#x6210;&#x529F;&#x9A8C;&#x8BC1;&#x4E86;&#x7B7E;&#x540D;&#x3002;</p>
+<p>&#x70B9;&#x51FB; <a href="https://go.dev/play/p/3-KXceMpHNg" target="_blank">The Go Playground</a> &#x53BB;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x7A0B;&#x5E8F;&#x6E05;&#x5355;:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;crypto/ecdsa&quot;</span>
+    <span class="token string">&quot;crypto/elliptic&quot;</span>
+    <span class="token string">&quot;crypto/rand&quot;</span>
+    <span class="token string">&quot;crypto/sha256&quot;</span>
+    <span class="token string">&quot;encoding/hex&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+    <span class="token string">&quot;math/big&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">NewSigningKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key<span class="token punctuation">,</span> err <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>elliptic<span class="token punctuation">.</span><span class="token function">P256</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> key<span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">Sign</span><span class="token punctuation">(</span>data <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> privkey <span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// hash message</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    <span class="token comment">// sign the hash</span>
+    r<span class="token punctuation">,</span> s<span class="token punctuation">,</span> err <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">Sign</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> privkey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// encode the signature {R, S}</span>
+    <span class="token comment">// big.Int.Bytes() will need padding in the case of leading zero bytes</span>
+    params <span class="token operator">:=</span> privkey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    curveOrderByteSize <span class="token operator">:=</span> params<span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+    rBytes<span class="token punctuation">,</span> sBytes <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    signature <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>rBytes<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> rBytes<span class="token punctuation">)</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>sBytes<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sBytes<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> signature<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">Verify</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> signature <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> pubkey <span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token comment">// hash message</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    curveOrderByteSize <span class="token operator">:=</span> pubkey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+
+    r<span class="token punctuation">,</span> s <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span><span class="token punctuation">:</span>curveOrderByteSize<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> ecdsa<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span>pubkey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    priv<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewSigningKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    signature<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Sign</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> priv<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> ok <span class="token operator">:=</span> <span class="token function">Verify</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> signature<span class="token punctuation">,</span> <span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;verified ok&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x5BC6;&#x7801;&#x5B58;&#x50A8;&#x8BA4;&#x8BC1;">&#x5BC6;&#x7801;&#x5B58;&#x50A8;&#x8BA4;&#x8BC1;</h2>
+<p>&#x70B9;&#x51FB; <a href="https://go.dev/play/p/UcNg7KyB8Xh" target="_blank">The Go Playground</a> &#x53BB;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x7A0B;&#x5E8F;&#x6E05;&#x5355;:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;crypto/sha256&quot;</span>
+    <span class="token string">&quot;encoding/hex&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+
+    <span class="token string">&quot;golang.org/x/crypto/bcrypt&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    password <span class="token operator">:=</span> <span class="token string">&quot;mypassword&quot;</span>
+    passHash <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    passHashAndBcrypt<span class="token punctuation">,</span> err <span class="token operator">:=</span> bcrypt<span class="token punctuation">.</span><span class="token function">GenerateFromPassword</span><span class="token punctuation">(</span>passHash<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hex<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>passHashAndBcrypt<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> bcrypt<span class="token punctuation">.</span><span class="token function">CompareHashAndPassword</span><span class="token punctuation">(</span>passHashAndBcrypt<span class="token punctuation">,</span> passHash<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;verified ok!&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x7A0B;&#x5E8F;&#x9996;&#x5148;&#x5BF9;&#x539F;&#x59CB;&#x5BC6;&#x7801; <code>mypassword</code> &#x8FDB;&#x884C;&#x4E86; <code>sha256</code> &#x54C8;&#x5E0C;&#xFF0C;&#x5F97;&#x5230;&#x7684; <code>passHash</code> &#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5BF9;&#x79C1;&#x94A5;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#x3002;&#x7136;&#x540E;&#x518D;&#x5BF9; <code>passHash</code> &#x8C03;&#x7528; <code>bcrypt.GenerateFromPassword</code> &#x54C8;&#x5E0C;&#xFF0C;&#x5F97;&#x5230; <code>passHashAndBcrypt</code>&#x3002;&#x4E24;&#x6B21;&#x7684;&#x54C8;&#x5E0C;&#x90FD;&#x662F;&#x4E0D;&#x53EF;&#x9006;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x5728;&#x5BC6;&#x94A5;&#x6587;&#x4EF6;&#x4E2D;&#x5B58;&#x50A8; <code>passHashAndBcrypt</code> &#x662F;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x7136;&#x540E;&#x7A0B;&#x5E8F;&#x5BF9; <code>passHashAndBcrypt</code> &#x548C; <code>passHash</code> &#x8C03;&#x7528; <code>bcrypt.CompareHashAndPassword</code> &#x5B8C;&#x6210;&#x4E86;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;&#xFF0C;&#x5982;&#x679C;&#x8BE5;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684; err &#x4E3A; nil&#xFF0C;&#x4EE3;&#x8868;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;&#x901A;&#x8FC7;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: EFS 加密文件系统">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"密码学方法","level":"1.2","depth":1,"previous":{"title":"EFS 加密文件系统","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"crypto.md","mtime":"2023-02-21T12:33:06.029Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T12:33:31.917Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

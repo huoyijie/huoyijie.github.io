@@ -1,0 +1,322 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>网站支持 HTTP 2.0 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn" target="_blank" class="custom-link">huoyijie.cn</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    网站支持 HTTP 2.0
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >网站支持 HTTP 2.0</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x7F51;&#x7AD9;&#x652F;&#x6301;-http-20">&#x7F51;&#x7AD9;&#x652F;&#x6301; HTTP 2.0</h1>
+<h2 id="http2-&#x4ECB;&#x7ECD;">HTTP2 &#x4ECB;&#x7ECD;</h2>
+<p>HTTP/2 &#x53EF;&#x4EE5;&#x8BA9;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x66F4;&#x5FEB;&#x3001;&#x66F4;&#x7B80;&#x5355;&#x3001;&#x66F4;&#x7A33;&#x5B9A; - &#x8FD9;&#x51E0;&#x8BCD;&#x51D1;&#x5230;&#x4E00;&#x5757;&#x662F;&#x5F88;&#x7F55;&#x89C1;&#x7684;&#xFF01;HTTP/2 &#x5C06;&#x5F88;&#x591A;&#x4EE5;&#x524D;&#x6211;&#x4EEC;&#x5728;&#x5E94;&#x7528;&#x4E2D;&#x9488;&#x5BF9; HTTP/1.1 &#x60F3;&#x51FA;&#x6765;&#x7684;&#x201C;&#x6B6A;&#x62DB;&#x513F;&#x201D;&#x4E00;&#x7B14;&#x52FE;&#x9500;&#xFF0C;&#x628A;&#x89E3;&#x51B3;&#x90A3;&#x4E9B;&#x95EE;&#x9898;&#x7684;&#x65B9;&#x6848;&#x5185;&#x7F6E;&#x5728;&#x4E86;&#x4F20;&#x8F93;&#x5C42;&#x4E2D;&#x3002; &#x4E0D;&#x4EC5;&#x5982;&#x6B64;&#xFF0C;&#x5B83;&#x8FD8;&#x4E3A;&#x6211;&#x4EEC;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x5E94;&#x7528;&#x548C;&#x63D0;&#x5347;&#x6027;&#x80FD;&#x63D0;&#x4F9B;&#x4E86;&#x5168;&#x65B0;&#x7684;&#x673A;&#x4F1A;&#xFF01;</p>
+<p>HTTP/2 &#x7684;&#x4E3B;&#x8981;&#x76EE;&#x6807;&#x662F;&#x901A;&#x8FC7;&#x652F;&#x6301;&#x5B8C;&#x6574;&#x7684;&#x8BF7;&#x6C42;&#x4E0E;&#x54CD;&#x5E94;&#x590D;&#x7528;&#x6765;&#x51CF;&#x5C11;&#x5EF6;&#x8FDF;&#xFF0C;&#x901A;&#x8FC7;&#x6709;&#x6548;&#x538B;&#x7F29; HTTP &#x6807;&#x5934;&#x5B57;&#x6BB5;&#x5C06;&#x534F;&#x8BAE;&#x5F00;&#x9500;&#x964D;&#x81F3;&#x6700;&#x4F4E;&#xFF0C;&#x540C;&#x65F6;&#x589E;&#x52A0;&#x5BF9;&#x8BF7;&#x6C42;&#x4F18;&#x5148;&#x7EA7;&#x548C;&#x670D;&#x52A1;&#x5668;&#x63A8;&#x9001;&#x7684;&#x652F;&#x6301;&#x3002; &#x4E3A;&#x8FBE;&#x6210;&#x8FD9;&#x4E9B;&#x76EE;&#x6807;&#xFF0C;HTTP/2 &#x8FD8;&#x7ED9;&#x6211;&#x4EEC;&#x5E26;&#x6765;&#x4E86;&#x5927;&#x91CF;&#x5176;&#x4ED6;&#x534F;&#x8BAE;&#x5C42;&#x9762;&#x7684;&#x8F85;&#x52A9;&#x5B9E;&#x73B0;&#xFF0C;&#x4F8B;&#x5982;&#x65B0;&#x7684;&#x6D41;&#x63A7;&#x5236;&#x3001;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x548C;&#x5347;&#x7EA7;&#x673A;&#x5236;&#x3002;&#x4E0A;&#x8FF0;&#x51E0;&#x79CD;&#x673A;&#x5236;&#x867D;&#x7136;&#x4E0D;&#x662F;&#x5168;&#x90E8;&#xFF0C;&#x4F46;&#x5374;&#x662F;&#x6700;&#x91CD;&#x8981;&#x7684;&#xFF0C;&#x6BCF;&#x4E00;&#x4F4D;&#x7F51;&#x7EDC;&#x5F00;&#x53D1;&#x8005;&#x90FD;&#x5E94;&#x8BE5;&#x7406;&#x89E3;&#x5E76;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x5E94;&#x7528;&#x4E2D;&#x52A0;&#x4EE5;&#x5229;&#x7528;&#x3002;</p>
+<p>HTTP/2 &#x6CA1;&#x6709;&#x6539;&#x52A8; HTTP &#x7684;&#x5E94;&#x7528;&#x8BED;&#x4E49;&#x3002; HTTP &#x65B9;&#x6CD5;&#x3001;&#x72B6;&#x6001;&#x4EE3;&#x7801;&#x3001;URI &#x548C;&#x6807;&#x5934;&#x5B57;&#x6BB5;&#x7B49;&#x6838;&#x5FC3;&#x6982;&#x5FF5;&#x4E00;&#x5982;&#x5F80;&#x5E38;&#x3002; &#x4E0D;&#x8FC7;&#xFF0C;HTTP/2 &#x4FEE;&#x6539;&#x4E86;&#x6570;&#x636E;&#x683C;&#x5F0F;&#x5316;&#xFF08;&#x5206;&#x5E27;&#xFF09;&#x4EE5;&#x53CA;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x95F4;&#x4F20;&#x8F93;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x8FD9;&#x4E24;&#x70B9;&#x7EDF;&#x5E05;&#x5168;&#x5C40;&#xFF0C;&#x901A;&#x8FC7;&#x65B0;&#x7684;&#x5206;&#x5E27;&#x5C42;&#x5411;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x9690;&#x85CF;&#x4E86;&#x6240;&#x6709;&#x590D;&#x6742;&#x6027;&#x3002; &#x56E0;&#x6B64;&#xFF0C;&#x6240;&#x6709;&#x73B0;&#x6709;&#x7684;&#x5E94;&#x7528;&#x90FD;&#x53EF;&#x4EE5;&#x4E0D;&#x5FC5;&#x4FEE;&#x6539;&#x800C;&#x5728;&#x65B0;&#x534F;&#x8BAE;&#x4E0B;&#x8FD0;&#x884C;&#x3002;</p>
+<p><em>&#x4EE5;&#x4E0A;&#x4ECB;&#x7ECD;&#x6458;&#x81EA; <a href="https://developers.google.com" target="_blank">https://developers.google.com</a></em></p>
+<p>HTTP 2.0 &#x6CA1;&#x6709;&#x63A8;&#x7FFB;&#x4E4B;&#x524D;&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x800C;&#x662F;&#x6784;&#x7B51;&#x4E8E; HTTP 1.1 &#x534F;&#x8BAE;&#x4E4B;&#x4E0A;&#xFF0C;&#x4E3B;&#x8981;&#x76EE;&#x6807;&#x662F;&#x63D0;&#x5347;&#x6027;&#x80FD;&#x3002;&#x5728;&#x8FDE;&#x63A5;&#x590D;&#x7528;&#x3001;&#x4E8C;&#x8FDB;&#x5236;&#x5206;&#x5E27;&#x3001;&#x4F18;&#x5148;&#x7EA7;&#x3001;&#x6D41;&#x63A7;&#x5236;&#x3001;&#x670D;&#x52A1;&#x5668;&#x63A8;&#x9001;&#x3001;&#x5934;&#x90E8;&#x538B;&#x7F29;&#x7B49;&#x65B9;&#x9762;&#x505A;&#x4E86;&#x975E;&#x5E38;&#x5927;&#x7684;&#x6539;&#x8FDB;&#xFF0C;&#x4EE5;&#x81F3;&#x4E8E;&#x4E0D;&#x80FD;&#x5411;&#x524D;&#x517C;&#x5BB9;&#x539F;&#x6709;&#x534F;&#x8BAE;&#x3002;&#x65E0;&#x8BBA;&#x662F;&#x6D4F;&#x89C8;&#x5668;&#x7B49;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x8FD8;&#x662F; WEB &#x670D;&#x52A1;&#x5668;&#x7AEF;&#x90FD;&#x8981;&#x505A;&#x597D;&#x534F;&#x8BAE;&#x517C;&#x5BB9;&#x3002;</p>
+<p>HTTP &#x534F;&#x8BAE;&#x662F;&#x6700;&#x91CD;&#x8981;&#x7684;&#x5E94;&#x7528;&#x5C42;&#x534F;&#x8BAE;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x7A0B;&#x5E8F;&#x4F17;&#x591A;&#xFF0C;&#x5BF9; HTTP 2.0 &#x7684;&#x652F;&#x6301;&#x60C5;&#x51B5;&#x975E;&#x5E38;&#x590D;&#x6742;&#xFF0C;&#x5982;&#x4F55;&#x80FD;&#x591F;&#x786E;&#x4FDD;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x91C7;&#x7528; 2.0 &#x8FD8;&#x662F; 1.1 &#x7248;&#x672C;&#x534F;&#x8BAE;&#x5462;&#xFF1F;&#x8FD9;&#x5C31;&#x9700;&#x8981;&#x8FDE;&#x63A5;&#x540E;&#x6709;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x5C42;&#x534F;&#x8BAE;&#x534F;&#x5546;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x662F;&#x5728; ALPN &#x534F;&#x8BAE;&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
+<p>&#x5E94;&#x7528;&#x5C42;&#x534F;&#x8BAE;&#x534F;&#x5546;&#xFF08;Application-Layer Protocol Negotiation&#xFF0C;&#x7B80;&#x79F0;ALPN&#xFF09;&#x662F;&#x4E00;&#x4E2A;&#x4F20;&#x8F93;&#x5C42;&#x5B89;&#x5168;&#x534F;&#x8BAE;(TLS) &#x7684;&#x6269;&#x5C55;, ALPN &#x4F7F;&#x5F97;&#x5E94;&#x7528;&#x5C42;&#x53EF;&#x4EE5;&#x534F;&#x5546;&#x5728;&#x5B89;&#x5168;&#x8FDE;&#x63A5;&#x5C42;&#x4E4B;&#x4E0A;&#x4F7F;&#x7528;&#x4EC0;&#x4E48;&#x534F;&#x8BAE;, &#x907F;&#x514D;&#x4E86;&#x989D;&#x5916;&#x7684;&#x5F80;&#x8FD4;&#x901A;&#x8BAF;, &#x5E76;&#x4E14;&#x72EC;&#x7ACB;&#x4E8E;&#x5E94;&#x7528;&#x5C42;&#x534F;&#x8BAE;&#x3002;&#x901A;&#x8FC7; ALPN&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x53EF;&#x4EE5;&#x534F;&#x5546;&#x662F;&#x5426;&#x91C7;&#x7528; HTTP 2.0&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x5BF9; ALPN &#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x53EF;&#x4EE5;&#x77E5;&#x9053;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x67E5;&#x770B; TLS &#x63E1;&#x624B;&#x8FC7;&#x7A0B;&#x786E;&#x8BA4;&#x7F51;&#x7AD9;&#x662F;&#x5426;&#x652F;&#x6301; http 2.0 <em>(h2 -&gt; http 2.0)</em>&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x901A;&#x8FC7;&#x5DE5;&#x5177; curl &#x8BF7;&#x6C42;&#x7F51;&#x5740; <code>https://huoyijie.cn</code></p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">curl</span> <span class="token parameter variable">-vso</span> /dev/null <span class="token parameter variable">--http2</span> https://huoyijie.cn/ <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span>
+*   Trying <span class="token number">62.234</span>.116.248:443<span class="token punctuation">..</span>.
+* TCP_NODELAY <span class="token builtin class-name">set</span>
+* Connected to huoyijie.cn <span class="token punctuation">(</span><span class="token number">62.234</span>.116.248<span class="token punctuation">)</span> port <span class="token number">443</span> <span class="token punctuation">(</span><span class="token comment">#0)</span>
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully <span class="token builtin class-name">set</span> certificate verify locations:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+  CApath: /etc/ssl/certs
+<span class="token punctuation">}</span> <span class="token punctuation">[</span><span class="token number">5</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>OUT<span class="token punctuation">)</span>, TLS handshake, Client hello <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>:
+<span class="token punctuation">}</span> <span class="token punctuation">[</span><span class="token number">512</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, Server hello <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">122</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, Encrypted Extensions <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">21</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, Certificate <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">2660</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, CERT verify <span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">264</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, Finished <span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">52</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>OUT<span class="token punctuation">)</span>, TLS change cipher, Change cipher spec <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>:
+<span class="token punctuation">}</span> <span class="token punctuation">[</span><span class="token number">1</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>OUT<span class="token punctuation">)</span>, TLS handshake, Finished <span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>:
+<span class="token punctuation">}</span> <span class="token punctuation">[</span><span class="token number">52</span> bytes data<span class="token punctuation">]</span>
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN, server accepted to use http/1.1
+* Server certificate:
+*  subject: <span class="token assign-left variable">CN</span><span class="token operator">=</span>www.huoyijie.cn
+*  start date: Feb <span class="token number">21</span> 00:00:00 <span class="token number">2021</span> GMT
+*  expire date: Feb <span class="token number">20</span> <span class="token number">23</span>:59:59 <span class="token number">2022</span> GMT
+*  subjectAltName: <span class="token function">host</span> <span class="token string">&quot;huoyijie.cn&quot;</span> matched cert&apos;s <span class="token string">&quot;huoyijie.cn&quot;</span>
+*  issuer: <span class="token assign-left variable">C</span><span class="token operator">=</span>CN<span class="token punctuation">;</span> <span class="token assign-left variable">O</span><span class="token operator">=</span>TrustAsia Technologies, Inc.<span class="token punctuation">;</span> <span class="token assign-left variable">OU</span><span class="token operator">=</span>Domain Validated SSL<span class="token punctuation">;</span> <span class="token assign-left variable">CN</span><span class="token operator">=</span>TrustAsia TLS RSA CA
+*  SSL certificate verify ok.
+<span class="token punctuation">}</span> <span class="token punctuation">[</span><span class="token number">5</span> bytes data<span class="token punctuation">]</span>
+<span class="token operator">&gt;</span> GET / HTTP/1.1
+<span class="token operator">&gt;</span> Host: huoyijie.cn
+<span class="token operator">&gt;</span> User-Agent: curl/7.68.0
+<span class="token operator">&gt;</span> Accept: */*
+<span class="token operator">&gt;</span> 
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">5</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, Newsession Ticket <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">265</span> bytes data<span class="token punctuation">]</span>
+* TLSv1.3 <span class="token punctuation">(</span>IN<span class="token punctuation">)</span>, TLS handshake, Newsession Ticket <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>:
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">265</span> bytes data<span class="token punctuation">]</span>
+* old SSL session ID is stale, removing
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">5</span> bytes data<span class="token punctuation">]</span>
+* Mark bundle as not supporting multiuse
+<span class="token operator">&lt;</span> HTTP/1.1 <span class="token number">200</span> OK
+<span class="token operator">&lt;</span> X-Powered-By: Express
+<span class="token operator">&lt;</span> Content-Type: text/html<span class="token punctuation">;</span> <span class="token assign-left variable">charset</span><span class="token operator">=</span>utf-8
+<span class="token operator">&lt;</span> Content-Length: <span class="token number">38791</span>
+<span class="token operator">&lt;</span> ETag: W/<span class="token string">&quot;9787-XrfUp2h6vBzOxGWafJB41BICKbY&quot;</span>
+<span class="token operator">&lt;</span> Date: Wed, 07 Apr <span class="token number">2021</span> 05:49:32 GMT
+<span class="token operator">&lt;</span> Connection: keep-alive
+<span class="token operator">&lt;</span> Keep-Alive: <span class="token assign-left variable">timeout</span><span class="token operator">=</span><span class="token number">5</span>
+<span class="token operator">&lt;</span> 
+<span class="token punctuation">{</span> <span class="token punctuation">[</span><span class="token number">16151</span> bytes data<span class="token punctuation">]</span>
+* Connection <span class="token comment">#0 to host huoyijie.cn left intact</span>
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6700;&#x5F00;&#x59CB;&#xFF0C;curl &#x8F93;&#x51FA;&#x5982;&#x4E0B;</p>
+<pre class="language-"><code class="lang-log"><span class="token operator">*</span> ALPN<span class="token punctuation">,</span> offering h2
+<span class="token operator">*</span> ALPN<span class="token punctuation">,</span> offering http<span class="token operator">/</span><span class="token number">1.1</span>
+</code></pre>
+<p>&#x8868;&#x793A; client &#x7AEF;&#x540C;&#x65F6;&#x652F;&#x6301; http/1.1 &#x53CA; h2</p>
+<p>&#x518D;&#x770B;&#x540E;&#x9762; server &#x7AEF;&#x7684;&#x54CD;&#x5E94;&#x8F93;&#x51FA;</p>
+<pre class="language-"><code class="lang-log"><span class="token operator">*</span> ALPN<span class="token punctuation">,</span> server accepted to use http<span class="token operator">/</span><span class="token number">1.1</span>
+</code></pre>
+<p>&#x8BF4;&#x660E; server &#x7AEF;&#x4E0D;&#x652F;&#x6301; http 2.0&#xFF0C;&#x6240;&#x4EE5;&#x534F;&#x5546;&#x7ED3;&#x679C;&#x4E3A;&#x9009;&#x62E9;&#x4E86; http/1.1 &#x534F;&#x8BAE;&#x3002;&#x8FD8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; chrome &#x6D4F;&#x89C8;&#x5668;&#x5BA1;&#x67E5;&#x6240;&#x6709; http &#x8BF7;&#x6C42;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/3d797440975b11ebb724674d4ec06242/http2-setting1.png" alt="http2 setting"></p>
+<p>&#x4E0A;&#x56FE;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8BF7;&#x6C42; <code>https://huoyijie.cn</code> &#x52A0;&#x8F7D;&#x7684;&#x6240;&#x6709;&#x8D44;&#x6E90; Protocol &#x90FD;&#x663E;&#x793A;&#x4E3A; http/1.1&#x3002;<em>(Protocol &#x5B57;&#x6BB5;&#x9ED8;&#x8BA4;&#x53EF;&#x80FD;&#x4E0D;&#x663E;&#x793A;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x67D0;&#x4E2A;&#x8BF7;&#x6C42;&#x4E0A;&#x53F3;&#x952E;-&gt; Header Options &#x4E2D;&#x9009;&#x62E9;&#x663E;&#x793A;)</em></p>
+<h2 id="cdn-&#x8D44;&#x6E90;&#x914D;&#x7F6E;&#x652F;&#x6301;-http-20">CDN &#x8D44;&#x6E90;&#x914D;&#x7F6E;&#x652F;&#x6301; http 2.0</h2>
+<p>CDN &#x5F00;&#x542F; http 2.0 &#x652F;&#x6301;&#x76F8;&#x5BF9;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x817E;&#x8BAF;&#x4E91; CDN &#x63A7;&#x5236;&#x53F0;&#x63D0;&#x4F9B;&#x4E86;&#x914D;&#x7F6E;&#x9009;&#x9879;&#xFF0C;&#x53EF;&#x4EE5;&#x4E00;&#x952E;&#x5F00;&#x542F;&#x6216;&#x8005;&#x5173;&#x95ED; http 2.0 &#x652F;&#x6301;&#x3002;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/3d797440975b11ebb724674d4ec06242/http2-setting4.png" alt="http2 setting"></p>
+<p>&#x914D;&#x7F6E;&#x5F00;&#x542F; http 2.0 &#x6709;&#x4E2A;&#x524D;&#x63D0;&#x6761;&#x4EF6;&#xFF0C;&#x5C31;&#x662F;&#x9996;&#x5148;&#x8981;&#x5148;&#x914D;&#x7F6E;&#x8BC1;&#x4E66;&#xFF0C;&#x652F;&#x6301; https&#x3002;&#x8FD9;&#x4E2A;&#x4E4B;&#x524D;&#x5DF2;&#x7ECF;&#x914D;&#x7F6E;&#x8FC7;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x70B9;&#x9009;&#x652F;&#x6301; http 2.0 &#x9009;&#x9879;&#x3002;&#x5927;&#x6982;&#x9700;&#x8981; 5 &#x5206;&#x949F;&#x914D;&#x7F6E;&#x751F;&#x6548;&#x3002;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/3d797440975b11ebb724674d4ec06242/http2-setting3.png" alt="http2 setting"></p>
+<p>&#x518D;&#x6E05;&#x7A7A;&#x7F13;&#x5B58;&#x5237;&#x65B0;&#x9875;&#x9762;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6240;&#x6709; CDN &#x8D44;&#x6E90;&#x7684;&#x8BF7;&#x6C42;&#x90FD;&#x5DF2;&#x7ECF;&#x5207;&#x6362;&#x5230;&#x4E86; h2 <em>(http 2.0)</em>&#xFF0C;&#x591A;&#x5F3A;&#x5237;&#x8BD5;&#x4E86;&#x51E0;&#x6B21;&#x611F;&#x89C9;&#x5FEB;&#x4E00;&#x70B9;&#x70B9;&#xFF0C;&#x4E0D;&#x592A;&#x660E;&#x663E;&#x3002;</p>
+<h2 id="&#x7AD9;&#x70B9;&#x672C;&#x8EAB;&#x652F;&#x6301;-http-20">&#x7AD9;&#x70B9;&#x672C;&#x8EAB;&#x652F;&#x6301; http 2.0</h2>
+<p>&#x6211;&#x7684;&#x535A;&#x5BA2;&#x7F51;&#x7AD9;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x76F4;&#x63A5;&#x7528; node.js + express &#x6784;&#x5EFA;&#xFF0C;&#x524D;&#x9762;&#x6CA1;&#x6709;&#x7C7B;&#x4F3C; ngnix &#x8FD9;&#x6837;&#x7684;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF0C;&#x8BC1;&#x4E66;&#x914D;&#x7F6E;&#x52A0;&#x89E3;&#x5BC6;&#x90FD;&#x662F;&#x5728; node.js &#x91CC;&#x9762;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x9879;&#x76EE;&#x4E2D;&#x4F9D;&#x8D56;&#x7684; express 4&#xFF0C;&#x5BF9; http 2.0 &#x652F;&#x6301;&#x6709;&#x9650;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x597D;&#x8003;&#x8651;&#x90E8;&#x7F72;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x4E86;&#x3002;&#x800C;&#x4E14;&#x50CF;&#x5BF9;&#x8FDB;&#x51FA;&#x6D41;&#x91CF;&#x7EDF;&#x4E00;&#x52A0;&#x89E3;&#x5BC6;&#x7684;&#x64CD;&#x4F5C;&#x653E;&#x5230;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x91CC;&#x9762;&#x6BD4;&#x8F83;&#x597D;&#x3002;</p>
+<p>&#x5B89;&#x88C5; nginx</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx
+</code></pre>
+<p>&#x4FEE;&#x6539; nginx &#x914D;&#x7F6E;</p>
+<pre class="language-"><code class="lang-conf">ssl_session_timeout 10m;
+server {
+  listen 443 ssl http2;
+  server_name www.huoyijie.cn huoyijie.cn;
+  keepalive_timeout 70;
+
+  ssl_certificate 1_www.huoyijie.cn_bundle.crt;
+  ssl_certificate_key 2_www.huoyijie.cn.key;
+
+  root /var/www/www.huoyijie.cn;
+  index index.html;
+
+  location / {
+    proxy_pass http://127.0.0.1:7999;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    # WebSocket support
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection &quot;upgrade&quot;;
+  }
+}
+
+server {
+  listen 80;
+  server_name www.huoyijie.cn huoyijie.cn;
+  return 301 https://$server_name$request_uri;
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x914D;&#x7F6E;&#x4E86;&#x8BC1;&#x4E66;&#x53CA;&#x5BC6;&#x94A5;&#xFF0C;&#x5E76;&#x4E14;&#x628A;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x4EE3;&#x7406;&#x5230;&#x4E86; <code>http://127.0.0.1:7999</code></p>
+<p>&#x5F00;&#x542F;&#x4E86; SSL &#x4EE5;&#x53CA; http2</p>
+<pre class="language-"><code class="lang-conf">listen 443 ssl http2;
+</code></pre>
+<p>&#x91CD;&#x542F;&#x670D;&#x52A1;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">service</span> nginx restart
+</code></pre>
+<p>&#x8BBF;&#x95EE;&#x7F51;&#x7AD9;&#x9996;&#x9875; <code>https://huoyijie.cn</code>&#xFF0C;&#x9875;&#x9762;&#x52A0;&#x8F7D;&#x6B63;&#x5E38;&#xFF0C;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x7684;&#x534F;&#x8BAE;&#x90FD;&#x662F; h2</p>
+<p><img src="https://cdn.huoyijie.cn/ab/3d797440975b11ebb724674d4ec06242/http2-setting5.png" alt="http2 setting"></p>
+<pre class="language-"><code class="lang-log">ipaddr <span class="token separator comment">- - </span><span class="token punctuation">[</span><span class="token date number">07/Apr/2021</span><span class="token operator">:</span><span class="token time number">17:28:07 +0800</span><span class="token punctuation">]</span> <span class="token string">&quot;GET / HTTP/2.0&quot;</span> <span class="token number">304</span> <span class="token number">0</span> <span class="token string">&quot;-&quot;</span> <span class="token string">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36&quot;</span>
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x662F; nginx access.log &#x8F93;&#x51FA;&#x65E5;&#x5FD7;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x534F;&#x8BAE;&#x5B57;&#x6BB5;&#x5DF2;&#x663E;&#x793A;&#x4E3A; HTTP/2.0&#x3002;&#x7F51;&#x7AD9;&#x652F;&#x6301; http 2.0 &#x540E;&#xFF0C;&#x76F4;&#x89C2;&#x611F;&#x53D7;&#x7F51;&#x9875;&#x52A0;&#x8F7D;&#x901F;&#x5EA6;&#x5FEB;&#x4E86;&#x4E00;&#x4E9B;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x7279;&#x522B;&#x660E;&#x663E;&#xFF0C;&#x53EF;&#x80FD;&#x662F;&#x56E0;&#x4E3A;&#x7F51;&#x7AD9;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x6240;&#x6709;&#x7F51;&#x7AD9;&#x6765;&#x8BF4;&#xFF0C;&#x652F;&#x6301; http 2.0 &#x662F;&#x4E00;&#x4EF6;&#x503C;&#x5F97;&#x6295;&#x5165;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x4E00;&#x5B9A;&#x4F1A;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x6539;&#x5584;&#x7F51;&#x7AD9;&#x52A0;&#x8F7D;&#x901F;&#x5EA6;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h2>
+<p><a href="https://developers.google.com/web/fundamentals/performance/http2?hl=zh-cn" target="_blank">HTTP/2 &#x7B80;&#x4ECB;</a></p>
+<p><a href="https://http2.github.io/" target="_blank">HTTP/2 &#x534F;&#x8BAE;&#x5B98;&#x7F51;</a></p>
+<p><a href="https://stackoverflow.com/questions/41637076/http2-with-node-js-behind-nginx-proxy" target="_blank">http2-with-node-js-behind-nginx-proxy</a></p>
+<p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html" target="_blank">configuring_https_servers</a></p>
+<p><a href="http://nginx.org/en/docs/http/ngx_http_v2_module.html" target="_blank">ngx_http_v2_module</a></p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"网站支持 HTTP 2.0","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T11:09:37.523Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T11:10:00.294Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

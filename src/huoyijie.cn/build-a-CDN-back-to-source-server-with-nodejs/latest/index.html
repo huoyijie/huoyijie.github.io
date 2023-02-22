@@ -1,0 +1,441 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>快速搭建CDN回源服务器 · 快速搭建CDN回源服务器</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="huoyijie">
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://huoyijie.cn/?from=article_cdnservice" target="_blank" class="custom-link">首页</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    快速搭建CDN回源服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >快速搭建CDN回源服务器</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5FEB;&#x901F;&#x642D;&#x5EFA;cdn&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;">&#x5FEB;&#x901F;&#x642D;&#x5EFA;CDN&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;</h1>
+<p>&#x672C;&#x6587;&#x63A5;&#x4E0A;&#x7BC7; <a href="https://huoyijie.cn/article/ea33f3f07bc111ebb0c11fbcd78b590e/" target="_blank">&#x7F51;&#x7AD9;&#x56FE;&#x7247;&#x89C6;&#x9891;&#x63A5;&#x5165;CDN</a>&#xFF0C;&#x4E0A;&#x7BC7;&#x6587;&#x7AE0;&#x4ECB;&#x7ECD;&#x4E86;&#x5982;&#x4F55;&#x628A;&#x56FE;&#x7247;&#x63A5;&#x5165; CDN&#xFF0C;&#x91CC;&#x9762;&#x63D0;&#x5230;&#x4E86;&#x9700;&#x8981;&#x642D;&#x5EFA;&#x81EA;&#x6709;&#x7684;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x3002;&#x672C;&#x6587;&#x5C06;&#x4F1A;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x5FEB;&#x901F;&#x642D;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x3002;&#x6211;&#x7684;&#x670D;&#x52A1;&#x5668;&#x662F; Ubuntu &#x7CFB;&#x7EDF;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x662F;&#x57FA;&#x4E8E; Ubuntu&#x3002;</p>
+<p>&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x53EA;&#x9700;&#x63D0;&#x4F9B;&#x9759;&#x6001;&#x8D44;&#x6E90;&#x8BBF;&#x95EE;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x5F88;&#x591A;&#x5DE5;&#x5177;&#x90FD;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x3002;&#x6211;&#x9009;&#x62E9;&#x4E86; nodejs+express&#xFF0C;&#x5148;&#x68C0;&#x67E5;&#x4E0B;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x73AF;&#x5883;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">node</span> <span class="token parameter variable">-v</span>
+v8.10.0
+</code></pre>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token parameter variable">-v</span>
+<span class="token number">6.14</span>.4
+</code></pre>
+<p>&#x5168;&#x5C40;&#x5B89;&#x88C5; express</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> express <span class="token parameter variable">--save</span> <span class="token parameter variable">-g</span>
+$ <span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> express-generator <span class="token parameter variable">--save</span> <span class="token parameter variable">-g</span>
+</code></pre>
+<p>&#x521B;&#x5EFA;&#x9879;&#x76EE;</p>
+<pre class="language-"><code class="lang-bash">$ express cdn-service
+<span class="token comment"># &#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;</span>
+<span class="token comment"># create : cdn-service/</span>
+<span class="token comment"># create : cdn-service/public/</span>
+<span class="token comment"># create : cdn-service/public/javascripts/</span>
+<span class="token comment"># create : cdn-service/public/images/</span>
+<span class="token comment"># create : cdn-service/public/stylesheets/</span>
+<span class="token comment"># create : cdn-service/public/stylesheets/style.css</span>
+<span class="token comment"># create : cdn-service/routes/</span>
+<span class="token comment"># create : cdn-service/routes/index.js</span>
+<span class="token comment"># create : cdn-service/routes/users.js</span>
+<span class="token comment"># create : cdn-service/views/</span>
+<span class="token comment"># create : cdn-service/views/error.jade</span>
+<span class="token comment"># create : cdn-service/views/index.jade</span>
+<span class="token comment"># create : cdn-service/views/layout.jade</span>
+<span class="token comment"># create : cdn-service/app.js</span>
+<span class="token comment"># create : cdn-service/package.json</span>
+<span class="token comment"># create : cdn-service/bin/</span>
+<span class="token comment"># create : cdn-service/bin/www</span>
+
+$ <span class="token builtin class-name">cd</span> cdn-service
+<span class="token comment"># &#x5B89;&#x88C5;&#x4F9D;&#x8D56;</span>
+$ <span class="token function">npm</span> <span class="token function">install</span>
+<span class="token comment"># &#x8FD0;&#x884C; App</span>
+$ <span class="token assign-left variable">DEBUG</span><span class="token operator">=</span>cdn-service:* <span class="token function">npm</span> start
+</code></pre>
+<p>express &#x811A;&#x624B;&#x67B6;&#x5DF2;&#x7ECF;&#x751F;&#x6210;&#x4E86;&#x9879;&#x76EE;&#x7ED3;&#x6784;&#x3002;&#x770B;&#x4E00;&#x4E0B;&#x7A0B;&#x5E8F;&#x5165;&#x53E3; <code>cdn-service/app.js</code></p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">var</span> createError <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;http-errors&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;express&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;path&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> cookieParser <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;cookie-parser&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> logger <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;morgan&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> indexRouter <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./routes/index&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> usersRouter <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./routes/users&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// view engine setup</span>
+app<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&apos;views&apos;</span><span class="token punctuation">,</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&apos;views&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&apos;view engine&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;jade&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">logger</span><span class="token punctuation">(</span><span class="token string">&apos;dev&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">urlencoded</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">extended</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">cookieParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">static</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&apos;public&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">,</span> indexRouter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;/users&apos;</span><span class="token punctuation">,</span> usersRouter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// catch 404 and forward to error handler</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">next</span><span class="token punctuation">(</span><span class="token function">createError</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// error handler</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// set locals, only providing error in development</span>
+  res<span class="token punctuation">.</span>locals<span class="token punctuation">.</span>message <span class="token operator">=</span> err<span class="token punctuation">.</span>message<span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span>locals<span class="token punctuation">.</span>error <span class="token operator">=</span> req<span class="token punctuation">.</span>app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&apos;env&apos;</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&apos;development&apos;</span> <span class="token operator">?</span> err <span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// render the error page</span>
+  res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>status <span class="token operator">||</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> app<span class="token punctuation">;</span>
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x8BED;&#x53E5;&#x914D;&#x7F6E;&#x4E86;&#x53EF;&#x4EE5;&#x516C;&#x5F00;&#x8BBF;&#x95EE;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x7684;&#x5B58;&#x50A8;&#x76EE;&#x5F55;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x5728;&#x8BE5;&#x76EE;&#x5F55;&#x4E0B;&#x5EFA;&#x5B50;&#x76EE;&#x5F55;&#x7528;&#x6765;&#x5B58;&#x653E;&#x9759;&#x6001;&#x8D44;&#x6E90;</p>
+<pre class="language-"><code class="lang-javascript">app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">static</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&apos;public&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x56E0;&#x4E3A;&#x53EA;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x8BBF;&#x95EE;&#xFF0C;&#x53EF;&#x4EE5;&#x5220;&#x9664;&#x6389;&#x4E0B;&#x9762;&#x51E0;&#x884C;&#x4EE3;&#x7801;</p>
+<pre class="language-"><code>var indexRouter = require(&apos;./routes/index&apos;);
+var usersRouter = require(&apos;./routes/users&apos;);
+
+app.use(&apos;/&apos;, indexRouter);
+app.use(&apos;/users&apos;, usersRouter);
+</code></pre><p>&#x6B64;&#x65F6;&#x9664;&#x4E86;&#x8BBF;&#x95EE;&#x5DF2;&#x4E0A;&#x4F20;&#x7684;&#x9759;&#x6001;&#x8D44;&#x6E90;&#x4E4B;&#x5916;&#xFF0C;&#x5176;&#x4ED6;&#x8DEF;&#x5F84;&#x90FD;&#x4F1A;&#x8FD4;&#x56DE; 404&#xFF0C;&#x5E76;&#x663E;&#x793A;&#x51FA;&#x9519;&#x9875;&#x9762;&#x3002;&#x7136;&#x540E;&#x4FEE;&#x6539;&#x4E0B;&#x51FA;&#x9519;&#x540E;&#x6E32;&#x67D3;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x5220;&#x9664;&#x6240;&#x6709;&#x5185;&#x5BB9;&#xFF0C;&#x53EA;&#x663E;&#x793A;&#x4E00;&#x5F20;&#x5927;&#x56FE;&#xFF0C;&#x663E;&#x793A;&#x66F4;&#x52A0;&#x53CB;&#x597D;&#x3002;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/static/404.svg" alt="404"></p>
+<p>&#x5EFA;&#x7ACB;&#x9759;&#x6001;&#x8D44;&#x6E90;&#x5B58;&#x653E;&#x76EE;&#x5F55;<code>ab</code></p>
+<pre class="language-"><code class="lang-bash">$ <span class="token builtin class-name">cd</span> cdn-service/public
+$ <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ab/static
+</code></pre>
+<p>Copy &#x4E00;&#x5F20;&#x6D4B;&#x8BD5;&#x56FE;&#x7247;&#x653E;&#x5230; <code>ab/static</code> &#x4E0B;&#xFF0C;&#x6211;&#x9009;&#x7684;&#x5C31;&#x662F;&#x4E0A;&#x9762;&#x663E;&#x793A;&#x7684;&#x90A3;&#x5F20; 404 &#x56FE; <code>404.svg</code></p>
+<p>&#x914D;&#x7F6E; cdn-service &#x670D;&#x52A1;&#x5F00;&#x673A;&#x81EA;&#x542F;&#x52A8;&#xFF0C;&#x8F93;&#x5165;&#x547D;&#x4EE4;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">crontab</span> <span class="token parameter variable">-e</span>
+</code></pre>
+<p>&#x7F16;&#x8F91;&#x52A0;&#x5165;&#x4E0B;&#x9762;&#x4E00;&#x884C;&#x914D;&#x7F6E;&#xFF0C;&#x5176;&#x4E2D; path &#x586B;&#x5165;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5B9E;&#x9645;&#x7684;&#x90E8;&#x7F72;&#x8DEF;&#x5F84;</p>
+<pre class="language-"><code class="lang-conf">@reboot cd ${path}/cdn-service; sudo npm start &gt; console.log 2&gt;<span class="token entity named-entity" title="&amp;1;">&amp;1;</span>
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x4E0B;&#x542F;&#x52A8;&#x7AEF;&#x53E3;&#xFF0C;&#x7F16;&#x8F91; <code>bin/www</code>&#xFF0C;&#x628A; 4000 &#x6539;&#x6210;&#x60F3;&#x8981;&#x7684;&#x7AEF;&#x53E3;</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">var</span> port <span class="token operator">=</span> <span class="token function">normalizePort</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">PORT</span> <span class="token operator">||</span> <span class="token string">&apos;4000&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x73B0;&#x5728;&#x6765;&#x6D4B;&#x8BD5;&#x4E0B;&#xFF0C;&#x624B;&#x52A8;&#x542F;&#x52A8; cdn-service &#x670D;&#x52A1;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">npm</span> start <span class="token operator">&gt;</span> console.log <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span>
+</code></pre>
+<p>&#x6253;&#x5F00;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x8DEF;&#x5F84;&#x90FD;&#x4F1A;&#x663E;&#x793A;&#x521A;&#x521A;&#x7684; 404 &#x56FE;&#x7247;&#x3002;&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6307;&#xFF0C;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5DF2;&#x7ECF;&#x642D;&#x5EFA;&#x597D;&#x4E86;&#x3002;&#x73B0;&#x5728;&#x53BB;&#x5230;&#x817E;&#x8BAF;&#x4E91; CDN &#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x53BB;&#x914D;&#x7F6E;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7AD9;&#x70B9;</p>
+<p><img src="https://cdn.huoyijie.cn/ab/ea33f3f07bc111ebb0c11fbcd78b590e/config-cdn-domain3.jpg" alt="&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;"></p>
+<p>&#x5982;&#x4E0A;&#x56FE;&#xFF0C;&#x56DE;&#x6E90;&#x534F;&#x8BAE;&#x9009;&#x62E9; HTTP&#xFF0C;&#x6E90;&#x7AD9;&#x5730;&#x5740;&#x586B;&#x5199; ip:port&#xFF0C;&#x5176;&#x4E2D; ip &#x662F;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;&#xFF0C;&#x7AEF;&#x53E3;&#x5C31;&#x662F;&#x521A;&#x521A;&#x914D;&#x7F6E;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#xFF0C;&#x73B0;&#x5728;&#x901A;&#x8FC7; cdn &#x52A0;&#x901F;&#x57DF;&#x540D;&#x8BBF;&#x95EE;&#x4E00;&#x4E0B;&#x521A;&#x521A;&#x7684; 404 &#x56FE;&#x7247;(<a href="https://cdn.huoyijie.cn/ab/static/404.svg" target="_blank">https://cdn.huoyijie.cn/ab/static/404.svg</a>) &#x8BD5;&#x8BD5;&#xFF0C;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8BBF;&#x95EE;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x7ECF;&#x8FC7;&#x521D;&#x6B21;&#x8BBF;&#x95EE;&#x9884;&#x70ED;&#x540E;&#xFF0C;CDN &#x683C;&#x8282;&#x70B9;&#x5DF2;&#x7ECF;&#x7F13;&#x5B58;&#x4E86;&#x8BE5;&#x56FE;&#x7247;&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x662F;&#x5982;&#x4F55;&#x5FEB;&#x901F;&#x65B9;&#x4FBF;&#x7684;&#x628A;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x5230;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x5462;&#xFF1F;&#x6211;&#x5199;&#x4E86;&#x4E00;&#x4E2A; nodejs &#x811A;&#x672C;&#xFF0C;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x7535;&#x8111;&#x4E0A;&#x9762;&#x7BA1;&#x7406;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#x7684;&#x8D44;&#x6E90;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ ./scripts/cdnclient.js 
+Usage: <span class="token function">node</span> cdnclient <span class="token punctuation">[</span>--cmd<span class="token operator">=</span>nEW,pUBLISH,delete,hELP<span class="token punctuation">]</span> <span class="token punctuation">[</span>--id or <span class="token parameter variable">--articleId</span><span class="token operator">=</span>article uuid<span class="token punctuation">]</span> <span class="token punctuation">[</span>--fILE<span class="token operator">=</span>file<span class="token punctuation">]</span> <span class="token punctuation">[</span>--isdir<span class="token operator">=</span>false<span class="token punctuation">]</span>
+</code></pre>
+<p>cdnclient&#x4E3B;&#x8981;&#x6709;&#x5982;&#x4E0B;&#x547D;&#x4EE4;:</p>
+<p>1.&#x521B;&#x5EFA;&#x65B0;&#x76EE;&#x5F55;</p>
+<pre class="language-"><code class="lang-bash">./scripts/cdnclient.js <span class="token parameter variable">--cmd</span><span class="token operator">=</span>new <span class="token parameter variable">--id</span><span class="token operator">=</span><span class="token variable">${dir.name}</span>
+</code></pre>
+<p><code>--cmd=</code>new &#x4EE3;&#x8868;&#x521B;&#x5EFA;&#x547D;&#x4EE4;&#xFF0C;<code>--id=</code>${dir.name} &#x4F20;&#x5165;&#x76EE;&#x5F55;&#x540D;&#xFF0C;&#x521B;&#x5EFA;&#x597D;&#x76EE;&#x5F55;&#x540E;&#xFF0C;&#x540E;&#x7EED;&#x53EF;&#x4EE5;&#x5728;&#x8BE5;&#x76EE;&#x5F55;&#x4E0B;&#x4E0A;&#x4F20;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x3002;&#x6211;&#x4E00;&#x822C;&#x4F1A;&#x4F20;&#x5165; articleId(uuid) &#x4F5C;&#x4E3A;&#x76EE;&#x5F55;&#x540D;</p>
+<p>2.&#x4E0A;&#x4F20;&#x6587;&#x4EF6;</p>
+<pre class="language-"><code class="lang-bash">./scripts/cdnclient.js  <span class="token parameter variable">--cmd</span><span class="token operator">=</span>publish <span class="token parameter variable">--id</span><span class="token operator">=</span>fa1b6d507d7111eb9aeae3d030369a53 <span class="token parameter variable">--file</span><span class="token operator">=~</span>/cdnservice-cover.jpg
+</code></pre>
+<p><code>--cmd=</code>publish &#x4EE3;&#x8868;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x547D;&#x4EE4;&#xFF0C;<code>--id=</code>fa1b6d507d7111eb9aeae3d030369a53 &#x662F;&#x4E0A;&#x4F20;&#x7684;&#x76EE;&#x6807;&#x76EE;&#x5F55;&#xFF0C;<code>--file=</code>~/cdnservice-cover.jpg &#x662F;&#x8981;&#x4E0A;&#x4F20;&#x7684;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x540C;&#x6B65;&#x5230;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x6307;&#x5B9A;&#x76EE;&#x5F55;&#x4E0B;&#x3002;</p>
+<p>3.&#x5220;&#x9664;&#x6587;&#x4EF6;</p>
+<pre class="language-"><code class="lang-bash">./scripts/cdnclient.js  <span class="token parameter variable">--cmd</span><span class="token operator">=</span>delete <span class="token parameter variable">--id</span><span class="token operator">=</span>fa1b6d507d7111eb9aeae3d030369a53 <span class="token parameter variable">--file</span><span class="token operator">=</span>cdnservice-cover.jpg
+</code></pre>
+<p><code>--cmd=</code>delete &#x4EE3;&#x8868;&#x5220;&#x9664;&#x547D;&#x4EE4;&#xFF0C;&#x5220;&#x9664;<code>--id=</code>fa1b6d507d7111eb9aeae3d030369a53 &#x76EE;&#x5F55;&#x4E0B;&#x7684;<code>--file=</code>cdnservice-cover.jpg &#x6587;&#x4EF6;</p>
+<p>4.&#x5220;&#x9664;&#x76EE;&#x5F55;</p>
+<pre class="language-"><code class="lang-bash">./scripts/cdnclient.js  <span class="token parameter variable">--cmd</span><span class="token operator">=</span>delete <span class="token parameter variable">--id</span><span class="token operator">=</span>fa1b6d507d7111eb9aeae3d030369a53 <span class="token parameter variable">--isdir</span><span class="token operator">=</span>true
+</code></pre>
+<p><code>--cmd=</code>delete &#x4EE3;&#x8868;&#x5220;&#x9664;&#x547D;&#x4EE4;&#xFF0C;<code>--isdir=</code>true &#x8868;&#x793A;&#x8981;&#x5220;&#x9664;<code>--id=</code>fa1b6d507d7111eb9aeae3d030369a53 &#x7684;&#x76EE;&#x5F55;</p>
+<p>5.help &#x4FE1;&#x606F;</p>
+<pre class="language-"><code class="lang-bash">./scripts/cdnclient.js  <span class="token parameter variable">--cmd</span><span class="token operator">=</span>help
+</code></pre>
+<p>cdnclient &#x811A;&#x672C;&#x5E95;&#x5C42;&#x662F;&#x57FA;&#x4E8E; ssh &#x547D;&#x4EE4;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5; ssh &#x8FDE;&#x63A5;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x3002;Ubuntu &#x7CFB;&#x7EDF;&#x7684; ssh &#x5BC6;&#x94A5;&#x4FE1;&#x606F;&#x4E00;&#x822C;&#x5B58;&#x50A8;&#x5728; <code>~/.ssh</code> &#x76EE;&#x5F55;&#x4E0B;&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">ls</span> ~/.ssh/
+authorized_keys  id_rsa.pub
+id_rsa           known_hosts
+</code></pre>
+<p>&#x5176;&#x4E2D; <code>id_rsa</code> &#x662F;&#x5F53;&#x524D;&#x4E3B;&#x673A;&#x7684;&#x79C1;&#x94A5;&#x6587;&#x4EF6;&#xFF0C;&#x7EDD;&#x5BF9;&#x4E0D;&#x80FD;&#x901A;&#x8FC7;&#x4EFB;&#x4F55;&#x9014;&#x5F84;&#x4F20;&#x7ED9;&#x4EFB;&#x4F55;&#x4EBA;&#xFF0C;&#x8FD9;&#x4E2A;&#x8981;&#x4FDD;&#x7BA1;&#x597D;&#x3002;<code>id_rsa.pub</code> &#x662F;&#x5F53;&#x524D;&#x4E3B;&#x673A;&#x7684;&#x516C;&#x94A5;&#x6587;&#x4EF6;&#x3002;<code>authorized_keys</code>&#x662F;&#x6388;&#x6743;&#x6587;&#x4EF6;&#xFF0C;&#x53EF;&#x914D;&#x7F6E;&#x8C01;&#x80FD;&#x901A;&#x8FC7;&#x516C;&#x94A5;&#x514D;&#x5BC6;&#x7801;&#x767B;&#x5F55;&#x5F53;&#x524D;&#x4E3B;&#x673A;&#xFF0C;&#x662F;&#x5F71;&#x54CD;&#x4E3B;&#x673A;&#x5B89;&#x5168;&#x7684;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x6211;&#x628A;&#x81EA;&#x5DF1;&#x7535;&#x8111;&#x7684;&#x516C;&#x94A5; <code>id_rsa.pub</code> &#x52A0;&#x5165;&#x5230;&#x4E86;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7684;&#x6388;&#x6743;&#x6587;&#x4EF6; <code>authorized_keys</code>&#x4E2D;&#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x7684;&#x7535;&#x8111;&#x5C31;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x4E0A;&#x9762;&#x7684;&#x811A;&#x672C;&#x4E86;&#x3002;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x9700;&#x8981;&#x5148;&#x5B89;&#x88C5; shelljs npm &#x5305;&#x3002;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">npm</span> i shelljs <span class="token parameter variable">--save</span>
+</code></pre>
+<p>&#x6700;&#x540E;&#x9644;&#x4E0A; cdnclient.js &#x811A;&#x672C;</p>
+<pre class="language-"><code class="lang-javascript"><span class="token hashbang comment">#!/usr/bin/env node</span>
+
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;fs&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> shell <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;shelljs&apos;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// &#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;</span>
+<span class="token keyword">const</span> args <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;minimist&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> cmd <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;cmd&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">&apos;help&apos;</span>
+
+<span class="token keyword">const</span> cdnDir <span class="token operator">=</span> <span class="token string">&apos;${work.dir}/cdn-service/public&apos;</span>
+<span class="token keyword">const</span> abCdnDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/ab</span><span class="token template-punctuation string">`</span></span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>cmd <span class="token operator">===</span> <span class="token string">&apos;n&apos;</span> <span class="token operator">||</span> cmd <span class="token operator">===</span> <span class="token string">&apos;new&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> nHelpTxt <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">--cmd=nEW --id=articleId</span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">const</span> articleId <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;id&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token string">&apos;articleId&apos;</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>articleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">lack of articleId param with cmd -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>nHelpTxt<span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> articleCdnDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>abCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>shell<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">ssh -o ServerAliveInterval=60 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>user<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">@</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x57DF;&#x540D;&#x6216;ip<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> &apos;mkdir </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&apos;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">new article cdn dir succeed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">error: mkdir article cdn dir failed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>cmd <span class="token operator">===</span> <span class="token string">&apos;p&apos;</span> <span class="token operator">||</span> cmd <span class="token operator">===</span> <span class="token string">&apos;publish&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> pHelpTxt <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">--cmd=pUBLISH --id=articleId --fILE=files</span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">const</span> articleId <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;id&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token string">&apos;articleId&apos;</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>articleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">lack of articleId param with cmd -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>pHelpTxt<span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> files <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;f&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token string">&apos;file&apos;</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>files<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">lack of file param with cmd -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>pHelpTxt<span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> articleCdnDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>abCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>shell<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">scp </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>files<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>user<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">@</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x57DF;&#x540D;&#x6216;ip<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">publish files to cdn succeed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and file -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>files<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">error: publish file to cdn failed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and file -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>files<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>cmd <span class="token operator">===</span> <span class="token string">&apos;delete&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> delHelpTxt <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">--cmd=delete --id=articleId --isdir=false --fILE=files</span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">const</span> articleId <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;id&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token string">&apos;articleId&apos;</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>articleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">lack of articleId param with cmd -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>delHelpTxt<span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> isDir <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;isdir&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">&apos;false&apos;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isDir <span class="token operator">===</span> <span class="token string">&apos;true&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> articleCdnDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>abCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>shell<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">ssh -o ServerAliveInterval=60 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>user<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">@</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x57DF;&#x540D;&#x6216;ip<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> &apos;rm -rf </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&apos;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">delete dir from cdn succeed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+            process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">error: delete dir from cdn failed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+            process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> files <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token string">&apos;f&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token string">&apos;file&apos;</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>files<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">lack of file param with cmd -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>delHelpTxt<span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> articleCdnDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>abCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>shell<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">ssh -o ServerAliveInterval=60 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>user<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">@</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x57DF;&#x540D;&#x6216;ip<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> &apos;rm </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleCdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>files<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&apos;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">delete files from cdn succeed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and file -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>files<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">error: delete file from cdn failed with id -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>articleId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and file -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>files<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+        process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> helpTxt <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Usage: node cdnclient [--cmd=nEW,pUBLISH,delete,hELP] [--id or --articleId=article uuid] [--fILE=file] [--isdir=false]</span><span class="token template-punctuation string">`</span></span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>cmd <span class="token operator">===</span> <span class="token string">&apos;h&apos;</span> <span class="token operator">||</span> cmd <span class="token operator">===</span> <span class="token string">&apos;help&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>helpTxt<span class="token punctuation">)</span>
+  process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">unknown cmd -&gt; </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cmd<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>helpTxt<span class="token punctuation">)</span>
+
+process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x6CE8;&#x610F;&#x5176;&#x4E2D;&#x6709;&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x9700;&#x8981;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x8FDB;&#x884C;&#x914D;&#x7F6E;</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> cdnDir <span class="token operator">=</span> <span class="token string">&apos;${work.dir}/cdn-service/public&apos;</span>
+<span class="token keyword">const</span> abCdnDir <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cdnDir<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/ab</span><span class="token template-punctuation string">`</span></span>
+</code></pre>
+<p><code>${work.dir}</code> &#x662F;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6E90;&#x7AD9;&#x670D;&#x52A1;&#x5668;&#x4E2D;&#xFF0C;cd-service &#x7684;&#x90E8;&#x7F72;&#x76EE;&#x5F55;&#xFF0C;<code>/ab</code> &#x76EE;&#x5F55;&#x662F;&#x4E3A;&#x535A;&#x5BA2;&#x9879;&#x76EE;&#x5206;&#x914D;&#x7684;&#x4E00;&#x4E2A;&#x9876;&#x5C42;&#x4E0A;&#x7EA7;&#x76EE;&#x5F55;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x8BBE;&#x7F6E;&#x7684;&#x3002;<code>${user.name}@${&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x57DF;&#x540D;&#x6216;ip}</code> &#x662F;&#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7528;&#x6237;&#x540D;&#x548C; ip/&#x57DF;&#x540D;&#x3002;</p>
+<p>&#x65B0;&#x5EFA;&#x6587;&#x7AE0;&#x524D;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x4F20;&#x5165; articleId &#x5E76;&#x901A;&#x8FC7; cdnclient &#x547D;&#x4EE4;&#x521B;&#x5EFA;&#x6587;&#x7AE0;&#x8D44;&#x6E90;&#x76EE;&#x5F55;&#xFF0C;&#x9047;&#x5230;&#x9700;&#x8981;&#x5F15;&#x7528;&#x8D44;&#x6E90;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; cdnclient &#x547D;&#x4EE4;&#x628A;&#x76F8;&#x5173;&#x8D44;&#x6E90;&#x4E0A;&#x4F20;&#x81F3;&#x6E90;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x62FF;&#x5230;&#x52A0;&#x901F;&#x57DF;&#x540D; (cdn.huoyijie.cn) &#x53EF;&#x4EE5;&#x5F15;&#x7528;&#x5230;&#x7684; url &#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x6587;&#x7AE0;&#x4E2D;&#x5F15;&#x7528;&#x8FD9;&#x4E2A; url &#x5373;&#x53EF;&#x3002;</p>
+<p>OK&#xFF0C;&#x5173;&#x4E8E;&#x642D;&#x5EFA; CDN &#x56DE;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7684;&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x5C31;&#x4ECB;&#x7ECD;&#x5B8C;&#x4E86;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"快速搭建CDN回源服务器","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"huoyijie","name":"cdn-service","coverImg":"https://cdn.huoyijie.cn/ab/fa1b6d507d7111eb9aeae3d030369a53/cdnservice-cover.jpg","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"快速搭建CDN回源服务器","language":"zh-hans","links":{"sidebar":{"首页":"https://huoyijie.cn/?from=article_cdnservice"}},"id":"fa1b6d507d7111eb9aeae3d030369a53","gitbook":"*","description":"快速搭建CDN回源服务器","introduce":"本文接上篇《网站图片视频接入CDN》，上篇文章介绍了如何把图片接入CDN，里面提到了需要搭建自有的回源服务器。本文将会介绍如何快速搭建一个简单的回源服务器。我的服务器是 Ubuntu 系统，后面的操作都是基于 Ubuntu..."},"file":{"path":"README.md","mtime":"2023-02-21T10:20:49.375Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T10:21:03.684Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+
