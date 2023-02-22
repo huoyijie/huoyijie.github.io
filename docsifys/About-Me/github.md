@@ -1,4 +1,4 @@
-# Open source repositories on Github
+# Repositories on Github
 
 ## Python
 - [AdvancedEAST](https://github.com/huoyijie/AdvancedEAST) (1.2k stars)
