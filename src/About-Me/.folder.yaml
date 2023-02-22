@@ -1,0 +1,7 @@
+keynote: []
+docsify:
+  - 'profile.md'
+  - 'github.md'
+  - 'resume.md'
+gitbook: []
+ignore: []
