@@ -7,8 +7,14 @@
     "-fontsettings",
     "-highlight",
     "prism",
-    "code"
+    "code",
+    "ga4"
   ],
+  "pluginsConfig": {
+    "ga4": {
+      "tag": "G-YDPDFF8XQP"
+    }
+  },
   "links": {
     "sidebar": {
       "huoyijie.cn": "https://huoyijie.cn"
