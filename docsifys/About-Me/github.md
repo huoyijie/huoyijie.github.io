@@ -22,7 +22,7 @@
 About [UDPack 2.0](https://huoyijie.cn/article/399d47e0717311ed8812b9a35e7c2efa/)
 
 ## Others
-- [my blogs](https://github.com/huoyijie/huoyijie.github.io)
+- [website - https://huoyijie.cn](https://github.com/huoyijie/huoyijie.github.io)
 - [my profile](https://github.com/huoyijie/huoyijie)
 - [my resume](https://github.com/huoyijie/resume)
 - [this repository](https://github.com/huoyijie/awesome)

@@ -13,6 +13,7 @@ beianlink: 'https://beian.miit.gov.cn/'
 staticpath:
   - 'article'
   - 'blog'
+  - 'about-me'
 # `staticfile` is a server mode parameter, please restart server after modification.
 staticfile:
   - 'rss'
