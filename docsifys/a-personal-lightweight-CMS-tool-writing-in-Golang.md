@@ -11,7 +11,7 @@
 
 ## Prerequisites
 
-* Go 1.20 及以上
+* Go 1.20+
 
 * Gitbook
 
