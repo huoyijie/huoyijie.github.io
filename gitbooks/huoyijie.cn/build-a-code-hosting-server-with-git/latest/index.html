@@ -167,7 +167,7 @@ total <span class="token number">4</span>
 -rw------- <span class="token number">1</span> <span class="token function">git</span> <span class="token function">git</span> <span class="token number">747</span> Mar <span class="token number">22</span> <span class="token number">15</span>:32 authorized_keys
 </code></pre>
 <p>&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x5728;&#x5C1D;&#x8BD5;&#x628A; <code>/home/git</code> &#x6743;&#x9650;&#x4ECE; <code>755</code> &#x8C03;&#x6574;&#x4E3A; <code>775</code>&#xFF0C;&#x514B;&#x9686;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;&#x65F6;&#xFF0C;git &#x7528;&#x6237;&#x4F1A;&#x9047;&#x5230;&#x4E0B;&#x9762;&#x7684;&#x9519;&#x8BEF;&#xFF08;&#x5176;&#x4ED6;&#x914D;&#x7F6E;&#x6B63;&#x5E38;&#xFF09;</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> clone git@huoyijie.cn:/home/git/newproject.git
+<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> clone git@huoyijie.cn:newproject.git
 &#x6B63;&#x514B;&#x9686;&#x5230; <span class="token string">&apos;newproject&apos;</span><span class="token punctuation">..</span>.
 Permission denied <span class="token punctuation">(</span>publickey<span class="token punctuation">)</span>.
 fatal: &#x65E0;&#x6CD5;&#x8BFB;&#x53D6;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;&#x3002;
@@ -242,7 +242,7 @@ $ <span class="token function">git</span> clone <span class="token parameter var
 <span class="token function">sudo</span> <span class="token function">chmod</span> <span class="token number">755</span> /home/git/revealjs.git
 </code></pre>
 <p>&#x7136;&#x540E;&#x53EF;&#x4EE5;&#x4ECE;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668; clone &#x8FD9;&#x4E2A;&#x4ED3;&#x5E93;&#x4E86;&#xFF0C;&#x5C31;&#x50CF;&#x4ECE; Github &#x4E0A;&#x9762;&#x514B;&#x9686;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> clone git@huoyijie.cn:/home/git/revealjs.git
+<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> clone git@huoyijie.cn:revealjs.git
 &#x6B63;&#x514B;&#x9686;&#x5230; <span class="token string">&apos;revealjs&apos;</span><span class="token punctuation">..</span>.
 remote: Counting objects: <span class="token number">165</span>, done.
 remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">159</span>/159<span class="token punctuation">)</span>, done.
@@ -265,10 +265,11 @@ Initialized empty Git repository <span class="token keyword">in</span> /home/git
 <pre class="language-"><code class="lang-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> <span class="token parameter variable">-e</span>
 </code></pre>
 <p>&#x6B64;&#x65F6;&#x53EF;&#x4EE5;&#x514B;&#x9686;&#x4ED3;&#x5E93;&#x4E86;&#xFF0C;&#x4E0D;&#x8FC7;&#x73B0;&#x5728;&#x8FD8;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x4ED3;&#x5E93;</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> clone git@huoyijie.cn:/home/git/newproject.git
+<pre class="language-"><code class="lang-bash">$ <span class="token function">git</span> clone git@huoyijie.cn:newproject.git
 &#x6B63;&#x514B;&#x9686;&#x5230; <span class="token string">&apos;newproject&apos;</span><span class="token punctuation">..</span>.
 warning: &#x60A8;&#x4F3C;&#x4E4E;&#x514B;&#x9686;&#x4E86;&#x4E00;&#x4E2A;&#x7A7A;&#x4ED3;&#x5E93;&#x3002;
 </code></pre>
+<p>&#x6CE8;: &#x514B;&#x9686;&#x4EE3;&#x7801;&#x5E93;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x76F8;&#x5BF9; <code>/home/git</code> &#x7684;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84; <code>git clone git@huoyijie.cn:newproject.git</code>&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84; <code>git clone git@huoyijie.cn:/home/git/newproject.git</code>&#x3002;</p>
 <p>&#x5982;&#x679C;&#x672C;&#x5730;&#x5DF2;&#x6709;&#x9879;&#x76EE;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BA9;&#x672C;&#x5730;&#x76EE;&#x5F55;&#x5173;&#x8054;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;</p>
 <pre class="language-"><code class="lang-bash">$ tree <span class="token parameter variable">-L</span> <span class="token number">2</span> project
 project
@@ -309,7 +310,7 @@ To huoyijie.cn:/home/git/newproject.git
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"基于 Git 搭建代码托管服务器","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code","ga4"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"ga4":{"anonymize_ip":false,"tag":"G-YDPDFF8XQP"},"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-21T11:25:42.460Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-23T08:02:22.189Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"基于 Git 搭建代码托管服务器","level":"1.1","depth":1,"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","-fontsettings","-highlight","prism","code","ga4"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"ga4":{"anonymize_ip":false,"tag":"G-YDPDFF8XQP"},"prism":{},"code":{"copyButtons":true},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","links":{"sidebar":{"huoyijie.cn":"https://huoyijie.cn"}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2023-02-27T04:19:08.326Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-27T04:21:59.409Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

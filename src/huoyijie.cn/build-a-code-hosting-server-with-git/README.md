@@ -41,7 +41,7 @@ total 4
 例如，我在尝试把 `/home/git` 权限从 `755` 调整为 `775`，克隆远程仓库时，git 用户会遇到下面的错误（其他配置正常）
 
 ```bash
-$ git clone git@huoyijie.cn:/home/git/newproject.git
+$ git clone git@huoyijie.cn:newproject.git
 正克隆到 'newproject'...
 Permission denied (publickey).
 fatal: 无法读取远程仓库。
@@ -160,7 +160,7 @@ sudo chmod 755 /home/git/revealjs.git
 然后可以从远程服务器 clone 这个仓库了，就像从 Github 上面克隆一样的。
 
 ```bash
-$ git clone git@huoyijie.cn:/home/git/revealjs.git
+$ git clone git@huoyijie.cn:revealjs.git
 正克隆到 'revealjs'...
 remote: Counting objects: 165, done.
 remote: Compressing objects: 100% (159/159), done.
@@ -197,10 +197,12 @@ git config --global -e
 此时可以克隆仓库了，不过现在还是一个空仓库
 
 ```bash
-$ git clone git@huoyijie.cn:/home/git/newproject.git
+$ git clone git@huoyijie.cn:newproject.git
 正克隆到 'newproject'...
 warning: 您似乎克隆了一个空仓库。
 ```
+
+注: 克隆代码库时，可以使用相对 `/home/git` 的相对路径 `git clone git@huoyijie.cn:newproject.git`，也可以使用绝对路径 `git clone git@huoyijie.cn:/home/git/newproject.git`。
 
 如果本地已有项目，也可以直接让本地目录关联到远程仓库
 
