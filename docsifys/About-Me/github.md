@@ -8,6 +8,7 @@
 - [EFS](https://huoyijie.cn/efs/) (not yet open source)
 - [GoChat](https://github.com/huoyijie/GoChat)
 - [keynote](https://github.com/huoyijie/keynote)
+- [gitcode](https://github.com/huoyijie/gitcode)
 
 ## Node
 - [YijieGo](https://huoyijie.cn/article/98e27e7051ba11ecb154451bde618cf8/) (not yet open source)
