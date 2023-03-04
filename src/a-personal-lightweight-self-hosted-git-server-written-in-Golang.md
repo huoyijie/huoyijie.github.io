@@ -111,15 +111,19 @@ You can take a look at examples directory.
 
 * RBAC model
 ```conf
-[request_definition]
+\[request_definition\]
 r = sub, obj, act
-[policy_definition]
+
+\[policy_definition\]
 p = sub, obj, act
-[role_definition]
+
+\[role_definition\]
 g = _, _
-[policy_effect]
+
+\[policy_effect\]
 e = some(where (p.eft == allow))
-[matchers]
+
+\[matchers\]
 m = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act
 ```
 
