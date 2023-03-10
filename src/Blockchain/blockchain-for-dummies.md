@@ -3,3 +3,5 @@
 [Blockchain For Dummies](https://cdn.huoyijie.cn/keynotes/blockchain/Blockchain-for-Dummies.pdf)
 
 [Ethereum Whitepaper Buterin 2014](https://cdn.huoyijie.cn/keynotes/blockchain/Ethereum-Whitepaper-Buterin-2014.pdf)
+
+[Ethereum Yellowpaper](https://cdn.huoyijie.cn/keynotes/blockchain/ethereum_yellow_paper_cn.pdf)
