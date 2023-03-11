@@ -1,10 +1,10 @@
-# 从零开始制作树莓派小车
-
-<link href="https://cdn.huoyijie.cn/npm/video.js/dist/video-js.min.css" rel="stylesheet" />
-<script src="https://cdn.huoyijie.cn/npm/video.js/dist/video.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video-js.min.css">
+<script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
 <script>
     window.HELP_IMPROVE_VIDEOJS = false
 </script>
+
+# 从零开始制作树莓派小车
 
 制作一个遥控小车是 2020 下半年时产生的一个想法，当时偶然接触到树莓派，感觉瞬间进入一个新世界。看着各种各样基于树莓派创建的有趣的项目层出不穷，手有点痒痒。我虽然学的是计算机专业，但对硬件、芯片等不太在行，决定还是从相对简单的遥控车项目上手。
 

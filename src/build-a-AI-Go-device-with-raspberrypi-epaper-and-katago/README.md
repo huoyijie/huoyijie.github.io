@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video-js.min.css">
+<script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
+<script>
+    window.HELP_IMPROVE_VIDEOJS = false
+</script>
+
 # 弈杰围棋智能终端
 
 弈杰围棋智能终端 (`YijieGo`) 是我和儿子一起设计开发的基于人工智能的围棋对弈终端。最早接触围棋也是因为儿子报了围棋兴趣课，他经常和我提到想和电脑下棋，而市面上的人机对弈软件要么是非 `AI` 很弱的，要么是 `AI` 付费的。我也不想让他总看着电脑或者平板甚至是手机下棋，再加上各种基于 `AI` 围棋程序大行其道，我们就想一起制作一个基于人工智能的围棋终端设备。我们的分工很简单，他作为用户提需求、测试和体验，我来写程序。
