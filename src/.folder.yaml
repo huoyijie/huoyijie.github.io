@@ -2,6 +2,7 @@ keynote: []
 docsify:
   - 'a-personal-lightweight-CMS-tool-writing-in-Golang.md'
   - 'a-personal-lightweight-self-hosted-git-server-written-in-Golang.md'
+  - 'writing-a-CDN-origin-server-with-Django.md'
 gitbook:
   - 'build-a-AI-Go-device-with-raspberrypi-epaper-and-katago'
   - 'writing-a-cloud-encrypting-file-system-with-golang-and-FUSE'

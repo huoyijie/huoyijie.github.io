@@ -2,7 +2,8 @@
 
 ## Python
 - [AdvancedEAST](https://github.com/huoyijie/AdvancedEAST) (1.2k stars)
-- [raspberrypi-car](https://github.com/huoyijie/raspberrypi-car) 
+- [raspberrypi-car](https://github.com/huoyijie/raspberrypi-car)
+- [CDN Origin Server](https://github.com/huoyijie/originsrv)
 
 ## Go
 - [EFS](https://huoyijie.cn/efs/) (not yet open source)
