@@ -4,6 +4,7 @@ docsify:
   - 'introduce-the-post-processing.md'
   - 'introduce-the-text-detect-method.md'
 gitbook: []
-ignore:
+ignore: []
+copy:
   - 'demo'
   - 'image'
