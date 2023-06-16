@@ -1,118 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset>
     <url>
-        <loc>https://www.huoyijie.cn/</loc>
+        <loc>https://huoyijie.cn</loc>
+        <changefreq>always</changefreq>
+        <lastmod>2023-06-16 17:27:36.031899792 +0800 CST m=+0.077037982</lastmod>
+        <priority>1</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</loc>
         <changefreq>daily</changefreq>
-        <priority>1</priority>
+        <lastmod>2023-02-22 12:12:35.664841003 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;63abece07abe11edabe8959dec69346b&#x2F;</loc>
-        <lastmod>Wed Dec 14 2022 12:00:53 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/keynotes/Coding-Exercises/analyze-referer-of-express-website</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-22 11:52:10.3527263 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;1b11c0d06ef311eda78619d87c80c179&#x2F;</loc>
-        <lastmod>Mon Nov 28 2022 17:00:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/keynotes/Coding-Exercises/fix-split-of-undefined-with-gitbook-theme</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-22 11:22:47.654409316 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;98e27e7051ba11ecb154451bde618cf8&#x2F;</loc>
-        <lastmod>Sat Jul 23 2022 20:00:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/writing-a-CDN-origin-server-with-Django</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-03-12 17:46:47.397302151 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;399d47e0717311ed8812b9a35e7c2efa&#x2F;</loc>
-        <lastmod>Thu Apr 21 2022 21:00:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/a-personal-lightweight-self-hosted-git-server-written-in-Golang</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-03-04 13:21:04.510307807 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;66505700774611ec879e8d76a45d5319&#x2F;</loc>
-        <lastmod>Sun Jan 16 2022 17:00:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/a-personal-lightweight-CMS-tool-writing-in-Golang</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 19:19:26.66415992 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;cbe654a050e711ecadb78975e8b95c91&#x2F;</loc>
-        <lastmod>Mon Nov 29 2021 20:00:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/About-Me/github</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-03-12 17:44:44.275583179 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;3984d720c37111eb98f0a7f5c35b8879&#x2F;</loc>
-        <lastmod>Mon Jun 07 2021 21:00:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/About-Me/resume</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 18:00:35.508908094 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;a2e12610a0f811ebafc9c93cfc0a76ae&#x2F;</loc>
-        <lastmod>Tue Apr 20 2021 11:46:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/About-Me/profile</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 17:59:29.694831453 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;3d797440975b11ebb724674d4ec06242&#x2F;</loc>
-        <lastmod>Wed Apr 07 2021 18:22:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/AdvancedEAST/introduce-the-text-detect-method</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-22 11:02:04.26735621 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;8d0ea2a096ac11ebb01993da8b404bf5&#x2F;</loc>
-        <lastmod>Tue Apr 06 2021 22:04:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/AdvancedEAST/introduce-the-post-processing</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-22 10:56:57.160113074 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;43d8648090fe11ebafa22393c04133cd&#x2F;</loc>
-        <lastmod>Tue Mar 30 2021 13:04:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/AdvancedEAST/an-algorithm-used-for-image-text-detect</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-22 10:49:32.273937072 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;241b8de08d1411eb8331f5c38943e894&#x2F;</loc>
-        <lastmod>Thu Mar 25 2021 13:23:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/docsifys/Blockchain/blockchain-for-dummies</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-03-10 13:03:45.897489443 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;c0a4a7508bc011eb952e418fdf675f27&#x2F;</loc>
-        <lastmod>Tue Mar 23 2021 19:03:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/writing-a-cloud-encrypting-file-system-with-golang-and-FUSE/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-06-16 10:04:44.645696411 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;7d4e75e08ac011ebaa2ab110efea0133&#x2F;</loc>
-        <lastmod>Mon Mar 22 2021 17:03:30 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/build-a-AI-Go-device-with-raspberrypi-epaper-and-katago/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-03-11 15:13:01.670680744 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;84f0486086be11ebaf1339e97396ca47&#x2F;</loc>
-        <lastmod>Wed Mar 17 2021 12:43:11 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/writing-a-chat-program-with-golang-and-protobuf/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:10:55.456899948 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;ad271380823c11ebb2910fd63136fd48&#x2F;</loc>
-        <lastmod>Fri Mar 12 2021 11:33:56 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/Coding-Exercises/turn-your-phone-into-a-touchpad-with-hammerjs-and-robotjs/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:00:54.651886192 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;769dba20801c11eb983f31fd884051bb&#x2F;</loc>
-        <lastmod>Tue Mar 09 2021 14:22:24 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/Coding-Exercises/build-a-simple-socks5-proxy-server-with-nodejs/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:00:21.24556713 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;fa1b6d507d7111eb9aeae3d030369a53&#x2F;</loc>
-        <lastmod>Fri Mar 05 2021 11:17:35 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/Coding-Exercises/access-http-server-on-your-computer-from-internet/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 15:59:38.138410159 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;ea33f3f07bc111ebb0c11fbcd78b590e&#x2F;</loc>
-        <lastmod>Thu Mar 04 2021 05:47:10 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/RaspberryPi/build-a-car-from-scratch-with-raspberrypi/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-03-11 15:12:25.906035592 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;article&#x2F;3b8281b1e8aa6a1d8bc6718a4256b141&#x2F;</loc>
-        <lastmod>Thu Mar 04 2021 05:46:02 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/RaspberryPi/some-of-my-raspberrypi-experiences/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:08:25.695298829 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;blog&#x2F;82c8e470-7562-11ea-98d3-6d733527e90f&#x2F;play</loc>
-        <lastmod>Thu Mar 04 2021 09:30:52 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/RaspberryPi/control-the-raspberrypi-car-by-voice/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:07:59.426234142 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
     <url>
-        <loc>https:&#x2F;&#x2F;www.huoyijie.cn&#x2F;blog&#x2F;9a37ea00-755f-11ea-98d3-6d733527e90f&#x2F;play</loc>
-        <lastmod>Thu Mar 04 2021 09:30:09 GMT+0800 (China Standard Time)</lastmod>
-        <priority>1</priority>
+        <loc>https://huoyijie.cn/gitbooks/RaspberryPi/control-the-raspberrypi-car-by-ble/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:07:30.001008312 +0800 CST</lastmod>
+        <priority>1.0</priority>
     </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/UDPack-Specs/udpack-v2.0-implements-with-rust/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:10:22.451727923 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/UDPack-Specs/udpack-is-a-safe-and-reliable-transmission-protocol-on-top-of-udp/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:09:59.970910671 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/Ubuntu/upgrade-to-ubuntu-20.04/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:09:22.561514531 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/build-a-code-hosting-server-with-git/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-27 12:22:06.892018228 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/website-support-http2/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:05:09.686612965 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/implement-a-simple-reverse-proxy-server-with-nodejs/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:04:46.289446256 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/host-static-resources-of-website-with-tencent-CDN/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:04:08.071470341 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/build-ebook-with-gitbook-and-git/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:03:41.04201719 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/build-a-simple-mail-server/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:02:49.675118383 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/gitbooks/huoyijie.cn/build-a-CDN-back-to-source-server-with-nodejs/latest</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-02-23 16:01:50.847556915 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
 </urlset>
