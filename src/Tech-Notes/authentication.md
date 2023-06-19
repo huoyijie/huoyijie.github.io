@@ -80,7 +80,7 @@ func main() {
 
 本实例采用 web 框架 Gin，运行 `go mod tity` 自动下载安装依赖
 ```bash
-go mod tidy
+$ go mod tidy
 ```
 
 执行 main.go，并通过浏览器访问 `http://localhost:8080`，浏览器会输出 `Hello, world!`。
@@ -257,10 +257,17 @@ func ParseToken(token string) (username string, expired bool, err error) {
 }
 ```
 
-编辑 main.go 文件，增加登录方法
+编辑 main.go 文件，增加登录相关代码
 
 ```go
 // main.go
+
+// 登录表单
+type SigninForm struct {
+	Username string `json:"username" binding:"required,alphanum,max=40"`
+	Password string `json:"password" binding:"required,min=8,max=40"`
+}
+
 func main() {
   // ...
   r.POST("signin", func(c *gin.Context) {
@@ -296,12 +303,14 @@ func main() {
 }
 ```
 
-运行服务器
+最后让我们来测试一下，先运行服务器:
 
 ```bash
 $ cd user-auth
 $ go run .
 ```
+
+然后通过 curl 工具发送测试请求:
 
 ```bash
 # 发送注册请求
