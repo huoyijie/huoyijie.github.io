@@ -41,9 +41,7 @@ Token = Identify + 签名(哈希(Identify), 私钥)
 
 ## 用户认证
 
-添加用户时，密码上传到服务端后，确保所有中间服务器不记录、不打印日志，并经过 bcrypt 哈希后存储于数据库中。服务器没有任何理由保存用户原始密码。
-
-用户认证的原理在于要求你输入只有你自己知道的秘密信息（如用户名、密码），并由服务器进行校验。服务器收到登录请求后，可与数据库中存储的用户名、密码哈希进行比对，以确定认证是否成功。认证成功后，可下发 Token。
+用户认证的原理在于要求你输入只有你自己知道的秘密信息（如用户名、密码），并由服务器进行校验。一般在登录前要先注册用户账号。注册时需要提供用户名和密码，密码提交到服务器后，确保所有中间服务器不记录、不打印日志，并经过 bcrypt 哈希后再存储于数据库中。为了最大程度上保护用户密码，服务器绝对不要保存用户原始密码。注册成功后可以向服务器发送登录请求，服务器收到提交数据，并与数据库中存储的用户名、密码哈希进行比对，以确定认证是否成功，认证成功后下发 Token。
 
 ### 用户认证实例
 
@@ -63,6 +61,7 @@ $ touch main.go
 编辑 main.go 文件
 
 ```go
+// main.go
 package main
 
 import (
@@ -85,11 +84,12 @@ $ go mod tidy
 
 执行 main.go，并通过浏览器访问 `http://localhost:8080`，浏览器会输出 `Hello, world!`。
 
-为了更容易用户认证部分代码，本实例进行了简化处理，不依赖数据库，注册用户数据放入内存 map 中。注意：本实例不支持并发注册和登录，并发的情况下会出错。
+为了让代码更容易理解，本实例进行了简化处理，不依赖数据库，注册用户数据放入内存 map 中（注：本实例不支持并发注册和登录，并发的情况下会出错）。
 
 编辑 main.go 添加如下代码:
 
 ```go
+// main.go
 // 统一返回包装类型
 type Result struct {
 	Code    int    `json:"code"`
@@ -115,15 +115,16 @@ var users = map[string]User{}
 然后修改 main 方法，添加如下代码:
 
 ```go
+// main.go
 func main() {
-  // ...
-  r.POST("signup", func(c *gin.Context) {
-    form := &SignupForm{}
-    if err := c.BindJSON(form); err != nil {
-      return
-    }
+	// ...
+	r.POST("signup", func(c *gin.Context) {
+		form := &SignupForm{}
+		if err := c.BindJSON(form); err != nil {
+			return
+		}
 
-    // check username unique
+		// check username unique
 		if _, found := users[form.Username]; found {
 			c.JSON(http.StatusOK, Result{
 				Code:    -10000,
@@ -132,39 +133,40 @@ func main() {
 			return
 		}
 
-    // calc password bcrypt hash bytes
-    passwordHashBytes, err := bcrypt.GenerateFromPassword([]byte(form.Password), 14)
-    if err != nil {
-      c.AbortWithError(http.StatusInternalServerError, err)
-      return
-    }
+		// calc password bcrypt hash bytes
+		passwordHashBytes, err := bcrypt.GenerateFromPassword([]byte(form.Password), 14)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
 
-    // base64 encode
-    passwordHash := base64.StdEncoding.EncodeToString(passwordHashBytes)
+		// base64 encode
+		passwordHash := base64.StdEncoding.EncodeToString(passwordHashBytes)
 
-    user := User{
-      form.Username,
-      passwordHash,
-    }
-    // 日志仅供调试
-    fmt.Println("user:", user)
+		user := User{
+			form.Username,
+			passwordHash,
+		}
+		// 日志仅供调试
+		fmt.Println("user:", user)
 
-    // write new user to storage
-    users[user.Username] = user
-    // 日志仅供调试
-    fmt.Println("users:", users)
+		// write new user to storage
+		users[user.Username] = user
+		// 日志仅供调试
+		fmt.Println("users:", users)
 
-    c.JSON(http.StatusOK, Result{
-      Data: form.Username,
-    })
-  })
-  // ...
+		c.JSON(http.StatusOK, Result{
+			Data: form.Username,
+		})
+	})
+	// ...
 }
 ```
 
+可以看到代码中先对密码进行了 bcrypt 哈希，然后进行 base64 编码才写入存储。换句话说，服务器不会保存用户原始密码，也没有任何办法可以通过密码哈希值逆向得到。注册成功后会返回用户名。
+
 运行 `go mod tity` 自动下载安装依赖，然后通过命令 `curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signup` 发送注册请求。
 
-注册成功后会返回用户名。可以看到代码中先对密码进行了 bcrypt 哈希，然后进行 base64 编码才写入存储。换句话说，服务器不会保存用户原始密码，也没有任何办法可以通过密码哈希值逆向得到。
 
 新增 token.go 文件，存放生成与解析 Token 相关方法。
 
@@ -269,8 +271,8 @@ type SigninForm struct {
 }
 
 func main() {
-  // ...
-  r.POST("signin", func(c *gin.Context) {
+	// ...
+	r.POST("signin", func(c *gin.Context) {
 		form := &SigninForm{}
 		if err := c.BindJSON(form); err != nil {
 			return
@@ -299,7 +301,7 @@ func main() {
 			})
 		}
 	})
-  // ...
+	// ...
 }
 ```
 
