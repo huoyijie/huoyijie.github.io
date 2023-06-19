@@ -49,7 +49,7 @@ Token = Identify + 签名(哈希(Identify), 私钥)
 
 *前置条件*
 * 已安装 Go 1.20+
-* IDE （如 vscode）
+* 已安装 IDE （如 vscode）
 
 ```bash
 $ go version
