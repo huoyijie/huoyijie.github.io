@@ -39,19 +39,13 @@ Token = Identify + 签名(哈希(Identify), 私钥)
 
 还有一种方法是随机生成 UUID 作为 Token，但是为了防止第三方伪造，需要服务器端保存所有有效的 Token 集合。服务器再接收到请求中携带的 Token 后需要进行有效性验证。
 
-## 用户认证并下发 Token
+## 用户认证
 
 添加用户时，密码上传到服务端后，确保所有中间服务器不记录、不打印日志，并经过 bcrypt 哈希后存储于数据库中。服务器没有任何理由保存用户原始密码。
 
-用户认证的原理在于要求你输入只有你自己知道的秘密信息（如用户名、密码），并由服务器进行校验。登录表单提交时，不需要提交原始密码，而只提交密码哈希，避免用户密码泄漏。
+用户认证的原理在于要求你输入只有你自己知道的秘密信息（如用户名、密码），并由服务器进行校验。服务器收到登录请求后，可与数据库中存储的用户名、密码哈希进行比对，以确定认证是否成功。认证成功后，可下发 Token。
 
-服务器收到登录请求后，可与数据库中存储的用户名、密码哈希进行比对，以确定认证是否成功。认证成功后，可下发 Token。
-
-## 根据 Token 自动对 API 请求进行认证
-
-客户端收到服务器下发的 Token 后，可写入存储中，如写入 Cookie 或者 localStorage。后续的 API 请求可携带该 Token。服务器可以通过请求拦截器实现自动认证，拦截器在具体的请求前或后自动执行，可在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。
-
-## 用户认证实例
+### 用户认证实例
 
 *前置条件*
 * 已安装 Go 1.20+
@@ -309,30 +303,20 @@ $ cd user-auth
 $ go run .
 ```
 
-发送注册请求
-
 ```bash
+# 发送注册请求
 $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signup
 {"code":0,"data":"huoyijie"}
-```
 
-再次发送同样的注册请求
-
-```bash
+# 再次发送同样的注册请求
 $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signup
 {"code":-10000,"message":"用户已存在"}
-```
 
-发送错误的登录请求
-
-```bash
+# 发送错误的登录请求
 $ curl -d '{"username":"notexist","password":"mypassword"}' http://localhost:8080/signin
 {"code":-10001,"message":"用户或密码错误"}
-```
 
-发送正确的登录请求
-
-```bash
+# 发送正确的登录请求
 $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signin
 {"code":0,"data":"IUqArBlhegws+ojRMZS/SD+ZKWnm6dNcWgHlFfzyFunkly2/jJLq90WCb/M="}
 ```
@@ -340,3 +324,7 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:808
 返回的 data 字段就是新生成的 Token，客户端可以写入存储中（如 Cookie 或 localStorage）。
 
 以上所有代码已放到 [Github](https://github.com/huoyijie/tech-notes-code) user-auth 目录下。
+
+## 根据 Token 自动对 API 请求进行认证
+
+客户端收到服务器下发的 Token 后，可写入存储中，如写入 Cookie 或者 localStorage。后续的 API 请求可携带该 Token。服务器可以通过请求拦截器实现自动认证，拦截器在具体的请求前或后自动执行，可在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。
