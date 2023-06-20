@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Tue, 20 Jun 2023 10:19:53 +0800</pubDate>
+    <pubDate>Tue, 20 Jun 2023 11:46:45 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -32,7 +32,7 @@
       <link>https://huoyijie.cn/docsifys/2023-daily-notes</link>
       <description>2023 daily notes</description>
       <author>huoyijie</author>
-      <pubDate>Tue, 20 Jun 2023 10:19:52 +0800</pubDate>
+      <pubDate>Tue, 20 Jun 2023 11:46:33 +0800</pubDate>
     </item>
     <item>
       <title>tech notes</title>
@@ -116,7 +116,7 @@
       <link>https://huoyijie.cn/docsifys/Tech-Notes/authentication</link>
       <description>authentication</description>
       <author>huoyijie</author>
-      <pubDate>Mon, 19 Jun 2023 14:52:44 +0800</pubDate>
+      <pubDate>Tue, 20 Jun 2023 10:51:22 +0800</pubDate>
     </item>
     <item>
       <title>writing a cloud encrypting file system with golang and FUSE</title>

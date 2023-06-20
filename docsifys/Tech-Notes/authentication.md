@@ -336,6 +336,30 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:808
 
 以上所有代码已放到 [Github](https://github.com/huoyijie/tech-notes-code) user-auth 目录下。
 
-## 根据 Token 自动对 API 请求进行认证
+## 自动认证 Token
 
-客户端收到服务器下发的 Token 后，可写入存储中，如写入 Cookie 或者 localStorage。后续的 API 请求可携带该 Token。服务器可以通过请求拦截器实现自动认证，拦截器在具体的请求前或后自动执行，可在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。
+客户端收到服务器下发的 Token 后，可写入存储中，如 Cookie 或 localStorage，后续的 API 请求需携带该 Token。服务器可通过请求拦截器实现 Token 自动认证，拦截器在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。
+
+下面来通过 Gin 中间件实现一个请求拦截器，实现 Token 自动认证。首先编辑 main.go 文件，添加一个需要登录才能访问的接口 /private。
+
+```go
+// main.go
+func main() {
+	// ...
+	r.GET("private", func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "private api",
+		})
+	})
+	// ...
+}
+```
+
+当然现在是可以直接访问的，接口返回了数据 `private api`。
+
+```bash
+$ curl http://localhost:8080/private
+{"code":0,"data":"private api"}
+```
+
+接下来实现
