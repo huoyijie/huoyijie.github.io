@@ -45,6 +45,8 @@ Token = Identify + 签名(哈希(Identify), 私钥)
 
 ### 用户认证实例
 
+文中所有代码已放到 [Github user-auth](https://github.com/huoyijie/tech-notes-code) 目录下。
+
 *前置条件*
 * 已安装 Go 1.20+
 * 已安装 IDE （如 vscode）
@@ -334,13 +336,11 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:808
 
 返回的 data 字段就是新生成的 Token，客户端可以写入存储中（如 Cookie 或 localStorage）。
 
-以上所有代码已放到 [Github](https://github.com/huoyijie/tech-notes-code) user-auth 目录下。
-
 ## 自动认证 Token
 
-客户端收到服务器下发的 Token 后，可写入存储中，如 Cookie 或 localStorage，后续的 API 请求需携带该 Token。服务器可通过请求拦截器实现 Token 自动认证，拦截器在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。
+客户端收到服务器下发的 Token 后，可写入存储中（如 Cookie 或 localStorage），后续的 API 请求需在 Header中携带该 Token。服务器可通过拦截器在请求被处理前，解析 Token 、校验有校性、实现 Token 自动认证，然后获取登录用户信息并写入请求上下文中。
 
-下面来通过 Gin 中间件实现一个请求拦截器，实现 Token 自动认证。首先编辑 main.go 文件，添加一个需要登录才能访问的接口 /private。
+下面来实现一个请求拦截器，实现 Token 自动认证。首先编辑 main.go 文件，添加一个需要登录才能访问的接口 /private。
 
 ```go
 // main.go
@@ -355,11 +355,98 @@ func main() {
 }
 ```
 
-当然现在是可以直接访问的，接口返回了数据 `private api`。
+发送测试请求，接口返回了数据 `private api`。
 
 ```bash
 $ curl http://localhost:8080/private
 {"code":0,"data":"private api"}
 ```
 
-接下来实现
+接下来实现拦截器，继续编辑 main.go 文件
+
+```go
+// main.go
+func() {
+	// ...
+	g := r.Group("", func(c *gin.Context) {
+		// 实现拦截器
+		auth := c.GetHeader("Authentication")
+		// 未设置认证信息
+		if len(auth) == 0 {
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		t := strings.Split(auth, " ")
+		// 认证信息格式不正确，正确格式如下
+		// Authentication: Bearer eL8TZSnTs4LS/UR9cmw7n6oW3K7TVMg35IxDZWozKS+dNbqAYov09kVuoG0=
+		if len(t) != 2 {
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		token := t[1]
+		if username, expired, err := ParseToken(token); err != nil {
+			// Token 解析出错
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		} else if expired {
+			// token 过期，需要重新登录
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		} else {
+			// Token 认证成功，设置上下文信息
+			c.Set("username", username)
+		}
+	})
+	g.GET("private", func(c *gin.Context) {
+		username := c.GetString("username")
+		c.JSON(http.StatusOK, Result{
+			Data: username,
+		})
+	})
+	// ...
+}
+```
+
+上面首先定义了一个 route group `g`，加入 `g` 的 api，在会执行 Token 认证。如果 Token 不存在或格式不正确、解析出错、过期，拦截器会返回 `401` 到客户端，客户端收到 `401` 后可跳转至登录页面。如果 Token 认证成功，则会把用户信息写入上下文中。
+
+然后对 `/private` 接口做一个微调，从上下文中取出当前登录用户 username，并返回给客户端。后续其他需要登录保护的接口，都可以加入到 route group `g`。
+
+上面解析 Token 时调用了 token.go 文件中定义的 ParseToken 方法:
+
+```go
+// token.go
+// 解析 Token
+func ParseToken(token string) (username string, expired bool, err error) {
+	gcm, err := NewGCM(GetSecretKey())
+	if err != nil {
+		return
+	}
+
+	tokenBytes, _ := base64.StdEncoding.DecodeString(token)
+	bytes, err := Decrypt(tokenBytes, gcm)
+	if err != nil {
+		return
+	}
+
+	genTime := binary.BigEndian.Uint64(bytes)
+	expired = time.Since(time.Unix(int64(genTime), 0)) > 30*24*time.Hour
+	username = string(bytes[8:])
+	return
+}
+```
+
+再次发送测试请求
+
+```bash
+# 未携带 Token，返回 401
+$ curl -f http://localhost:8080/private
+curl: (22) The requested URL returned error: 401
+
+# 所携带 Token 通过前面登录接口生成，正确返回了 username
+curl -f -H 'Authentication: Bearer +xUywII+VjD7o+y2/ZHJAFtVVgy46qRLly4LPSsfHJG1WS2EboimG/uiLcA=' http://localhost:8080/private
+{"code":0,"data":"huoyijie"}
+```
+
+## API 访问授权
