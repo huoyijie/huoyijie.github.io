@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Mon, 19 Jun 2023 13:11:17 +0800</pubDate>
+    <pubDate>Tue, 20 Jun 2023 10:16:53 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -32,7 +32,7 @@
       <link>https://huoyijie.cn/docsifys/2023-daily-notes</link>
       <description>2023 daily notes</description>
       <author>huoyijie</author>
-      <pubDate>Mon, 19 Jun 2023 09:24:42 +0800</pubDate>
+      <pubDate>Tue, 20 Jun 2023 10:11:02 +0800</pubDate>
     </item>
     <item>
       <title>tech notes</title>
@@ -63,6 +63,13 @@
       <pubDate>Thu, 23 Feb 2023 19:19:26 +0800</pubDate>
     </item>
     <item>
+      <title>profile</title>
+      <link>https://huoyijie.cn/docsifys/About-Me/profile</link>
+      <description>profile</description>
+      <author>huoyijie</author>
+      <pubDate>Tue, 20 Jun 2023 10:14:39 +0800</pubDate>
+    </item>
+    <item>
       <title>github</title>
       <link>https://huoyijie.cn/docsifys/About-Me/github</link>
       <description>github</description>
@@ -75,13 +82,6 @@
       <description>resume</description>
       <author>huoyijie</author>
       <pubDate>Thu, 23 Feb 2023 18:00:35 +0800</pubDate>
-    </item>
-    <item>
-      <title>profile</title>
-      <link>https://huoyijie.cn/docsifys/About-Me/profile</link>
-      <description>profile</description>
-      <author>huoyijie</author>
-      <pubDate>Thu, 23 Feb 2023 17:59:29 +0800</pubDate>
     </item>
     <item>
       <title>introduce the text detect method</title>
@@ -116,7 +116,7 @@
       <link>https://huoyijie.cn/docsifys/Tech-Notes/authentication</link>
       <description>authentication</description>
       <author>huoyijie</author>
-      <pubDate>Mon, 19 Jun 2023 13:10:56 +0800</pubDate>
+      <pubDate>Mon, 19 Jun 2023 14:52:44 +0800</pubDate>
     </item>
     <item>
       <title>writing a cloud encrypting file system with golang and FUSE</title>

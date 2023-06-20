@@ -39,23 +39,15 @@ Token = Identify + 签名(哈希(Identify), 私钥)
 
 还有一种方法是随机生成 UUID 作为 Token，但是为了防止第三方伪造，需要服务器端保存所有有效的 Token 集合。服务器再接收到请求中携带的 Token 后需要进行有效性验证。
 
-## 用户认证并下发 Token
+## 用户认证
 
-添加用户时，密码上传到服务端后，确保所有中间服务器不记录、不打印日志，并经过 bcrypt 哈希后存储于数据库中。服务器没有任何理由保存用户原始密码。
+用户认证的原理在于要求你输入只有你自己知道的秘密信息（如用户名、密码），并由服务器进行校验。一般在登录前要先注册用户账号。注册时需要提供用户名和密码，密码提交到服务器后，确保所有中间服务器不记录、不打印日志，并经过 bcrypt 哈希后再存储于数据库中。为了最大程度上保护用户密码，服务器绝对不要保存用户原始密码。注册成功后可以向服务器发送登录请求，服务器收到提交数据，并与数据库中存储的用户名、密码哈希进行比对，以确定认证是否成功，认证成功后下发 Token。
 
-用户认证的原理在于要求你输入只有你自己知道的秘密信息（如用户名、密码），并由服务器进行校验。登录表单提交时，不需要提交原始密码，而只提交密码哈希，避免用户密码泄漏。
-
-服务器收到登录请求后，可与数据库中存储的用户名、密码哈希进行比对，以确定认证是否成功。认证成功后，可下发 Token。
-
-## 根据 Token 自动对 API 请求进行认证
-
-客户端收到服务器下发的 Token 后，可写入存储中，如写入 Cookie 或者 localStorage。后续的 API 请求可携带该 Token。服务器可以通过请求拦截器实现自动认证，拦截器在具体的请求前或后自动执行，可在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。
-
-## 用户认证实例
+### 用户认证实例
 
 *前置条件*
-已安装 Go 1.20+
-IDE （如 vscode）
+* 已安装 Go 1.20+
+* 已安装 IDE （如 vscode）
 
 ```bash
 $ go version
@@ -69,6 +61,7 @@ $ touch main.go
 编辑 main.go 文件
 
 ```go
+// main.go
 package main
 
 import (
@@ -86,16 +79,17 @@ func main() {
 
 本实例采用 web 框架 Gin，运行 `go mod tity` 自动下载安装依赖
 ```bash
-go mod tidy
+$ go mod tidy
 ```
 
 执行 main.go，并通过浏览器访问 `http://localhost:8080`，浏览器会输出 `Hello, world!`。
 
-为了更容易用户认证部分代码，本实例进行了简化处理，不依赖数据库，注册用户数据放入内存 map 中。注意：本实例不支持并发注册和登录，并发的情况下会出错。
+为了让代码更容易理解，本实例进行了简化处理，不依赖数据库，注册用户数据放入内存 map 中（注：本实例不支持并发注册和登录，并发的情况下会出错）。
 
 编辑 main.go 添加如下代码:
 
 ```go
+// main.go
 // 统一返回包装类型
 type Result struct {
 	Code    int    `json:"code"`
@@ -121,15 +115,16 @@ var users = map[string]User{}
 然后修改 main 方法，添加如下代码:
 
 ```go
+// main.go
 func main() {
-  // ...
-  r.POST("signup", func(c *gin.Context) {
-    form := &SignupForm{}
-    if err := c.BindJSON(form); err != nil {
-      return
-    }
+	// ...
+	r.POST("signup", func(c *gin.Context) {
+		form := &SignupForm{}
+		if err := c.BindJSON(form); err != nil {
+			return
+		}
 
-    // check username unique
+		// check username unique
 		if _, found := users[form.Username]; found {
 			c.JSON(http.StatusOK, Result{
 				Code:    -10000,
@@ -138,39 +133,40 @@ func main() {
 			return
 		}
 
-    // calc password bcrypt hash bytes
-    passwordHashBytes, err := bcrypt.GenerateFromPassword([]byte(form.Password), 14)
-    if err != nil {
-      c.AbortWithError(http.StatusInternalServerError, err)
-      return
-    }
+		// calc password bcrypt hash bytes
+		passwordHashBytes, err := bcrypt.GenerateFromPassword([]byte(form.Password), 14)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
 
-    // base64 encode
-    passwordHash := base64.StdEncoding.EncodeToString(passwordHashBytes)
+		// base64 encode
+		passwordHash := base64.StdEncoding.EncodeToString(passwordHashBytes)
 
-    user := User{
-      form.Username,
-      passwordHash,
-    }
-    // 日志仅供调试
-    fmt.Println("user:", user)
+		user := User{
+			form.Username,
+			passwordHash,
+		}
+		// 日志仅供调试
+		fmt.Println("user:", user)
 
-    // write new user to storage
-    users[user.Username] = user
-    // 日志仅供调试
-    fmt.Println("users:", users)
+		// write new user to storage
+		users[user.Username] = user
+		// 日志仅供调试
+		fmt.Println("users:", users)
 
-    c.JSON(http.StatusOK, Result{
-      Data: form.Username,
-    })
-  })
-  // ...
+		c.JSON(http.StatusOK, Result{
+			Data: form.Username,
+		})
+	})
+	// ...
 }
 ```
 
+可以看到代码中先对密码进行了 bcrypt 哈希，然后进行 base64 编码才写入存储。换句话说，服务器不会保存用户原始密码，也没有任何办法可以通过密码哈希值逆向得到。注册成功后会返回用户名。
+
 运行 `go mod tity` 自动下载安装依赖，然后通过命令 `curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signup` 发送注册请求。
 
-注册成功后会返回用户名。可以看到代码中先对密码进行了 bcrypt 哈希，然后进行 base64 编码才写入存储。换句话说，服务器不会保存用户原始密码，也没有任何办法可以通过密码哈希值逆向得到。
 
 新增 token.go 文件，存放生成与解析 Token 相关方法。
 
@@ -263,13 +259,20 @@ func ParseToken(token string) (username string, expired bool, err error) {
 }
 ```
 
-编辑 main.go 文件，增加登录方法
+编辑 main.go 文件，增加登录相关代码
 
 ```go
 // main.go
+
+// 登录表单
+type SigninForm struct {
+	Username string `json:"username" binding:"required,alphanum,max=40"`
+	Password string `json:"password" binding:"required,min=8,max=40"`
+}
+
 func main() {
-  // ...
-  r.POST("signin", func(c *gin.Context) {
+	// ...
+	r.POST("signin", func(c *gin.Context) {
 		form := &SigninForm{}
 		if err := c.BindJSON(form); err != nil {
 			return
@@ -298,41 +301,33 @@ func main() {
 			})
 		}
 	})
-  // ...
+	// ...
 }
 ```
 
-运行服务器
+最后让我们来测试一下，先运行服务器:
 
 ```bash
 $ cd user-auth
 $ go run .
 ```
 
-发送注册请求
+然后通过 curl 工具发送测试请求:
 
 ```bash
+# 发送注册请求
 $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signup
 {"code":0,"data":"huoyijie"}
-```
 
-再次发送同样的注册请求
-
-```bash
+# 再次发送同样的注册请求
 $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signup
 {"code":-10000,"message":"用户已存在"}
-```
 
-发送错误的登录请求
-
-```bash
+# 发送错误的登录请求
 $ curl -d '{"username":"notexist","password":"mypassword"}' http://localhost:8080/signin
 {"code":-10001,"message":"用户或密码错误"}
-```
 
-发送正确的登录请求
-
-```bash
+# 发送正确的登录请求
 $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:8080/signin
 {"code":0,"data":"IUqArBlhegws+ojRMZS/SD+ZKWnm6dNcWgHlFfzyFunkly2/jJLq90WCb/M="}
 ```
@@ -340,3 +335,7 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}' http://localhost:808
 返回的 data 字段就是新生成的 Token，客户端可以写入存储中（如 Cookie 或 localStorage）。
 
 以上所有代码已放到 [Github](https://github.com/huoyijie/tech-notes-code) user-auth 目录下。
+
+## 根据 Token 自动对 API 请求进行认证
+
+客户端收到服务器下发的 Token 后，可写入存储中，如写入 Cookie 或者 localStorage。后续的 API 请求可携带该 Token。服务器可以通过请求拦截器实现自动认证，拦截器在具体的请求前或后自动执行，可在请求被处理前，解析 Token 并校验有校性，然后获取登录用户信息并写入请求上下文中。

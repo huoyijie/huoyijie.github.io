@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-06-19 13:11:21.012561114 +0800 CST m=+3.731761152</lastmod>
+        <lastmod>2023-06-20 10:17:01.089493988 +0800 CST m=+7.693345088</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-19 09:24:42.340750693 +0800 CST</lastmod>
+        <lastmod>2023-06-20 10:11:02.706178269 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -64,6 +64,13 @@
     </url>
     
     <url>
+        <loc>https://huoyijie.cn/docsifys/About-Me/profile</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-06-20 10:14:39.443057642 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
         <loc>https://huoyijie.cn/docsifys/About-Me/github</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-03-12 17:44:44.275583179 +0800 CST</lastmod>
@@ -74,13 +81,6 @@
         <loc>https://huoyijie.cn/docsifys/About-Me/resume</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-02-23 18:00:35.508908094 +0800 CST</lastmod>
-        <priority>1.0</priority>
-    </url>
-    
-    <url>
-        <loc>https://huoyijie.cn/docsifys/About-Me/profile</loc>
-        <changefreq>daily</changefreq>
-        <lastmod>2023-02-23 17:59:29.694831453 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -115,7 +115,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/Tech-Notes/authentication</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-19 13:10:56.71851704 +0800 CST</lastmod>
+        <lastmod>2023-06-19 14:52:44.581218296 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
