@@ -214,8 +214,8 @@ func tokenAuth(c *gin.Context) {
 func main() {
 	// ...
 	// private 接口配置了 tokenAuth 拦截器，拦截器会自动进行 Token 认证，
-  // 认证成功会把 username 写入上下文中，认证失败会返回 401
-  r.GET("private", tokenAuth, func(c *gin.Context) {
+	// 认证成功会把 username 写入上下文中，认证失败会返回 401
+	r.GET("private", tokenAuth, func(c *gin.Context) {
 		username := c.GetString("username")
 		c.JSON(http.StatusOK, Result{
 			Data: username,
