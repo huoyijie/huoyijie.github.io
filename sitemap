@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-06-21 15:54:04.622187055 +0800 CST m=+0.101172820</lastmod>
+        <lastmod>2023-06-21 17:24:25.30994146 +0800 CST m=+2.119013860</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -113,16 +113,16 @@
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/Tech-Notes/auth</loc>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/auth-with-jwt</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-21 15:50:50.835419831 +0800 CST</lastmod>
+        <lastmod>2023-06-21 17:24:15.36891367 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/Tech-Notes/auth-with-jwt</loc>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/auth</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-21 15:50:31.226923111 +0800 CST</lastmod>
+        <lastmod>2023-06-21 15:56:58.364720355 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     

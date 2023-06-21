@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Wed, 21 Jun 2023 15:54:04 +0800</pubDate>
+    <pubDate>Wed, 21 Jun 2023 17:24:23 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -112,18 +112,18 @@
       <pubDate>Fri, 10 Mar 2023 13:03:45 +0800</pubDate>
     </item>
     <item>
-      <title>auth</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/auth</link>
-      <description>auth</description>
-      <author>huoyijie</author>
-      <pubDate>Wed, 21 Jun 2023 15:50:50 +0800</pubDate>
-    </item>
-    <item>
       <title>auth with jwt</title>
       <link>https://huoyijie.cn/docsifys/Tech-Notes/auth-with-jwt</link>
       <description>auth with jwt</description>
       <author>huoyijie</author>
-      <pubDate>Wed, 21 Jun 2023 15:50:31 +0800</pubDate>
+      <pubDate>Wed, 21 Jun 2023 17:24:15 +0800</pubDate>
+    </item>
+    <item>
+      <title>auth</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/auth</link>
+      <description>auth</description>
+      <author>huoyijie</author>
+      <pubDate>Wed, 21 Jun 2023 15:56:58 +0800</pubDate>
     </item>
     <item>
       <title>writing a cloud encrypting file system with golang and FUSE</title>
