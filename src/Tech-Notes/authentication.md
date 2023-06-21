@@ -450,3 +450,227 @@ curl -f -H 'Authentication: Bearer +xUywII+VjD7o+y2/ZHJAFtVVgy46qRLly4LPSsfHJG1W
 ```
 
 ## API 访问授权
+
+本文我们会基于 RABC(Role-based access control) 模型，实现基于角色的访问控制。RABC 是信息安全领域中，一种较新且广为使用的访问控制机制。RABC 模型中包含 User、Role、Permission 三个对象，一个 User 可以具有多个角色，一个角色可以有多项权限。其中 Permission 可以表达为 `"article:{action}"`，action 可以是 `get`、`add`、`change` `delete`，分别代表查询、新增、编辑和删除 article。
+
+授权访问基本原理是为角色分配具体的权限(如: "article:add")，然后为用户赋予相应的角色，最后当用户访问资源时，通过拦截器 canAccess 检查当前用户是否具有权限，如果有权限则允许访问，否则拒绝访问返回 `403`。
+
+第一步，先创建需要进行授权访问的资源，编辑 main.go，添加如下代码:
+
+```go
+// main.go
+func main() {
+	// ...
+	g.GET("article/get", func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "Get article",
+		})
+	})
+	g.GET("article/add", func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "add article",
+		})
+	})
+	g.GET("article/change", func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "change article",
+		})
+	})
+	g.GET("article/delete", func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "delete article",
+		})
+	})
+	// ...
+}
+```
+
+上面 4 个接口分别模拟查询、新增、编辑和删除 article，现在只需要登录即可访问，运行服务器 `go run .`。
+
+```bash
+# 登录
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":0,"data":"YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0="}
+
+$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/get
+{"code":0,"data":"Get article"}
+
+$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
+{"code":0,"data":"add article"}
+
+$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
+{"code":0,"data":"change article"}
+
+$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
+{"code":0,"data":"delete article"}
+```
+
+现在我们逐步增加授权访问逻辑。编辑 main.go，增加角色枚举常量定义:
+
+```go
+// main.go
+// 定义角色
+const (
+	ADMIN int = iota + 1
+	WRITER
+	VIP
+)
+```
+
+为用户模型增加角色字段。同时为了简化测试，预定义 3 个用户，分别具有 ADMIN、WRITER、VIP 角色，密码是 mypassword。然后为角色分配权限，这里是写死的，真实应用中数据可写入表中。
+
+```go
+// main.go
+// 用户模型
+type User struct {
+	Username, PasswordHash string
+	// 增加角色字段
+	Roles                  []int
+}
+
+// 模拟数据库存储，读写 map 未加锁，不支持并发注册登录
+var users = map[string]User{
+	"huoyijie": {
+		Username: "huoyijie",
+		// 原始密码: mypassword
+		PasswordHash: "JDJhJDE0JElHWVpnTzdtd1pZbEVTQnAyY1VhTk9CVEJkcUcwV2xyMFZaWElKZ25EZlNjM0lqZHllc2E2",
+		Roles:        []int{ADMIN},
+	},
+	"jack": {
+		Username: "jack",
+		// 原始密码: mypassword
+		PasswordHash: "JDJhJDE0JElHWVpnTzdtd1pZbEVTQnAyY1VhTk9CVEJkcUcwV2xyMFZaWElKZ25EZlNjM0lqZHllc2E2",
+		Roles:        []int{WRITER},
+	},
+	"vip": {
+		Username: "vip",
+		// 原始密码: mypassword
+		PasswordHash: "JDJhJDE0JElHWVpnTzdtd1pZbEVTQnAyY1VhTk9CVEJkcUcwV2xyMFZaWElKZ25EZlNjM0lqZHllc2E2",
+		Roles:        []int{VIP},
+	},
+}
+
+// 为角色分配权限，这里是写死的，真实应用中数据可写入表中
+var permissions = map[int][]string{
+	WRITER: {
+		"article:get",
+		"article:add",
+		"article:change",
+		"article:delete",
+	},
+	VIP: {
+		"article:get",
+	},
+}
+```
+
+接下来实现权限检查拦截器
+
+```go
+// main.go
+// 权限检查拦截器
+func canAccess(permission string) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		username := c.GetString("username")
+		currentUser := users[username]
+		for _, role := range currentUser.Roles {
+			// 角色 ADMIN 拥有所有权限，允许当前用户访问
+			if role == ADMIN {
+				return
+			}
+			for _, perm := range permissions[role] {
+				// 具有权限，运行当前用户访问
+				if perm == permission {
+					return
+				}
+			}
+		}
+		// 无权限，拒绝访问
+		c.AbortWithStatus(http.StatusForbidden)
+	}
+}
+```
+
+最后为需要进行访问控制的资源配置拦截器 canAccess
+
+```go
+// main.go
+func main() {
+	// ...
+	g.GET("article/get", canAccess("article:get"), func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "Get article",
+		})
+	})
+	g.GET("article/add", canAccess("article:add"), func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "add article",
+		})
+	})
+	g.GET("article/change", canAccess("article:change"), func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "change article",
+		})
+	})
+	g.GET("article/delete", canAccess("article:delete"), func(c *gin.Context) {
+		c.JSON(http.StatusOK, Result{
+			Data: "delete article",
+		})
+	})
+	...
+}
+```
+
+现在运行服务器 `go run .`，然后发送测试请求验证访问控制是否正确
+
+```bash
+# 未登录返回 401
+$ curl -f http://localhost:8080/article/get
+curl: (22) The requested URL returned error: 401
+
+# 登录 vip 用户，具有 VIP 角色，只有 "article:get" 权限
+$ curl -d '{"username":"vip","password":"mypassword"}'  http://localhost:8080/signin
+{"code":0,"data":"zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm"}
+
+# 允许访问
+$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/get
+{"code":0,"data":"Get article"}
+
+# 拒绝访问，返回 403
+$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/add
+curl: (22) The requested URL returned error: 403
+$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/change
+curl: (22) The requested URL returned error: 403
+$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/delete
+curl: (22) The requested URL returned error: 403
+
+# 登录 jack 用户，具有 WRITER 角色，有 article:get/article:add/article:change/article:delete 所有权限
+$ curl -d '{"username":"jack","password":"mypassword"}'  http://localhost:8080/signin
+{"code":0,"data":"m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw=="}
+
+# 允许访问
+$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/get
+{"code":0,"data":"Get article"}
+$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/add
+{"code":0,"data":"add article"}
+$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/change
+{"code":0,"data":"change article"}
+$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/delete
+{"code":0,"data":"delete article"}
+
+# 登录 huoyijie 用户，具有 ADMIN 角色，具有所有权限
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":0,"data":"LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ="}
+
+# 允许访问
+$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/get
+{"code":0,"data":"Get article"}
+$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/add
+{"code":0,"data":"add article"}
+$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/change
+{"code":0,"data":"change article"}
+$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/delete
+{"code":0,"data":"delete article"}
+```
+
+可以通过测试输出看到，具有不同角色的用户访问 article 时，系统给出了正确的授权决定。
