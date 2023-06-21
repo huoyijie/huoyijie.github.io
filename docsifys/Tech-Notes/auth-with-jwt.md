@@ -147,7 +147,9 @@ func main() {
 启动服务器发送测试请求
 
 ```bash
+# 运行应用
 $ go run .
+# 发送登录请求，成功返回 JWT Token
 $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
 {"code":0,"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.me1pU3jPa6rjZ9c7eUVuvoaJvsACgmDE5qZMTCBCOrI"}
 ```
