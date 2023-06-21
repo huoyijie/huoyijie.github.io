@@ -12,9 +12,11 @@ Header 部分主要包含生成签名的算法参数，验证签名时会用到�
 
 JWT 有两种类型的签名算法，一种是基于对称加密算法，另一种是基于非对称加密算法，生成新 Token 时可以指定签名算法，并提供算法相对应的密钥。
 
-本文通过 [golang-jwt](https://github.com/golang-jwt/jwt) 库来生成和验证 Token。文中所有代码已放到 [Github user-auth-with-jwt](https://github.com/huoyijie/tech-notes-code) 目录下。下面开始实现基于 JWT 的用户认证。
+本文通过 [golang-jwt](https://github.com/golang-jwt/jwt) 库来生成和验证 Token，下面开始实现基于 JWT 的用户认证。
 
 ## 用户认证
+
+文中所有代码已放到 [Github user-auth-with-jwt](https://github.com/huoyijie/tech-notes-code) 目录下。
 
 *前置条件*
 * 已安装 Go 1.20+
@@ -98,7 +100,14 @@ func getSecretKey() []byte {
 
 // 采用对称加密签名算法，生成 JWT Token
 func generateToken(username string) (token string, err error) {
-	t := jwt.New(jwt.SigningMethodHS256)
+	claims := TokenClaims{
+		username,
+		jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(72 * time.Hour)),
+			Issuer:    "user-auth-with-jwt-demo",
+		},
+	}
+	t := jwt.NewWithClaims(jwt.SigningMethodHS256, &claims)
 	token, err = t.SignedString(getSecretKey())
 	return
 }
@@ -109,8 +118,8 @@ func generateToken(username string) (token string, err error) {
 ```go
 // main.go
 func main() {
-  // ...
-  r.POST("signin", func(c *gin.Context) {
+	// ...
+	r.POST("signin", func(c *gin.Context) {
 		form := &SigninForm{}
 		if err := c.BindJSON(form); err != nil {
 			return
@@ -140,18 +149,98 @@ func main() {
 			})
 		}
 	})
-  // ...
+	// ...
 }
 ```
 
 启动服务器发送测试请求
 
 ```bash
+$ go mod tidy
 # 运行应用
 $ go run .
 # 发送登录请求，成功返回 JWT Token
 $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
-{"code":0,"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.me1pU3jPa6rjZ9c7eUVuvoaJvsACgmDE5qZMTCBCOrI"}
+{"code":0,"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTExNDR9.CmjCuqM80vlK5RmhnQwNtB1qRp4hTkopV5QxfhdQF4o"}
+
+# 通过在线 base64 解码工具解码上面 token 的中间 JSON Object 部分，结果如下:
+# {"username":"huoyijie","iss":"user-auth-with-jwt-demo","exp":1687611144}
 ```
 
 可以看到已成功返回 JWT Token。客户端可以把 Token 写入 Cookie 或 localStorage。后面的请求可以通过 Cookie 或 Header 携带 Token 信息。然后服务器可通过拦截器实现 Token 自动认证。
+
+```go
+// main.go
+// token 认证拦截器
+func tokenAuth(c *gin.Context) {
+	auth := c.GetHeader("Authentication")
+	// 未设置认证信息
+	if len(auth) == 0 {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	t := strings.Split(auth, " ")
+	// 认证信息格式不正确，正确格式如下
+	// Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTExNDR9.CmjCuqM80vlK5RmhnQwNtB1qRp4hTkopV5QxfhdQF4o
+	if len(t) != 2 {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	// 解析 Token
+	token, err := jwt.ParseWithClaims(t[1], &TokenClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return getSecretKey(), nil
+	})
+
+	// Token 解析出错或过期
+	if err != nil || !token.Valid {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	if claims, ok := token.Claims.(*TokenClaims); !ok {
+		c.AbortWithStatus(http.StatusUnauthorized)
+	} else {
+		// Token 认证成功，设置上下文信息
+		c.Set("username", claims.Username)
+	}
+}
+```
+
+编辑 main 方法，增加需要登录才能访问的接口 `/private`
+
+```go
+func main() {
+	// ...
+	// private 接口配置了 tokenAuth 拦截器，拦截器会自动进行 Token 认证，
+  // 认证成功会把 username 写入上下文中，认证失败会返回 401
+  r.GET("private", tokenAuth, func(c *gin.Context) {
+		username := c.GetString("username")
+		c.JSON(http.StatusOK, Result{
+			Data: username,
+		})
+	})
+	// ...
+}
+```
+
+现在运行服务器，发送测试请求
+
+```bash
+$ go mod tidy
+# 运行应用
+$ go run .
+
+# 未携带 Token，则返回 401
+$ curl -f http://localhost:8080/private
+curl: (22) The requested URL returned error: 401
+
+# 登录
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":0,"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTIzMDJ9.pth8BFddyFtmGWPIUWK-_bAEwpmivr50nS16Z5muMXk"}
+
+# 携带刚刚登录接口返回的 Token，接口成功返回 username
+$ curl -f -H 'Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTIzMDJ9.pth8BFddyFtmGWPIUWK-_bAEwpmivr50nS16Z5muMXk' http://localhost:8080/private
+{"code":0,"data":"huoyijie"}
+```
