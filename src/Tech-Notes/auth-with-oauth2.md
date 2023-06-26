@@ -327,7 +327,7 @@ e.ErrorCode undefined (type *"golang.org/x/oauth2".RetrieveError has no field or
 ```
 require (
 -	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
-+ golang.org/x/oauth2 v0.9.0
++	golang.org/x/oauth2 v0.9.0
 )
 ```
 
