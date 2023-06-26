@@ -2,5 +2,6 @@ keynote: []
 docsify:
   - 'auth.md'
   - 'auth-with-jwt.md'
+  - 'auth-with-oauth2.md'
 gitbook: []
 ignore: []
