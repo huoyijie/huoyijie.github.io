@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Mon, 26 Jun 2023 09:57:33 +0800</pubDate>
+    <pubDate>Mon, 26 Jun 2023 11:10:33 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -116,7 +116,7 @@
       <link>https://huoyijie.cn/docsifys/Tech-Notes/auth-with-oauth2</link>
       <description>auth with oauth2</description>
       <author>huoyijie</author>
-      <pubDate>Mon, 26 Jun 2023 09:53:57 +0800</pubDate>
+      <pubDate>Mon, 26 Jun 2023 11:10:30 +0800</pubDate>
     </item>
     <item>
       <title>auth with jwt</title>

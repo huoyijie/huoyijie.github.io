@@ -78,7 +78,257 @@ Client 应用中登录界面显示其他平台(如: Google)登录选项，用户
       Figure 2: Resource Owner Password Credentials Flow
 ```
 
-Client 在获取到 Access Token 后，可携带 Access Token 访问 Resource server。下面我们来看看如何实现这种用户认证方式。
+Client 在获取到 Access Token 后，可携带 Access Token 访问 Resource server。下面我们来看看如何基于 [go-oauth2 server](https://github.com/go-oauth2/oauth2) 和 [oauth2 client](https://pkg.go.dev/golang.org/x/oauth2) 实现这种用户认证方式。
 
 ## 实现用户认证
 
+文中所有代码已放到 [Github user-auth-with-oauth2](https://github.com/huoyijie/tech-notes-code) 目录下。
+
+*前置条件*
+* 已安装 Go 1.20+
+* 已安装 IDE （如 vscode）
+
+创建 user-auth-with-oauth2 项目
+
+```bash
+$ mkdir user-auth-with-oauth2 && cd user-auth-with-oauth2
+$ go mod init user-auth-with-oauth2
+```
+
+**实现 OAuth2 Authorization Server**
+
+创建 oauth2.go 文件，并添加下面代码
+
+```go
+package main
+
+import (
+	"context"
+	"encoding/base64"
+	"encoding/hex"
+	"log"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-oauth2/oauth2/v4/models"
+	"github.com/go-oauth2/oauth2/v4/errors"
+	"github.com/go-oauth2/oauth2/v4/generates"
+	"github.com/go-oauth2/oauth2/v4/manage"
+	"github.com/go-oauth2/oauth2/v4/server"
+	"github.com/go-oauth2/oauth2/v4/store"
+	"github.com/golang-jwt/jwt"
+	"golang.org/x/crypto/bcrypt"
+)
+
+// 用户模型
+type User struct {
+	Username, PasswordHash string
+}
+
+// 模拟数据库存储，真实应用需写入数据库表中
+var users = map[string]User{
+	"huoyijie": {
+		Username: "huoyijie",
+		// 原始密码: mypassword
+		PasswordHash: "JDJhJDE0JElHWVpnTzdtd1pZbEVTQnAyY1VhTk9CVEJkcUcwV2xyMFZaWElKZ25EZlNjM0lqZHllc2E2",
+	},
+}
+
+func decode(passwordHash string) (bytes []byte) {
+	bytes, _ = base64.StdEncoding.DecodeString(passwordHash)
+	return
+}
+
+// 获取密钥
+func getSecretKey() []byte {
+	key, err := hex.DecodeString("3e367a60ddc0699ea2f486717d5dcd174c4dee0bcf1855065ab74c348e550b78" /* Load key from somewhere, for example an environment variable */)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return key
+}
+
+// 启动 oauth2 server
+func runOAuth2(r *gin.Engine) {
+	manager := manage.NewDefaultManager()
+	// token memory store
+	manager.MustTokenStorage(store.NewMemoryTokenStore())
+	// generate jwt access token
+	manager.MapAccessGenerate(generates.NewJWTAccessGenerate("jwt", getSecretKey(), jwt.SigningMethodHS512))
+
+	// client memory store
+	clientStore := store.NewClientStore()
+	clientStore.Set("100000", &models.Client{
+		ID:     "100000",
+		Secret: "575f508960a9415a97f05a070a86165b",
+	})
+	manager.MapClientStorage(clientStore)
+
+	// 设置 oauth2 server
+	srv := server.NewDefaultServer(manager)
+
+	srv.SetInternalErrorHandler(func(err error) (re *errors.Response) {
+		log.Println("Internal Error:", err.Error())
+		return
+	})
+	srv.SetResponseErrorHandler(func(re *errors.Response) {
+		log.Println("Response Error:", re.Error.Error())
+	})
+
+	// 用户认证
+	srv.SetPasswordAuthorizationHandler(func(ctx context.Context, clientID, username, password string) (userID string, err error) {
+		if clientID == "100000" {
+			// 验证用户存在且密码哈希比对成功
+			if user, found := users[username]; found && bcrypt.CompareHashAndPassword(decode(user.PasswordHash), []byte(password)) == nil {
+				userID = username
+				return
+			}
+		}
+		err = errors.ErrUnauthorizedClient
+		return
+	})
+
+	// 返回 token
+	r.POST("/oauth/token", func(c *gin.Context) {
+		srv.HandleTokenRequest(c.Writer, c.Request)
+	})
+}
+```
+
+主要看负责启动 oauth2 server 的 runOAuth2 方法，代码首先创建 manager，设置基于内存的 Token Storage，设置生成 JWT 格式的 Access Token，然后设置基于内存的 Client 信息存储，预先配置了一个 ID 为 100000 的 Client，只有这里配置过的 Client 才可以通过 oauth2 server 获取 Access Token。
+
+基于内存存储 Token 和 Client 信息容易设置，非常方便用来开发和测试，但是重启进程数据就没了，实践中可以采用插件替换为基于数据库或 Redis 的方案，具体参见[go-oauth2](https://github.com/go-oauth2/oauth2)。
+
+设置完 manager 后，基于 manager 创建 srv，设置错误处理回调函数，设置用户名密码认证回调函数。用户认证回调函数首先判断 clientID 等于 100000，然后比对用户名和密码哈希，认证成功返回 userID，认证失败返回 error。
+
+最后配置路由 `/oauth/token`，完全接管生成 Token 的请求。
+
+运行 `go mod tidy` 安装依赖:
+
+```bash
+$ go mod tidy
+```
+
+**实现 OAuth2 Client**
+
+创建 app.go，并添加如下代码:
+
+```go
+package main
+
+import (
+	"context"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"golang.org/x/oauth2"
+)
+
+// 统一返回包装类型
+type Result struct {
+	Code    string `json:"code"`
+	Message string `json:"message,omitempty"`
+	Data    any    `json:"data,omitempty"`
+}
+
+// 登录表单
+type SigninForm struct {
+	Username string `json:"username" binding:"required,alphanum,max=40"`
+	Password string `json:"password" binding:"required,min=8,max=40"`
+}
+
+const (
+	authServerURL = "http://127.0.0.1:8080"
+)
+
+// 通过 oauth2 server 预先配置的 Client 访问 Authorization server
+var config = oauth2.Config{
+	ClientID:     "100000",
+	ClientSecret: "575f508960a9415a97f05a070a86165b",
+	Endpoint: oauth2.Endpoint{
+		TokenURL: authServerURL + "/oauth/token",
+	},
+}
+
+// 启动 App
+func runApp(r *gin.Engine) {
+	// 登录获取 token
+	r.POST("/signin", func(c *gin.Context) {
+		form := &SigninForm{}
+		if err := c.BindJSON(form); err != nil {
+			return
+		}
+
+		// 通过提供用户名、密码获取 token
+		token, err := config.PasswordCredentialsToken(context.Background(), form.Username, form.Password)
+		if err != nil {
+			if e, ok := err.(*oauth2.RetrieveError); ok {
+				c.JSON(http.StatusOK, Result{
+					Code:    e.ErrorCode,
+					Message: e.ErrorDescription,
+				})
+				return
+			}
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, Result{Data: token})
+	})
+}
+```
+
+这段代码定义了 config 变量，通过 oauth2 server 预先配置的 Client 访问 Authorization server，然后是最重要的 runApp 函数，定义了登录 Signin 接口，调用 [oauth2 client](https://pkg.go.dev/golang.org/x/oauth2) 库提供的 PasswordCredentialsToken 方法，使用用户名密码交换 Token。PasswordCredentialsToken 方法会向 oauth2 Authorization server 发送类似如下请求:
+
+```
+POST /oauth/token HTTP/1.1
+ 
+grant_type=password
+&username=huoyijie
+&password=mypassword
+&client_id=100000
+&client_secret=575f508960a9415a97f05a070a86165b
+```
+
+oauth2 Authorization server 会验证 client_id & client_secret 是否合法，调用下面预先配置好的回调函数进行用户名密码认证。
+
+```go
+// oauth2.go
+func runOAuth2() {
+  // ...
+	// 用户认证
+	srv.SetPasswordAuthorizationHandler(func(ctx context.Context, clientID, username, password string) (userID string, err error) {
+		if clientID == "100000" {
+			// 验证用户存在且密码哈希比对成功
+			if user, found := users[username]; found && bcrypt.CompareHashAndPassword(decode(user.PasswordHash), []byte(password)) == nil {
+				userID = username
+				return
+			}
+		}
+		err = errors.ErrUnauthorizedClient
+		return
+	})
+	// ...
+}
+```
+
+认证成功后，会返回 Token 给 oauth client。
+
+```bash
+# 安装依赖
+$ go mod tidy
+```
+
+```
+e.ErrorCode undefined (type *"golang.org/x/oauth2".RetrieveError has no field or method ErrorCode
+```
+
+如果代码报上述错误，手动编辑 go.mod 调整 oauth2 client 库版本为 v0.9.0
+
+```
+require (
+-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
++ golang.org/x/oauth2 v0.9.0
+)
+```
+
+然后再次执行 `go mod tidy`，报错消失。下面我们来测试一下:
