@@ -331,4 +331,45 @@ require (
 )
 ```
 
-然后再次执行 `go mod tidy`，报错消失。下面我们来测试一下:
+然后再次执行 `go mod tidy`，报错消失。
+
+**实现 main 函数**
+
+新增 main.go，并添加下面代码
+
+```go
+package main
+
+import (
+	"log"
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	r := gin.Default()
+	runOAuth2(r)
+	runApp(r)
+
+	log.Println("Please open http://localhost:8080")
+	log.Fatal(r.Run(":8080"))
+}
+```
+
+下面我们来测试一下:
+
+```bash
+# 运行应用
+$ go run .
+
+# 发送登录请求
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc3NTY2NjAsInN1YiI6Imh1b3lpamllIn0.BoFdJkGsHDN0wzli8zfIux7XckrSR4BHEtd5wxzRZ3iX87VuaWXOXNkUqqPwHJqOTEwfXJWEAvFZCe54orXGdg","token_type":"Bearer","refresh_token":"MMVHMDHHOWYTNDRLYY01YZHMLWI2MWMTMDQYMZC4MDK5NDRL","expiry":"2023-06-26T13:17:40.921345574+08:00"}}
+```
+
+我们选择了 JWT 格式的 Access Token，JWT 格式由 Header (签名算法参数)、JSON Object 和签名三部分组成，前2个部分可通过 base64 解码直接查看:
+
+```
+{"alg":"HS512","kid":"jwt","typ":"JWT"}{"aud":"100000","exp":1687756660,"sub":"huoyijie"}
+```
+
+其中 aud 为 Client ID (100000)，exp 是过期时间，sub 是 userID。返回的 Token 信息除了 access_token，还包括 token_type(Bearer)、refresh_token 和 expiry。前端应用在通过 /signin 接口拿到 token 信息后可写入本地存储中。访问后续接口资源时，需在 Header 中携带 `Authorization: Bearer $access_token`，资源服务器会对 access_token 进行是否合法、过期验证。
