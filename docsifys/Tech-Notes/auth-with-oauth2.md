@@ -293,7 +293,7 @@ oauth2 Authorization server 会验证 client_id & client_secret 是否合法，�
 
 ```go
 // oauth2.go
-func runOAuth2() {
+func runOAuth2(r *gin.Engine) {
   // ...
 	// 用户认证
 	srv.SetPasswordAuthorizationHandler(func(ctx context.Context, clientID, username, password string) (userID string, err error) {
@@ -372,4 +372,128 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 {"alg":"HS512","kid":"jwt","typ":"JWT"}{"aud":"100000","exp":1687756660,"sub":"huoyijie"}
 ```
 
-其中 aud 为 Client ID (100000)，exp 是过期时间，sub 是 userID。返回的 Token 信息除了 access_token，还包括 token_type(Bearer)、refresh_token 和 expiry。前端应用在通过 /signin 接口拿到 token 信息后可写入本地存储中。访问后续接口资源时，需在 Header 中携带 `Authorization: Bearer $access_token`，资源服务器会对 access_token 进行是否合法、过期验证。
+其中 aud 为 Client ID (100000)，exp 是过期时间，sub 是 userID。返回的 Token 信息除了 access_token，还包括 token_type(Bearer)、refresh_token 和 expiry。前端应用在通过 /signin 接口拿到 token 信息后可写入本地存储中。访问后续接口资源时，需在 Header 中携带 `Authorization: Bearer $access_token`，资源服务器会对 access_token 进行是否合法、过期验证。接下来实现一个拦截器，自动读取并校验请求头部的 access_token。
+
+**Token 认证拦截器**
+
+Token 是由 oauth2 server 使用密钥和对称加密算法签名生成的，没有密钥无法验证签名。因此，Token 验证请求还是要委托给 oauth2 server，编辑 oauth2.go 增加 Token 验证接口。
+
+```go
+// oauth2.go
+func runOAuth2(r *gin.Engine) {
+	// ...
+	// 验证 access token
+	r.GET("/oauth/validate_token", func(c *gin.Context) {
+		if token, err := srv.ValidationBearerToken(c.Request); err != nil {
+			res := gin.H{"err_desc": err.Error()}
+			switch err {
+			case errors.ErrInvalidAccessToken:
+				res["err_no"] = "-1001"
+			case errors.ErrExpiredAccessToken:
+				res["err_no"] = "-1002"
+			case errors.ErrExpiredRefreshToken:
+				res["err_no"] = "-1003"
+			default:
+				res["err_no"] = "-1000"
+			}
+			c.JSON(http.StatusOK, res)
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"err_no":    "0",
+				"client_id": token.GetClientID(),
+				"user_id":   token.GetUserID(),
+			})
+		}
+	})
+	// ...
+}
+```
+
+编辑 app.go，增加 tokenAuth 拦截器代码
+
+```go
+// app.go
+// token 认证拦截器，注意 refresh_token 过期需客户端重新登录
+func tokenAuth(c *gin.Context) {
+	auth := c.GetHeader("Authentication")
+	prefix := "Bearer "
+	token := ""
+	if auth != "" && strings.HasPrefix(auth, prefix) {
+		token = auth[len(prefix):]
+	}
+
+	resp, err := http.Get(fmt.Sprintf("%s/oauth/validate_token?access_token=%s", authServerURL, token))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Result{
+			Code:    "-10000",
+			Message: err.Error(),
+		})
+		return
+	} else if resp.StatusCode == http.StatusNotFound {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Result{
+			Code:    "-10001",
+			Message: "/validate_token not found",
+		})
+		return
+	}
+	defer resp.Body.Close()
+
+	d := json.NewDecoder(resp.Body)
+	var res gin.H
+	d.Decode(&res)
+	if errno := res["err_no"].(string); errno != "0" {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, Result{
+			Code:    errno,
+			Message: res["err_desc"].(string),
+		})
+		return
+	}
+
+	c.Set("username", res["user_id"])
+}
+```
+
+上述代码是一个请求拦截器，对于需要 access_token 才能访问接口，可以配置上述拦截器。拦截器主要通过调用 oauth2 server 中的 `/oauth/validate_token` 接口来实现 Token 有效性验证。
+
+* 如果 `/oauth/validate_token` 接口不能访问，返回 http.StatusInternalServerError(500)。
+* 如果验证无效会返回 http.StatusUnauthorized(401)，具体错误(如: access_token 或 refresh_token 过期)通过 Code 返回。客户端可根据错误码来执行不同的操作，access_token 过期则进行刷新 Token 操作，refresh_token 过期则跳转至登录页面重新认证。
+* 如果验证成功，则把 username 写入请求上下文中。
+
+接下来通过 `/private` 接口测试一下上述拦截器，编辑 app.go 文件，添加下述代码:
+
+```go
+// app.go
+func main runApp(r *gin.Engine) {
+	// ...
+	// private 接口配置了 tokenAuth 拦截器，拦截器会自动进行 Token 认证，
+	// 认证成功会把 username 写入上下文中，认证失败会返回 401
+	r.GET("private", tokenAuth, func(c *gin.Context) {
+		username := c.GetString("username")
+		c.JSON(http.StatusOK, Result{
+			Data: username,
+		})
+	})
+	// ...
+}
+```
+
+下面来测试一下 `/private` 接口:
+
+```bash
+$ go mod tidy
+
+# 运行应用
+$ go run .
+
+# 未携带 access_token 访问 /private 接口返回 401
+$ curl -f http://localhost:8080/private
+curl: (22) The requested URL returned error: 401
+
+# 登录
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTQ0NTQsInN1YiI6Imh1b3lpamllIn0.HTyLCx3KgqJIDp7huQyV1AgHmjI_oJZG05mZYZOpYNm_BmGGIHBAboDwTsP_pCiA_EgEm_MVsoI9q5fZoYldXA","token_type":"Bearer","refresh_token":"MZVLOGQZYMETMMJHYY01M2YYLTHLZGUTMWIXMMI2NZG4YJK1","expiry":"2023-06-27T16:27:34.549579677+08:00"}}
+
+# 携带刚刚生成的 access_token 访问 /private 接口返回 username
+$ curl -f -H 'Authentication: Bearer eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTQ0NTQsInN1YiI6Imh1b3lpamllIn0.HTyLCx3KgqJIDp7huQyV1AgHmjI_oJZG05mZYZOpYNm_BmGGIHBAboDwTsP_pCiA_EgEm_MVsoI9q5fZoYldXA'  http://localhost:8080/private
+{"code":"","data":"huoyijie"}
+```
