@@ -497,3 +497,79 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 $ curl -f -H 'Authentication: Bearer eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTQ0NTQsInN1YiI6Imh1b3lpamllIn0.HTyLCx3KgqJIDp7huQyV1AgHmjI_oJZG05mZYZOpYNm_BmGGIHBAboDwTsP_pCiA_EgEm_MVsoI9q5fZoYldXA'  http://localhost:8080/private
 {"code":"","data":"huoyijie"}
 ```
+
+**刷新 Access Token**
+
+为了安全一般 access_token 有效时间一般比较短 (默认2小时)，当 access_token 过期后验证会失败，客户端收到 401 错误后检测具体错误码，如果是 access_token 过期，则可以通过 refresh_token 重新生成 access_token。
+
+refresh_token 在通过用户名、密码认证后，会与 access_token 一起下发给客户端，客户端需妥善保管(只有在需要刷新 access_token 时才用到)，一般可以设置更长的有效期(如: 30天)。
+
+在使用 refresh_token 刷新 Token 时，生成新的 access_token 的同时，也会生成新的 refresh_token，客户端需要更新本地存储的 refresh_token。新的 refresh_token 生成后，原有的 refresh_token 就立刻失效了。
+
+下面来实现 Token 刷新接口，编辑 app.go 文件，添加下面代码:
+
+```go
+// 刷新 token 表单
+type RefreshForm struct {
+	AccessToken string `json:"access_token" binding:"required"`
+
+	RefreshToken string `json:"refresh_token,omitempty" binding:"required"`
+}
+
+func runApp(r *gin.Engine) {
+	// ...
+	// 刷新 token，注意 refresh_token 过期需客户端重新登录
+	r.POST("refresh", func(c *gin.Context) {
+		form := &RefreshForm{}
+		if err := c.BindJSON(form); err != nil {
+			return
+		}
+
+		// 自动获取新的 access and refresh token
+		token, err := config.TokenSource(context.Background(), &oauth2.Token{
+			AccessToken:  form.AccessToken,
+			TokenType:    "Bearer",
+			RefreshToken: form.RefreshToken,
+			Expiry:       time.Now(),
+		}).Token()
+
+		if err != nil {
+			if e, ok := err.(*oauth2.RetrieveError); ok {
+				c.JSON(http.StatusOK, Result{
+					Code:    e.ErrorCode,
+					Message: e.ErrorDescription,
+				})
+				return
+			}
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, Result{
+			Data: token,
+		})
+	})
+	// ...
+}
+```
+
+下面来发送请求测试一下 `/refresh` 接口:
+
+```bash
+$ go mod tidy
+
+# 运行应用
+$ go run .
+
+# 登录
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+# 输出:
+{"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTY2NzAsInN1YiI6Imh1b3lpamllIn0.7MmVBHjiRdsom6sLvpseRyfojR6AIG9K9OwxSBH_tocjFJfft8AJ9HfhYIWtcE9jaPs3uysqBRRdXv9fUyJ6ng","token_type":"Bearer","refresh_token":"NZRJOGY5ZDQTOWMXNY01NJZMLTLHZMMTNDYZYMMWOWQ1ZMMZ","expiry":"2023-06-27T17:04:30.979470401+08:00"}}
+
+# 用刚刚生成的 refresh_token 刷新 Token
+$ curl -d '{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTY2NzAsInN1YiI6Imh1b3lpamllIn0.7MmVBHjiRdsom6sLvpseRyfojR6AIG9K9OwxSBH_tocjFJfft8AJ9HfhYIWtcE9jaPs3uysqBRRdXv9fUyJ6ng", "refresh_token":"NZRJOGY5ZDQTOWMXNY01NJZMLTLHZMMTNDYZYMMWOWQ1ZMMZ"}' -f http://localhost:8080/refresh
+# 输出:
+{"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTY4MzUsInN1YiI6Imh1b3lpamllIn0.Af0xxj-zKvhixoq4WDyreyCl-hpYMYSKW-d_ZwRa2lhs0YZnsDSCNwarIYvHs4Q0dF-QDwxz1W6wZ-arIRwxNw","token_type":"Bearer","refresh_token":"ZWE4MDAYOGETM2Y1NY01NGJHLTGZOTATM2UYNTNHMWNLMZC2","expiry":"2023-06-27T17:07:15.469488185+08:00"}}
+```
+
+可以看到 `/refresh` 接口成功生成了新的 Token。
