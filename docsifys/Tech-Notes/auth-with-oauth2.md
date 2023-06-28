@@ -502,7 +502,7 @@ $ curl -f -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6
 
 为了安全一般 access_token 有效时间一般比较短 (默认2小时)，当 access_token 过期后验证会失败，客户端收到 401 错误后检测具体错误码，如果是 access_token 过期，则可以通过 refresh_token 重新生成 access_token。
 
-refresh_token 在通过用户名、密码认证后，会与 access_token 一起下发给客户端，客户端需妥善保管(只有在需要刷新 access_token 时才用到)，一般可以设置更长的有效期(如: 30天)。
+refresh_token 在通过用户名、密码认证后，会与 access_token 一起下发给客户端，客户端需妥善保管(只有在需要刷新 access_token 时才用到)，一般可以设置更长的有效期(如: 7天)。
 
 在使用 refresh_token 刷新 Token 时，生成新的 access_token 的同时，也会生成新的 refresh_token，客户端需要更新本地存储的 refresh_token。新的 refresh_token 生成后，原有的 refresh_token 就立刻失效了。
 
