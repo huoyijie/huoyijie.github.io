@@ -415,7 +415,7 @@ func runOAuth2(r *gin.Engine) {
 // app.go
 // token 认证拦截器，注意 refresh_token 过期需客户端重新登录
 func tokenAuth(c *gin.Context) {
-	auth := c.GetHeader("Authentication")
+	auth := c.GetHeader("Authorization")
 	prefix := "Bearer "
 	token := ""
 	if auth != "" && strings.HasPrefix(auth, prefix) {
@@ -494,7 +494,7 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 {"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTQ0NTQsInN1YiI6Imh1b3lpamllIn0.HTyLCx3KgqJIDp7huQyV1AgHmjI_oJZG05mZYZOpYNm_BmGGIHBAboDwTsP_pCiA_EgEm_MVsoI9q5fZoYldXA","token_type":"Bearer","refresh_token":"MZVLOGQZYMETMMJHYY01M2YYLTHLZGUTMWIXMMI2NZG4YJK1","expiry":"2023-06-27T16:27:34.549579677+08:00"}}
 
 # 携带刚刚生成的 access_token 访问 /private 接口返回 username
-$ curl -f -H 'Authentication: Bearer eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTQ0NTQsInN1YiI6Imh1b3lpamllIn0.HTyLCx3KgqJIDp7huQyV1AgHmjI_oJZG05mZYZOpYNm_BmGGIHBAboDwTsP_pCiA_EgEm_MVsoI9q5fZoYldXA'  http://localhost:8080/private
+$ curl -f -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODc4NTQ0NTQsInN1YiI6Imh1b3lpamllIn0.HTyLCx3KgqJIDp7huQyV1AgHmjI_oJZG05mZYZOpYNm_BmGGIHBAboDwTsP_pCiA_EgEm_MVsoI9q5fZoYldXA'  http://localhost:8080/private
 {"code":"","data":"huoyijie"}
 ```
 

@@ -173,7 +173,7 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 // main.go
 // token 认证拦截器
 func tokenAuth(c *gin.Context) {
-	auth := c.GetHeader("Authentication")
+	auth := c.GetHeader("Authorization")
 	// 未设置认证信息
 	if len(auth) == 0 {
 		c.AbortWithStatus(http.StatusUnauthorized)
@@ -182,7 +182,7 @@ func tokenAuth(c *gin.Context) {
 
 	t := strings.Split(auth, " ")
 	// 认证信息格式不正确，正确格式如下
-	// Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTExNDR9.CmjCuqM80vlK5RmhnQwNtB1qRp4hTkopV5QxfhdQF4o
+	// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTExNDR9.CmjCuqM80vlK5RmhnQwNtB1qRp4hTkopV5QxfhdQF4o
 	if len(t) != 2 {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
@@ -241,6 +241,6 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 {"code":0,"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTIzMDJ9.pth8BFddyFtmGWPIUWK-_bAEwpmivr50nS16Z5muMXk"}
 
 # 携带刚刚登录接口返回的 Token，接口成功返回 username
-$ curl -f -H 'Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTIzMDJ9.pth8BFddyFtmGWPIUWK-_bAEwpmivr50nS16Z5muMXk' http://localhost:8080/private
+$ curl -f -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1b3lpamllIiwiaXNzIjoidXNlci1hdXRoLXdpdGgtand0LWRlbW8iLCJleHAiOjE2ODc2MTIzMDJ9.pth8BFddyFtmGWPIUWK-_bAEwpmivr50nS16Z5muMXk' http://localhost:8080/private
 {"code":0,"data":"huoyijie"}
 ```

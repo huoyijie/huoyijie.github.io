@@ -370,7 +370,7 @@ func() {
 	// ...
 	g := r.Group("", func(c *gin.Context) {
 		// 实现拦截器
-		auth := c.GetHeader("Authentication")
+		auth := c.GetHeader("Authorization")
 		// 未设置认证信息
 		if len(auth) == 0 {
 			c.AbortWithStatus(http.StatusUnauthorized)
@@ -379,7 +379,7 @@ func() {
 
 		t := strings.Split(auth, " ")
 		// 认证信息格式不正确，正确格式如下
-		// Authentication: Bearer eL8TZSnTs4LS/UR9cmw7n6oW3K7TVMg35IxDZWozKS+dNbqAYov09kVuoG0=
+		// Authorization: Bearer eL8TZSnTs4LS/UR9cmw7n6oW3K7TVMg35IxDZWozKS+dNbqAYov09kVuoG0=
 		if len(t) != 2 {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
@@ -445,7 +445,7 @@ $ curl -f http://localhost:8080/private
 curl: (22) The requested URL returned error: 401
 
 # 所携带 Token 通过前面登录接口生成，正确返回了 username
-curl -f -H 'Authentication: Bearer +xUywII+VjD7o+y2/ZHJAFtVVgy46qRLly4LPSsfHJG1WS2EboimG/uiLcA=' http://localhost:8080/private
+curl -f -H 'Authorization: Bearer +xUywII+VjD7o+y2/ZHJAFtVVgy46qRLly4LPSsfHJG1WS2EboimG/uiLcA=' http://localhost:8080/private
 {"code":0,"data":"huoyijie"}
 ```
 
@@ -492,16 +492,16 @@ func main() {
 $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
 {"code":0,"data":"YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0="}
 
-$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/get
+$ curl -f -H 'Authorization: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/get
 {"code":0,"data":"Get article"}
 
-$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
+$ curl -f -H 'Authorization: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
 {"code":0,"data":"add article"}
 
-$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
+$ curl -f -H 'Authorization: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
 {"code":0,"data":"change article"}
 
-$ curl -f -H 'Authentication: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
+$ curl -f -H 'Authorization: Bearer YGTApulsrdAGRc438jUmG+VrJGs12ElmJCjw3m8SPNc/W278n7dQYBS44+0=' http://localhost:8080/article/add
 {"code":0,"data":"delete article"}
 ```
 
@@ -633,15 +633,15 @@ $ curl -d '{"username":"vip","password":"mypassword"}'  http://localhost:8080/si
 {"code":0,"data":"zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm"}
 
 # 允许访问
-$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/get
+$ curl -f -H 'Authorization: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/get
 {"code":0,"data":"Get article"}
 
 # 拒绝访问，返回 403
-$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/add
+$ curl -f -H 'Authorization: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/add
 curl: (22) The requested URL returned error: 403
-$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/change
+$ curl -f -H 'Authorization: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/change
 curl: (22) The requested URL returned error: 403
-$ curl -f -H 'Authentication: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/delete
+$ curl -f -H 'Authorization: Bearer zshlS3E/Rqp8XNRlerhfk7sSkMAi/+zqcz5qlaAv2Y1lP4bavJlm' http://localhost:8080/article/delete
 curl: (22) The requested URL returned error: 403
 
 # 登录 jack 用户，具有 WRITER 角色，有 article:get/article:add/article:change/article:delete 所有权限
@@ -649,13 +649,13 @@ $ curl -d '{"username":"jack","password":"mypassword"}'  http://localhost:8080/s
 {"code":0,"data":"m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw=="}
 
 # 允许访问
-$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/get
+$ curl -f -H 'Authorization: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/get
 {"code":0,"data":"Get article"}
-$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/add
+$ curl -f -H 'Authorization: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/add
 {"code":0,"data":"add article"}
-$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/change
+$ curl -f -H 'Authorization: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/change
 {"code":0,"data":"change article"}
-$ curl -f -H 'Authentication: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/delete
+$ curl -f -H 'Authorization: Bearer m/qQX0vQQpsddwq+3qwQtogHDskw4izqflziO5pFsKz4k1CTrgURlw==' http://localhost:8080/article/delete
 {"code":0,"data":"delete article"}
 
 # 登录 huoyijie 用户，具有 ADMIN 角色，具有所有权限
@@ -663,13 +663,13 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 {"code":0,"data":"LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ="}
 
 # 允许访问
-$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/get
+$ curl -f -H 'Authorization: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/get
 {"code":0,"data":"Get article"}
-$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/add
+$ curl -f -H 'Authorization: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/add
 {"code":0,"data":"add article"}
-$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/change
+$ curl -f -H 'Authorization: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/change
 {"code":0,"data":"change article"}
-$ curl -f -H 'Authentication: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/delete
+$ curl -f -H 'Authorization: Bearer LtlWrZy6c62x12E+w2omutsc2mGwHFDed3HhaE+eWDKPJlc1kIo6wPPq8GQ=' http://localhost:8080/article/delete
 {"code":0,"data":"delete article"}
 ```
 
