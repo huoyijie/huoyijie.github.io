@@ -3,6 +3,6 @@ docsify:
   - 'auth.md'
   - 'auth-with-jwt.md'
   - 'auth-with-oauth2.md'
-  - 'auth2-mysql-store.md'
+  - 'oauth2-mysql-store.md'
 gitbook: []
 ignore: []
