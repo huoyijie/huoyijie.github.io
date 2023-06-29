@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-06-28 16:37:53.240208605 +0800 CST m=+0.543516073</lastmod>
+        <lastmod>2023-06-29 11:26:42.016808667 +0800 CST m=+4.921163439</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-28 16:35:36.896531526 +0800 CST</lastmod>
+        <lastmod>2023-06-28 19:09:21.242053154 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -115,7 +115,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/Tech-Notes/oauth2-mysql-store</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-28 16:37:48.327047434 +0800 CST</lastmod>
+        <lastmod>2023-06-29 11:25:55.445091048 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
