@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-06-29 11:26:42.016808667 +0800 CST m=+4.921163439</lastmod>
+        <lastmod>2023-07-01 16:23:17.816538897 +0800 CST m=+3.937105194</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -29,16 +29,16 @@
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
+        <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-28 19:09:21.242053154 +0800 CST</lastmod>
+        <lastmod>2023-07-01 16:22:25.372996322 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
+        <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-20 11:46:33.913004222 +0800 CST</lastmod>
+        <lastmod>2023-06-28 19:09:21.242053154 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
