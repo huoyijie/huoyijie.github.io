@@ -4,5 +4,6 @@ docsify:
   - 'auth-with-jwt.md'
   - 'auth-with-oauth2.md'
   - 'oauth2-mysql-store.md'
+  - 'http-message-signatures.md'
 gitbook: []
 ignore: []

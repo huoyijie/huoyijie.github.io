@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-07-01 16:23:17.816538897 +0800 CST m=+3.937105194</lastmod>
+        <lastmod>2023-07-02 10:38:29.003762467 +0800 CST m=+0.090713056</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-07-01 16:22:25.372996322 +0800 CST</lastmod>
+        <lastmod>2023-07-02 10:37:47.401245918 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -109,6 +109,13 @@
         <loc>https://huoyijie.cn/docsifys/Blockchain/blockchain-for-dummies</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-03-10 13:03:45.897489443 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/http-message-signatures</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-07-01 17:05:43.098300514 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
