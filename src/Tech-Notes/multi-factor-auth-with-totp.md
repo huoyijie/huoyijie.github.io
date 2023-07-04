@@ -1,6 +1,6 @@
 # 基于 TOTP 实现多因素(Multi-factor)认证
 
-本文介绍了基于 TOTP 实现多重身份认证的基本流程和方法，并基于 [Golang OTP 库](https://github.com/pquerna/otp) 和 [Google Authenticator 客户端](https://github.com/google/google-authenticator) 实现了多重身份认证实例项目，当用户主动开启动态密码后，必须通过双重身份认证才会授权用户访问数字资源。为了防止恶意用户通过暴力手段破解动态密码，我们应该对登录接口进行更严格的访问限制，如连续认证失败多次后锁定账户一段时间(放到后面再实现)。可以看到我们通过实施双重身份认证，有效降低了由于密码泄漏导致的安全风险。
+本文介绍了基于 TOTP 实现多重身份认证的基本流程和方法，并基于 [Golang OTP 库](https://github.com/pquerna/otp) 和 [Google Authenticator 客户端](https://github.com/google/google-authenticator) 实现了多重身份认证实例项目，当用户主动开启动态密码后，必须通过双重身份认证才会授权用户访问数字资源。为了防止恶意用户通过暴力手段破解动态密码，我们应该对登录接口进行更严格的访问限制，如连续认证失败多次后锁定账户一段时间(放到后文实现)。可以看到我们通过实施双重身份认证，有效降低了由于密码泄漏导致的安全风险。
 
 数字安全在当今世界至关重要，每个用户都在网上存储各种敏感信息，这些在线信息的泄露或滥用可能会在现实世界中造成严重后果，例如财务盗窃、业务中断和隐私泄露。
 
@@ -436,4 +436,4 @@ $ curl -d '{"username":"huoyijie","password":"mypassword","otp":"294032"}'  http
 
 可以看到输入实时的动态密码后，通过了密码、动态密码双重身份认证，成功返回了 access_token 等信息。
 
-本文介绍了基于 TOTP 实现多重身份认证的基本流程和方法，并基于 [Golang OTP 库](https://github.com/pquerna/otp) 和 [Google Authenticator 客户端](https://github.com/google/google-authenticator) 实现了多重身份认证实例项目，当用户主动开启动态密码后，必须通过双重身份认证才会授权用户访问数字资源。为了防止恶意用户通过暴力手段破解动态密码，我们应该对登录接口进行更严格的访问限制，如连续认证失败多次后锁定账户一段时间(放到后面再实现)。可以看到我们通过实施双重身份认证，有效降低了由于密码泄漏导致的安全风险。
+本文介绍了基于 TOTP 实现多重身份认证的基本流程和方法，并基于 [Golang OTP 库](https://github.com/pquerna/otp) 和 [Google Authenticator 客户端](https://github.com/google/google-authenticator) 实现了多重身份认证实例项目，当用户主动开启动态密码后，必须通过双重身份认证才会授权用户访问数字资源。为了防止恶意用户通过暴力手段破解动态密码，我们应该对登录接口进行更严格的访问限制，如连续认证失败多次后锁定账户一段时间(放到后文实现)。可以看到我们通过实施双重身份认证，有效降低了由于密码泄漏导致的安全风险。
