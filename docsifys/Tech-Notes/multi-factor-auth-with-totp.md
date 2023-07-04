@@ -404,9 +404,11 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 
 ![Enable OTP](https://cdn.huoyijie.cn/uploads/2023/07/enable-otp.png)
 
-在手机上安装 Google Authenticator，打开应用市场搜索并安装。
+在手机上打开应用市场搜索 Google Authenticator。
 
 ![Search google authenticator](https://cdn.huoyijie.cn/uploads/2023/07/search-google-authenticator.jpg)
+
+点安装并打开
 
 ![Install google authenticator](https://cdn.huoyijie.cn/uploads/2023/07/install-google-authenticator.jpg)
 
@@ -414,9 +416,7 @@ $ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:80
 
 ![Scan QRCode](https://cdn.huoyijie.cn/uploads/2023/07/scan-qrcode.jpg)
 
-可以看到已经开始显示动态密码了。
-
-当前用户在开启动态密码后，下次登录时必须要提交动态密码，否则无法认证成功。我们现在测试一下动态密码:
+可以看到上面已经开始显示动态密码了。当前用户在开启动态密码后，下次登录时必须要提交动态密码，否则无法认证成功。我们现在测试一下动态密码:
 
 ```bash
 # 开启动态密码后，未传动态密码进行登录
