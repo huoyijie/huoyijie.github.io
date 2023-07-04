@@ -298,7 +298,7 @@ r.GET("/enable_otp", tokenAuth, func(c *gin.Context) { // ...
 // ...
 ```
 
-如果仔细看 `/enable_otp` 接口，还配置了 `tokenAuth` 拦截器。换句话说，要先登录后才能开启动态密码。tokenAuth 拦截器主要是用来验证 access_token 是否有效，它优先读取 url 中 query string 中的参数，再读取 header 中的 Authorization。读取到 access_token 后调用 oauth2 server 中的 `/oauth/validate_token` 接口进行验证。验证失败返回 401，验证成功把 username 写入上下文中。
+如果仔细看 `/enable_otp` 接口，还配置了 `tokenAuth` 拦截器。换句话说，要先登录后才能开启动态密码。
 
 ```go
 // app.go
@@ -349,6 +349,8 @@ func tokenAuth(c *gin.Context) {
 }
 ```
 
+tokenAuth 拦截器主要是用来验证 access_token 是否有效，它优先读取 url 中 query string 中的参数，再读取 header 中的 Authorization。读取到 access_token 后调用 oauth2 server 中的 `/oauth/validate_token` 接口进行验证。验证失败返回 401，验证成功把 username 写入上下文中。
+
 **实现 main 函数**
 
 新增 main.go，并添加下面代码
@@ -387,7 +389,49 @@ require (
 )
 ```
 
-然后再次执行 go mod tidy，报错消失。
+然后再次执行 go mod tidy，报错消失。接下来我们测试一下整个流程。
 
-下面我们来测试一下:
+```bash
+# 运行应用
+$ go run .
 
+# 密码登录认证 (默认未开启动态密码)
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODg0ODYwMTAsInN1YiI6Imh1b3lpamllIn0.Ac1CW7WgVCyoM-HgqLfUpxF2caXizuu5Bq5UwHsU6qrN5PaKGOh9ahD1BD8GyGtAM9NuonpmiF1kAaMcpfgtVw","token_type":"Bearer","refresh_token":"ZTE0MDE0NDITNTE3MC01YZHMLTG0NDATMTVKOGYXZJAXOTQ1","expiry":"2023-07-04T23:53:30.050751945+08:00"}}
+```
+
+打开浏览器，地址栏输入 `http://localhost:8080/enable_otp?access_token=eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODg0ODYwMTAsInN1YiI6Imh1b3lpamllIn0.Ac1CW7WgVCyoM-HgqLfUpxF2caXizuu5Bq5UwHsU6qrN5PaKGOh9ahD1BD8GyGtAM9NuonpmiF1kAaMcpfgtVw`，服务器返回二维码图片。
+
+![Enable OTP](https://cdn.huoyijie.cn/uploads/2023/07/enable-otp.png)
+
+在手机上安装 Google Authenticator，打开应用市场搜索并安装。
+
+![Search google authenticator](https://cdn.huoyijie.cn/uploads/2023/07/search-google-authenticator.jpg)
+
+![Install google authenticator](https://cdn.huoyijie.cn/uploads/2023/07/install-google-authenticator.jpg)
+
+依次点击添加动态密码 > 扫描二维码，完成账号设置。
+
+![Scan QRCode](https://cdn.huoyijie.cn/uploads/2023/07/scan-qrcode.jpg)
+
+可以看到已经开始显示动态密码了。
+
+当前用户在开启动态密码后，下次登录时必须要提交动态密码，否则无法认证成功。我们现在测试一下动态密码:
+
+```bash
+# 开启动态密码后，未传动态密码进行登录
+$ curl -d '{"username":"huoyijie","password":"mypassword"}'  http://localhost:8080/signin
+{"code":"-10010","message":"Invalid OTP"}
+```
+
+看上面输出，即使输入了正确的用户名和密码，如果缺失动态密码，无法通过身份认证。现在打开 Google Authenticator 查看动态密码。
+
+![One-time Password](https://cdn.huoyijie.cn/uploads/2023/07/one-time-password.jpg)
+
+```bash
+# 此时 Google Authenticator 显示 `294032`
+$ curl -d '{"username":"huoyijie","password":"mypassword","otp":"294032"}'  http://localhost:8080/signin
+{"code":"","data":{"access_token":"eyJhbGciOiJIUzUxMiIsImtpZCI6Imp3dCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMDAwMDAiLCJleHAiOjE2ODg0ODY5NTgsInN1YiI6Imh1b3lpamllIn0.LH0hLmnr293DpN_dtSdStzu6tQk-g5lMTg3EzE3NpG18_8ZcYh19TRB-YrYts9CtUpEdXGXKZREkOHq_Rr9mwQ","token_type":"Bearer","refresh_token":"ZJLMOTG1YMETMDU4MC01MZIZLTG4OTATZJRKMDEZZDCZY2JI","expiry":"2023-07-05T00:09:18.360268303+08:00"}}
+```
+
+可以看到输入实时的动态密码后，通过了密码、动态密码双重身份认证，成功返回了 access_token 等信息。
