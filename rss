@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Sun, 02 Jul 2023 14:23:29 +0800</pubDate>
+    <pubDate>Tue, 04 Jul 2023 17:20:51 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -32,7 +32,7 @@
       <link>https://huoyijie.cn/docsifys/tech-notes</link>
       <description>tech notes</description>
       <author>huoyijie</author>
-      <pubDate>Sun, 02 Jul 2023 13:33:26 +0800</pubDate>
+      <pubDate>Tue, 04 Jul 2023 16:59:56 +0800</pubDate>
     </item>
     <item>
       <title>2023 daily notes</title>
@@ -112,11 +112,18 @@
       <pubDate>Fri, 10 Mar 2023 13:03:45 +0800</pubDate>
     </item>
     <item>
+      <title>multi factor auth with totp</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/multi-factor-auth-with-totp</link>
+      <description>multi factor auth with totp</description>
+      <author>huoyijie</author>
+      <pubDate>Tue, 04 Jul 2023 17:15:14 +0800</pubDate>
+    </item>
+    <item>
       <title>http message signatures</title>
       <link>https://huoyijie.cn/docsifys/Tech-Notes/http-message-signatures</link>
       <description>http message signatures</description>
       <author>huoyijie</author>
-      <pubDate>Sun, 02 Jul 2023 14:22:33 +0800</pubDate>
+      <pubDate>Sun, 02 Jul 2023 15:30:57 +0800</pubDate>
     </item>
     <item>
       <title>oauth2 mysql store</title>

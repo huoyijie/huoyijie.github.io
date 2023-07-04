@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-07-02 14:23:29.177661509 +0800 CST m=+0.107284676</lastmod>
+        <lastmod>2023-07-04 17:20:51.176069307 +0800 CST m=+0.087954939</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-07-02 13:33:26.826851446 +0800 CST</lastmod>
+        <lastmod>2023-07-04 16:59:56.470243854 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -113,9 +113,16 @@
     </url>
     
     <url>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/multi-factor-auth-with-totp</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-07-04 17:15:14.774944484 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
         <loc>https://huoyijie.cn/docsifys/Tech-Notes/http-message-signatures</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-07-02 14:22:33.37580348 +0800 CST</lastmod>
+        <lastmod>2023-07-02 15:30:57.017256742 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
