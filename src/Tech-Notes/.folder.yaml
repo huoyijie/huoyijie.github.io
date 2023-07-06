@@ -6,5 +6,6 @@ docsify:
   - 'oauth2-mysql-store.md'
   - 'multi-factor-auth-with-totp.md'
   - 'http-message-signatures.md'
+  - 'subscribe-topic-with-sse.md'
 gitbook: []
 ignore: []
