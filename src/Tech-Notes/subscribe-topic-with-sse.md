@@ -345,3 +345,7 @@ curl -d '{"topic": "chatgpt", "data": "hi chatgpt"}' http://localhost:8000/publi
 ![received chatgpt](https://cdn.huoyijie.cn/uploads/2023/07/sse-client-chatgpt-1.png)
 
 ![received chatgpt](https://cdn.huoyijie.cn/uploads/2023/07/sse-client-chatgpt-2.png)
+
+如果打开浏览器 DevTool，可以看到服务器通过 SSE Stream 发送到浏览器的 `EventStream` 数据:
+
+![SSE DevTool](https://cdn.huoyijie.cn/uploads/2023/07/sse-devtool.png)
