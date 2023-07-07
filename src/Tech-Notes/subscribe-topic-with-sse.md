@@ -1,14 +1,18 @@
 # 基于 HTTP SSE(Server Sent Event) 实现话题订阅机制
 
+你是否好奇过类似微信这样的 IM 是如何近乎实时收发消息的？除了基于 TCP、QUIC、Websocket 等双向通信技术实现通信外，能否通过普通的 HTTP 协议来实现双向通信吗？本文主要是想介绍 HTTP 协议中的 Server-Sent Event 机制，以及如何基于它实现话题订阅机制。
 
+类似微信，客户端可以通过 POST 请求发送个人或群消息到服务器，并由服务器进行消息存储和转发。客户端接收个人消息，可通过向服务器订阅个人消息实现，服务器收到个人消息后可实时推送给客户端。而客户端接收群消息，可通过向服务器订阅群消息实现，服务器收到某个群的消息后可实时推送给客户端。
 
 ## Server Sent Event
 
-[SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) 是一种基于 HTTP 连接的服务器推送技术，客户端与服务器初始化好连接后，服务器可以随时向客户端发送内容更新。SSE 是对 HTTP 协议很好的补充，可以轻松地客户端与服务器双向通信。
+[SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) 是一种基于 HTTP 连接的服务器推送技术，客户端与服务器初始化好连接后，服务器可以随时向客户端发送内容更新。SSE 是对 HTTP 协议很好的补充，可以轻松实现客户端与服务器双向通信。
 
 HTTP 2.0 中，连接是双向多路复用的(HTTP/1 不是的)，SSE 可以与请求重用同一个 h2 连接。换句话说，就是可以通过一个 h2 连接向服务器发送 GET/POST 等请求，同时从服务器接收 Server-Sent Events，数据大小、格式都没有限制，更是解除了 SSE 的并发连接数限制。
 
-与之对应，WebSocket 从设计上并没有充分利用 HTTP/2，需要建立额外的连接，而且协议更复杂，不如基于普通 HTTP 连接的 SSE 简单。
+与之对应，[WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) 从设计上并没有充分利用 HTTP/2，需要建立额外的连接，而且协议更复杂，不如基于普通 HTTP 连接的 SSE 简单。
+
+还有一种容易混淆的 [HTTP/2 Server Push](https://en.wikipedia.org/wiki/HTTP/2_Server_Push)，这是一个 HTTP/2 中新的可选的特性，允许服务器在客户端(浏览器)请求资源(CSS/JS等)前，先把资源推送给客户端。
 
 ## Topic & Publish/Subscribe
 
@@ -369,3 +373,7 @@ curl -d '{"topic": "chatgpt", "data": "hi chatgpt"}' http://localhost:8000/publi
 如果打开浏览器 DevTool，可以看到服务器通过 SSE Stream 发送到浏览器的 `EventStream` 数据:
 
 ![SSE DevTool](https://cdn.huoyijie.cn/uploads/2023/07/sse-devtool.png)
+
+## 最后
+
+本文主要介绍了 HTTP 协议中的 Server-Sent Event 机制，以及如何基于它实现话题订阅机制。如果想实现类似微信中的实时收发消息功能，客户端可以通过 POST 请求发送个人或群消息到服务器，并由服务器进行消息存储和转发。客户端接收个人消息，可通过向服务器订阅个人消息实现，服务器收到个人消息后可实时推送给客户端。而客户端接收群消息，可通过向服务器订阅群消息实现，服务器收到某个群的消息后可实时推送给客户端。
