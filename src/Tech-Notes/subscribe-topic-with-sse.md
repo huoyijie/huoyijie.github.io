@@ -1,10 +1,14 @@
 # 基于 HTTP SSE(Server Sent Event) 实现话题订阅机制
 
-...
+
 
 ## Server Sent Event
 
-...
+[SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) 是一种基于 HTTP 连接的服务器推送技术，客户端与服务器初始化好连接后，服务器可以随时向客户端发送内容更新。SSE 是对 HTTP 协议很好的补充，可以轻松地客户端与服务器双向通信。
+
+HTTP 2.0 中，连接是双向多路复用的(HTTP/1 不是的)，SSE 可以与请求重用同一个 h2 连接。换句话说，就是可以通过一个 h2 连接向服务器发送 GET/POST 等请求，同时从服务器接收 Server-Sent Events，数据大小、格式都没有限制，更是解除了 SSE 的并发连接数限制。
+
+与之对应，WebSocket 从设计上并没有充分利用 HTTP/2，需要建立额外的连接，而且协议更复杂，不如基于普通 HTTP 连接的 SSE 简单。
 
 ## Topic & Publish/Subscribe
 
