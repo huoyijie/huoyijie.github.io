@@ -6,9 +6,25 @@
 
 ...
 
-## Topic & Subscribe
+## Topic & Publish/Subscribe
 
-...
+话题订阅机制在互联网开发领域是很常见的设计开发模式，如消息队列、[Redis Pub/Sub](https://redis.com/glossary/pub-sub/) 等中都有使用。
+
+```
+           'hi,...'      (huoyijie)
+    +----Publish(SSE)---->+------+
+    |                     |      |
++---+--+     'chatgpt'    |Chrome|
+|      |<----Subscribe---<|      |
+| HTTP |         |        +------+
+|      |       (Get)
+|Server|         |        +------+
+|      |<----Subscribe---<|      |
++---+--+  'chatgpt|robot' |Chrome|
+    |                     |      |
+    +----Publish(SSE)---->+------+
+           'hi,...'        (jack)
+```
 
 ## SSE 话题订阅实例
 
