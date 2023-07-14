@@ -28,3 +28,4 @@ About [UDPack 2.0](https://huoyijie.cn/article/399d47e0717311ed8812b9a35e7c2efa/
 - [my profile](https://github.com/huoyijie/huoyijie)
 - [my resume](https://github.com/huoyijie/resume)
 - [this repository](https://github.com/huoyijie/awesome)
+- [tech-notes-code](https://github.com/huoyijie/tech-notes-code)

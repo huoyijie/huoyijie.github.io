@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-07-14 14:17:45.574695869 +0800 CST m=+0.104693297</lastmod>
+        <lastmod>2023-07-14 15:43:18.35130471 +0800 CST m=+0.095966604</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -64,16 +64,16 @@
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/About-Me/profile</loc>
+        <loc>https://huoyijie.cn/docsifys/About-Me/github</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-06-20 10:14:39.443057642 +0800 CST</lastmod>
+        <lastmod>2023-07-14 15:43:11.800209679 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/About-Me/github</loc>
+        <loc>https://huoyijie.cn/docsifys/About-Me/profile</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-03-12 17:44:44.275583179 +0800 CST</lastmod>
+        <lastmod>2023-06-20 10:14:39.443057642 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
