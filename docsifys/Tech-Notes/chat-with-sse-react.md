@@ -6,7 +6,7 @@
 
 ## Github 项目地址
 
-查看 [tech-notes-code/chat-with-sse](https://github.com/huoyijie/tech-notes-code)
+本文代码在 [tech-notes-code/chat-with-sse](https://github.com/huoyijie/tech-notes-code) 目录下，代码注释很详细，可以边看文章边看代码。
 
 ## Server Sent Events
 
@@ -15,6 +15,22 @@
 ## 客户端与服务器通信
 
 每个用户打开客户端后，会通过自动订阅服务器 Server Sent Events，服务器可以通过 SSE 实时向客户端推送新消息。用户发消息时，客户端可以通过 POST 请求到服务器，并由服务器进行消息存储或通过 SSE 实时转发给收信方。发送群消息是类似的。
+
+```
+           'hi,...'      (huoyijie)
+    +<-1.Send MSG(POST)--<+------+
+    |                     |      |
++---v--+                  |Chrome|
+|      |<----Subscribe---<|      |
+| HTTP |         |        +------+
+|      |       (Get)
+|Server|         |        +------+
+|      |<----Subscribe---<|      |
++---v--+                  |Chrome|
+    |                     |      |
+    +>2.Forward MSG(SSE)->+------+
+           'hi,...'        (jack)
+```
 
 ## 服务器
 
@@ -27,6 +43,38 @@
 **React**
 
 前端使用的 [React](https://zh-hans.react.dev/) 框架，通过定义函数式组件把 UI 拆分成不同的嵌套组件，在每个组件内部控制自己的状态和样式。应用组件思想构建 UI，有点像搭乐高很有趣。一方面 React 可以帮助你根据应用状态自动更新 UI 展示，无需手动操作 DOM 元素。另一方面没有了长长的 html 代码片段，而是拆分成了很多的 jsx 组件文件，每个组件单独一个文件，代码结构更清晰。
+
+```bash
+$ tree -l
+├── public
+│   ├── images
+│   │   ├── huoyijie.svg
+│   │   ├── jack.svg
+│   │   └── rose.svg
+│   └── js
+│       ├── App.jsx
+│       ├── ChatBoxHeader.jsx
+│       ├── ChatBoxInput.jsx
+│       ├── ChatBox.jsx
+│       ├── ChatBoxMessageList.jsx
+│       ├── Chat.jsx
+│       ├── Header.jsx
+│       ├── Message.jsx
+│       ├── PaperPlane.jsx
+│       ├── SSE.js
+│       ├── UserList.jsx
+│       └── Users.jsx
+├── data.go
+├── main.go
+├── sse.go
+├── subscribe.go
+└── templates
+    └── index.htm
+```
+
+上述是代码目录结构，`public/js` 目录下是所有的函数组件，下图标记了主要的组件。
+
+![react-components](https://cdn.huoyijie.cn/uploads/2023/07/chat-with-sse-react-components.png)
 
 **Tailwind CSS**
 
