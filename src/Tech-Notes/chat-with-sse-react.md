@@ -85,3 +85,7 @@ CSS 样式是用时下非常流行的 [Tailwind (A utility-first CSS framework)]
 ![chat-with-rose](https://cdn.huoyijie.cn/uploads/2023/07/chat-with-rose.png)
 
 ![chat-with-sse-react](https://cdn.huoyijie.cn/uploads/2023/07/chat-with-sse-react.png)
+
+## 最后
+
+我最近发现，大家好像对文中出现的代码不太感兴趣，所以本文没有讲解代码，而是通过注释的方式注解了代码，大家可以放心的去边看代码边学习。
