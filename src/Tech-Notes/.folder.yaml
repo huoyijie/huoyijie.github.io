@@ -7,5 +7,6 @@ docsify:
   - 'multi-factor-auth-with-totp.md'
   - 'http-message-signatures.md'
   - 'subscribe-topic-with-sse.md'
+  - 'chat-with-sse-react.md'
 gitbook: []
 ignore: []
