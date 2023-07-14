@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-07-07 10:34:10.353735327 +0800 CST m=+4.233264680</lastmod>
+        <lastmod>2023-07-14 12:38:53.669943444 +0800 CST m=+4.207703732</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-07-06 17:04:34.955212522 +0800 CST</lastmod>
+        <lastmod>2023-07-14 12:38:04.64926356 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -113,9 +113,16 @@
     </url>
     
     <url>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/chat-with-sse-react</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-07-14 12:37:26.172492163 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
         <loc>https://huoyijie.cn/docsifys/Tech-Notes/subscribe-topic-with-sse</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-07-07 10:33:12.688879946 +0800 CST</lastmod>
+        <lastmod>2023-07-07 12:03:17.91698225 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
