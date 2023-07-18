@@ -8,5 +8,6 @@ docsify:
   - 'http-message-signatures.md'
   - 'subscribe-topic-with-sse.md'
   - 'chat-with-sse-react.md'
+  - 'chat-with-websocket-react.md'
 gitbook: []
 ignore: []
