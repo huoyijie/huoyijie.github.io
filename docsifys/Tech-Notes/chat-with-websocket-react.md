@@ -501,4 +501,4 @@ window.addEventListener('beforeunload', ws.close);
 
 ## 最后
 
-与上文中基于 HTTP(SSE+POST) 协议的轻量级方案相比较，基于 Websocket 的方案代码略复杂，但是通信相关代码更统一，完全基于 websocket 双向通信，代码更集中(服务器 client.go、客户端 ws.js)，且 Websocket 支持发送二进制数据，由此引入了比 json 更高效的 msgpack 二进制序列化格式。
+与上文中[基于 HTTP(SSE+POST) 协议的轻量级方案](https://huoyijie.cn/docsifys/Tech-Notes/chat-with-sse-react)相比较，基于 Websocket 的方案代码略复杂，但是通信相关代码更统一，完全基于 websocket 双向通信，代码更集中(服务器 client.go、客户端 ws.js)，且 Websocket 支持发送二进制数据，由此引入了比 json 更高效的 msgpack 二进制序列化格式。
