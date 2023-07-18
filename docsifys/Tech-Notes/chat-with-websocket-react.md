@@ -62,6 +62,28 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 
 [msgpack](https://github.com/msgpack/msgpack) 是一种高效的二进制序列化格式，很像 json，但是运行速度更快、序列化后数据更小，支持各种语言。
 
+如下面是用户 `rose` 发给 `huoyijie` 的消息对象
+
+```js
+{
+  kind: 'text',
+  from: 'rose',
+  to: 'huoyijie',
+  data: 'aaa',
+  sent: 1689644606604
+}
+```
+
+会经过 msgpack 序列化为二进制字节数组，并通过 websocket 连接发送给服务器。如下是打印到控制台的字节数组:
+
+```js
+[133, 164, 107, 105, 110, 100, 164, 116, 101, 120, 116, 164, 102, 114, 111, 109, 164, 114, 111, 115, 101, 162, 116, 111, 168, 104, 117, 111, 121, 105, 106, 105, 101, 164, 100, 97, 116, 97, 163, 97, 97, 97, 164, 115, 101, 110, 116, 207, 0, 0, 1, 137, 102, 170, 164, 140, buffer: ArrayBuffer(2048), byteLength: 56, byteOffset: 0, length: 56, Symbol(Symbol.toStringTag): 'Uint8Array']
+```
+
+下图中右下方的 ArrayBuffer 显示的就是序列化后的字节数组内容，是通过 Chrome DevTools 内存检查器生成的。
+
+![msgpack arraybuffer](https://cdn.huoyijie.cn/uploads/2023/07/msgpack-arraybuffer.png)
+
 ## 服务器
 
 **Web 服务器**
