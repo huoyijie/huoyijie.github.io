@@ -9,5 +9,6 @@ docsify:
   - 'subscribe-topic-with-sse.md'
   - 'chat-with-sse-react.md'
   - 'chat-with-websocket-react.md'
+  - 'share-whiteboard-with-websocket.md'
 gitbook: []
 ignore: []

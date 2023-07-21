@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Tue, 18 Jul 2023 14:36:23 +0800</pubDate>
+    <pubDate>Fri, 21 Jul 2023 14:24:36 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -32,7 +32,7 @@
       <link>https://huoyijie.cn/docsifys/tech-notes</link>
       <description>tech notes</description>
       <author>huoyijie</author>
-      <pubDate>Tue, 18 Jul 2023 12:38:07 +0800</pubDate>
+      <pubDate>Fri, 21 Jul 2023 14:08:09 +0800</pubDate>
     </item>
     <item>
       <title>2023 daily notes</title>
@@ -110,6 +110,13 @@
       <description>blockchain for dummies</description>
       <author>huoyijie</author>
       <pubDate>Fri, 10 Mar 2023 13:03:45 +0800</pubDate>
+    </item>
+    <item>
+      <title>share whiteboard with websocket</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/share-whiteboard-with-websocket</link>
+      <description>share whiteboard with websocket</description>
+      <author>huoyijie</author>
+      <pubDate>Fri, 21 Jul 2023 14:21:31 +0800</pubDate>
     </item>
     <item>
       <title>chat with websocket react</title>
