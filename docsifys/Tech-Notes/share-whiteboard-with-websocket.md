@@ -33,7 +33,7 @@ $ go run .
 
 **手机浏览器触屏**
 
-<br><video id="video-2" class="video-js" controls muted preload="auto" width="720" poster="https://cdn.huoyijie.cn/uploads/2023/07/whiteboard.png" data-setup="{}">
+<br><video id="video-2" class="video-js" controls muted preload="auto" width="400" poster="https://cdn.huoyijie.cn/uploads/2023/07/whiteboard.png" data-setup="{}">
   <source src="https://cdn.huoyijie.cn/uploads/2023/07/whiteboard-mobile.mov" type="video/mp4">
 </video><br>
 
