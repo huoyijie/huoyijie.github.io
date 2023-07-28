@@ -10,5 +10,6 @@ docsify:
   - 'chat-with-sse-react.md'
   - 'chat-with-websocket-react.md'
   - 'share-whiteboard-with-websocket.md'
+  - 'infinite-whiteboard-with-socket.io.md'
 gitbook: []
 ignore: []
