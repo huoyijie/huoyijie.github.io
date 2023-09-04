@@ -10,6 +10,8 @@
 
 [github.com/huoyijie/infinity](https://github.com/huoyijie/infinity)
 
+[在线 Demo](https://huoyijie.github.io/infinity)
+
 ## 安装后端 (backend) 项目
 
 * 前置条件
