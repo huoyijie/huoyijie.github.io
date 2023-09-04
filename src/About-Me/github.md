@@ -14,6 +14,7 @@
 ## Node
 - [YijieGo](https://huoyijie.cn/article/98e27e7051ba11ecb154451bde618cf8/) (not yet open source)
 - [mobile-touchpad](https://github.com/huoyijie/mobile-touchpad)
+- [Infinity](https://github.com/huoyijie/infinity) is An interesting real-time collaborative whiteboard with infinite space.
 
 ## Rust
 - [rust-udpack](https://github.com/huoyijie/rust-udpack) 
