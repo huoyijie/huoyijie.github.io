@@ -31,7 +31,7 @@ $ ffmpeg -i input.webm -pix_fmt rgb8 output.gif
 
 ## gifcap
 
-[gifcap screenshot](https://cdn.huoyijie.cn/uploads/2023/09/screenshot.png)
+![gifcap screenshot](https://cdn.huoyijie.cn/uploads/2023/09/screenshot.png)
 
 Features:
 
@@ -48,4 +48,4 @@ Intuitive trimming UI
 
 我为了方便使用，把这个工具也部署到了 github pages 上，删除了一些统计等无关代码。工具使用起来也很简单，主要原理是基于 webrtc 的录屏 API 获取屏幕、窗口、浏览器 tab 页的录屏，然后通过 encoder.wasm 实现转码为 GIF 图片。
 
-[infinity-record](https://cdn.huoyijie.cn/uploads/2023/09/infinity-record.gif)
+![infinity-record](https://cdn.huoyijie.cn/uploads/2023/09/infinity-record.gif)
