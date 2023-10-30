@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-09-11 10:12:56.152161737 +0800 CST m=+0.082828920</lastmod>
+        <lastmod>2023-10-30 11:24:55.475583768 +0800 CST m=+0.092532785</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -29,16 +29,16 @@
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
+        <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-09-11 10:12:51.15726646 +0800 CST</lastmod>
+        <lastmod>2023-10-30 08:56:43.836288632 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
     <url>
-        <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
+        <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-09-04 13:29:17.276110361 +0800 CST</lastmod>
+        <lastmod>2023-09-11 10:12:51.15726646 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -109,6 +109,13 @@
         <loc>https://huoyijie.cn/docsifys/Blockchain/blockchain-for-dummies</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-03-10 13:03:45.897489443 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/How-to-perform-load-testing-with-Grafana-k6</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-10-30 11:24:13.53462297 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     

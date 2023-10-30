@@ -12,5 +12,6 @@ docsify:
   - 'share-whiteboard-with-websocket.md'
   - 'infinite-whiteboard-with-socket.io.md'
   - 'a-real-time-collaborative-whiteboard-with-infinite-space.md'
+  - 'How-to-perform-load-testing-with-Grafana-k6.md'
 gitbook: []
 ignore: []
