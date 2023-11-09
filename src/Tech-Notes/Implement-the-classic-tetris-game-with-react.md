@@ -35,7 +35,7 @@
 
 * Round 4 (2023-11-06)
 <br><video id="video-1" class="video-js" controls muted preload="auto" width="720" data-setup="{}">
-  <source src="https://cdn.huoyijie.cn/uploads/2023/11/tetris-v4.webm" type="video/webm">
+  <source src="https://cdn.huoyijie.cn/uploads/2023/11/tetris-v4.mp4" type="video/webm">
 </video><br>
 
 已支持 I、J、L、O、S、T、Z 型四格拼板，今天终于把行消除功能加上了，试玩了一下，刚开始还强装镇定，到后面一直不来 I 型长块，心好慌啊！！！
@@ -48,5 +48,8 @@
 今天把显示当前拼板掉落位置、显示得分、消除行数、提前预览下一块拼板等功能加上了。显示当前拼板掉落位置功能是我最喜欢的，之前没有这个功能，为了不串行，眼睛都要看花了！！！
 
 * Round 6 (2023-11-08)
+<br><video id="video-1" class="video-js" controls muted preload="auto" width="720" data-setup="{}">
+  <source src="https://cdn.huoyijie.cn/uploads/2023/11/tetris-v6.mkv" type="video/webm">
+</video><br>
 
 今天把游戏计时和难度等级功能加上了，解决了一个组件 infinite render 的 bug。今天的状态不错，采取了比较有效的消除策略，玩了 35 分钟累积了 1480 分还再继续！！！主要功能已经差不多实现好了，后面考虑加入一些有趣的小道具，比如可以用获得的炸弹炸掉不好的地方，再比如可以在慌乱时使用暂停几秒的道具等等。
