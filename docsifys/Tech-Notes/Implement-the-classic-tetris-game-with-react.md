@@ -125,11 +125,259 @@
 
 每个四格拼板作为一个整体会有一个坐标 [x, y]，表示自己在上方 Board 中的位置，这个坐标与四格拼板内每个方块 (Cube) 的坐标加在一起可以确定每个方块 (Cube) 在 Board 中的坐标。
 
-如上方的 T 型拼板的坐标是 [7, 3]，而 T 型拼板内 4 个方块的坐标是 [[0, 0], [1, 0], [1, 1], [2, 1]]，T 型拼板坐标分别加上 4 个方块坐标，就可以得到每个方块在 Board 中的坐标，并绘制相应的方块，组成 T 型拼板。
+如上方的 T 型拼板的坐标是 [7, 3]，而 T 型拼板内 4 个方块的坐标是 [[0, 0], [1, 0], [1, 1], [2, 0]]，T 型拼板坐标分别加上 4 个方块坐标，就可以得到每个方块在 Board 中的坐标 [[7, 3], [8, 3], [8, 4], [9, 3]]，并绘制相应的方块，组成 T 型拼板。
 
 ### 操作四格拼板
 
+* 旋转 - 应用拼板旋转算法，并进行碰撞检测，发生碰撞则放弃本次操作
 
+```js
+// 旋转拼板操作
+function rotateTetromino(tetromino, tetrominoes) {
+  const { type, points } = tetromino
+  // O 型拼板直接返回自身
+  if (type == O)
+    return tetromino
+
+  const rotated = {
+    ...tetromino,
+    points: rotatePoints(type, points),
+  }
+
+  const { collised } = detectCollision(rotated, ROTATE, tetrominoes)
+
+  return collised ? tetromino : rotated
+}
+
+// 拼板旋转算法
+function rotatePoints(type, points) {
+  if (type == O)
+    return points
+
+  const centerIdx = centerIndex(type)
+  const [x0, y0] = points[centerIdx]
+  const rotated = []
+  points.forEach(([x1, y1], i) => {
+    if (i == centerIdx) {
+      rotated.push([x1, y1])
+    } else {
+      const x = x1 - x0
+      const y = y1 - y0
+      const uprightI = (type == I && points[0][0] == 1)
+      if (uprightI) {
+        rotated.push([y + x0, -x + y0])
+      } else {
+        rotated.push([-y + x0, x + y0])
+      }
+    }
+  })
+  return rotated
+}
+```
+
+* 左移 - 四格拼板整体坐标 x - 1，并进行碰撞检测，发生碰撞则放弃本次操作
+
+```js
+function moveLeftTetromino(tetromino, tetrominoes) {
+  const moved = { ...tetromino, x: tetromino.x - 1 }
+
+  const { collised } = detectCollision(moved, LEFT, tetrominoes)
+
+  return collised ? tetromino : moved
+}
+```
+
+* 右移 - 四格拼板整体坐标 x + 1，并进行碰撞检测，发生碰撞则放弃本次操作
+
+```js
+function moveRightTetromino(tetromino, tetrominoes) {
+  const moved = { ...tetromino, x: tetromino.x + 1 }
+
+  const { collised } = detectCollision(moved, RIGHT, tetrominoes)
+
+  return collised ? tetromino : moved
+}
+```
+
+* 下移 - 四格拼板整体坐标 y + 1，并进行碰撞检测，发生碰撞后应用行消除算法，并根据情况结束游戏或者冻结当前拼板，再产生下一块拼板继续游戏
+
+```js
+function moveDownTetromino(tetromino, tetrominoes, onCollise, onGameOver) {
+  const moved = { ...tetromino, y: tetromino.y + 1 }
+
+  const { collised, reachTop } = detectCollision(moved, DOWN, tetrominoes)
+
+  if (!collised) {
+    return moved
+  }
+
+  const eliminatedLines = eliminateLines(tetromino, tetrominoes)
+  if (eliminatedLines == 0 && reachTop) {
+    onGameOver()
+  } else {
+    onCollise(eliminatedLines)
+  }
+
+  return tetromino
+}
+```
+
+* 掉落 - 重复下移，直至发生碰撞，碰撞后的处理逻辑与下移碰撞一致
+
+```js
+function fallDownTetromino(tetromino, tetrominoes, onCollise, onGameOver) {
+  let result
+  const moved = { ...tetromino }
+  do {
+    moved.y++
+    result = detectCollision(moved, DOWN, tetrominoes)
+  } while (!result.collised)
+
+  tetromino.y = moved.y - 1
+
+  const eliminatedLines = eliminateLines(tetromino, tetrominoes)
+  if (eliminatedLines == 0 && result.reachTop) {
+    onGameOver()
+  } else {
+    onCollise(eliminatedLines)
+  }
+}
+```
+
+### 碰撞检测
+
+```js
+// 碰撞检测算法
+function detectCollision(tetromino, operation, tetrominoes) {
+  const { x, y, points } = tetromino
+  switch (operation) {
+    case ROTATE:
+      for (let [px, py] of points) {
+        if (x + px < 0 || x + px >= BOARD_X_CUBES || y + py < 0 || y + py >= BOARD_Y_CUBES || !emptyGrid({ x: x + px, y: y + py }, tetrominoes)) {
+          return { collised: true }
+        }
+      }
+
+    case LEFT:
+      for (let [px, py] of points) {
+        if (x + px < 0 || !emptyGrid({ x: x + px, y: y + py }, tetrominoes)) {
+          return { collised: true }
+        }
+      }
+
+    case RIGHT:
+      for (let [px, py] of points) {
+        if (x + px >= BOARD_X_CUBES || !emptyGrid({ x: x + px, y: y + py }, tetrominoes)) {
+          return { collised: true }
+        }
+      }
+
+    case DOWN:
+      for (let [px, py] of points) {
+        if (y + py >= BOARD_Y_CUBES || !emptyGrid({ x: x + px, y: y + py }, tetrominoes)) {
+          return { collised: true, reachTop: tetromino.y - 1 == 0 }
+        }
+      }
+
+    default:
+      return {}
+  }
+}
+
+// 判断 Board 上某个坐标点 [x, y] 是否没有方块 (Cube) 存在
+function emptyGrid({ x, y }, tetrominoes) {
+  for (let { x: tx, y: ty, points } of tetrominoes) {
+    for (let [px, py] of points) {
+      if (tx + px == x && ty + py == y)
+        return false
+    }
+  }
+  return true
+}
+```
+
+### 消除行
+
+```js
+// 消除行算法
+function eliminateLines(tetromino, tetrominoes) {
+  const { y, points } = tetromino
+
+  const candidates = []
+  points.forEach(([_, py]) => {
+    if (!candidates.includes(y + py)) {
+      candidates.push(y + py)
+    }
+  })
+  candidates.sort((a, b) => a - b)
+
+  const counts = candidates.map(_ => 0)
+  const all = [...tetrominoes, tetromino]
+  all.forEach(({ y, points }) => {
+    points.forEach(([_, py]) => {
+      candidates.forEach((candidateY, i) => {
+        if (y + py == candidateY) {
+          counts[i]++
+        }
+      })
+    })
+  })
+
+  let eliminatedLines = 0
+  candidates.forEach((candidateY, i) => {
+    if (counts[i] == BOARD_X_CUBES) {
+      eliminatedLines++
+      all.forEach(tetromino => {
+        tetromino.points = tetromino.points.filter(([_, py]) => tetromino.y + py != candidateY)
+        tetromino.points.forEach(point => {
+          if (tetromino.y + point[1] < candidateY) {
+            point[1]++
+          }
+        })
+      })
+    }
+  })
+
+  return eliminatedLines
+}
+```
+
+### 显示下一块拼板
+
+```js
+// 有 2 个状态变量分别表示当前拼板和下一块拼板，每次显示当前拼板后，都立刻随机产生下一块拼板备用
+const next = () => {
+  if (currentTetromino) {
+    tetrominoes.push(currentTetromino)
+    setTetrominoes([...tetrominoes.filter(({ points }) => points.length > 0)])
+  }
+  setCurrentTetromino(nextTetromino)
+  setNextTetromino(randomTetromino())
+}
+```
+
+### 预测当前拼板掉落位置
+
+```js
+// 当前拼板掉落位置预测算法
+function predictTetromino(tetromino, tetrominoes) {
+  let result
+  const predicted = { ...tetromino }
+  do {
+    predicted.y++
+    result = detectCollision(predicted, DOWN, tetrominoes)
+  } while (!result.collised)
+  predicted.y--
+  return predicted
+}
+```
+
+### 计算积分公式
+
+```js
+// elimiLines 为本次消除行数
+const score = 10 * (elimiLines == 1 ? 1 : Math.pow(2, elimiLines))
+```
 
 ## 更新日志
 
