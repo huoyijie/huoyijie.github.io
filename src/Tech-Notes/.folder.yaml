@@ -13,5 +13,6 @@ docsify:
   - 'infinite-whiteboard-with-socket.io.md'
   - 'a-real-time-collaborative-whiteboard-with-infinite-space.md'
   - 'How-to-perform-load-testing-with-Grafana-k6.md'
+  - 'Implement-the-classic-tetris-game-with-react.md'
 gitbook: []
 ignore: []

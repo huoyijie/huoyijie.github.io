@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-10-30 11:24:55.475583768 +0800 CST m=+0.092532785</lastmod>
+        <lastmod>2023-11-09 11:08:15.84357292 +0800 CST m=+0.105466835</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-10-30 08:56:43.836288632 +0800 CST</lastmod>
+        <lastmod>2023-11-09 10:50:52.474248375 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -66,7 +66,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/About-Me/github</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-09-04 11:41:13.266276653 +0800 CST</lastmod>
+        <lastmod>2023-11-09 11:05:02.422569244 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -109,6 +109,13 @@
         <loc>https://huoyijie.cn/docsifys/Blockchain/blockchain-for-dummies</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-03-10 13:03:45.897489443 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/docsifys/Tech-Notes/Implement-the-classic-tetris-game-with-react</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2023-11-09 10:51:13.934815028 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
