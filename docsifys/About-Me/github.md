@@ -16,6 +16,7 @@
 - [mobile-touchpad](https://github.com/huoyijie/mobile-touchpad)
 - [Infinity](https://github.com/huoyijie/infinity) is An interesting real-time collaborative whiteboard with infinite space.
 - [tetris](https://github.com/huoyijie/tetris) the Tetris game writing with React
+- [Huarongdao](https://github.com/huoyijie/huarongdao) huarongdao game writing with React
 
 ## Rust
 - [rust-udpack](https://github.com/huoyijie/rust-udpack) 
