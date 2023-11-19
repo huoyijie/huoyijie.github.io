@@ -14,5 +14,6 @@ docsify:
   - 'a-real-time-collaborative-whiteboard-with-infinite-space.md'
   - 'How-to-perform-load-testing-with-Grafana-k6.md'
   - 'Implement-the-classic-tetris-game-with-react.md'
+  - 'Implement-the-classic-huarongdao-game-with-react.md'
 gitbook: []
 ignore: []
