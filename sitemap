@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-11-19 12:30:27.457784874 +0800 CST m=+6.415839277</lastmod>
+        <lastmod>2023-11-19 20:05:43.083691965 +0800 CST m=+0.116792138</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -31,7 +31,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/tech-notes</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-11-19 12:06:40.41255156 +0800 CST</lastmod>
+        <lastmod>2023-11-19 19:23:04.847679231 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -115,7 +115,7 @@
     <url>
         <loc>https://huoyijie.cn/docsifys/Tech-Notes/Implement-the-classic-huarongdao-game-with-react</loc>
         <changefreq>daily</changefreq>
-        <lastmod>2023-11-19 12:29:49.437537088 +0800 CST</lastmod>
+        <lastmod>2023-11-19 20:04:08.941675211 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
