@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video-js.min.css">
+<script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
+<script>
+    window.HELP_IMPROVE_VIDEOJS = false
+</script>
+
 # 基于 React、Nextjs、React-DnD 和 TailwindCss 实现经典三国华容道小游戏
 
 ![hendaolima](https://cdn.huoyijie.cn/uploads/2023/11/huarongdao-hendaolima.png)
@@ -246,3 +252,7 @@ export default function Home() {
   )
 }
 ```
+
+<br><video id="video-1" class="video-js" controls muted preload="auto" width="720" data-setup="{}">
+  <source src="https://cdn.huoyijie.cn/uploads/2023/11/huarongdao.mkv" type="video/webm">
+</video><br>
