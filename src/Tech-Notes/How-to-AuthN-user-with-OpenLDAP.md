@@ -31,12 +31,15 @@ $ sudo dpkg-reconfigure slapd
 ```
 
 设定域
+
 ![ldap-1](https://cdn.huoyijie.cn/uploads/2023/12/ldap-1.png)
 
 设定组织名称
+
 ![ldap-2](https://cdn.huoyijie.cn/uploads/2023/12/ldap-2.png)
 
 设定管理员密码
+
 ![ldap-3](https://cdn.huoyijie.cn/uploads/2023/12/ldap-3.png)
 
 检查 openldap 已正常运行
@@ -81,10 +84,10 @@ adding new entry "ou=users,dc=huoyijie,dc=cn"
 adding new entry "uid=huoyijie,ou=users,dc=huoyijie,dc=cn"
 ```
 
--x: 使用简单身份验证。
--D: 指定用于绑定到 LDAP 服务器的管理员 DN。
--W: 提示输入管理员密码
--f: 指定包含 LDIF 数据的文件
+* -x: 使用简单身份验证。
+* -D: 指定用于绑定到 LDAP 服务器的管理员 DN。
+* -W: 提示输入管理员密码
+* -f: 指定包含 LDIF 数据的文件
 
 在执行该命令后，系统将提示输入管理员密码，然后将 LDIF 文件中的用户数据添加到 LDAP 中。
 
@@ -120,8 +123,9 @@ result: 0 Success
 # numResponses: 2
 # numEntries: 1
 ```
--x: 使用简单身份验证。
--D: 指定用于绑定到 LDAP 服务器的管理员 DN。
--W: 提示输入管理员密码。
--b: 指定搜索的起始点（Base DN）
-"(uid=huoyijie)": 指定 LDAP 搜索过滤器，这里是根据 uid 进行搜索
+
+* -x: 使用简单身份验证。
+* -D: 指定用于绑定到 LDAP 服务器的管理员 DN。
+* -W: 提示输入管理员密码。
+* -b: 指定搜索的起始点（Base DN）
+* "(uid=huoyijie)": 指定 LDAP 搜索过滤器，这里是根据 uid 进行搜索
