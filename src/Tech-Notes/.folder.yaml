@@ -15,5 +15,6 @@ docsify:
   - 'How-to-perform-load-testing-with-Grafana-k6.md'
   - 'Implement-the-classic-tetris-game-with-react.md'
   - 'Implement-the-classic-huarongdao-game-with-react.md'
+  - 'How-to-AuthN-user-with-OpenLDAP.md'
 gitbook: []
 ignore: []
