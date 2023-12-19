@@ -129,3 +129,139 @@ result: 0 Success
 * -W: 提示输入管理员密码。
 * -b: 指定搜索的起始点（Base DN）
 * "(uid=huoyijie)": 指定 LDAP 搜索过滤器，这里是根据 uid 进行搜索
+
+开启 LDAPS 加密
+
+```bash
+$ sudo apt install gnutls-bin ssl-cert
+# 生成 CA key
+$ sudo certtool --generate-privkey --bits 4096 --outfile /etc/ssl/private/mycakey.pem
+```
+
+编辑 /etc/ssl/ca.info 文件
+
+```
+cn = huoyijie.cn
+ca
+cert_signing_key
+expiration_days = 3650
+```
+
+创建 CA 证书
+```bash
+# 创建自签名 CA 证书
+$ sudo certtool --generate-self-signed \
+--load-privkey /etc/ssl/private/mycakey.pem \
+--template /etc/ssl/ca.info \
+--outfile /usr/local/share/ca-certificates/mycacert.crt
+# 更新受信任 CA 证书列表，增加刚刚创建的 mycacert.crt
+$ sudo update-ca-certificates
+Updating certificates in /etc/ssl/certs...
+rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+1 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+```
+
+为 LDAP server 生成 key 文件
+
+```bash
+$ sudo certtool --generate-privkey \
+--bits 2048 \
+--outfile /etc/ldap/ldap01_slapd_key.pem
+```
+
+编辑 /etc/ssl/ldap01.info 文件
+
+```
+organization = huoyijie
+cn = LDAP01
+ip_address = $LDAP_SERVER_IP
+tls_www_server
+encryption_key
+signing_key
+expiration_days = 3650
+```
+
+PS: 服务器没有域名，所以生成证书时，需配置 Subject Alt Name=IP地址，把 $LDAP_SERVER_IP 替换为服务器实际 ip 地址。如果有域名，只配置 cn = dnsname，不需要配置 ip_address = $LDAP_SERVER_IP
+
+创建 LDAP server 证书
+
+```bash
+$ sudo certtool --generate-certificate \
+--load-privkey /etc/ldap/ldap01_slapd_key.pem \
+--load-ca-certificate /etc/ssl/certs/mycacert.pem \
+--load-ca-privkey /etc/ssl/private/mycakey.pem \
+--template /etc/ssl/ldap01.info \
+--outfile /etc/ldap/ldap01_slapd_cert.pem
+# 改变文件所属
+sudo chown openldap:openldap /etc/ldap/ldap01_slapd_cert.pem
+sudo chown openldap:openldap /etc/ldap/ldap01_slapd_key.pem
+```
+
+编辑文件 certinfo.ldif
+
+```
+dn: cn=config
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: /etc/ssl/certs/mycacert.pem
+-
+add: olcTLSCertificateFile
+olcTLSCertificateFile: /etc/ldap/ldap01_slapd_cert.pem
+-
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: /etc/ldap/ldap01_slapd_key.pem
+```
+
+启用 LDAP TLS 配置
+```bash
+sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f certinfo.ldif
+```
+
+编辑文件 /etc/default/slapd
+```
+SLAPD_SERVICES="ldap://127.0.0.1:389/ ldaps:/// ldapi:///"
+```
+
+测试 LDAPS:
+```bash
+# 重启 slapd
+$ sudo systemctl restart slapd
+$ ldapwhoami -x -H ldaps://{LDAP_SERVER_IP}
+anonymous
+```
+
+PS: LDAP_SERVER_IP 替换为 LDAP 实际地址
+
+## 创建 Next.js 项目
+
+```bash
+$ npx create-next-app user-auth-with-openldap
+Need to install the following packages:
+create-next-app@14.0.4
+Ok to proceed? (y) y
+✔ Would you like to use TypeScript? … No / Yes
+✔ Would you like to use ESLint? … No / Yes
+✔ Would you like to use Tailwind CSS? … No / Yes
+✔ Would you like to use `src/` directory? … No / Yes
+✔ Would you like to use App Router? (recommended) … No / Yes
+✔ Would you like to customize the default import alias (@/*)? … No / Yes
+```
+
+启动应用
+```bash
+$ npm run dev
+
+> user-auth-with-openldap@0.1.0 dev
+> next dev
+
+   ▲ Next.js 14.0.4
+   - Local:        http://localhost:3000
+
+ ✓ Ready in 766ms
+```
+
+点击 http://localhost:3000/ 打开浏览器
+
+![运行应用](https://cdn.huoyijie.cn/uploads/2023/12/nextjs.png)
+
