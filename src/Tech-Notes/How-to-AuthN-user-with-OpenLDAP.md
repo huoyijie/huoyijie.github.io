@@ -1,4 +1,14 @@
-# 基于 OpenLDAP、React、Next.js、MUI 实现用户认证
+# 基于 OpenLDAP、React、MUI组件库、Next.js、Serverless 等技术实现一个管理后台模板（一）
+
+## Github 地址
+
+[代码地址](https://github.com/huoyijie/tech-notes-code/tree/master/user-auth-with-openldap)
+
+[在线 Demo](https://ldap-auth.vercel.app/)
+
+![Sign in](https://cdn.huoyijie.cn/uploads/2023/12/signin.png)
+
+![Dashboard](https://cdn.huoyijie.cn/uploads/2023/12/dashboard.png)
 
 ## Next.js 介绍
 
@@ -71,7 +81,7 @@ objectClass: inetOrgPerson
 uid: huoyijie
 cn: Yijie Huo
 sn: Huo
-userPassword: $2a$10$Mx.Uz6ybst6d13jzaQX6XOMOOq4BsUpHSxB5PzNfaRj65jxJNy4dO
+userPassword: 123456
 mail: huoyijie@huoyijie.cn
 ```
 
@@ -112,8 +122,7 @@ objectClass: inetOrgPerson
 uid: huoyijie
 cn: Yijie Huo
 sn: Huo
-userPassword:: JDJhJDEwJE14LlV6Nnlic3Q2ZDEzanphUVg2WE9NT09xNEJzVXBIU3hCNVB6TmZ
- hUmo2NWp4Sk55NGRP
+userPassword:: MTIzNDU2
 mail: huoyijie@huoyijie.cn
 
 # search result
@@ -265,3 +274,6 @@ $ npm run dev
 
 ![运行应用](https://cdn.huoyijie.cn/uploads/2023/12/nextjs.png)
 
+## 下一篇
+
+这篇文开头给出了代码库地址、在线 Demo 体验地址，然后介绍了本项目即将用到的一些技术，并着重介绍了如何安装部署 OpenLDAP，如何开启 TLS 确保数据传输安全，最后创建了一个新的 Next.js 项目。下一篇文章会着重介绍如何在一个 Next.js 项目中同时实现前端页面和后端 API，如何免费部署到 Vercel 云，欢迎大家关注～
