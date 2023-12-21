@@ -21,7 +21,6 @@
 ![Dashboard](https://cdn.huoyijie.cn/uploads/2023/12/dashboard.png)
 
 <br><video id="video-1" class="video-js" controls muted preload="auto" width="1080" data-setup="{}">
-
   <source src="https://cdn.huoyijie.cn/uploads/2023/12/react-admin.webm" type="video/webm">
 </video><br>
 
@@ -57,7 +56,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 ```
 
-```jsx
+```js
 export default function App({ Component, pageProps }) {
   return (
     <>
@@ -85,7 +84,7 @@ $ npm install react-hook-form
 
 登录页面用到了表单:
 
-```jsx
+```js
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -462,7 +461,7 @@ $ npm i swr
 
 我们知道请求 api 接口是不可能立刻返回的，要等到服务器接收到请求并返回响应，但是下面这段代码是很神奇的，会不断根据数据获取的最新状态实时刷新页面。
 
-```jsx
+```js
 import useSWR from 'swr'
 
 function Profile() {
@@ -476,7 +475,7 @@ function Profile() {
 
 对比一下传统可能的写法:
 
-```jsx
+```js
 function Profile() {
   const [isLoading, setLoading] = useState()
   const [error, setError] = useState()
