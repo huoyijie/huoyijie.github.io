@@ -6,7 +6,7 @@
 
 # 基于 OpenLDAP、React、MUI 组件库、Next.js、Serverless 等技术实现一个管理后台模板（二）
 
-[上篇文章](https://huoyijie.cn/docsifys/Tech-Notes/How-to-AuthN-user-with-OpenLDAP)主要介绍了 OpenLDAP 的安装、部署，这篇文章会讲一下，如何搭建基于 Next.js 搭建项目、前后端代码实现和如何把项目免费部署到 Vercel 云。
+[上篇文章](https://huoyijie.cn/docsifys/Tech-Notes/How-to-AuthN-user-with-OpenLDAP)主要介绍了 OpenLDAP 的安装、部署，这篇文章会讲一下如何基于 Next.js 搭建项目、项目主要用到了哪些依赖库、前后端关键代码实现，分享一下如何通过 Next.js/MUI 等技术实现一个全栈管理后台模板（API 轻量无状态），并部署到 Vercel 云，整个过程还是比较容易的，效果也很 Nice。
 
 ## 部署图
 
