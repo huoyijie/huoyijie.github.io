@@ -560,15 +560,15 @@ $ vercel --prebuilt
 
 等待一会儿，控制台会提示部署成功，此时打开 vercel.com 网站，就可以看到刚刚的部署了。
 
-[vercel deploy](https://cdn.huoyijie.cn/uploads/2023/12/vercel-deploy.png)
+![vercel deploy](https://cdn.huoyijie.cn/uploads/2023/12/vercel-deploy.png)
 
 可以看到 Environment 是 Preview，此时仅限开发人员可以打开，可以测试一下看看功能是否正常。点击 Visit 按钮右边下拉菜单，点击 `Promote to Production` 可以发布到生产正式环境。
 
-[vercel production](https://cdn.huoyijie.cn/uploads/2023/12/vercel-production.png)
+![vercel production](https://cdn.huoyijie.cn/uploads/2023/12/vercel-production.png)
 
 此时打开 https://ldap-auth.vercel.app/ 可以访问网站了。
 
-[vercel logs](https://cdn.huoyijie.cn/uploads/2023/12/vercel-logs.png)
+![vercel logs](https://cdn.huoyijie.cn/uploads/2023/12/vercel-logs.png)
 
 如上图，可以在网站控制台上查询 API 访问日志，会显示 http 状态码，如果有异常错误，右边也会显示具体错误信息。
 
