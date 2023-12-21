@@ -19,8 +19,9 @@
 [代码地址](https://github.com/huoyijie/tech-notes-code/tree/master/user-auth-with-openldap)
 
 [在线体验 Demo](https://ldap-auth.vercel.app/)
-用户名: huoyijie
-密码:123456
+
+* 用户名: huoyijie
+* 密码:123456
 
 ![Sign in](https://cdn.huoyijie.cn/uploads/2023/12/signin.png)
 
