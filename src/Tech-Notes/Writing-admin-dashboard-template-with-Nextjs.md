@@ -8,6 +8,12 @@
 
 [上篇文章](https://huoyijie.cn/docsifys/Tech-Notes/How-to-AuthN-user-with-OpenLDAP)主要介绍了 OpenLDAP 的安装、部署，这篇文章会讲一下，如何搭建基于 Next.js 搭建项目、前后端代码实现和如何把项目免费部署到 Vercel 云。
 
+## 部署图
+
+![部署图](https://cdn.huoyijie.cn/uploads/2023/12/deployment.png)
+
+图中红色部分属于应用状态，主要包括 LDAP 服务和数据库服务。可以看到数据库是虚线，因为这个项目仅仅是 Demo，暂时不涉及数据库操作。实际中，需要自己购买数据库服务或者自己搭建数据库服务器。LDAP 服务搭建在了我自己的服务器上，代码免费跑在 Vercel 云上，是无状态的。
+
 ## 在线体验 Demo
 
 [代码地址](https://github.com/huoyijie/tech-notes-code/tree/master/user-auth-with-openldap)
@@ -23,12 +29,6 @@
 <br><video id="video-1" class="video-js" controls muted preload="auto" width="1080" data-setup="{}">
   <source src="https://cdn.huoyijie.cn/uploads/2023/12/react-admin.webm" type="video/webm">
 </video><br>
-
-## 部署图
-
-![部署图](https://cdn.huoyijie.cn/uploads/2023/12/deployment.png)
-
-图中红色部分属于应用状态，主要包括 LDAP 服务和数据库服务。可以看到数据库是虚线，因为这个项目仅仅是 Demo，暂时不涉及数据库操作。实际中，需要自己购买数据库服务或者自己搭建数据库服务器。LDAP 服务搭建在了我自己的服务器上，代码免费跑在 Vercel 云上，是无状态的。
 
 ## 接上篇文章
 
@@ -535,3 +535,60 @@ Dashboard 上显示的图表就是用这个库生成的。
 前端如 Layout、LayoutUnlogin、AppBar、Drawer 等等组件，后端如 `src/lib/api/middleware` 下面的扩展中间件函数，实现了 token 校验和全局错误捕获处理等。
 
 ## 部署到 Vercel 云
+
+打开 [vercel.com](https://vercel.com/) 网站，注册会员(可通过 github 第三方登录)，登录后要注意要选择 `Hobby` 免费计划。
+
+![vercel hobby](https://cdn.huoyijie.cn/uploads/2023/12/vercel-hobby.png)
+
+```bash
+# 全局安装 vercel cli
+$ npm install -g vercel
+
+# 会自动打开浏览器，授权终端登录 vercel 账号
+$ vercel login
+```
+
+进入到项目根目录
+
+```bash
+# build
+$ vercel build
+
+# 部署到云
+$ vercel --prebuilt
+```
+
+等待一会儿，控制台会提示部署成功，此时打开 vercel.com 网站，就可以看到刚刚的部署了。
+
+[vercel deploy](https://cdn.huoyijie.cn/uploads/2023/12/vercel-deploy.png)
+
+可以看到 Environment 是 Preview，此时仅限开发人员可以打开，可以测试一下看看功能是否正常。点击 Visit 按钮右边下拉菜单，点击 `Promote to Production` 可以发布到生产正式环境。
+
+[vercel production](https://cdn.huoyijie.cn/uploads/2023/12/vercel-production.png)
+
+此时打开 https://ldap-auth.vercel.app/ 可以访问网站了。
+
+[vercel logs](https://cdn.huoyijie.cn/uploads/2023/12/vercel-logs.png)
+
+如上图，可以在网站控制台上查询 API 访问日志，会显示 http 状态码，如果有异常错误，右边也会显示具体错误信息。
+
+## 最后
+
+本文主要从代码实现角度粗略分享了一些主要内容，看完后建议可以打开项目代码浏览一遍，也可以尝试在本地运行一下，不过要在电脑上安装配置 OpenLDAP。
+
+运行项目需要配置几个环境变量，在项目根目录建立 `.env` 或 `.env.development` 文件，并编辑内容如下:
+
+```bash
+# 本地安装 openLDAP 可以不用开启 TLS
+LDAP_SERVER=ldap://127.0.0.1
+# 如果要尝试开启 TLS，使用下面的配置
+# LDAP_SERVER=ldaps://127.0.0.1
+
+# 随机生成的 uuid，作为生成 JWT Token 的密钥
+SECRET_KEY=fe8c1d970acd410c89f0d0148d3ebd0b
+
+# access token 过期时间，单位毫秒
+ACCESS_TOKEN_EXPIRES=3600000
+```
+
+可以看到通过 Next.js 实现一个全栈项目（API 轻量无状态），最后部署到 Vercel 云，整个过程还是比较容易的，效果也很 Nice。当然一个应用不可能完全没有状态，此时可以配合自己搭建数据库服务器来存储应用状态，这时会出现 Vercel 云跨互联网访问其他数据库服务器的情况，记得**一定要开启 TLS**。
