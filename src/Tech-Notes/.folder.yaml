@@ -16,5 +16,6 @@ docsify:
   - 'Implement-the-classic-tetris-game-with-react.md'
   - 'Implement-the-classic-huarongdao-game-with-react.md'
   - 'How-to-AuthN-user-with-OpenLDAP.md'
+  - 'Writing-admin-dashboard-template-with-Nextjs.md'
 gitbook: []
 ignore: []
