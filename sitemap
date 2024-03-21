@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2023-12-23 17:05:05.669217157 +0800 CST m=+6.037444785</lastmod>
+        <lastmod>2024-03-21 16:17:38.769294081 +0800 CST m=+8.657019128</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -25,6 +25,13 @@
         <loc>https://huoyijie.cn/keynotes/Coding-Exercises/fix-split-of-undefined-with-gitbook-theme</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-02-22 11:22:47.654409316 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/docsifys/study-face-ai</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2024-03-21 16:16:56.521665288 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
