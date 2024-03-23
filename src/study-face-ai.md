@@ -25,11 +25,11 @@
 
 ## Demo中算法采用的数据集 AffectNet
 
-AffectNet 数据集包含超过 100 万张图像，每张图像都标注了相应的情绪类别
+AffectNet 数据集包含近三十万张图像，每张图像都标注了相应的情绪类别
 
 ![affectnet](https://cdn.huoyijie.cn/uploads/2024/03/affectnet.png)
 
-另一个常用的数据集是 Fer2013，由 48*48 像素灰度人脸图片组成，(0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral)，训练集有 28,709张图片，测试集合有 3,589 张图片。
+另一个常用的数据集是 Fer2013/Ferplus，由 48*48 像素灰度人脸图片组成，(0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral)，训练集有 28,709张图片，测试集合有 3,589 张图片。
 
 ## 模型检测流程
 
