@@ -2,5 +2,6 @@ keynote: []
 docsify:
   - 'an-algorithm-used-for-image-text-detect.md'
   - 'study-facial-expression-recognition.md'
+  - 'medical-applications-on-ai-facial-expression-recognition.md'
 gitbook: []
 ignore: []

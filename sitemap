@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2024-04-18 12:45:04.061457666 +0800 CST m=+0.086223621</lastmod>
+        <lastmod>2024-04-18 16:24:02.985502786 +0800 CST m=+0.081709673</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -109,6 +109,13 @@
         <loc>https://huoyijie.cn/docsifys/Blockchain/blockchain-for-dummies</loc>
         <changefreq>daily</changefreq>
         <lastmod>2023-03-10 13:03:45.897489443 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/docsifys/Deep-Learning-AI/medical-applications-on-ai-facial-expression-recognition</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2024-04-18 16:23:31.384655376 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
