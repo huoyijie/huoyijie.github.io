@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Sat, 23 Mar 2024 22:57:52 +0800</pubDate>
+    <pubDate>Thu, 18 Apr 2024 12:42:21 +0800</pubDate>
     <item>
       <title>nodejs http proxy middleware</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/nodejs-http-proxy-middleware</link>
@@ -26,13 +26,6 @@
       <description>fix split of undefined with gitbook theme</description>
       <author>huoyijie</author>
       <pubDate>Wed, 22 Feb 2023 11:22:47 +0800</pubDate>
-    </item>
-    <item>
-      <title>study face ai</title>
-      <link>https://huoyijie.cn/docsifys/study-face-ai</link>
-      <description>study face ai</description>
-      <author>huoyijie</author>
-      <pubDate>Sat, 23 Mar 2024 22:57:40 +0800</pubDate>
     </item>
     <item>
       <title>tech notes</title>
@@ -117,6 +110,20 @@
       <description>blockchain for dummies</description>
       <author>huoyijie</author>
       <pubDate>Fri, 10 Mar 2023 13:03:45 +0800</pubDate>
+    </item>
+    <item>
+      <title>an algorithm used for image text detect</title>
+      <link>https://huoyijie.cn/docsifys/Deep-Learning-AI/an-algorithm-used-for-image-text-detect</link>
+      <description>an algorithm used for image text detect</description>
+      <author>huoyijie</author>
+      <pubDate>Thu, 18 Apr 2024 12:41:43 +0800</pubDate>
+    </item>
+    <item>
+      <title>study facial expression recognition</title>
+      <link>https://huoyijie.cn/docsifys/Deep-Learning-AI/study-facial-expression-recognition</link>
+      <description>study facial expression recognition</description>
+      <author>huoyijie</author>
+      <pubDate>Thu, 18 Apr 2024 12:32:46 +0800</pubDate>
     </item>
     <item>
       <title>Writing admin dashboard template with Nextjs</title>

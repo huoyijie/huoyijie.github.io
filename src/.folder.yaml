@@ -5,7 +5,6 @@ docsify:
   - 'writing-a-CDN-origin-server-with-Django.md'
   - '2023-daily-notes.md'
   - 'tech-notes.md'
-  - 'study-face-ai.md'
 gitbook:
   - 'build-a-AI-Go-device-with-raspberrypi-epaper-and-katago'
   - 'writing-a-cloud-encrypting-file-system-with-golang-and-FUSE'
