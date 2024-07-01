@@ -7,6 +7,7 @@ docsify:
   - 'multi-factor-auth-with-totp.md'
   - 'http-message-signatures.md'
   - 'subscribe-topic-with-sse.md'
+  - 'subscribe-topic-with-sse-multi-devices.md'
   - 'chat-with-sse-react.md'
   - 'chat-with-websocket-react.md'
   - 'share-whiteboard-with-websocket.md'
