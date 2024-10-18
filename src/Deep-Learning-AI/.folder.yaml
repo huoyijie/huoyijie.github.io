@@ -4,5 +4,6 @@ docsify:
   - 'study-facial-expression-recognition.md'
   - 'medical-applications-on-ai-facial-expression-recognition.md'
   - 'facial-expression-recognition-technology-based-on-neural-network.md'
+  - 'ocr-overview.md'
 gitbook: []
 ignore: []
