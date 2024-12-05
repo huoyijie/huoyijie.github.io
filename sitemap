@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2024-10-18 11:02:42.265585802 +0800 CST m=+0.106987071</lastmod>
+        <lastmod>2024-12-05 21:31:59.875576409 +0800 CST m=+0.127403147</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -53,13 +53,6 @@
         <loc>https://huoyijie.cn/docsifys/a-personal-lightweight-self-hosted-git-server-written-in-Golang</loc>
         <changefreq>daily</changefreq>
         <lastmod>2024-05-24 13:21:02.516600661 +0800 CST</lastmod>
-        <priority>1.0</priority>
-    </url>
-    
-    <url>
-        <loc>https://huoyijie.cn/docsifys/2023-daily-notes</loc>
-        <changefreq>daily</changefreq>
-        <lastmod>2024-05-24 13:21:02.492600708 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     
