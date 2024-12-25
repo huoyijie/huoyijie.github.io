@@ -29,5 +29,3 @@
 >
   <source src="https://cdn.huoyijie.cn/ab/3b8281b1e8aa6a1d8bc6718a4256b141/playing_car@metro.mp4" type="video/mp4">
 </video><br>
-
-为了给以后留点念想，现在把制作小车的过程记录下来，以后还可以偶尔翻出来看看，也希望能够帮助到同样想做小车的初学者。
