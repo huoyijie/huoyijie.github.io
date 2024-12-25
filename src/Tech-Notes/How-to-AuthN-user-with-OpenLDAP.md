@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video-js.min.css">
-<script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
+<link rel="stylesheet" href="https://cdn.huoyijie.cn/npm/video.js@8.0.4/dist/video-js.min.css">
+<script src="https://cdn.huoyijie.cn/npm/video.js@8.0.4/dist/video.min.js"></script>
 <script>
     window.HELP_IMPROVE_VIDEOJS = false
 </script>

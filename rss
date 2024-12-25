@@ -5,7 +5,7 @@
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Wed, 25 Dec 2024 12:00:02 +0800</pubDate>
+    <pubDate>Wed, 25 Dec 2024 14:31:01 +0800</pubDate>
     <item>
       <title>fix split of undefined with gitbook theme</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/fix-split-of-undefined-with-gitbook-theme</link>
@@ -140,6 +140,41 @@
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
     <item>
+      <title>Implement the classic huarongdao game with react</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/Implement-the-classic-huarongdao-game-with-react</link>
+      <description>Implement the classic huarongdao game with react</description>
+      <author>huoyijie</author>
+      <pubDate>Wed, 25 Dec 2024 14:30:24 +0800</pubDate>
+    </item>
+    <item>
+      <title>Implement the classic tetris game with react</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/Implement-the-classic-tetris-game-with-react</link>
+      <description>Implement the classic tetris game with react</description>
+      <author>huoyijie</author>
+      <pubDate>Wed, 25 Dec 2024 14:30:24 +0800</pubDate>
+    </item>
+    <item>
+      <title>Writing admin dashboard template with Nextjs</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/Writing-admin-dashboard-template-with-Nextjs</link>
+      <description>Writing admin dashboard template with Nextjs</description>
+      <author>huoyijie</author>
+      <pubDate>Wed, 25 Dec 2024 14:30:24 +0800</pubDate>
+    </item>
+    <item>
+      <title>How to AuthN user with OpenLDAP</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/How-to-AuthN-user-with-OpenLDAP</link>
+      <description>How to AuthN user with OpenLDAP</description>
+      <author>huoyijie</author>
+      <pubDate>Wed, 25 Dec 2024 14:30:24 +0800</pubDate>
+    </item>
+    <item>
+      <title>share whiteboard with websocket</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/share-whiteboard-with-websocket</link>
+      <description>share whiteboard with websocket</description>
+      <author>huoyijie</author>
+      <pubDate>Wed, 25 Dec 2024 14:30:24 +0800</pubDate>
+    </item>
+    <item>
       <title>subscribe topic with sse multi devices</title>
       <link>https://huoyijie.cn/docsifys/Tech-Notes/subscribe-topic-with-sse-multi-devices</link>
       <description>subscribe topic with sse multi devices</description>
@@ -154,30 +189,9 @@
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
     <item>
-      <title>a real time collaborative whiteboard with infinite space</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/a-real-time-collaborative-whiteboard-with-infinite-space</link>
-      <description>a real time collaborative whiteboard with infinite space</description>
-      <author>huoyijie</author>
-      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
-    </item>
-    <item>
-      <title>chat with sse react</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/chat-with-sse-react</link>
-      <description>chat with sse react</description>
-      <author>huoyijie</author>
-      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
-    </item>
-    <item>
-      <title>Writing admin dashboard template with Nextjs</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/Writing-admin-dashboard-template-with-Nextjs</link>
-      <description>Writing admin dashboard template with Nextjs</description>
-      <author>huoyijie</author>
-      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
-    </item>
-    <item>
-      <title>chat with websocket react</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/chat-with-websocket-react</link>
-      <description>chat with websocket react</description>
+      <title>auth with oauth2</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/auth-with-oauth2</link>
+      <description>auth with oauth2</description>
       <author>huoyijie</author>
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
@@ -189,9 +203,16 @@
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
     <item>
-      <title>auth with oauth2</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/auth-with-oauth2</link>
-      <description>auth with oauth2</description>
+      <title>chat with sse react</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/chat-with-sse-react</link>
+      <description>chat with sse react</description>
+      <author>huoyijie</author>
+      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
+    </item>
+    <item>
+      <title>chat with websocket react</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/chat-with-websocket-react</link>
+      <description>chat with websocket react</description>
       <author>huoyijie</author>
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
@@ -199,27 +220,6 @@
       <title>http message signatures</title>
       <link>https://huoyijie.cn/docsifys/Tech-Notes/http-message-signatures</link>
       <description>http message signatures</description>
-      <author>huoyijie</author>
-      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
-    </item>
-    <item>
-      <title>Implement the classic tetris game with react</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/Implement-the-classic-tetris-game-with-react</link>
-      <description>Implement the classic tetris game with react</description>
-      <author>huoyijie</author>
-      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
-    </item>
-    <item>
-      <title>Implement the classic huarongdao game with react</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/Implement-the-classic-huarongdao-game-with-react</link>
-      <description>Implement the classic huarongdao game with react</description>
-      <author>huoyijie</author>
-      <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
-    </item>
-    <item>
-      <title>How to AuthN user with OpenLDAP</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/How-to-AuthN-user-with-OpenLDAP</link>
-      <description>How to AuthN user with OpenLDAP</description>
       <author>huoyijie</author>
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
@@ -245,9 +245,9 @@
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
     <item>
-      <title>share whiteboard with websocket</title>
-      <link>https://huoyijie.cn/docsifys/Tech-Notes/share-whiteboard-with-websocket</link>
-      <description>share whiteboard with websocket</description>
+      <title>a real time collaborative whiteboard with infinite space</title>
+      <link>https://huoyijie.cn/docsifys/Tech-Notes/a-real-time-collaborative-whiteboard-with-infinite-space</link>
+      <description>a real time collaborative whiteboard with infinite space</description>
       <author>huoyijie</author>
       <pubDate>Fri, 24 May 2024 13:21:02 +0800</pubDate>
     </item>
