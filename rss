@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>WEB开发笔记(huoyijie.cn)</title>
+    <title>程序员笔记(huoyijie.cn)</title>
     <link>https://huoyijie.cn</link>
     <description>本网站所有内容都是原创，如果你觉得有收获，欢迎随时收藏、推荐、交流和转载（请注明原始链接）。</description>
     <copyright>© huoyijie.cn</copyright>
     <managingEditor> (huoyijie)</managingEditor>
-    <pubDate>Thu, 26 Dec 2024 13:51:02 +0800</pubDate>
+    <pubDate>Fri, 27 Dec 2024 10:17:12 +0800</pubDate>
     <item>
       <title>fix split of undefined with gitbook theme</title>
       <link>https://huoyijie.cn/keynotes/Coding-Exercises/fix-split-of-undefined-with-gitbook-theme</link>
