@@ -22,8 +22,8 @@
 
 ### 本地私有部署 DeepSeek-R1 (671B) 量化版
 
-[单机8卡A800(80G显存)运行 Deepseek-R1 671B满血量化版](https://www.cnblogs.com/zhayujie/p/18719199)
-[显存+大内存低成本本地部署：4090单卡24G显存运行 Deepseek-R1 671B满血量化版](https://deepseek.csdn.net/67b6ab573c9cd21f4cb8d9ce.html)
+* [单机8卡A800(80G显存)运行 Deepseek-R1 671B满血量化版](https://www.cnblogs.com/zhayujie/p/18719199)
+* [显存+大内存低成本本地部署：4090单卡24G显存运行 Deepseek-R1 671B满血量化版](https://deepseek.csdn.net/67b6ab573c9cd21f4cb8d9ce.html)
 
 ## 应用场景
 
