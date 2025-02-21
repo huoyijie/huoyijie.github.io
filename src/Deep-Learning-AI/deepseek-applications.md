@@ -20,9 +20,10 @@
 
 进一步降低显存占用，DeepSeek-V3/R1 (671B) 量化版大小为 404G，1个 A100*8 节点可运行（单卡80G显存）。ollama 中可下载，且可运行单节点运行。
 
-### 显存+大内存低成本部署 DeepSeek-R1 (671B) 量化版
+### 本地私有部署 DeepSeek-R1 (671B) 量化版
 
-[低成本本地部署：4090单卡24G显存运行Deepseek R1 671B满血版](https://deepseek.csdn.net/67b6ab573c9cd21f4cb8d9ce.html)
+[单机8卡A800(80G显存)运行 Deepseek-R1 671B满血量化版](https://www.cnblogs.com/zhayujie/p/18719199)
+[显存+大内存低成本本地部署：4090单卡24G显存运行 Deepseek-R1 671B满血量化版](https://deepseek.csdn.net/67b6ab573c9cd21f4cb8d9ce.html)
 
 ## 应用场景
 
