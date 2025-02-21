@@ -2,6 +2,13 @@
 
 ## 模型版本
 
+DeepSeek V3/R1 应用了 MoE、FP8、PTX二进制优化等，并联合算法、训练框架和硬件团队一起进行了工程上的优化，大幅提升了训练效率，降低了训练成本。
+
+* DeepSeek-V3-Base (预训练 2.664M H800 GPU hours)
+* DeepSeek-V3-Base + RL => DeepSeek-R1-Zero (实验了仅通过增加 RL，就大大增强了推理能力)
+* DeepSeek-V3-Base + 两阶段 RL + 两阶段 SFT => DeepSeek-R1
+* DeepSeek-V3-Base + 蒸馏 R1(后训练 0.1M GPU hours) => DeepSeek-V3
+
 ### DeepSeek-V3 (671B)
 
 * 对标 gpt-4o，推理能力一般，无蒸馏小模型。
@@ -42,6 +49,7 @@
 * 使用者医生
 * 诊疗问答，可自动查询患者基本信息、实时监控信息、检查报告等自动诊断和给出建议
 * 医疗系统内，结构化、半结构化、格式良好的诊疗文档等数据，可建索引进行 RAG 语义或关键字查询
+* 支持直接输入LLM或者先检索相关数据再输入LLM
 
 ### 辅助病例生成
 * 使用者医生
