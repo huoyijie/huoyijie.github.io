@@ -24,9 +24,29 @@
 
 [低成本本地部署：4090单卡24G显存运行Deepseek R1 671B满血版](https://deepseek.csdn.net/67b6ab573c9cd21f4cb8d9ce.html)
 
+## 应用场景
+
+### 辅助导诊
+* 自助导诊
+
+### 辅助诊疗
+* 诊疗问答
+
+### 辅助病例生成
+* 问诊对话录音
+* 多人语音分类与语音识别
+* 查询患者相关诊疗信息，辅助生成病例文本
+
+### 医疗知识库(RAG)
+* 医疗知识问答
+* 文献检索/翻译
+
+### 辅助办公
+* 略
+
 ## Citation
 
-[DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3)
-[DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1)
-[deepseek-v3 量化版](https://ollama.com/library/deepseek-v3)
-[deepseek-r1 量化版](https://ollama.com/library/deepseek-r1)
+* [DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3)
+* [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1)
+* [deepseek-v3 量化版](https://ollama.com/library/deepseek-v3)
+* [deepseek-r1 量化版](https://ollama.com/library/deepseek-r1)
