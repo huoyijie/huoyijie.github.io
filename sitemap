@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2025-02-21 15:26:45.454536581 +0800 CST m=+0.052158322</lastmod>
+        <lastmod>2025-02-27 12:15:25.873496088 +0800 CST m=+0.063626701</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -57,6 +57,13 @@
     </url>
     
     <url>
+        <loc>https://huoyijie.cn/docsifys/About-Me/resume</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2025-02-27 12:12:56.218219422 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
         <loc>https://huoyijie.cn/docsifys/About-Me/github</loc>
         <changefreq>daily</changefreq>
         <lastmod>2024-05-24 13:21:02.492600708 +0800 CST</lastmod>
@@ -65,13 +72,6 @@
     
     <url>
         <loc>https://huoyijie.cn/docsifys/About-Me/profile</loc>
-        <changefreq>daily</changefreq>
-        <lastmod>2024-05-24 13:21:02.492600708 +0800 CST</lastmod>
-        <priority>1.0</priority>
-    </url>
-    
-    <url>
-        <loc>https://huoyijie.cn/docsifys/About-Me/resume</loc>
         <changefreq>daily</changefreq>
         <lastmod>2024-05-24 13:21:02.492600708 +0800 CST</lastmod>
         <priority>1.0</priority>
