@@ -3,7 +3,7 @@
     <url>
         <loc>https://huoyijie.cn</loc>
         <changefreq>always</changefreq>
-        <lastmod>2025-02-27 12:25:36.383142668 +0800 CST m=+0.055332126</lastmod>
+        <lastmod>2025-03-12 17:32:09.606905844 +0800 CST m=+0.135228965</lastmod>
         <priority>1.0</priority>
     </url>
     
@@ -102,6 +102,13 @@
         <loc>https://huoyijie.cn/docsifys/Blockchain/blockchain-for-dummies</loc>
         <changefreq>daily</changefreq>
         <lastmod>2024-05-24 13:21:02.500600692 +0800 CST</lastmod>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://huoyijie.cn/docsifys/Deep-Learning-AI/generate-new-dataset-with-llm-and-knowledge-graph</loc>
+        <changefreq>daily</changefreq>
+        <lastmod>2025-03-12 17:31:50.721617576 +0800 CST</lastmod>
         <priority>1.0</priority>
     </url>
     

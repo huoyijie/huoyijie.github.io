@@ -6,5 +6,6 @@ docsify:
   - 'facial-expression-recognition-technology-based-on-neural-network.md'
   - 'ocr-overview.md'
   - 'deepseek-applications.md'
+  - 'generate-new-dataset-with-llm-and-knowledge-graph.md'
 gitbook: []
 ignore: []
